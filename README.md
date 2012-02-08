@@ -6,8 +6,8 @@ A NaND Inc. csapat feladata. A megvalósítandó feladat jelenleg nincs kiadva.
 Ismerkedés a GitHubbal
 ----------------------
 
-[rövid Git könyv](http://progit.org/book/)
-[Github help](http://help.github.com/), a `setup git` és `fork a repo` fejezetek ajánlottak.
+ - [rövid Git könyv](http://progit.org/book/)
+ - [Github help](http://help.github.com/), a **setup git** és **fork a repo** fejezetek ajánlottak.
 
 A Github könyv két ajánlott fejezete alapján teljesíthető az első feladat.
 
