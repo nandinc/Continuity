@@ -1,4 +1,4 @@
-README
+﻿README
 ======
 
 A NaND Inc. csapat feladata. A megvalósítandó feladat jelenleg nincs kiadva.
@@ -30,4 +30,5 @@ Ha probléma akad, jelezzétek, segítek.
 Csapattagok
 -----------
 
+ - Berki Endre
  - Thaler Benedek
