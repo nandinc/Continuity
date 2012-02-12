@@ -31,6 +31,5 @@ Csapattagok
 -----------
 
  - Berki Endre
- - Fodor Bertalan
  - Thaler Benedek
  - Kádár András
