@@ -31,6 +31,38 @@ A program fordításához szükség van a \texttt{javac} programra, mellyel a \t
 \subsection{Projekt terv}
 \subsection{Feladatleírás}
 \subsection{Szótár}
+
+\begin{description}
+
+    \item[Játékos] A programot kezelő felhasználó
+    \item[Számítógép] A programot futtató számítógép, mely megfelel a futtatás követelményeinek
+    \item[Monitor] A \emph{Számítógéphez} csatlakoztatott képernyő, melyen a futtatott program megjelenik
+    \item[Pálya] A játékban való előrehaladás egysége. Minden pálya egy n*k méretű táblázatból áll, melyben n*k-1 előre meghatározott \emph{Keret} előre meghatározott helyen található. A fennmaradó helyen egy \emph{Üres keret} található
+    \item[Kezdőpont] A \emph{Pálya} egy pontja, ahol \emph{Stickman} először megjelenik a pálya betöltésekor.
+    \item[Keret] A \emph{Pálya} eleme, egyszerre több is megjelenik, \emph{Elem}eket tartalmaz. Egymáshoz képest \emph{Átrendez}hetőek. Két érintkező keret között egyértelműen megállapítható, hogy \emph{Átjárhatóak}-e. Amennyiben \emph{Stickman} a keret alsó szélét érinti úgy, hogy az \emph{Aktuális keret} nem \emph{Átjárható} az alatta található kerettel, vagy nincs alatta keret, akkor \emph{Stickman} \emph{Kiesik}.
+    \item[Átjárható] Két \emph{Keret} átjárható, ha az érintkező oldalon a \emph{Platform}ok minden pontban azonos magasságban vannak.
+    \item[Aktuális keret] \emph{Keret}, amiben a játékos lába tartózkodik.
+    \item[Üres keret] Az üres keret biztosít lehetőséget arra, hogy vele helyetcserélve a \emph{Keret}ek átrendezhetőek legyenek.
+    \item[Elem] Egy keret dinamikus vagy statikus alkotórészei; \emph{Stickman, Kulcs, Ajtó, Platform}
+    \item[Stickman] A játékban a \emph{Játékos} által irányított emberformájú figura.
+    \item[Kulcs] A \emph{Játékos} által \emph{Megszerez}hető \emph{Elem}. A \emph{Pályá}n található összes kulcs megszerzése után van lehetőség az \emph{Ajtó} \emph{Kinyit}ására.
+    \item[Ajtó] \emph{Elem}, melyet \emph{Kinyit}va a pálya \emph{Teljesít}ettnek tekinthető.
+    \item[Platform] \emph{Elem}, mely meghatározza a \emph{Keret} bejárható és nem bejárható részeit. Egy 2 dimenziós objektum, melyen a \emph{Játékos} irányíthatása szerint \emph{Stickman} mozoghat.
+    \item[Megszerez] \emph{Stickman} egy megszerezhető \emph{Elem}et megszerez, ha azt megérinti. Egy elem csak egyszer szerezhető meg, el nem veszíthető.
+    \item[Kinyit] \emph{Stickman} az \emph{Ajtó}t kinyithatja, ha \emph{Megszerez}te a \emph{Pályá}n található összes \emph{Kulcs}ot. A kinyitás módja az ajtó megérintése. A kinyitás bekövetkeztekor a \emph{Pálya} \emph{Teljesít}ettnek tekinthető.
+    \item[Teljesít (Pályát)] A \emph{Játékos} teljesíti a \emph{Pályát}, ha \emph{Kinyit}ja a pálya \emph{Ajtaját}. Teljesítés után a \emph{Következő pályá}ra léphet.
+    \item[Kiesik] Ha \emph{Stickman} kiesik, akkor eltűnik, majd megjelenik az utolsó érintett \emph{Ellenőrzőpont}nál
+    \item[Ellenőrzőpont] Ellenőrzőpont a \emph{Pálya} \emph{Kezdőpont}ja, valamint minden \emph{Kulcs} helye.
+    \item[Átrendez] Egy \emph{Keret} átrendezhető, ha mellette \emph{Üres keret} található és \emph{Stickman} csupán egy keretben jelenik meg. Ekkor a két \emph{Keret} helye felcserélhető. Az átrendezést a \emph{Játékos} vezérli.
+    \item[Kontextus] Meghatározza, hogy a \emph{Játékos} az összes \emph{Keret}et, (\emph{Pálya kontextus}) vagy csak az \emph{Aktuális keret}et (\emph{Keret kontextus}) lássa.
+    \item[Pálya kontextus] A \emph{Játékos} az összes \emph{Keret}et látja, és vezérelheti az \emph{Átrendez}ést.
+    \item[Keret kontextus] A \emph{Játékos} csak az \emph{Aktuális keret}et látja, vezérelheti \emph{Stickman} mozgását.
+    \item[Kontextusváltás] A \emph{Játékos} utasítására bármikor kontextusváltás történhet, mely bekövetkeztekor a grafikus felület ráközelít az \emph{Aktuális keret}re (\emph{Pálya kontextus}ról \emph{Keret kontextus}ra váltás esetén) vagy eltávolodik az a \emph{Aktuális keret}ről az összes keret nézetére (\emph{Pálya kontextus})
+    \item[Következő pálya] Az aktuális \emph{Pálya} után következő \emph{Pálya} a \emph{Pályalistá}ban. Amennyiben nincs következő pálya a listában, a következő pályának a készítők nevét listázó képernyő tekinthető.
+    \item[Pályalista] Az program által tartalmazott összes \emph{Pálya} egy előre definiált sorrendben.
+
+\end{description}
+
 \subsection{Essential use-case-ek}
     %insert figure
 	%\begin{figure}[h]
