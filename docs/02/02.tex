@@ -29,6 +29,137 @@ A program futtatásához a kész terméket csupán a futtató számítógép mer
 A program fordításához szükség van a \texttt{javac} programra, mellyel a \texttt{*.java} fájlok lefordíthatóak, és a futtatható \texttt{jar} fájl elkészíthető.
     
 \subsection{Projekt terv}
+
+    \subsubsection{A felhasznált fejlesztőeszközök}
+	A csapat választása az Eclipse\footnote{http://eclipse.org/} integrált fejlesztői rendszer használatára esett, elsosorban annak testreszabhatósága, univerzalitása miatt. Felhasználásra került továbbá a Visual Paradigm Community Edition\footnote{http://www.visual-paradigm.com/} kiadása, mely képes UML-diagramokból Java-kódot készíteni, így hatékonyan támogatja a fejlesztőcsapat munkáját, és illeszkedik annak filozófiájához, miszerint elsősorban a kiadott feladat részletes analízisén és tervezésen van a hangsúly, a kész programkód pedig ezzel kell, hogy szoros kapcsolatban legyen.
+A dokumentáció LATEX leírónyelv használatával nyerte el végleges formáját. A projekt-menedzsmentet és a verziókezelést egy github\footnote{https://github.com/} névre hallgató felületen keresztül oldjuk meg.
+
+    \subsubsection{A fejlesztőcsapat tagjai, feladatai}
+	\begin{center}
+	\begin{tabular} {| l | c | }
+		\hline
+		Név & Feladatok\\
+		\hline
+		Thaler Benedek & csapatvezetés, dokumentáció, diagramok készítése, kódírás \\ 
+		\hline
+		Berki Endre & dokumentáció, diagramok készítése, kódírás \\
+		\hline
+		Fodor Bertalan & dokumentáció, diagramok készítése, kódírás \\
+		\hline
+		Kádár András & dokumentáció, diagramok készítése, kódírás \\
+		\hline
+	\end{tabular}
+	\end{center}
+
+    \subsubsection{Kommunikációs modell}
+
+    \subsubsection{Fejlesztési mérföldkövek, ütemterv}
+
+	\begin{description}
+		\item[Skeleton] \hfill \\
+			Az első fontosabb mérföldkő, a szó jelentése: váz, vázrendszer. A program vázának megalkotása. A program modelljének megtervezése, annak helyességének és részletességének ellenőrzése, maga a tervezési folyamat során a gondos és odafigyelő döntéshozás, mert ezek a már elkészült program minőségét nagyban befolyásolják. Ez egy időigényes folyamat, azonban amennyiben sikeresen zárul, a projekt további folyamatai során esetlegesen felmerülő komplikációk száma minimalizálható.
+		\item[Prototípus] (a továbbiakban proto)\hfill \\
+			A második mérföldkő a program működőképes változata, ami még a grafikát nem tartalmazza. A mérföldkő elérése a program egészének tesztelését teszi lehetővé. A fejlesztés ezen része lezárultnak tekinthető, az algoritmusok végleges formájukba kerülnek, így egy a grafikus felülettül elkülönülő kész programot jelent.
+		\item[Grafikus felület] (a továbbiakban GUI)\hfill \\
+			A harmadik és egyben utolsó mérföldkövet a grafikus felület befejezése jelenti. Figyelni kell arra, hogy a már kész, jól működő modell köré egy olyan felhasználói környezetet teremtsünk, ami a program használatának hatékonyságát minél jobban maximalizálja. A GUI kialakításánál szem előtt kell tartani a használhatóságot, ergonómiát és a könnyen tanulhatóságot.
+	\end{description}
+
+    \subsubsection{Határidők}
+	\begin{center}
+	\begin{tabular*}{0.65\textwidth}{@{\extracolsep{\fill}} | l | l | }
+		\hline
+		febr. 10. & 14 h - csapatok regisztrációja\\
+		\hline
+		febr. 20. & Követelmény, projekt, funkcionalitás - beadás\\
+		\hline
+		febr. 27. & Analízis modell kidolgozása 1. - beadás\\
+		\hline
+		márc. 5. & Analízis modell kidolgozása 2. - beadás\\
+		\hline
+		márc. 12. & Szkeleton tervezése - beadás\\
+		\hline
+		márc. 19. & Szkeleton - beadás\\
+		\hline
+		márc. 26. & Prototípus koncepciója - beadás\\
+		\hline
+		ápr. 2. & Részletes tervek - beadás\\
+		\hline
+		ápr. 16. & Prototípus - beadás\\
+		\hline
+		ápr. 23. & Grafikus felület specifikációja - beadás\\
+		\hline
+		máj. 7. & Grafikus változat - beadás\\
+		\hline
+		máj. 11. & Összefoglalás - beadás\\
+		\hline
+	\end{tabular*}
+	\end{center}
+
+    \subsubsection{Átadás}
+	A dokumentációt nyomtatott formában minden héten a konzulensnek le kell adni a konzultáció időpontjában. Ezen kívül a három mérföldkő alkalmával a programkódok is bemutatásra kerülnek az ezen célra kijelölt laboratóriumok gépeinél. A végső átadás a félév végeztével az aktualizált dokumentációval és forráskódokkal feltöltésre kerül a tárgy honlapjára\footnote{http://www.iit.bme.hu/hercules}.
+
+   \subsubsection{Kockázatelemzés}
+	\begin{description}
+	\item[Valószínűségek osztályozása:] \hfill \\
+		\begin{description}
+			\item[Alacsony] Közelítőleg 0-20\%-os eséllyel bekövetkező esemény
+			\item[Közepes] Közelítőleg 20-50\%-os eséllyel bekövetkező esemény
+			\item[Biztos] Közelítőleg 50-100\%-os eséllyel bekövetkező esemény
+		\end{description}
+	\item[Hatások osztályozása:] \hfill \\
+		\begin{description}
+			\item[Elhanyagolható] Az esemény bekövetkezése nem okoz különösebb problémát, az esetleges javítása nem igényel komoly munkálatokat.
+			\item[Enyhe] Az esemény bekövetkeztével okozott kár legfeljebb néhány munkaórával javítható, visszaállítható.
+			\item[Közepes] A csapat több tagjának összehangolt munkáját igénylő probléma, melynek megoldása komolyabb erőfeszítéseket igényel. Ezen változtatások már hatással lehetnek a heti ütemtervre, és a fejlesztőcsapat közös
+megbeszélését igényelhetik.
+			\item[Komoly] A projekt sikeres kimenetelét vagy a csapat integritását fenyegető esemény, mely alapvető változtatásokkal jár. Az ilyen jellegű probléma a csapat azonnali tanácskozását igényli.
+		\end{description}
+	\end{description}
+
+	Eseménytáblázat:
+	\begin{center}
+		\begin{tabular}{| l | l | l |}
+			\hline
+			\textbf{Esemény}			&	\textbf{Valószínűség}	&	\textbf{Hatás}\\
+			\hline
+			Specifikációváltozás			&	Biztos				&	Enyhe\\
+			\hline
+			Javítandó heti beadandó		&	Közepes			&	Enyhe\\
+			\hline
+			Sikertelen heti beadandó		&	Alacsony			&	Közepes\\
+			\hline
+			Csapattag kiválás			&	Alacsony			&	Komoly\\
+			\hline
+			Csapattag betegsége, távolléte	&	Alacsony			&	Közepes\\
+			\hline
+			Hardvermeghibásodás		&	Alacsony			&	Elhanyagolható\\
+			\hline
+			Szoftvermeghibásodás		&	Közepes			&	Enyhe\\
+			\hline
+			Határidorol lecsúszás		&	Alacsony			&	Közepes\\
+			\hline
+			Tanácskozásról hiányzás		&	Közepes			&	Közepes\\
+			\hline
+		\end{tabular}
+	\end{center}
+
+   \subsubsection{Egyéb fontos megjegyzések}
+	A fejlesztés lefordítása és bemutatása a HSZK laborjaiban történik, így a program forráskódjának kompatibilisnek kell lennie a Java Development Kit ennek megfelelő korábbi verziójával. A maximális kompatibilitás elérése érdekében a fejlesztés is pontosan ezeken a verziószámú platformokon történik majd, azaz ???-es Java SDK és ??? verziójú JRE kerül felhasználásra.
+
+    \subsubsection{Szükséges dokumentációk}
+	\begin{enumerate}
+	\item Követelmény, projekt, funkcionalitás
+	\item Analízis modell kidolgozása 1.
+	\item Analízis modell kidolgozása 2.
+	\item Szkeleton tervezése
+	\item Szkeleton
+	\item Prototípus koncepciója
+	\item Részletes tervek
+	\item Prototípus
+	\item Grafikus felület specifikációja
+	\item Grafikus változat
+	\end{enumerate}
+ 
 \subsection{Feladatleírás}
 \subsection{Szótár}
 \subsection{Essential use-case-ek}
