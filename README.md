@@ -1,7 +1,7 @@
-README
+﻿README
 ======
 
-A NaND Inc. csapat feladata. A megvalósítandó feladat jelenleg nincs kiadva.
+A NaND Inc. csapat feladata. A feladat a [Continuity](http://continuitygame.com/playcontinuity.html) játék megvalósítása Java nyelven.
 
 Ismerkedés a GitHubbal
 ----------------------
@@ -30,4 +30,6 @@ Ha probléma akad, jelezzétek, segítek.
 Csapattagok
 -----------
 
+ - Berki Endre
  - Thaler Benedek
+ - Kádár András
