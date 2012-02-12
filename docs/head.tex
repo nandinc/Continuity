@@ -1,0 +1,36 @@
+\documentclass[11pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{t1enc} % hyphenate accented chars
+\usepackage[hungarian]{babel}
+\usepackage{../fedlap}
+\usepackage{fancyhdr} % elofej, elolab
+\usepackage{graphicx}
+\setcounter{secnumdepth}{3} % enable subsubsection
+
+% hasonlitson a doc verziora
+\addtolength{\voffset}{-1cm}
+
+% cim
+\csapat{nand}{404}
+\konzulens{Bozóki Szilárd}
+\datum{\today}
+
+% csapattagok
+\taga{Berki Endre}{HQNHER}{berkiendre@gmail.com}
+\tagb{Fodor Bertalan Ferenc}{H4T1UX}{foberci@gmail.com}
+\tagc{Kádár András}{JFENWR}{arycika@gmail.com}
+\tagd{Thaler Benedek}{EDDO10}{thalerbenedek@gmail.com}
+
+\setlength{\headheight}{1.3em}
+\setlength{\headsep}{2em}
+
+% elofej, elolab
+\fancyhf{}
+
+\fancyhead[OL] { \tiny \leftmark{} }
+\fancyhead[OR] { \tmpcsapat }
+
+\fancyfoot[OR] { \thepage }
+\fancyfoot[OL] { \tmpdatum }
+
+\pagestyle{fancy}
