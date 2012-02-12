@@ -10,6 +10,23 @@
 \section{Követelmény, projekt, funkcionalitás}
 
 \subsection{Követelmény definíció}
+
+    \subsubsection{A program bemutatása, alapvető feladatai}
+Az elkészített program egy nagymértékben logikai, kismértékben ügyességi játék, mely koncepcióját tekintve teljesen megfelel a Ragtime Games által fejlesztett Continuity játéknak\footnote{http://continuitygame.com/playcontinuity.html}. A játék során a játékos több pályán keresztül tesztelheti logikai és problémamegoldó készségét. Az előre kialakított pályákon az előrehaladás a keretek egymáshoz képest történő elmozdításával, a kereteken belül pedig egy figurával 2 dimenzióban végzett mozgással történik. Egy pálya akkor tekinthető teljesítettnek, ha a felhasználó összegyűjtötte a pályán található összes kulcsot és ezek felhasználásával bemegy a pálya végét szimbolizáló ajtón.
+
+Minden pálya egy n*n-es táblából áll, amin n*n-1 keret található. Az összeillő keretek között átjárás van, az üres hellyel szomszédos keretek átmozgathatóak az üres helyre. A játékos által irányított figurának a keretekben található kulcsokat kell összeszednie, hogy azzal a szintén a keretekben található ajtót kinyitva a pályát teljesítse.
+
+    \subsubsection{Felhasználói felület}
+A kész program grafikus felhasználói felülettel rendelkezik, melyen az indítással és működéssel kapcsolatos funkciók egy menüsoron keresztül érhetőek el, egér vagy billentyűzet segítségével. Maga a játék kizárólag billentyűzettel irányítható.
+
+    \subsubsection{A program futtatásának követelményei}
+A program futtatásához szükséges a futtató számítógépre telepített Java Runtime Environment (JRE), mely ingyenesen beszerezhető a gyártó honlapjáról\footnote{http://java.com/en/download/index.jsp} a legtöbb platformra. A program hardware követelménye megegyezik az Oracle által meghatározott minimum-konfigurációval\footnote{http://www.java.com/en/download/help/sysreq.xml}, mely szükségessé tesz egy kompatibilis operációs rendszert (Windows, Linux), rendszertől függően 64-128 MB memóriát és hozzávetőlegesen 100 MB szabad helyet.
+
+    \subsubsection{A program telepítése}
+A program futtatásához a kész terméket csupán a futtató számítógép merevlemezére kell másolni, további telepítés vagy beállítás nem szükséges, amennyiben a futtató számítógép megfelel a futtatás követelményeinek.
+
+    \subsubsection{A program fordítása}
+A program fordításához szükség van a \texttt{javac} programra, mellyel a \texttt{*.java} fájlok lefordíthatóak, és a futtatható \texttt{jar} fájl elkészíthető.
     
 \subsection{Projekt terv}
 \subsection{Feladatleírás}
