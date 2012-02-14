@@ -29,8 +29,8 @@ A program fordításához szükség van a \texttt{javac} programra, mellyel a \t
 \subsection{Projekt terv}
 
     \subsubsection{A felhasznált fejlesztőeszközök}
-	A csapat választása az Eclipse\footnote{http://eclipse.org/} integrált fejlesztői rendszer használatára esett, elsosorban annak testreszabhatósága, univerzalitása miatt. Felhasználásra került továbbá a Visual Paradigm Community Edition\footnote{http://www.visual-paradigm.com/} kiadása, mely képes UML-diagramokból Java-kódot készíteni, így hatékonyan támogatja a fejlesztőcsapat munkáját, és illeszkedik annak filozófiájához, miszerint elsősorban a kiadott feladat részletes analízisén és tervezésen van a hangsúly, a kész programkód pedig ezzel kell, hogy szoros kapcsolatban legyen.
-A dokumentáció LATEX leírónyelv használatával nyerte el végleges formáját. A projekt-menedzsmentet és a verziókezelést egy github\footnote{https://github.com/} névre hallgató felületen keresztül oldjuk meg.
+	A csapat választása az Eclipse\footnote{http://eclipse.org/} fejlesztői rendszerre esett, elsősorban azért, mert mindenkinek tapasztalata van a működésében. Ezen kívül UML modellezéshez, diagramok készítéséhez a Visual Paradigm Community Edition\footnote{http://www.visual-paradigm.com/} kiadását fogjuk használni.
+A doukumentáció \LaTeX -ben készül, melyben roppant egyszerű a dokumentálás és a kinézet könnyedén módosítható. A végső fájlokat PDF-be fordítjuk és az alapján nyomtatjuk, amely majd beadásra kerül. A verziókezelést és a felmerülő problémák megoldását a github\footnote{https://github.com/} online és ingyenes felületen keresztül oldjuk meg.
 
     \subsubsection{A fejlesztőcsapat tagjai, feladatai}
 	\begin{center}
@@ -95,52 +95,51 @@ A dokumentáció LATEX leírónyelv használatával nyerte el végleges formáj�
 
     \subsubsection{Átadás}
 	A dokumentációt nyomtatott formában minden héten a konzulensnek le kell adni a konzultáció időpontjában. Ezen kívül a három mérföldkő alkalmával a programkódok is bemutatásra kerülnek az ezen célra kijelölt laboratóriumok gépeinél. A végső átadás a félév végeztével az aktualizált dokumentációval és forráskódokkal feltöltésre kerül a tárgy honlapjára\footnote{http://www.iit.bme.hu/hercules}.
-
-   \subsubsection{Kockázatelemzés}
-	\begin{description}
-	\item[Valószínűségek osztályozása:] \hfill \\
-		\begin{description}
-			\item[Alacsony] Közelítőleg 0-20\%-os eséllyel bekövetkező esemény
-			\item[Közepes] Közelítőleg 20-50\%-os eséllyel bekövetkező esemény
-			\item[Biztos] Közelítőleg 50-100\%-os eséllyel bekövetkező esemény
-		\end{description}
-	\item[Hatások osztályozása:] \hfill \\
-		\begin{description}
-			\item[Elhanyagolható] Az esemény bekövetkezése nem okoz különösebb problémát, az esetleges javítása nem igényel komoly munkálatokat.
-			\item[Enyhe] Az esemény bekövetkeztével okozott kár legfeljebb néhány munkaórával javítható, visszaállítható.
-			\item[Közepes] A csapat több tagjának összehangolt munkáját igénylő probléma, melynek megoldása komolyabb erőfeszítéseket igényel. Ezen változtatások már hatással lehetnek a heti ütemtervre, és a fejlesztőcsapat közös
-megbeszélését igényelhetik.
-			\item[Komoly] A projekt sikeres kimenetelét vagy a csapat integritását fenyegető esemény, mely alapvető változtatásokkal jár. Az ilyen jellegű probléma a csapat azonnali tanácskozását igényli.
-		\end{description}
-	\end{description}
-
-	Eseménytáblázat:
-	\begin{center}
-		\begin{tabular}{| l | l | l |}
-			\hline
-			\textbf{Esemény}			&	\textbf{Valószínűség}	&	\textbf{Hatás}\\
-			\hline
-			Specifikációváltozás			&	Biztos				&	Enyhe\\
-			\hline
-			Javítandó heti beadandó		&	Közepes			&	Enyhe\\
-			\hline
-			Sikertelen heti beadandó		&	Alacsony			&	Közepes\\
-			\hline
-			Csapattag kiválás			&	Alacsony			&	Komoly\\
-			\hline
-			Csapattag betegsége, távolléte	&	Alacsony			&	Közepes\\
-			\hline
-			Hardvermeghibásodás		&	Alacsony			&	Elhanyagolható\\
-			\hline
-			Szoftvermeghibásodás		&	Közepes			&	Enyhe\\
-			\hline
-			Határidorol lecsúszás		&	Alacsony			&	Közepes\\
-			\hline
-			Tanácskozásról hiányzás		&	Közepes			&	Közepes\\
-			\hline
-		\end{tabular}
-	\end{center}
-
+%
+%   \subsubsection{Kockázatelemzés}
+%	\begin{description}
+%	\item[Valószínűségek osztályozása:] \hfill \\
+%		\begin{description}
+%			\item[Alacsony] Közelítőleg 0-20\%-os eséllyel bekövetkező esemény
+%			\item[Közepes] Közelítőleg 20-50\%-os eséllyel bekövetkező esemény
+%			\item[Biztos] Közelítőleg 50-100\%-os eséllyel bekövetkező esemény
+%		\end{description}
+%	\item[Hatások osztályozása:] \hfill \\
+%		\begin{description}
+%			\item[Elhanyagolható] Az esemény bekövetkezése nem okoz különösebb problémát, az esetleges javítása nem igényel komoly munkálatokat.
+%			\item[Enyhe] Az esemény bekövetkeztével okozott kár legfeljebb néhány munkaórával javítható, visszaállítható.
+%			\item[Közepes] A csapat több tagjának összehangolt munkáját igénylő probléma, melynek megoldása komolyabb erőfeszítéseket igényel. Ezen változtatások már hatással lehetnek a heti ütemtervre, és a fejlesztőcsapat közös megbeszélését igényelhetik.
+%			\item[Komoly] A projekt sikeres kimenetelét vagy a csapat integritását fenyegető esemény, mely alapvető változtatásokkal jár. Az ilyen jellegű probléma a csapat azonnali tanácskozását igényli.
+%		\end{description}
+%	\end{description}
+%
+%	Eseménytáblázat:
+%	\begin{center}
+%		\begin{tabular}{| l | l | l |}
+%			\hline
+%			\textbf{Esemény}			&	\textbf{Valószínűség}	&	\textbf{Hatás}\\
+%			\hline
+%			Specifikációváltozás			&	Biztos				&	Enyhe\\
+%			\hline
+%			Javítandó heti beadandó		&	Közepes			&	Enyhe\\
+%			\hline
+%			Sikertelen heti beadandó		&	Alacsony			&	Közepes\\
+%			\hline
+%			Csapattag kiválás			&	Alacsony			&	Komoly\\
+%			\hline
+%			Csapattag betegsége, távolléte	&	Alacsony			&	Közepes\\
+%			\hline
+%			Hardvermeghibásodás		&	Alacsony			&	Elhanyagolható\\
+%			\hline
+%			Szoftvermeghibásodás		&	Közepes			&	Enyhe\\
+%			\hline
+%			Határidorol lecsúszás		&	Alacsony			&	Közepes\\
+%			\hline
+%			Tanácskozásról hiányzás		&	Közepes			&	Közepes\\
+%			\hline
+%		\end{tabular}
+%	\end{center}
+%
    \subsubsection{Egyéb fontos megjegyzések}
 	A fejlesztés lefordítása és bemutatása a HSZK laborjaiban történik, így a program forráskódjának kompatibilisnek kell lennie a Java Development Kit ennek megfelelő korábbi verziójával. A maximális kompatibilitás elérése érdekében a fejlesztés is pontosan ezeken a verziószámú platformokon történik majd, azaz ???-es Java SDK és ??? verziójú JRE kerül felhasználásra.
 
