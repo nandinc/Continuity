@@ -185,6 +185,25 @@ A doukumentáció \LaTeX -ben készül, melyben roppant egyszerű a dokumentál�
 	\end{enumerate}
  
 \subsection{Feladatleírás}
+
+	A feladat a Continuity\footnote{http://continuitygame.com/playcontinuity.html} nevű logikai játék elkészítése.  A játékos feladata az általa irányított pálcikaembert a kétdimenziós térben úgy navigálni, hogy az megszerezze pályán elhelyezett összes kulcsot, majd átmenjen a piros ajtón, így jutva a következő szintre. A játék különlegessége abban rejlik, hogy a pályák egy puzzle-hoz hasonlóan kis elemekből épülnek fel, melyek bizonyos szabályok szerint a játékos által átrendezhetőek.
+	
+	A felhasználó a játék elindításakor a főképernyővel találja szemben magát, ahol lehetősége van új játékot kezdeményezni vagy – amennyiben már korábban is játszott -- a már megkezdett játékot folytatni.
+	
+	A játék szintekből áll, minden szinthez egy pálya tartozik. A pályák keretekből (csempékből) épülnek fel, melyek táblázatszerűen helyezkednek el. Ez a táblázat tetszőlegesen széles vagy magas lehet, azonban mindig van benne pontosan egy üres cella, ami arra szolgál, hogy a cellákat tologatni lehessen. Ezt bizonyos szabályok szerint lehet megtenni. Keretet akkor lehet mozgatni, ha van mellette üres hely (ide lehet a keretet tolni, kereteket felcserélni nem lehet), illetve ha a pálcikaember nem éppen a keret határán tartózkodik, csak félig a mozgatandó keretben.
+Keretek mozgatására akkor nyílik lehetőség, amikor a játékos pálya nézetben van, ez a nézet töltődik be közvetlenül a pálya elindítása után. Ebben a nézetben a játékos a teljes pályát átlátja, az összes keret megjelenik, és a pálcikaember mozgása szüneteltetve van.
+A pálcikaember mozgatására a játékosnak a közeli nézetben van lehetősége. Ide a pálya nézetből lehet jutni a szóköz billentyű lenyomásával (ugyanígy lehet vissza is menni), és ekkor a képernyőn csak a pálcikaember valamint az aktuális -- nagyjából egy keret nagyságú -- környezete jelenik meg.
+	
+	A pálcikaembert a játékos irányítja a billentyűzetének kurzorai segítségével. Amíg akadályba nem ütközik, mehet jobbra--balra, illetve ugorhat is, valamint ha elfogy alóla a talaj, akkor esni kezd. Ha kerethatárra érkezik, akkor két eset lehetséges. Amennyiben a keretek az adott oldalon átjárhatóak, akkor a másik keretbe kerül, de ha nem, akkor ha oldalsó határról van szó, visszapattan (a kerethatár akadályként viselkedik), ha alsóról, akkor a játékos kiesik. Két keret akkor átjárható, ha a csatlakozó szélükön a tereptárgyak elhelyezkedése megegyezik.
+	
+	A játékos kiesése azzal jár, hogy a pálcikaember visszakerül az utolsó mentési ponthoz (ellenőrző pont). Ilyen mentési pont a pálcikaember pályához tartozó kiindulási helye, illetve a kulcsok.
+	
+	A pályát úgy lehet teljesíteni, hogy a játékos felveszi az összes kulcsot majd ezek birtokában kinyitja az ajtót. Ehhez nem szükséges más, minthogy a pálcikaember elhaladjon ezen objektumok előtt.
+	
+	Játék közben mind a pálya nézetből és a közeli nézetből az escape gomb megnyomásával elő lehet hozni egy menüt, mellyel menteni lehet az aktuális állapotot és vissza lehet térni a főképernyőre.
+	
+	Pálya teljesítése esetén egy átvezető képernyő után rögtön sor kerül a következő pálya automatikus betöltésére. Amennyiben több pálya már nem létezik, úgy egy gratuláló megjegyzés után a főképernyőre tudunk visszajutni.
+
 \subsection{Szótár}
 
 \begin{description}
