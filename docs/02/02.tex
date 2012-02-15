@@ -29,8 +29,8 @@ A program fordításához szükség van a \texttt{javac} programra, mellyel a \t
 \subsection{Projekt terv}
 
     \subsubsection{Fejlesztőeszközök, erőforrások}
-	A csapat választása az Eclipse\footnote{http://eclipse.org/} fejlesztői rendszerre esett, elsősorban azért, mert mindenkinek tapasztalata van a működésében. Ezen kívül UML modellezéshez, diagramok készítéséhez a Visual Paradigm Community Edition\footnote{http://www.visual-paradigm.com/} kiadását fogjuk használni.
-A doukumentáció \LaTeX -ben készül, melyben roppant egyszerű a dokumentálás és a kinézet könnyedén módosítható. A végső fájlokat PDF-be fordítjuk és az alapján nyomtatjuk, amely majd beadásra kerül. A verziókezelést és a felmerülő problémák megoldását a github\footnote{https://github.com/} online és ingyenes felületen keresztül oldjuk meg.
+	A csapat választása az Eclipse\footnote{http://eclipse.org/} fejlesztői rendszerre esett, mert a java világ egyik legelterjedtebb, keresztplatformos IDE megoldása, melyet a csapat minden tagja használt már korábban. UML modellezéshez, diagramok készítéséhez a Visual Paradigm Community Edition\footnote{http://www.visual-paradigm.com/} kiadását fogjuk használni.
+A dokumentáció \LaTeX -ben készül, mely segítségével nyomtatásban jól kinéző dokumentumok készíthetőek, valamint a forrásfájlok könnyen verziókezelhetőek. A végső fájlokat PDF formátumba fordítjuk, majd ezt kinyomtatva adjuk be. A verziókezelést és a felmerülő problémák megoldását a GitHub\footnote{https://github.com/} online és ingyenes felületen keresztül oldjuk meg.
 
     \subsubsection{A fejlesztőcsapat tagjai, feladatai}
 	\begin{center}
@@ -48,22 +48,22 @@ A doukumentáció \LaTeX -ben készül, melyben roppant egyszerű a dokumentál�
 		\hline
 	\end{tabular}
 	\end{center}
-	A feladatkörök, beosztások változhatnak a személyek ráfordítható idejétől, de fő szempont, hogy a feladatokat egyenlően tudjuk elosztani, így minimalizálva az egy emberre eső terhelés mértékét.
+	A feladatkörök, beosztások változhatnak a személyes időráfordítástól függően. A feladatok elosztásakor a fő szempont, hogy a feladatokat egyenlően tudjuk elosztani, így minimalizálva az egy emberre eső terhelés mértékét.
 
     \subsubsection{Kommunikációs modell}
 
 	A tárgy keretében, a projektbe válogatott csoport tagjai előzetesen ismerték egymást, az előzetes ismeretség megkönnyíti az együttműködést és a hatékony munkavégzést. A munkavégzést további kommunikációt segítő programok támogatják.
-	A kommunikáció megszervezése elsődleges fontosságú, így minél előbb próbáltuk felépíteni a kommunikációs hálózatot. Két részre oszthatóak a felhasznált kapcsolatteremtési formák, egyik a szinkron, másik az aszinkron kommunikáció. Szinkron kommunikációban lehetséges a folyamatos kommunikálás, azonnali reagálással egymás ötleteire, kérdéseire. Látható, hogy ez nem fenntartható, hogy minden tag egyszerre legyen elérhető, ezért az ilyen megbeszéléseket minimálisra kell szorítani. Ezzel szemben fontos az asszinkron kommunikációs eszközök, ezek lényege, hogy mindenki írhat ezen eszközökre, amely értesíti a többi felhasználót a tevékenységről és amikor lehetősége van, reagál rá. Ez a leghatékonyabb módja a tervezésben, a dokumentációk és kódok elkészítésében.
-	Az egyik legfontosabb rendszert a github tette elérhetővé számunkra. Ez egy összetett rendszer, amely többféle lehetőséget biztosít számunkra:
+	A kommunikáció megszervezése elsődleges fontosságú, így minél előbb próbáltuk felépíteni a kommunikációs hálózatot. Két részre oszthatóak a felhasznált kapcsolatteremtési formák, egyik a szinkron, másik az aszinkron kommunikáció. Szinkron kommunikációban lehetséges a folyamatos kommunikálás, azonnali reagálással egymás ötleteire, kérdéseire. Látható, hogy minden csapattag egyidejű bevonása a kommunikációba költséges és gyakran felesleges, ezért az ilyen megbeszéléseket minimálisra szorítjuk. Emellett fontos az asszinkron kommunikációs eszközök használata, melyek segítségével a csapattagok egymás elérhetőségétől függetlenül üzenhetnek egymásnak. Ez a fajta kommunikáció megfelelő a státusz jelentések számára, valamint az előrehaladás követésére vagy a feladatok kiadására.
+	A csapatmunka számára a legfontosabb rendszer a GitHub által biztosított tároló\footnote{https://github.com/nandinc/Continuity}. Ez egy összetett rendszer, amely többféle lehetőséget biztosít számunkra:
 	\begin{description}
-		\item[git verziókezelés:]
-			A dokumentum és kódkészítés folyamatában lehetőséget nyújt, hogy többen dolgozhassanak együttesen a projekten, mindig mindenki a legfrissebb verziót érje el. Ezen felül segít nyomon követni a változásokat, a commitokról naplózást vezetve.
-		\item[Issue tracker:]
-			A feladatok kiosztása külön issuekba történik, minden problémához külön issuet veszünk fel. Egy-egy feladat addig marad nyitva, ameddig valaki el nem készíti és az ellenőrzésre nem került. Segítségével emberekhez lehet rendelni az egyes feladatokat, illetve nyomon lehet követni az issuek életciklusáta.
+		\item[Git verziókezelés:]
+			A dokumentum és kódkészítés folyamatában lehetőséget nyújt, hogy többen dolgozhassanak együttesen a projekten, mindig mindenki a legfrissebb verziót érje el, manuális változáskövetés nélkül. Ezen felül segít nyomonkövetni a csapattagok munkáját egy részletes napló segítségével. % commit szó nem szerepelhet
+		\item[Hibajegy nyilvántartó:] % issue tracker nem szerepelhet
+			A feladatok kiosztása hibajegyeken kereszül történik. Egy-egy hibajegy addig marad nyitva, ameddig a hozzárendelt csapattag a feladatot el nem készíti és azt egy másik le nem ellenőrzi. Ezután a hibajegy lezárásra kerül, de a rendszerben marad, így későbbi probléma esetén újra megnyitható. A hibajegyek használatával a csapatvezető könnyen rendelhet feladatokat a csapattagokhoz, valamint lehetőség van egy feladat önkéntes elvállalására is. A hibajegyben a feladója pontosan leírja a feladatot, feltünteti a felhasználható forrásokat és kiköti, hogy milyen körülmények teljesítése mellett zárható le a jegy.
 		\item[Wiki:]
-			A mindennapi megbeszélésekhez a levelezőlistát használatos, az értekezletek eredményei, guidelineok a Wikibe tárolandóak.
+			Az értekezletek eredményeit, a csapattagok által készített segédleteket, fejlesztési irányelveket tároljuk itt.
 	\end{description}
-	Ezeken felül kommunikáció lehetséges Skype-konferencia formájában és személyes találkozók, megbeszéléseken. A teljes projekt döntéseit érintő kérdések megbeszélése ezen utóbbi szinkron kommunikációs formákban praktikusabb.
+	Ezeken felül kommunikáció lehetséges a heti rendszerességgel tartott megbeszéléseken, Skype-konferencia formájában és egyéb személyes találkozókon. A teljes projekt döntéseit érintő kérdések megbeszélése valamint tervezési feladatok kidolgozása ezen szinkron kommunikációs formákban praktikusabb.
 
 	\begin{figure}[h]
 		\begin{center}
@@ -71,22 +71,22 @@ A doukumentáció \LaTeX -ben készül, melyben roppant egyszerű a dokumentál�
 			\caption{Levelezőlista}
 		\end{center}
 	\end{figure}
+	
 	\begin{figure}[h]
 		\begin{center}
 			\includegraphics[scale=0.5]{resources/issues.png}
-			\caption{github felületen az issuek}
+			\caption{A GitHub által biztosított hibajegykezelő}
 		\end{center}
 	\end{figure}
 
     \subsubsection{Fejlesztési mérföldkövek}
 
 	\begin{description}
-		\item[Skeleton] \hfill \\
-			Az első fontosabb mérföldkő, a program vázának megalkotása, a program modelljének megtervezése, annak helyességének és részletességének ellenőrzése. A tervezési folyamat során fontos a gondos és odafigyelő döntéshozás, mert ezek a már elkészült program minőségét nagyban befolyásolják.
-		\item[Prototípus] (a továbbiakban proto)\hfill \\
-			A második mérföldkő a program működőképes változata, ami még a grafikát nem tartalmazza. A mérföldkő elérése a program egészének tesztelését teszi lehetővé. A fejlesztés ezen része lezárultnak tekinthető, az algoritmusok végleges formájukba kerülnek, így egy a grafikus felülettől elkülönülő kész programot jelent.
-		\item[Grafikus felület] (a továbbiakban GUI)\hfill \\
-			A harmadik és egyben utolsó mérföldkövet a grafikus felület befejezése jelenti. A már kész, jól működő prototípust megfelelően felhasználva, ráépítve a grafikus felületet. A GUI fontos tényezői a könnyű kiismerhetőség, felhasználó barát felület és könnyű használhatóság.
+		\item[Szkeleton:] Az első fontosabb mérföldkő, a program vázának megalkotása, a program modelljének megtervezése, annak helyességének és részletességének ellenőrzése. A tervezési folyamat során fontos a gondos és odafigyelő döntéshozás, mert ezek a már elkészült program minőségét nagyban befolyásolják. Általánosságban igaz, hogy az itt elkövetett tervezői hibák később sokkal nagyobb erőfeszítéssel javíthatóak.
+		
+		\item[Prototípus:] A második mérföldkő a program működőképes változata, ami még a grafikát nem tartalmazza. A mérföldkő elérése a program egészének tesztelését teszi lehetővé. A fejlesztés ezen része lezárultnak tekinthető, ha az algoritmusok és adatszerkezetek, valamint az osztályhierarchia eléri végleges formáját, így egy a grafikus felülettől független programot alkot.
+		
+		\item[Grafikus felület:] A harmadik és egyben utolsó mérföldkövet a grafikus felület befejezése jelenti. A már kész, jól működő prototípust megfelelően felhasználva, azt meg nem bontva kell rá felépíteni a grafikus felületet. A felület fontos jellemzője az intuitív elrendezés, a felhasználó barát működés és könnyű használhatóság.
 	\end{description}
 
     \subsubsection{Határidők}
@@ -121,7 +121,7 @@ A doukumentáció \LaTeX -ben készül, melyben roppant egyszerű a dokumentál�
 	\end{center}
 
     \subsubsection{Átadás}
-	A dokumentációt nyomtatott formában minden héten a konzulensnek le kell adni a konzultáció időpontjában. Ezen kívül a három mérföldkő alkalmával a programkódok is bemutatásra kerülnek az ezen célra kijelölt laboratóriumok gépeinél. A végső átadás a félév végeztével az aktualizált dokumentációval és forráskódokkal feltöltésre kerül a tárgy honlapjára\footnote{http://www.iit.bme.hu/hercules}.
+	A dokumentációt nyomtatott formában minden héten a konzulensnek le kell adni a konzultáció időpontjában. Ezen kívül a három mérföldkő alkalmával a programkódok is bemutatásra kerülnek az ezen célra kijelölt laboratórium gépeinél. A végső átadás a félév végeztével az aktualizált dokumentációval és forráskódokkal feltöltésre kerül a tárgy honlapjára\footnote{http://www.iit.bme.hu/hercules}.
 %
 %   \subsubsection{Kockázatelemzés}
 %	\begin{description}
@@ -168,14 +168,14 @@ A doukumentáció \LaTeX -ben készül, melyben roppant egyszerű a dokumentál�
 %	\end{center}
 %
    \subsubsection{Egyéb fontos megjegyzések}
-	A fejlesztés lefordítása és bemutatása a HSZK laborjaiban történik, így a program forráskódjának kompatibilisnek kell lennie a Java Development Kit ennek megfelelő korábbi verziójával. A maximális kompatibilitás elérése érdekében a fejlesztés is pontosan ezeken a verziószámú platformokon történik majd, azaz ???-es Java SDK és ??? verziójú JRE kerül felhasználásra.
+	A fejlesztés lefordítása és bemutatása a HSZK laborjaiban történik, így a program forráskódjának kompatibilisnek kell lennie a Java Development Kit ennek megfelelő korábbi verziójával. A maximális kompatibilitás elérése érdekében a fejlesztés is pontosan ezeken a verziószámú platformokon történik majd, azaz 6-os Java JDK és 1.6.0 verziójú JRE kerül felhasználásra.
 
     \subsubsection{Szükséges dokumentációk}
 	\begin{enumerate}
 	\item Követelmény, projekt, funkcionalitás
 	\item Analízis modell kidolgozása 1.
 	\item Analízis modell kidolgozása 2.
-	\item Szkeleton tervezése
+	\item Szkeleton tervek
 	\item Szkeleton
 	\item Prototípus koncepciója
 	\item Részletes tervek
