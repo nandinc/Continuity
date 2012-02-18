@@ -5,13 +5,11 @@ public class latex extends Doclet {
 
 	public static boolean start(RootDoc root) {
 		System.out.println("==== CUT HERE =====");
-		System.out.println("\\begin{itemize}");
-		
 
 		ClassDoc[] classes = root.classes();
 		Arrays.sort(classes);
 		for (ClassDoc cd : classes) {
-			System.out.println("\\item " + cd.name() + " osztály:");
+			System.out.println("\\subsubsection{" + cd.name() + "}");
 			if (cd.isInterface()) {
 				System.out.println("Interfész.");
 			} else if (cd.isAbstract()) {
@@ -37,7 +35,6 @@ public class latex extends Doclet {
 			System.out.println("\\end{description}");
 			System.out.println();
 		}
-		System.out.println("\\end{itemize}");
 		System.out.println("==== END CUT HERE =====");
 		return true;
 	}
