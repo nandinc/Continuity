@@ -243,12 +243,29 @@ Stickman mozgatására a játékosnak a közeli nézetben van lehetősége. Ide 
 \end{description}
 
 \subsection{Essential use-case-ek}
-    %insert figure
-	%\begin{figure}[h]
-	%	\begin{center}
-	%		\includegraphics[scale=0.5]{----FILENAME-HERE----}
-	%		\caption{UML diagram test}
-	%	\end{center}
-	%\end{figure}
+	\subsubsection{Essential use-case diagram}
+	
+		\begin{figure}[h!]
+			\begin{center}
+				\includegraphics[scale=0.5]{resources/essential_use_cases.png}
+				\caption{A GitHub által biztosított hibajegykezelő}
+			\end{center}
+		\end{figure}
+						
+	\subsubsection{Essential use-case-ek leírása}
+	
+		\begin{description}
+		
+		\item[Játék indítása] \hfill \\
+			A játékos folytatja a játékot, a legutóbbi, még teljesítetlen pálya töltődik be.
+		\item[Stickman mozgatása]\hfill \\
+			A játékos vezérli a figura (Stickman) mozgását. Stickman mozgatása a leütött billentyűnek megfelelően fog megtörténni.
+		\item[Nézetváltás]\hfill \\
+			A játékos a megfelelő billentyű lenyomásával nézetet vált (keret és pálya nézet).
+		\item[Keret átrendezése]\hfill \\
+			Keret nézetben a játékos a megfelelő billentyűkkel átrendezheti a pályát alkotó keretek helyzetét.
+		\item[Idő léptetése]\hfill \\
+			Egy számítógép által vezérelt actor végzi. Meghatározott időközönként jelzi az idő múlását, mely keret nézetben Stickman vertikális pozícióját befolyásolhatja.
+		\end{description}
 
 \end{document}
