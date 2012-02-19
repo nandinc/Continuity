@@ -78,7 +78,7 @@ $diaryOutput = "";
 // table header
 $diaryOutput .= 
 "    \begin{center} 
-        \begin{tabular}{| l | l | l | p{6.5cm} |}
+        \begin{tabular}{| l | p{1.9cm} | p{2.6cm} | p{6.1cm} |}
             \hline
                 Kezdet & Időtartam & Résztvevők & Leírás \\\
             \hline \hline \n";
