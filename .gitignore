@@ -4,4 +4,5 @@ docs/*/*.aux
 docs/*/*.log
 docs/*/*.pdf
 docs/*/*.toc
+docs/*/*.synctex.gz
 
