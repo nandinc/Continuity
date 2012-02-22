@@ -5,6 +5,7 @@
 \usepackage{../fedlap}
 \usepackage{fancyhdr} % elofej, elolab
 \usepackage{graphicx}
+\usepackage{datetime} % specify date format
 \setcounter{secnumdepth}{3} % enable subsubsection
 
 % hasonlitson a doc verziora
@@ -13,7 +14,7 @@
 % cim
 \csapat{nand}{39}
 \konzulens{Bozóki Szilárd}
-\datum{\today}
+\datum{\todaynum}
 
 % csapattagok
 \taga{Berki Endre}{HQNHER}{berkiendre@gmail.com}
@@ -34,3 +35,9 @@
 \fancyfoot[OL] { \tmpdatum }
 
 \pagestyle{fancy}
+
+% custom date format, according to customer request
+% you have to use the \todaynum command instead of today,
+% becouse babel overrides it, and I couldn't find a way to override
+% it again. I was tempted to call this format \todaybozoki
+\newcommand{\todaynum}{\the\year. \twodigit\month. \twodigit\day}
