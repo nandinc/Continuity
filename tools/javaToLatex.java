@@ -1,7 +1,7 @@
 import com.sun.javadoc.*;
 import java.util.Arrays;
 
-public class latex extends Doclet {
+public class javaToLatex extends Doclet {
 
 	public static boolean start(RootDoc root) {
 		System.out.println("==== CUT HERE =====");
