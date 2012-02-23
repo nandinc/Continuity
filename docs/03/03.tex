@@ -8,17 +8,191 @@
 \addtocounter{section}{2}
 \section{Analízis modell kidolgozása}
 
-\subsection{Objektum katalógus}
-
-\subsection{Osztályok leírása}
-
-\subsection{Szekvencia diagramok}
-
-\subsection{State-chartok}
-
-\subsection{Napló}
-% The diary generator uses the following comments to identify the beginning and the ending of the generated diary
-% The following content is auto generated, please do NOT modify, edit the related shared document instead.
-%GENERATOR:DIARY
-%GENERATOR:DIARY
+	\subsection{Objektum katalógus}
+	
+	\subsection{Osztályok leírása}
+	
+		\subsubsection{AbstractFrameItem}
+		\begin{description}
+		\item[Felelősség]
+		Absztrakt ősosztály, a frameben lévő objektumokat testesíti meg (Platform, Door, Key, Stickman).
+		\item[Ősosztályok] Object $\rightarrow{}$ AbstractFrameItem.
+		\item[Interfészek] FrameItem.
+		\item[Attribútumok]$\ $
+		\begin{description}
+		\item[] (nincs)
+		\end{description}
+		\item[Metódusok]$\ $
+		\begin{description}
+		\item[] (nincs)
+		\end{description}
+		\end{description}
+		
+		\subsubsection{Door}
+		\begin{description}
+		\item[Felelősség]
+		A pályák befejezésére szolgáló ajtót valósítja meg.
+		\item[Ősosztályok] Object $\rightarrow{}$ AbstractFrameItem $\rightarrow{}$ Door.
+		\item[Interfészek] (nincs)
+		\item[Attribútumok]$\ $
+		\begin{description}
+		\item[] (nincs)
+		\end{description}
+		\item[Metódusok]$\ $
+		\begin{description}
+		\item[] (nincs)
+		\end{description}
+		\end{description}
+		
+		\subsubsection{Frame}
+		\begin{description}
+		\item[Felelősség]
+		Egy pályán belüli keret, amelyben mozoghat a stickman. Tartalmazza a pálya többi objektumát (Door, Key, Platform).
+		\item[Ősosztályok] Object $\rightarrow{}$ Frame.
+		\item[Interfészek] (nincs)
+		\item[Attribútumok]$\ $
+		\begin{description}
+		\item[] (nincs)
+		\end{description}
+		\item[Metódusok]$\ $
+		\begin{description}
+		\item[] (nincs)
+		\end{description}
+		\end{description}
+		
+		\subsubsection{FrameItem}
+		Interfész.
+		\begin{description}
+		\item[Felelősség]
+		Ez az interface adja a Frame osztálynak a megjelenítendő objektumokat.  Ezen interfacet valósítják meg a pályán lévő objektumok (Platform, Door, Key, Stickman)
+		\item[Ősosztályok] FrameItem.
+		\item[Interfészek] (nincs)
+		\item[Metódusok]$\ $
+		\begin{description}
+		\item[] (nincs)
+		\end{description}
+		\end{description}
+		
+		\subsubsection{Game}
+		\begin{description}
+		\item[Felelősség]
+		A játékot szervező objektum. Felelős az új pályák betöltéséért és a teljesített pályák törléséért.
+		\item[Ősosztályok] Object $\rightarrow{}$ Game.
+		\item[Interfészek] (nincs)
+		\item[Attribútumok]$\ $
+		\begin{description}
+		\item[] (nincs)
+		\end{description}
+		\item[Metódusok]$\ $
+		\begin{description}
+		\item[] (nincs)
+		\end{description}
+		\end{description}
+		
+		\subsubsection{Key}
+		\begin{description}
+		\item[Felelősség]
+		Kulcsok megszerzése a pálya teljesítésének feltétele.
+		\item[Ősosztályok] Object $\rightarrow{}$ AbstractFrameItem $\rightarrow{}$ Key.
+		\item[Interfészek] (nincs)
+		\item[Attribútumok]$\ $
+		\begin{description}
+		\item[] (nincs)
+		\end{description}
+		\item[Metódusok]$\ $
+		\begin{description}
+			\item[\texttt{public boolean isCollected()}] \hfill \\
+		 % TODO
+		\end{description}
+		\end{description}
+		
+		\subsubsection{Map}
+		\begin{description}
+		\item[Felelősség]
+		Frameket tartalmazza, azokat mozgatja és kiválasztását irányítja.
+		\item[Ősosztályok] Object $\rightarrow{}$ Map.
+		\item[Interfészek] (nincs)
+		\item[Attribútumok]$\ $
+		\begin{description}
+		\item[] (nincs)
+		\end{description}
+		\item[Metódusok]$\ $
+		\begin{description}
+		\item[] (nincs)
+		\end{description}
+		\end{description}
+		
+		\subsubsection{MapFactory}
+		\begin{description}
+		\item[Felelősség]
+		Pályák tárolása.
+		\item[Ősosztályok] Object $\rightarrow{}$ MapFactory.
+		\item[Interfészek] (nincs)
+		\item[Attribútumok]$\ $
+		\begin{description}
+		\item[] (nincs)
+		\end{description}
+		\item[Metódusok]$\ $
+		\begin{description}
+		\item[] (nincs)
+		\end{description}
+		\end{description}
+		
+		\subsubsection{Platform}
+		\begin{description}
+		\item[Felelősség]
+		A Stickman és ezzel a játék mozgásterét korlátozó objektum. A framen belül bejárható rész keretezése.
+		\item[Ősosztályok] Object $\rightarrow{}$ AbstractFrameItem $\rightarrow{}$ Platform.
+		\item[Interfészek] (nincs)
+		\item[Attribútumok]$\ $
+		\begin{description}
+		\item[] (nincs)
+		\end{description}
+		\item[Metódusok]$\ $
+		\begin{description}
+		\item[] (nincs)
+		\end{description}
+		\end{description}
+		
+		\subsubsection{PubSub}
+		\begin{description}
+		\item[Felelősség]
+		Globális üzenet közvetítő csatorna, feliratkozással lehet lekérdezni a csatornára feltett információkat.
+		\item[Ősosztályok] Object $\rightarrow{}$ PubSub.
+		\item[Interfészek] (nincs)
+		\item[Attribútumok]$\ $
+		\begin{description}
+		\item[] (nincs)
+		\end{description}
+		\item[Metódusok]$\ $
+		\begin{description}
+			\item[\texttt{public void emit(String eventName, Object data)}] \hfill \\Esemény történésének jelzése.
+		\end{description}
+		\end{description}
+		
+		\subsubsection{Stickman}
+		\begin{description}
+		\item[Felelősség]
+		A játék fő objektuma, be kell járnia a pályát kulcsokat megszerezni. A játékos irányítja.
+		\item[Ősosztályok] Object $\rightarrow{}$ AbstractFrameItem $\rightarrow{}$ Stickman.
+		\item[Interfészek] (nincs)
+		\item[Attribútumok]$\ $
+		\begin{description}
+		\item[] (nincs)
+		\end{description}
+		\item[Metódusok]$\ $
+		\begin{description}
+		\item[] (nincs)
+		\end{description}
+		\end{description}
+	
+	\subsection{Szekvencia diagramok}
+	
+	\subsection{State-chartok}
+	
+	\subsection{Napló}
+	% The diary generator uses the following comments to identify the beginning and the ending of the generated diary
+	% The following content is auto generated, please do NOT modify, edit the related shared document instead.
+	%GENERATOR:DIARY
+	%GENERATOR:DIARY
 \end{document}
