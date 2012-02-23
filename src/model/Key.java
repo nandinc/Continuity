@@ -11,7 +11,7 @@ public class Key extends AbstractFrameItem {
     private boolean collected = false;
 
     /**
-     * @return Visszatéríti, hogy megszerezték-e az adott kulcs objektumot.
+     * @return Igaz, ha megszerezték-e az adott kulcs objektumot.
      */
     public boolean isCollected() {
         return this.collected;
