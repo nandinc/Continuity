@@ -5,4 +5,7 @@ docs/*/*.log
 docs/*/*.pdf
 docs/*/*.toc
 docs/*/*.synctex.gz
+.classpath
+.project
+vpproject
 
