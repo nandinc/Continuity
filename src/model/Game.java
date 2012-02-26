@@ -5,6 +5,17 @@ package model;
  */
 public class Game {
 
-    Map currentMap;
+	/**
+	 * Az aktuális pálya
+	 */
+    protected Map currentMap;
+
+    /**
+     * Betölti a megadott pályát.
+     * @param mapId
+     */
+    public void loadMap(int mapId) {
+        throw new UnsupportedOperationException();
+    }
 
 }

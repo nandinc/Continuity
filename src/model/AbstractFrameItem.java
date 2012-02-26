@@ -1,7 +1,19 @@
 package model;
 
 /**
- * Absztrakt ősosztály, a frameben lévő objektumokat testesíti meg (Platform, Door, Key, Stickman).
+ * Alapértelmezett megvalósítása egy keretbe helyezett objektumnak. 
+ * Nyilvántartja a kereten belüli pozícióját, valamint hordoz
+ * egy referenciát a tartalmazó keretre.
  */
-public class AbstractFrameItem implements FrameItem {
+public abstract class AbstractFrameItem implements FrameItem {
+
+	/**
+	 * A tartalmazó kereten belül elfoglalt pozíció
+	 */
+    protected Area area;
+    
+    /**
+     * A tartalmazó keret
+     */
+    protected Frame frame;
 }

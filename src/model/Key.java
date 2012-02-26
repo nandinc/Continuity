@@ -1,17 +1,18 @@
 package model;
 
 /**
- * Kulcsok megszerzése a pálya teljesítésének feltétele.
+ * A pályán található kulcsokat reprezentáló objektum.
  */
 public class Key extends AbstractFrameItem {
 
     /**
-     * Flag, ami jelzi, hogy megszerezték-e az adott kulcs objektumot.
+     * Flag, ami jelzi, hogy megszerezték-e a kulcsot.
      */
     private boolean collected = false;
 
     /**
-     * @return Igaz, ha megszerezték-e az adott kulcs objektumot.
+     * Megadja, hogy megszerezték-e a kulcsot.
+     * @return Igaz, ha megszerezték-e a kulcsot.
      */
     public boolean isCollected() {
         return this.collected;

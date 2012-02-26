@@ -1,7 +1,8 @@
 package model;
 
 /**
- * A pályák befejezésére szolgáló ajtót valósítja meg.
+ * A pályák befejezésére szolgáló ajtót reprezentálja.
  */
 public class Door extends AbstractFrameItem {
+
 }
