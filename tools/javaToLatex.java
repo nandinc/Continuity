@@ -6,6 +6,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 
+/**
+ * Run configurations
+ *  - main class: com.sun.tools.javadoc.Main
+ *  - arguments: -doclet javaToLatex -s ../src -all -private
+ */
 public class javaToLatex extends Doclet {
 
 	private static String readFileAsString(String filePath) throws java.io.IOException {
@@ -21,70 +26,100 @@ public class javaToLatex extends Doclet {
 		outStream.write(content.getBytes());
 	}
 	
-	public static boolean start(RootDoc root) {
-		String latexPlaceholder = "%GENERATOR:CLASS_DESCRIPTIONS";
-		String targetFile = "../docs/03/03.tex";
-		String originalLatexSource = null;
-		String generatedDoc = latexPlaceholder + "\n";
+	private static void writeContentToPlaceholdersIntoFile(String filePath, String placeholder, String content) {
+		String originalFileContent = null;
 		
 		try {
-			originalLatexSource = readFileAsString(targetFile);
+			originalFileContent = readFileAsString(filePath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
+		String[] fileParts = originalFileContent.split(placeholder);
+		
+		if (fileParts.length != 3) {
+			System.err.println("Placeholders (" +placeholder+ ") not found in file: " + filePath);
+			return;
+		}
+		
+		fileParts[1] = content;
+		String finalContent = fileParts[0] + fileParts[1] + fileParts[2];
+		
+		try {
+			writeStringIntoFile(finalContent, filePath);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static boolean start(RootDoc root) {
+		String latexResponsibilityPlaceholder = "%GENERATOR:CLASS_RESPONSIBILITY";
+		String latexDescribePlaceholder = "%GENERATOR:CLASS_DESCRIPTIONS";
+		String targetFile = "../docs/03/03.tex";
+		String generatedResponsibilityDoc = latexResponsibilityPlaceholder + "\n";
+		String generatedDescribeDoc = latexDescribePlaceholder + "\n";
+		
+		
+		generatedResponsibilityDoc += "\t\t\\begin{description}\n";
+		
 		ClassDoc[] classes = root.classes();
 		Arrays.sort(classes);
 		for (ClassDoc cd : classes) {
-			generatedDoc += "\t\t\\subsubsection{" + cd.name() + "}";
+			// responsibility
+			generatedResponsibilityDoc += "\t\t\t\\item[" + cd.name() + "] ";
+			boolean responsibilityFound = false;
+			for (Tag tag : cd.tags()) {
+				if (tag.name().compareTo("@responsibility") == 0) {
+					responsibilityFound = true;
+					generatedResponsibilityDoc += tag.text() + "\n";
+					break;
+				}
+			}
+			
+			if (!responsibilityFound) {
+				generatedResponsibilityDoc += "% TODO\n";
+			}
+			
+			// description
+			generatedDescribeDoc += "\t\t\\subsubsection{" + cd.name() + "}";
 			if (cd.isInterface()) {
-				generatedDoc += " Interfész.\n";
+				generatedDescribeDoc += " Interfész.\n";
 			} else if (cd.isAbstract()) {
-				generatedDoc += " Absztrakt osztály.\n";
+				generatedDescribeDoc += " Absztrakt osztály.\n";
 			} else {
-				generatedDoc += "\n";
+				generatedDescribeDoc += "\n";
 			}
-
-			generatedDoc += "\t\t\t\t";
-			generatedDoc += cd.commentText().replace('\n', ' ');
 			
-			generatedDoc += "\t\t\t\\begin{description}\n";
+			generatedDescribeDoc += "\t\t\t\t";
+			generatedDescribeDoc += cd.commentText().replace('\n', ' ');
+			
+			generatedDescribeDoc += "\t\t\t\\begin{description}\n";
 			if (cd.commentText().length() < 5) {
-				generatedDoc += " % TODO document responsibility of " + cd.name() + "\n";
+				generatedDescribeDoc += " % TODO document responsibility of " + cd.name() + "\n";
 			} else {
-				generatedDoc += "\n";
+				generatedDescribeDoc += "\n";
 			}
 			
-			generatedDoc += "\n\t\t\t\t\\item[Ősosztályok] " + getSupers(cd) + ".\n";
+			generatedDescribeDoc += "\n\t\t\t\t\\item[Ősosztályok] " + getSupers(cd) + ".\n";
 			
 			if (!cd.isInterface()) {
-				generatedDoc += "\t\t\t\t\\item[Interfészek] " + getIfaces(cd) + "\n";
-				generatedDoc += "\t\t\t\t\\item[Attribútumok]$\\ $\n\t\t\t\t\t\\begin{description}\n";
-				generatedDoc += printFields(cd.fields());
-				generatedDoc += "\t\t\t\t\t\\end{description}\n";
+				generatedDescribeDoc += "\t\t\t\t\\item[Interfészek] " + getIfaces(cd) + "\n";
+				generatedDescribeDoc += "\t\t\t\t\\item[Attribútumok]$\\ $\n\t\t\t\t\t\\begin{description}\n";
+				generatedDescribeDoc += printFields(cd.fields());
+				generatedDescribeDoc += "\t\t\t\t\t\\end{description}\n";
 			}
-			generatedDoc += "\t\t\t\t\\item[Metódusok]$\\ $\n\t\t\t\t\t\\begin{description}\n";
-			generatedDoc += printMembers(cd.methods());
-			generatedDoc += "\t\t\t\t\t\\end{description}\n";
-			generatedDoc += "\t\t\t\\end{description}\n";
-			generatedDoc += "\n";
+			generatedDescribeDoc += "\t\t\t\t\\item[Metódusok]$\\ $\n\t\t\t\t\t\\begin{description}\n";
+			generatedDescribeDoc += printMembers(cd.methods());
+			generatedDescribeDoc += "\t\t\t\t\t\\end{description}\n";
+			generatedDescribeDoc += "\t\t\t\\end{description}\n";
+			generatedDescribeDoc += "\n";
 		}
 		
-		generatedDoc += latexPlaceholder;
-		String[] latexSourceParts = originalLatexSource.split(latexPlaceholder);
-
-		if (latexSourceParts.length != 3) {
-			System.err.println("Placeholders not found.");
-		} else {
-			latexSourceParts[1] = generatedDoc;
-			String finalLatexSource = latexSourceParts[0] + latexSourceParts[1] + latexSourceParts[2];
-			
-			try {
-				writeStringIntoFile(finalLatexSource, targetFile);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		generatedResponsibilityDoc += "\t\t\\end{description}\n" + latexResponsibilityPlaceholder;
+		generatedDescribeDoc += latexDescribePlaceholder;
+		
+		writeContentToPlaceholdersIntoFile(targetFile, latexResponsibilityPlaceholder, generatedResponsibilityDoc);
+		writeContentToPlaceholdersIntoFile(targetFile, latexDescribePlaceholder, generatedDescribeDoc);
 		
 		return true;
 	}
