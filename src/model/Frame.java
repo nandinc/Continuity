@@ -45,4 +45,14 @@ public class Frame {
     protected boolean checkCollision(Area area) {
         throw new UnsupportedOperationException();
     }
+
+    /**
+     * Megállapítja, hogy a megadott kerettel
+     * átjárható-e.
+     * 
+     * @param frame
+     */
+    protected boolean isTraversable(Frame frame) {
+        throw new UnsupportedOperationException();
+    }
 }

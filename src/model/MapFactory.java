@@ -10,9 +10,11 @@ public class MapFactory {
     /**
      * Létrehozza a megadott azonosítójú pályát
      * és feltölti elemekkel.
+     * 
      * @param mapId
+     * @param ps
      */
-    public Map getMap(int mapId) {
+    public Map getMap(int mapId, PubSub ps) {
         throw new UnsupportedOperationException();
     }
 }
