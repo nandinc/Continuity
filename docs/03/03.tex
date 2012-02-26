@@ -11,21 +11,21 @@
 	\subsection{Objektum katalógus}
 %GENERATOR:CLASS_RESPONSIBILITY
 		\begin{description}
-			\item[AbstractFrameItem] % TODO
-			\item[Area] % TODO
-			\item[DIRECTION] % TODO
-			\item[Door] % TODO
-			\item[Frame] % TODO
-			\item[FrameItem] % TODO
-			\item[Game] % TODO
-			\item[Key] % TODO
-			\item[Map] Számon tartja a pályán elhelyezett kulcsokat számát, valamint a már összegyűjtött kulcsok számát.
-			\item[MapFactory] % TODO
-			\item[Platform] % TODO
-			\item[PubSub] % TODO
-			\item[Stickman] % TODO
-			\item[Subscriber] % TODO
-			\item[Timer] % TODO
+			\item[AbstractFrameItem] Alapértelmezett megvalósítása egy keretben lévő objektumnak.
+			\item[Area] Területrészt leíró osztály. Összehasonlítható egy másik osztállyal, hogy fedik-e egymást.
+			\item[DIRECTION] Irányokat jelöl a két dimenziós térben.
+			\item[Door] Ajtó objektum, melyet ha megérint a Stickman úgy hogy az összes kulcs a birtokában van, az objektum a pálya teljesítettségét jelző eseményt bocsát ki.
+			\item[Frame] A pálya által alkotott táblázat egy cellája, amely elemeket tartalmaz. Ez felelős az elemek (Stickman) mozgatásáért kereten belül és között egyaránt.
+			\item[FrameItem] A keretben elhelyezkedő elemek által megvalósított iterfész, melyen keresztül a keret menedzselni tudja a benne lévő elemeket.
+			\item[Game] A játékot reprezentáló objektum, amely kezeli az aktuális pályát.
+			\item[Key] Kulcs elem, melyet megérintve a Stickman meg tud szerezni. Erről egy esemény küldésén keresztül értesíti a külvilágot.
+			\item[Map] Számon tartja a pályán elhelyezett kulcsokat számát, valamint a már összegyűjtött kulcsok számát. Felelős a keretek mozgatásáért.
+			\item[MapFactory] Felelős a pályák létrehozásáért, bennük a keretek és az elemek elhelyezéséért.
+			\item[Platform] Olyan elem, mellyel nem tud a Stickman egy helyen tartózkodni, azaz korlátozza a Stickman mozgásterét.
+			\item[PubSub] Üzenetközvetítő osztály, mely feliratkozásokat tart számon, és ha valakitől eseményt kap, arról értesíti az arra feliratkozottakat.
+			\item[Stickman] A játékos által irányított figura, mely a pályán mozog.
+			\item[Subscriber] Olyan interfész, melyen keresztül eseményeket lehet fogadni a PubSubtól.
+			\item[Timer] Időzítésért felelős osztály, bizonyos időközönként kibocsát egy 'tick' eseményt az átadott PubSub objektumra.
 		\end{description}
 %GENERATOR:CLASS_RESPONSIBILITY	
 	
@@ -101,7 +101,7 @@
 			\end{description}
 
 		\subsubsection{Door}
-				 A pályák befejezésére szolgáló ajtót reprezentálja. 			\begin{description}
+				 A pályák befejezésére szolgáló ajtót reprezentálja.  Ha a Stickman az összes kulcs birtokában megérinti,  a pálya teljesítésre kerül. 			\begin{description}
 
 
 				\item[Ősosztályok] Object $\rightarrow{}$ AbstractFrameItem $\rightarrow{}$ Door.
@@ -117,7 +117,7 @@
 			\end{description}
 
 		\subsubsection{Frame}
-				 Egy pályán belüli keret, amelyben mozoghat a stickman. Tartalmazza a pálya többi objektumát (Door, Key, Platform). 			\begin{description}
+				 Egy pályán belüli keret, amelyben mozoghat a Stickman. Tartalmazza a pálya többi elemét (Door, Key, Platform). 			\begin{description}
 
 
 				\item[Ősosztályok] Object $\rightarrow{}$ Frame.
@@ -130,6 +130,7 @@
 					\begin{description}
 						\item[\texttt{public void addItem(FrameItem item)}] \hfill \\ Hozzáadja a megadott elemet a kerethez. 
 						\item[\texttt{protected boolean checkCollision(Area area)}] \hfill \\ Ellenőrzi, hogy a megadott területen  található-e szilárd objektum. 
+						\item[\texttt{protected boolean isTraversable(Frame frame)}] \hfill \\ Megállapítja, hogy a megadott kerettel  átjárható-e. 
 						\item[\texttt{public void removeItem(FrameItem item)}] \hfill \\ Eltávolítja a megadott elemet a keretből 
 						\item[\texttt{public boolean requestArea(FrameItem item, Area area)}] \hfill \\ A metódust hívó elem kérést intéz a kerethez,  hogy el szeretné foglalni a megadott területet.  A keret felelőssége a terület ellenőrzése, és szabad  terület esetén az elem pozíciójának frissítése. 
 					\end{description}
@@ -210,12 +211,12 @@
 					\end{description}
 				\item[Metódusok]$\ $
 					\begin{description}
-						\item[\texttt{public Map getMap(int mapId)}] \hfill \\ Létrehozza a megadott azonosítójú pályát  és feltölti elemekkel. 
+						\item[\texttt{public Map getMap(int mapId, PubSub ps)}] \hfill \\ Létrehozza a megadott azonosítójú pályát  és feltölti elemekkel. 
 					\end{description}
 			\end{description}
 
 		\subsubsection{Platform}
-				 A Stickman és ezzel a játék mozgásterét korlátozó objektum. A framen belül bejárható rész keretezésére szolgál. 			\begin{description}
+				 A Stickman és ezzel a játék mozgásterét korlátozó elem. A framen belül bejárható rész keretezésére szolgál. 			\begin{description}
 
 
 				\item[Ősosztályok] Object $\rightarrow{}$ AbstractFrameItem $\rightarrow{}$ Platform.
@@ -231,7 +232,7 @@
 			\end{description}
 
 		\subsubsection{PubSub}
-				 Üzenet közvetítő csatorna, mely a Publish/Subscribe mintát valósítja meg. 			\begin{description}
+				 Üzenetközvetítő csatorna, mely a Publish/Subscribe mintát valósítja meg. 			\begin{description}
 
 
 				\item[Ősosztályok] Object $\rightarrow{}$ PubSub.
@@ -248,7 +249,7 @@
 			\end{description}
 
 		\subsubsection{Stickman}
-				 A játék által irányított figurát reprezentáló objektum. 			\begin{description}
+				 A játékos által irányított figurát reprezentáló elem. 			\begin{description}
 
 
 				\item[Ősosztályok] Object $\rightarrow{}$ AbstractFrameItem $\rightarrow{}$ Stickman.
