@@ -34,4 +34,12 @@ public interface FrameItem {
      * @return
      */
     boolean isSolid();
+
+    /**
+     * A tartalmazó keret jelezheti ezen a metóduson keresztül,
+     * hogy egy másik elem, melyet paraméterül ad,
+     * hozzáért (collision) ehez az elemhez.
+     * @param colliding
+     */
+    void collision(FrameItem colliding);
 }
