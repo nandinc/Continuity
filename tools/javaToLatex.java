@@ -45,10 +45,10 @@ public class javaToLatex extends Doclet {
 				generatedDoc += "\n";
 			}
 
-			generatedDoc += "\t\t\t\\begin{description}\n";
-			generatedDoc += "\t\t\t\t\\item[Felelősség]";
+			generatedDoc += "\t\t\t\t";
 			generatedDoc += cd.commentText().replace('\n', ' ');
 			
+			generatedDoc += "\t\t\t\\begin{description}\n";
 			if (cd.commentText().length() < 5) {
 				generatedDoc += " % TODO document responsibility of " + cd.name() + "\n";
 			} else {
