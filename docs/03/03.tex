@@ -64,7 +64,7 @@
 		Interfész.
 		\begin{description}
 		\item[Felelősség]
-		Ez az interface adja a Frame osztálynak a megjelenítendő objektumokat.  Ezen interfacet valósítják meg a pályán lévő objektumok (Platform, Door, Key, Stickman)
+		A Frame osztály ezen a felületen keresztül éri el a tartalmazott objektumokat.   Ezen interfacet valósítják meg a pályán lévő objektumok (Platform, Door, Key, Stickman)
 		\item[Ősosztályok] FrameItem.
 		\item[Interfészek] (nincs)
 		\item[Metódusok]$\ $
@@ -125,7 +125,7 @@
 		\subsubsection{MapFactory}
 		\begin{description}
 		\item[Felelősség]
-		Pályák tárolása.
+		Azonosító alapján Pályákat szolgáltat a Game objektum számára.
 		\item[Ősosztályok] Object $\rightarrow{}$ MapFactory.
 		\item[Interfészek] (nincs)
 		\item[Attribútumok]$\ $
@@ -157,7 +157,7 @@
 		\subsubsection{PubSub}
 		\begin{description}
 		\item[Felelősség]
-		Globális üzenet közvetítő csatorna, feliratkozással lehet lekérdezni a csatornára feltett információkat.
+		Globális üzenet közvetítő csatorna, mely a Publish/Subscribe mintát valósítja meg.
 		\item[Ősosztályok] Object $\rightarrow{}$ PubSub.
 		\item[Interfészek] (nincs)
 		\item[Attribútumok]$\ $
@@ -173,7 +173,7 @@
 		\subsubsection{Stickman}
 		\begin{description}
 		\item[Felelősség]
-		A játék fő objektuma, be kell járnia a pályát kulcsokat megszerezni. A játékos irányítja.
+		A játék által irányított figurát reprezentáló objektum.
 		\item[Ősosztályok] Object $\rightarrow{}$ AbstractFrameItem $\rightarrow{}$ Stickman.
 		\item[Interfészek] (nincs)
 		\item[Attribútumok]$\ $
