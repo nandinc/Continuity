@@ -2,6 +2,8 @@ package model;
 
 /**
  * A játékot szervező objektum. Felelős az új pályák betöltéséért és a teljesített pályák törléséért.
+ * 
+ * @responsibility A játékot reprezentáló objektum, amely kezeli az aktuális pályát.
  */
 public class Game {
 

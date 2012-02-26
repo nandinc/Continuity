@@ -5,6 +5,8 @@ package model;
  * Ez az osztály elfedi, hogy egy keret valójában hány dimenziós,
  * valamint azt, hogy egy keret egy összefüggő ponthalmaza milyen 
  * paraméterekkel írható le.
+ * 
+ * @responsibility Területrészt leíró osztály. Összehasonlítható egy másik osztállyal, hogy fedik-e egymást.
  */
 public class Area {
 

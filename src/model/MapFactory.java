@@ -4,6 +4,8 @@ package model;
  * Azonosító alapján Pályákat szolgáltat.
  * Létrehozza a pályát, majd az azonosító alapján feltölti
  * a megfelelő objektumokkal.
+ * 
+ * @responsibility Felelős a pályák létrehozásáért, bennük a keretek és az elemek elhelyezéséért.
  */
 public class MapFactory {
 

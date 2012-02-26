@@ -1,7 +1,9 @@
 package model;
 
 /**
- * A játék által irányított figurát reprezentáló objektum.
+ * A játékos által irányított figurát reprezentáló elem.
+ * 
+ * @responsibility A játékos által irányított figura, mely a pályán mozog.
  */
 public class Stickman extends AbstractFrameItem {
 

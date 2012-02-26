@@ -6,7 +6,7 @@ import java.util.*;
  * A pályákat reprezentálja. Tartalmazza a kereteket és azok elhelyezkedését,
  * kontrolállja az átrendezésüket.
  * 
- * @responsibility Számon tartja a pályán elhelyezett kulcsokat számát, valamint a már összegyűjtött kulcsok számát.
+ * @responsibility Számon tartja a pályán elhelyezett kulcsokat számát, valamint a már összegyűjtött kulcsok számát. Felelős a keretek mozgatásáért.
  */
 public class Map {
 

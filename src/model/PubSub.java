@@ -1,7 +1,9 @@
 package model;
 
 /**
- * Üzenet közvetítő csatorna, mely a Publish/Subscribe mintát valósítja meg.
+ * Üzenetközvetítő csatorna, mely a Publish/Subscribe mintát valósítja meg.
+ * 
+ * @responsibility Üzenetközvetítő osztály, mely feliratkozásokat tart számon, és ha valakitől eseményt kap, arról értesíti az arra feliratkozottakat.
  */
 public class PubSub {
 

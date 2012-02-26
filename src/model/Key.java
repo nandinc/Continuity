@@ -2,6 +2,8 @@ package model;
 
 /**
  * A pályán található kulcsokat reprezentáló objektum.
+ * 
+ * @responsibility Kulcs elem, melyet megérintve a Stickman meg tud szerezni. Erről egy esemény küldésén keresztül értesíti a külvilágot.
  */
 public class Key extends AbstractFrameItem {
 
