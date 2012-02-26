@@ -5,7 +5,7 @@ package model;
  * Nyilvántartja a kereten belüli pozícióját, valamint hordoz
  * egy referenciát a tartalmazó keretre.
  * 
- * @responisibility Alapértelmezett megvalósítása egy keretben lévő objektumnak.
+ * @responsibility Alapértelmezett megvalósítása egy keretben lévő objektumnak.
  */
 public abstract class AbstractFrameItem implements FrameItem {
 

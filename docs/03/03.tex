@@ -1,5 +1,7 @@
 \input{../head}
 
+\usepackage{pdfpages}
+
 \begin{document}
 
 \anyag{3. Analízis modell kidolgozása}
@@ -11,21 +13,21 @@
 	\subsection{Objektum katalógus}
 %GENERATOR:CLASS_RESPONSIBILITY
 		\begin{description}
-			\item[AbstractFrameItem] % TODO
-			\item[Area] % TODO
-			\item[DIRECTION] % TODO
-			\item[Door] % TODO
-			\item[Frame] % TODO
-			\item[FrameItem] % TODO
-			\item[Game] % TODO
-			\item[Key] % TODO
-			\item[Map] Számon tartja a pályán elhelyezett kulcsokat számát, valamint a már összegyűjtött kulcsok számát.
-			\item[MapFactory] % TODO
-			\item[Platform] % TODO
-			\item[PubSub] % TODO
-			\item[Stickman] % TODO
-			\item[Subscriber] % TODO
-			\item[Timer] % TODO
+			\item[AbstractFrameItem] Alapértelmezett megvalósítása egy keretben lévő objektumnak.
+			\item[Area] Területrészt leíró osztály. Összehasonlítható egy másik osztállyal, hogy fedik-e egymást.
+			\item[DIRECTION] Irányokat jelöl a két dimenziós térben.
+			\item[Door] Ajtó objektum, melyet ha megérint a Stickman úgy hogy az összes kulcs a birtokában van, az objektum a pálya teljesítettségét jelző eseményt bocsát ki.
+			\item[Frame] A pálya által alkotott táblázat egy cellája, amely elemeket tartalmaz. Ez felelős az elemek (Stickman) mozgatásáért kereten belül és között egyaránt.
+			\item[FrameItem] A keretben elhelyezkedő elemek által megvalósított iterfész, melyen keresztül a keret menedzselni tudja a benne lévő elemeket.
+			\item[Game] A játékot reprezentáló objektum, amely kezeli az aktuális pályát.
+			\item[Key] Kulcs elem, melyet megérintve a Stickman meg tud szerezni. Erről egy esemény küldésén keresztül értesíti a külvilágot.
+			\item[Map] Számon tartja a pályán elhelyezett kulcsokat számát, valamint a már összegyűjtött kulcsok számát. Felelős a keretek mozgatásáért.
+			\item[MapFactory] Felelős a pályák létrehozásáért, bennük a keretek és az elemek elhelyezéséért.
+			\item[Platform] Olyan elem, mellyel nem tud a Stickman egy helyen tartózkodni, azaz korlátozza a Stickman mozgásterét.
+			\item[PubSub] Üzenetközvetítő osztály, mely feliratkozásokat tart számon, és ha valakitől eseményt kap, arról értesíti az arra feliratkozottakat.
+			\item[Stickman] A játékos által irányított figura, mely a pályán mozog.
+			\item[Subscriber] Olyan interfész, melyen keresztül eseményeket lehet fogadni a PubSubtól.
+			\item[Timer] Időzítésért felelős osztály, bizonyos időközönként kibocsát egy 'tick' eseményt az átadott PubSub objektumra.
 		\end{description}
 %GENERATOR:CLASS_RESPONSIBILITY	
 	
@@ -64,23 +66,7 @@
 					\end{description}
 				\item[Metódusok]$\ $
 					\begin{description}
-						\item[\texttt{public int getHeight()}] \hfill \\
-						% TODO document getHeight
-						\item[\texttt{public int getWidth()}] \hfill \\
-						% TODO document getWidth
-						\item[\texttt{public int getX()}] \hfill \\
-						% TODO document getX
-						\item[\texttt{public int getY()}] \hfill \\
-						% TODO document getY
 						\item[\texttt{public boolean hasCollision(Area area)}] \hfill \\ Ellenőrzi, hogy a kapott Area objektummal van-e közös pontja.  A metódus feltételezi, hogy a két terület azonos keretben található. 
-						\item[\texttt{public void setHeight(int height)}] \hfill \\
-						% TODO document setHeight
-						\item[\texttt{public void setWidth(int width)}] \hfill \\
-						% TODO document setWidth
-						\item[\texttt{public void setX(int x)}] \hfill \\
-						% TODO document setX
-						\item[\texttt{public void setY(int y)}] \hfill \\
-						% TODO document setY
 					\end{description}
 			\end{description}
 
@@ -101,7 +87,7 @@
 			\end{description}
 
 		\subsubsection{Door}
-				 A pályák befejezésére szolgáló ajtót reprezentálja. 			\begin{description}
+				 A pályák befejezésére szolgáló ajtót reprezentálja.  Ha a Stickman az összes kulcs birtokában megérinti,  a pálya teljesítésre kerül. 			\begin{description}
 
 
 				\item[Ősosztályok] Object $\rightarrow{}$ AbstractFrameItem $\rightarrow{}$ Door.
@@ -117,7 +103,7 @@
 			\end{description}
 
 		\subsubsection{Frame}
-				 Egy pályán belüli keret, amelyben mozoghat a stickman. Tartalmazza a pálya többi objektumát (Door, Key, Platform). 			\begin{description}
+				 Egy pályán belüli keret, amelyben mozoghat a Stickman. Tartalmazza a pálya többi elemét (Door, Key, Platform). 			\begin{description}
 
 
 				\item[Ősosztályok] Object $\rightarrow{}$ Frame.
@@ -130,6 +116,7 @@
 					\begin{description}
 						\item[\texttt{public void addItem(FrameItem item)}] \hfill \\ Hozzáadja a megadott elemet a kerethez. 
 						\item[\texttt{protected boolean checkCollision(Area area)}] \hfill \\ Ellenőrzi, hogy a megadott területen  található-e szilárd objektum. 
+						\item[\texttt{protected boolean isTraversable(Frame frame)}] \hfill \\ Megállapítja, hogy a megadott kerettel  átjárható-e. 
 						\item[\texttt{public void removeItem(FrameItem item)}] \hfill \\ Eltávolítja a megadott elemet a keretből 
 						\item[\texttt{public boolean requestArea(FrameItem item, Area area)}] \hfill \\ A metódust hívó elem kérést intéz a kerethez,  hogy el szeretné foglalni a megadott területet.  A keret felelőssége a terület ellenőrzése, és szabad  terület esetén az elem pozíciójának frissítése. 
 					\end{description}
@@ -142,6 +129,7 @@
 				\item[Ősosztályok] Object $\rightarrow{}$ FrameItem.
 				\item[Metódusok]$\ $
 					\begin{description}
+						\item[\texttt{public void collision(FrameItem colliding)}] \hfill \\ A tartalmazó keret jelezheti ezen a metóduson keresztül,  hogy egy másik elem, melyet paraméterül ad,  hozzáért (collision) ehez az elemhez. 
 						\item[\texttt{public Area getArea()}] \hfill \\ Visszaadja az elem pozícióját a kereten belül. 
 						\item[\texttt{public boolean isSolid()}] \hfill \\ Megadja, hogy az elem szilárd-e vagy sem.  Ez a kereten belüli mozgások esetén az  ütközések ellenőrzésekor használatos. 
 						\item[\texttt{public void setArea(Area area)}] \hfill \\ Beállítja az elem pozícióját a kereten belül. 
@@ -189,7 +177,7 @@
 				\item[Interfészek] (nincs)
 				\item[Attribútumok]$\ $
 					\begin{description}
-						\item[\texttt{protected Collection<Frame> frames}]% TODO
+						\item[] (nincs)
 					\end{description}
 				\item[Metódusok]$\ $
 					\begin{description}
@@ -210,12 +198,12 @@
 					\end{description}
 				\item[Metódusok]$\ $
 					\begin{description}
-						\item[\texttt{public Map getMap(int mapId)}] \hfill \\ Létrehozza a megadott azonosítójú pályát  és feltölti elemekkel. 
+						\item[\texttt{public Map getMap(int mapId, PubSub ps)}] \hfill \\ Létrehozza a megadott azonosítójú pályát  és feltölti elemekkel. 
 					\end{description}
 			\end{description}
 
 		\subsubsection{Platform}
-				 A Stickman és ezzel a játék mozgásterét korlátozó objektum. A framen belül bejárható rész keretezésére szolgál. 			\begin{description}
+				 A Stickman és ezzel a játék mozgásterét korlátozó elem. A framen belül bejárható rész keretezésére szolgál. 			\begin{description}
 
 
 				\item[Ősosztályok] Object $\rightarrow{}$ AbstractFrameItem $\rightarrow{}$ Platform.
@@ -231,7 +219,7 @@
 			\end{description}
 
 		\subsubsection{PubSub}
-				 Üzenet közvetítő csatorna, mely a Publish/Subscribe mintát valósítja meg. 			\begin{description}
+				 Üzenetközvetítő csatorna, mely a Publish/Subscribe mintát valósítja meg. 			\begin{description}
 
 
 				\item[Ősosztályok] Object $\rightarrow{}$ PubSub.
@@ -248,7 +236,7 @@
 			\end{description}
 
 		\subsubsection{Stickman}
-				 A játék által irányított figurát reprezentáló objektum. 			\begin{description}
+				 A játékos által irányított figurát reprezentáló elem. 			\begin{description}
 
 
 				\item[Ősosztályok] Object $\rightarrow{}$ AbstractFrameItem $\rightarrow{}$ Stickman.
@@ -296,94 +284,90 @@
 	
 	\subsection{Szekvencia diagramok}
 	
-		\begin{figure}[ht!]
-			\begin{center}
-				\includegraphics[scale=0.8]{resources/seq_1-0_newMap}
-				% TODO caption
-				\caption{}
-			\end{center}
-		\end{figure}
+		\begin{center}
+			\includepdf[scale=0.8]{resources/seq_1-0_newMap.pdf}
+		\end{center}
+
+		\begin{center}
+			\includepdf[scale=0.8]{resources/seq_1-0_loadGame.pdf}
+		\end{center}
+	
+		\begin{center}
+			\includepdf[scale=0.8]{resources/seq_1-1_addFrameItemToMap.pdf}
+		\end{center}
+	
+		\begin{center}
+			\includepdf[scale=0.8]{resources/seq_2-0_stickmanMoves.pdf}
+		\end{center}
+	
+		\begin{center}
+			\includepdf[scale=0.8]{resources/seq_2-1_interframeMove.pdf}
+		\end{center}
+	
+	    \begin{center}
+			\includepdf[scale=0.8]{resources/seq_2-2_frameChecksCollision.pdf}
+		\end{center}
+	
+		\begin{center}
+			\includepdf[scale=0.8]{resources/seq_2-3_fallOut.pdf}
+		\end{center}
 		
-		\begin{figure}[ht!]
-			\begin{center}
-				\includegraphics[scale=0.8]{resources/seq_1-1_addFrameItemToMap.png}
-				% TODO
-				\caption{}
-			\end{center}
-		\end{figure}
-		
-		\begin{figure}[ht!]
-			\begin{center}
-				\includegraphics[scale=0.8]{resources/seq_2-0_stickmanMoves.png}
-				% TODO
-				\caption{}
-			\end{center}
-		\end{figure}
-		
-		\begin{figure}[ht!]
-			\begin{center}
-				\includegraphics[scale=0.8]{resources/seq_2-1_interframeMove.png}
-				% TODO
-				\caption{}
-			\end{center}
-		\end{figure}
-		
-		\begin{figure}[ht!]
-			\begin{center}
-				\includegraphics[scale=0.8]{resources/seq_2-2_frameChecksCollision.png}
-				% TODO
-				\caption{}
-			\end{center}
-		\end{figure}
-		
-		\begin{figure}[ht!]
-			\begin{center}
-				\includegraphics[scale=0.8]{resources/seq_2-3_fallOut.png}
-				% TODO
-				\caption{}
-			\end{center}
-		\end{figure}
-		
-		\begin{figure}[ht!]
-			\begin{center}
-				\includegraphics[scale=0.8]{resources/seq_2-4_stickmanFalls.png}
-				% TODO
-				\caption{}
-			\end{center}
-		\end{figure}
-		
-		\begin{figure}[ht!]
-			\begin{center}
-			% TODO vegleges kep
-				\includegraphics[scale=0.8]{resources/seq_3-0_moveFrame.png}
-				% TODO
-				\caption{}
-			\end{center}
-		\end{figure}
-		
-		
+		\begin{center}
+			\includepdf[scale=0.8]{resources/seq_2-3_checkNeighbouringFrame.pdf}
+		\end{center}
+	
+		\begin{center}
+			\includepdf[scale=0.8]{resources/seq_2-4_stickmanFalls.pdf}
+		\end{center}
+	
+		\begin{center}
+			\includepdf[scale=0.8]{resources/seq_3-0_moveFrame.pdf}
+		\end{center}
 	
 	\subsection{State-chartok}
 	
-	\begin{figure}[ht!]
-			\begin{center}
-				\includegraphics[scale=0.8]{resources/state_1-0_key.png}
-				% TODO
-				\caption{}
-			\end{center}
-		\end{figure}
-		
-		\begin{figure}[ht!]
-			\begin{center}
-				\includegraphics[scale=0.8]{resources/state_2-0_viewport.png}
-				% TODO
-				\caption{}
-			\end{center}
-		\end{figure}
+		\begin{center}
+			\includepdf[scale=0.8]{resources/state_1-0_key.pdf}
+		\end{center}
+	
+		\begin{center}
+			\includepdf[scale=0.8]{resources/state_2-0_viewport.pdf}
+		\end{center}
 	
 	\subsection{Napló}
 	% The diary generator uses the following comments to identify the beginning and the ending of the generated diary
 	% The following content is auto generated, please do NOT modify, edit the related shared document instead.
 	%GENERATOR:DIARY
-	%GENERATOR:DIARY
+    \begin{center} 
+        \begin{tabular}{| l | p{1.9cm} | p{2.6cm} | p{6.1cm} |}
+            \hline
+                Kezdet & Időtartam & Résztvevők & Leírás \\
+            \hline \hline 
+2012. 02. 21. 20:00 & 1 óra & Fodor & Visual Paradigm modellező eszköz lehetőségeinek felmérése\\ \hline
+2012. 02. 22. 12:00 & 0.5 óra & Értekezlet & Második fázis feladatainak megbeszélése. Döntés: Thaler közzéteszi a munkák alapját adó UML diagramot\\ \hline
+2012. 02. 22. 18:30 & 1.5 óra & Thaler & 03. latex gerinc, korábbi hibák javítása\\ \hline
+2012. 02. 22. 20:00 & 0.5 óra & Thaler & *.vpp fájlok verziókezelési lehetőségeinek vizsgálata\\ \hline
+2012. 02. 22. 20:00 & 1.5 óra & Fodor & Eclipse - VP integráció vizsgálata\\ \hline
+2012. 02. 22. 20:30 & 2 óra & Thaler & Class és Szekv. diagramok készítése\\ \hline
+2012. 02. 22. 8:00 & 1.5 óra & Fodor, Kádár, Thaler & Konzultáció\\ \hline
+2012. 02. 23. 15:30 & 3 óra & Kádár & Java kód generálás, dokumentálás\\ \hline
+2012. 02. 23. 19:00 & 1.5 óra & Thaler & Sequence diagramok készítése\\ \hline
+2012. 02. 23. 20:00 & 2 óra & Fodor & Modellezés\\ \hline
+2012. 02. 25. 15:00 & 3 óra & Thaler & Sequence diagramok készítése\\ \hline
+2012. 02. 26. 08:00 & 1.5 óra & Kádár & Beadandó dokumentum átnézése, nyomtatása\\ \hline
+2012. 02. 26. 11:00 & 1 óra & Thaler & Sequence diagramok készítése\\ \hline
+2012. 02. 26. 13:30 & 1.5 óra & Thaler & Class diagram készítése\\ \hline
+2012. 02. 26. 15:00 & 2.5 óra & Thaler & JavaToLatex tool szerkesztése\\ \hline
+2012. 02. 26. 17:30 & 1.5 óra & Thaler & Osztályok dokumentálása\\ \hline
+2012. 02. 26. 18:00 & 6 óra & Fodor & Modellezés, Diagramok átnézése/kiegészítése, felelősségek dokumentálása\\ \hline
+2012. 02. 26. 19:30 & 2 óra & Thaler & Modellezés\\ \hline
+2012. 02. 26. 20:00 & 1 óra & Berki & UML -> PNG transzformáció és latex beillesztés\\ \hline
+2012. 02. 26. 21:30 & 1 óra & Thaler & javaToLatex tool autoinsert\\ \hline
+2012. 02. 26. 22:20 & 2 óra & Kádár & UML to vektorformátum\\ \hline
+2012. 02. 26. 22:30 & 1.5 óra & Thaler & Generált tartalmak beillesztése, tisztítás, napló\\ \hline
+
+            \hline
+        \end{tabular}
+    \end{center}
+%GENERATOR:DIARY
 \end{document}
