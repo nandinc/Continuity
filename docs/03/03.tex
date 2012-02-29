@@ -14,8 +14,8 @@
 			\item[AbstractFrameItem] Alapértelmezett megvalósítása egy keretben lévő objektumnak.
 			\item[Area] Területrészt leíró osztály. Összehasonlítható egy másik osztállyal, hogy fedik-e egymást.
 			\item[DIRECTION] Irányokat jelöl a két dimenziós térben.
-			\item[Door] Ajtó objektum, melyet ha megérint a Stickman úgy hogy az összes kulcs a birtokában van, az objektum a pálya teljesítettségét jelző eseményt bocsát ki.
-			\item[Frame] A pálya által alkotott táblázat egy cellája, amely elemeket tartalmaz. Ez felelős az elemek (Stickman) mozgatásáért kereten belül és között egyaránt.
+			\item[Door] Ajtó objektum, melyet ha megérint a Stickman arról esemény bocsát ki.
+			\item[Frame] A pálya által alkotott táblázat egy cellája, amely elemeket tartalmaz. Ez felelős az elemek (Stickman) mozgatásáért kereten belül és között egyaránt. Két elem egy helyen való tartózkodásáról értesíti az elemeket (collision notify).
 			\item[FrameItem] A keretben elhelyezkedő elemek által megvalósított iterfész, melyen keresztül a keret menedzselni tudja a benne lévő elemeket.
 			\item[Game] A játékot reprezentáló objektum, amely kezeli az aktuális pályát.
 			\item[Key] Kulcs elem, melyet megérintve a Stickman meg tud szerezni. Erről egy esemény küldésén keresztül értesíti a külvilágot.
@@ -36,7 +36,7 @@
 				 Alapértelmezett megvalósítása egy keretbe helyezett objektumnak.   Nyilvántartja a kereten belüli pozícióját, valamint hordoz  egy referenciát a tartalmazó keretre. 			\begin{description}
 
 
-				\item[Ősosztályok] Object $\rightarrow{}$ AbstractFrameItem.
+				\item[Ősosztályok] (nincs).
 				\item[Interfészek] FrameItem.
 				\item[Attribútumok]$\ $
 					\begin{description}
@@ -53,7 +53,7 @@
 				 Egy tetszőleges keret egy területét leíró osztály.  Ez az osztály elfedi, hogy egy keret valójában hány dimenziós,  valamint azt, hogy egy keret egy összefüggő ponthalmaza milyen   paraméterekkel írható le. 			\begin{description}
 
 
-				\item[Ősosztályok] Object $\rightarrow{}$ Area.
+				\item[Ősosztályok] (nincs).
 				\item[Interfészek] (nincs)
 				\item[Attribútumok]$\ $
 					\begin{description}
@@ -64,7 +64,23 @@
 					\end{description}
 				\item[Metódusok]$\ $
 					\begin{description}
+%						\item[\texttt{public int getHeight()}] \hfill \\
+						% TODO document getHeight
+%						\item[\texttt{public int getWidth()}] \hfill \\
+						% TODO document getWidth
+%						\item[\texttt{public int getX()}] \hfill \\
+						% TODO document getX
+%						\item[\texttt{public int getY()}] \hfill \\
+						% TODO document getY
 						\item[\texttt{public boolean hasCollision(Area area)}] \hfill \\ Ellenőrzi, hogy a kapott Area objektummal van-e közös pontja.  A metódus feltételezi, hogy a két terület azonos keretben található. 
+%						\item[\texttt{public void setHeight(int height)}] \hfill \\
+						% TODO document setHeight
+%						\item[\texttt{public void setWidth(int width)}] \hfill \\
+						% TODO document setWidth
+%						\item[\texttt{public void setX(int x)}] \hfill \\
+						% TODO document setX
+%						\item[\texttt{public void setY(int y)}] \hfill \\
+						% TODO document setY
 					\end{description}
 			\end{description}
 
@@ -72,7 +88,7 @@
 				 Enumeráció. Elfedi, hogy a játéktér hány dimenziós.  A tartalmazott elemek leírják az összes lehetséges irányt,   melybe a játékos mozoghat, vagy keretet cserélhet.  			\begin{description}
 
 
-				\item[Ősosztályok] Object $\rightarrow{}$ DIRECTION.
+				\item[Ősosztályok] (nincs).
 				\item[Interfészek] (nincs)
 				\item[Attribútumok]$\ $
 					\begin{description}
@@ -88,7 +104,7 @@
 				 A pályák befejezésére szolgáló ajtót reprezentálja.  Ha a Stickman az összes kulcs birtokában megérinti,  a pálya teljesítésre kerül. 			\begin{description}
 
 
-				\item[Ősosztályok] Object $\rightarrow{}$ AbstractFrameItem $\rightarrow{}$ Door.
+				\item[Ősosztályok] AbstractFrameItem $\rightarrow{}$ Door.
 				\item[Interfészek] (nincs)
 				\item[Attribútumok]$\ $
 					\begin{description}
@@ -104,7 +120,7 @@
 				 Egy pályán belüli keret, amelyben mozoghat a Stickman. Tartalmazza a pálya többi elemét (Door, Key, Platform). 			\begin{description}
 
 
-				\item[Ősosztályok] Object $\rightarrow{}$ Frame.
+				\item[Ősosztályok] (nincs).
 				\item[Interfészek] (nincs)
 				\item[Attribútumok]$\ $
 					\begin{description}
@@ -124,7 +140,7 @@
 				 A Frame osztály ezen a felületen keresztül éri el a tartalmazott objektumokat.   Ezen interfacet valósítják meg a pályán lévő objektumok (Platform, Door, Key, Stickman) 			\begin{description}
 
 
-				\item[Ősosztályok] Object $\rightarrow{}$ FrameItem.
+				\item[Ősosztályok] (nincs).
 				\item[Metódusok]$\ $
 					\begin{description}
 						\item[\texttt{public void collision(FrameItem colliding)}] \hfill \\ A tartalmazó keret jelezheti ezen a metóduson keresztül,  hogy egy másik elem, melyet paraméterül ad,  hozzáért (collision) ehez az elemhez. 
@@ -139,7 +155,7 @@
 				 A játékot szervező objektum. Felelős az új pályák betöltéséért és a teljesített pályák törléséért. 			\begin{description}
 
 
-				\item[Ősosztályok] Object $\rightarrow{}$ Game.
+				\item[Ősosztályok] (nincs).
 				\item[Interfészek] (nincs)
 				\item[Attribútumok]$\ $
 					\begin{description}
@@ -155,7 +171,7 @@
 				 A pályán található kulcsokat reprezentáló objektum. 			\begin{description}
 
 
-				\item[Ősosztályok] Object $\rightarrow{}$ AbstractFrameItem $\rightarrow{}$ Key.
+				\item[Ősosztályok] AbstractFrameItem $\rightarrow{}$ Key.
 				\item[Interfészek] (nincs)
 				\item[Attribútumok]$\ $
 					\begin{description}
@@ -171,11 +187,11 @@
 				 A pályákat reprezentálja. Tartalmazza a kereteket és azok elhelyezkedését,  kontrolállja az átrendezésüket. 			\begin{description}
 
 
-				\item[Ősosztályok] Object $\rightarrow{}$ Map.
+				\item[Ősosztályok] (nincs).
 				\item[Interfészek] (nincs)
 				\item[Attribútumok]$\ $
 					\begin{description}
-						\item[] (nincs)
+						\item[\texttt{protected Collection<Frame> frames}]% TODO
 					\end{description}
 				\item[Metódusok]$\ $
 					\begin{description}
@@ -188,7 +204,7 @@
 				 Azonosító alapján Pályákat szolgáltat.  Létrehozza a pályát, majd az azonosító alapján feltölti  a megfelelő objektumokkal. 			\begin{description}
 
 
-				\item[Ősosztályok] Object $\rightarrow{}$ MapFactory.
+				\item[Ősosztályok] (nincs).
 				\item[Interfészek] (nincs)
 				\item[Attribútumok]$\ $
 					\begin{description}
@@ -204,7 +220,7 @@
 				 A Stickman és ezzel a játék mozgásterét korlátozó elem. A framen belül bejárható rész keretezésére szolgál. 			\begin{description}
 
 
-				\item[Ősosztályok] Object $\rightarrow{}$ AbstractFrameItem $\rightarrow{}$ Platform.
+				\item[Ősosztályok] AbstractFrameItem $\rightarrow{}$ Platform.
 				\item[Interfészek] (nincs)
 				\item[Attribútumok]$\ $
 					\begin{description}
@@ -220,7 +236,7 @@
 				 Üzenetközvetítő csatorna, mely a Publish/Subscribe mintát valósítja meg. 			\begin{description}
 
 
-				\item[Ősosztályok] Object $\rightarrow{}$ PubSub.
+				\item[Ősosztályok] (nincs).
 				\item[Interfészek] (nincs)
 				\item[Attribútumok]$\ $
 					\begin{description}
@@ -237,7 +253,7 @@
 				 A játékos által irányított figurát reprezentáló elem. 			\begin{description}
 
 
-				\item[Ősosztályok] Object $\rightarrow{}$ AbstractFrameItem $\rightarrow{}$ Stickman.
+				\item[Ősosztályok] AbstractFrameItem $\rightarrow{}$ Stickman.
 				\item[Interfészek] (nincs)
 				\item[Attribútumok]$\ $
 					\begin{description}
@@ -255,7 +271,7 @@
 				 A PubSub objektumnak átadható eseménykezelő felülete. 			\begin{description}
 
 
-				\item[Ősosztályok] Object $\rightarrow{}$ Subscriber.
+				\item[Ősosztályok] (nincs).
 				\item[Metódusok]$\ $
 					\begin{description}
 						\item[\texttt{public void eventEmitted(String eventName, Object eventParameter)}] \hfill \\ A PubSub objektum által meghívott metódus,  a feliratkozott esemény bekövetkeztekor. 
@@ -266,7 +282,7 @@
 				 Az idő múlását nyilvántartó objektum.   Elsősorban Stickman esését szabályozhatjuk vele, de a  periodikus időközönként kiadott 'tick' események  a stickmentől vagy bármely más objektumtól függetlenek.  			\begin{description}
 
 
-				\item[Ősosztályok] Object $\rightarrow{}$ Timer.
+				\item[Ősosztályok] (nincs).
 				\item[Interfészek] (nincs)
 				\item[Attribútumok]$\ $
 					\begin{description}
@@ -296,8 +312,8 @@
 \begin{center}\includegraphics[scale=1]{resources/22FrameChecksCollision.png}\end{center}
 \begin{center}\includegraphics[scale=1]{resources/23CheckNeighbouringFrame.png}\end{center}
 \begin{center}\includegraphics[scale=1]{resources/24Stickmanfalls.png}\end{center}
-\begin{center}\includegraphics[scale=1]{resources/25PickingUpKey.png}\end{center}
-\begin{center}\includegraphics[scale=0.8, angle=-90]{resources/26CollisionNotification.png}\end{center}
+\begin{center}\includegraphics[scale=1]{resources/25Pickingupakey.png}\end{center}
+\begin{center}\includegraphics[scale=0.8, angle=-90]{resources/26Collisionnotification.png}\end{center}
 
 	\subsection{State-chartok}
 \begin{center}\includegraphics[scale=1]{resources/10Key.png}\end{center}	
