@@ -100,7 +100,12 @@ public class javaToLatex extends Doclet {
 				generatedDescribeDoc += "\n";
 			}
 			
-			generatedDescribeDoc += "\n\t\t\t\t\\item[Ősosztályok] " + getSupers(cd) + ".\n";
+			String superclass = getSupers(cd);
+			// has no 'real' superclass
+			if (superclass.compareTo(cd.name()) == 0) {
+				superclass = "(nincs)";
+			}
+			generatedDescribeDoc += "\n\t\t\t\t\\item[Ősosztályok] " + superclass + ".\n";
 			
 			if (!cd.isInterface()) {
 				generatedDescribeDoc += "\t\t\t\t\\item[Interfészek] " + getIfaces(cd) + "\n";
@@ -136,7 +141,9 @@ public class javaToLatex extends Doclet {
 
 	private static String getSupers(ClassDoc cl) {
 		ClassDoc sup = cl.superclass();
-		if (sup != null) {
+		
+		// get supers super recursively if super exists and it's not Object (java.lang.Object)
+		if (sup != null && cl.superclass().name().compareTo("Object") != 0) {
 			return getSupers(sup) + " $\\rightarrow{}$ " + cl.name();
 		} else {
 			return cl.name();
@@ -171,6 +178,12 @@ public class javaToLatex extends Doclet {
 		Arrays.sort(mems);
 		for (MethodDoc mem : mems) {
 			if (mem.name().compareTo("toString") != 0) {
+				
+				// make not documented members unvisible
+				if (mem.commentText().length() < 5) {
+					generatedMemberDoc += "%";
+				}
+				
 				generatedMemberDoc += "\t\t\t\t\t\t\\item[\\texttt{" + mem.modifiers() + " "
 					+ getTypeName(mem.returnType()) + " "
 					+ mem.name().replace("_", "\\_") + "(" + getParams(mem).replace("_", "\\_") + ")}] \\hfill \\\\";
