@@ -49,12 +49,14 @@ public class Frame {
     }
 
     /**
-     * Megállapítja, hogy a megadott kerettel
-     * átjárható-e.
+     * Megállapítja, hogy a megkapott Keret és saját
+     * maga között fennáll-e az átjárhatóság a
+     * megadott irányban.
      * 
      * @param frame
+     * @param d
      */
-    protected boolean isTraversable(Frame frame) {
+    protected boolean isTraversable(Frame frame, DIRECTION d) {
         throw new UnsupportedOperationException();
     }
 }

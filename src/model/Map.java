@@ -4,13 +4,18 @@ import java.util.*;
 
 /**
  * A pályákat reprezentálja. Tartalmazza a kereteket és azok elhelyezkedését,
- * kontrolállja az átrendezésüket.
+ * kontrolállja az átrendezésüket, melyet kommunikáció nélkül meg tud tenni, mivel a keretek nem tudnak relatív elhelyezkedésükről.
  * 
- * @responsibility Számon tartja a pályán elhelyezett kulcsokat számát, valamint a már összegyűjtött kulcsok számát. Felelős a keretek mozgatásáért.
+ * @responsibility Számon tartja a pályán elhelyezett kulcsokat számát, valamint a már összegyűjtött kulcsok számát. Felelős a keretek mozgatásáért, amit kommunikácó nélkül meg tud valósítani.
  */
 public class Map {
 
-        protected Collection<Frame> frames = new ArrayList<Frame>();
+	/**
+	 * A pályához tartozó kereteket tárolja. A Map osztály
+	 * meg tudja állapítani a keretek közötti szomszédossági
+	 * viszonyokat a gyűjtemény alapján.
+	 */
+    protected Collection<Frame> frames;
 
     /**
      * Hozzáadja a megadott elemet az elem által specifikált pozícióhoz.
@@ -33,6 +38,16 @@ public class Map {
      * @param direction
      */
     public Frame getNeighbour(Frame caller, DIRECTION direction) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Kicseréli az üres helyet a megadott iránnyal ellentétes
+     * szomszédjával.
+     * 
+     * @param d Mozgazás iránya
+     */
+    public void moveFrame(DIRECTION d) {
         throw new UnsupportedOperationException();
     }
 

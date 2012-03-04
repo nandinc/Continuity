@@ -7,10 +7,10 @@ package model;
  */
 public class Key extends AbstractFrameItem {
 
-    /**
-     * Flag, ami jelzi, hogy megszerezték-e a kulcsot.
-     */
-    private boolean collected = false;
+	/**
+	 * A kulcs összegyűjtöttségének állapotát tárolja.
+	 */
+    private boolean collected;
 
     /**
      * Megadja, hogy megszerezték-e a kulcsot.

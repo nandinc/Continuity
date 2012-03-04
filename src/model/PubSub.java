@@ -1,5 +1,7 @@
 package model;
 
+import java.util.*;
+
 /**
  * Üzenetközvetítő csatorna, mely a Publish/Subscribe mintát valósítja meg.
  * 
@@ -26,5 +28,10 @@ public class PubSub {
     public void on(String eventName, Subscriber callback) {
         throw new UnsupportedOperationException();
     }
+
+    /**
+     * Az eseményekre feliratkozott eseménykezelőket tárolja.
+     */
+    private Collection<Subscriber> subscribers;
 
 }
