@@ -19,7 +19,7 @@
 			\item[FrameItem] A keretben elhelyezkedő elemek által megvalósított iterfész, melyen keresztül a keret menedzselni tudja a benne lévő elemeket.
 			\item[Game] A játékot reprezentáló objektum, amely kezeli az aktuális pályát.
 			\item[Key] Kulcs elem, melyet megérintve a Stickman meg tud szerezni. Erről egy esemény küldésén keresztül értesíti a külvilágot.
-			\item[Map] Számon tartja a pályán elhelyezett kulcsokat számát, valamint a már összegyűjtött kulcsok számát. Felelős a keretek mozgatásáért.
+			\item[Map] Számon tartja a pályán elhelyezett kulcsokat számát, valamint a már összegyűjtött kulcsok számát. Felelős a keretek mozgatásáért, amit kommunikácó nélkül meg tud valósítani.
 			\item[MapFactory] Felelős a pályák létrehozásáért, bennük a keretek és az elemek elhelyezéséért.
 			\item[Platform] Olyan elem, mellyel nem tud a Stickman egy helyen tartózkodni, azaz korlátozza a Stickman mozgásterét.
 			\item[PubSub] Üzenetközvetítő osztály, mely feliratkozásokat tart számon, és ha valakitől eseményt kap, arról értesíti az arra feliratkozottakat.
@@ -43,10 +43,7 @@
 						\item[\texttt{protected Area area}] A tartalmazó kereten belül elfoglalt pozíció 
 						\item[\texttt{protected Frame frame}] A tartalmazó keret 
 					\end{description}
-				\item[Metódusok]$\ $
-					\begin{description}
-						\item[] (nincs)
-					\end{description}
+				\item[Metódusok] (nincs)
 			\end{description}
 
 		\subsubsection{Area}
@@ -90,14 +87,8 @@
 
 				\item[Ősosztályok] (nincs).
 				\item[Interfészek] (nincs)
-				\item[Attribútumok]$\ $
-					\begin{description}
-						\item[] (nincs)
-					\end{description}
-				\item[Metódusok]$\ $
-					\begin{description}
-						\item[] (nincs)
-					\end{description}
+				\item[Attribútumok] (nincs)
+				\item[Metódusok] (nincs)
 			\end{description}
 
 		\subsubsection{Door}
@@ -106,14 +97,8 @@
 
 				\item[Ősosztályok] AbstractFrameItem $\rightarrow{}$ Door.
 				\item[Interfészek] (nincs)
-				\item[Attribútumok]$\ $
-					\begin{description}
-						\item[] (nincs)
-					\end{description}
-				\item[Metódusok]$\ $
-					\begin{description}
-						\item[] (nincs)
-					\end{description}
+				\item[Attribútumok] (nincs)
+				\item[Metódusok] (nincs)
 			\end{description}
 
 		\subsubsection{Frame}
@@ -122,15 +107,12 @@
 
 				\item[Ősosztályok] (nincs).
 				\item[Interfészek] (nincs)
-				\item[Attribútumok]$\ $
-					\begin{description}
-						\item[] (nincs)
-					\end{description}
+				\item[Attribútumok] (nincs)
 				\item[Metódusok]$\ $
 					\begin{description}
 						\item[\texttt{public void addItem(FrameItem item)}] \hfill \\ Hozzáadja a megadott elemet a kerethez. 
 						\item[\texttt{protected boolean checkCollision(Area area)}] \hfill \\ Ellenőrzi, hogy a megadott területen  található-e szilárd objektum. 
-						\item[\texttt{protected boolean isTraversable(Frame frame)}] \hfill \\ Megállapítja, hogy a megadott kerettel  átjárható-e. 
+						\item[\texttt{protected boolean isTraversable(Frame frame, DIRECTION d)}] \hfill \\ Megállapítja, hogy a megkapott Keret és saját  maga között fennáll-e az átjárhatóság a  megadott irányban. 
 						\item[\texttt{public void removeItem(FrameItem item)}] \hfill \\ Eltávolítja a megadott elemet a keretből 
 						\item[\texttt{public boolean requestArea(FrameItem item, Area area)}] \hfill \\ A metódust hívó elem kérést intéz a kerethez,  hogy el szeretné foglalni a megadott területet.  A keret felelőssége a terület ellenőrzése, és szabad  terület esetén az elem pozíciójának frissítése. 
 					\end{description}
@@ -175,7 +157,7 @@
 				\item[Interfészek] (nincs)
 				\item[Attribútumok]$\ $
 					\begin{description}
-						\item[\texttt{private boolean collected}] Flag, ami jelzi, hogy megszerezték-e a kulcsot. 
+						\item[\texttt{private boolean collected}] A kulcs összegyűjtöttségének állapotát tárolja. 
 					\end{description}
 				\item[Metódusok]$\ $
 					\begin{description}
@@ -184,19 +166,20 @@
 			\end{description}
 
 		\subsubsection{Map}
-				 A pályákat reprezentálja. Tartalmazza a kereteket és azok elhelyezkedését,  kontrolállja az átrendezésüket. 			\begin{description}
+				 A pályákat reprezentálja. Tartalmazza a kereteket és azok elhelyezkedését,  kontrolállja az átrendezésüket, melyet kommunikáció nélkül meg tud tenni, mivel a keretek nem tudnak relatív elhelyezkedésükről. 			\begin{description}
 
 
 				\item[Ősosztályok] (nincs).
 				\item[Interfészek] (nincs)
 				\item[Attribútumok]$\ $
 					\begin{description}
-						\item[] (nincs)
+						\item[\texttt{protected Collection<Frame> frames}] A pályához tartozó kereteket tárolja. A Map osztály  meg tudja állapítani a keretek közötti szomszédossági  viszonyokat a gyűjtemény alapján. 
 					\end{description}
 				\item[Metódusok]$\ $
 					\begin{description}
 						\item[\texttt{public void addItem(FrameItem item)}] \hfill \\ Hozzáadja a megadott elemet az elem által specifikált pozícióhoz.  Amennyiben a pálya inicializálása során az adott helyen még nincs keret,  létrehoz egyet.   A hozzáadott elem pozícióját megváltoztatja úgy, hogy az relatív  legyen a tartalmazó kerethez. 
 						\item[\texttt{public Frame getNeighbour(Frame caller, DIRECTION direction)}] \hfill \\ Visszaadja a megadott keret direction irányba található  szomszédját. null-t ad vissza, ha a megadott irányban  nincs szomszéd. 
+						\item[\texttt{public void moveFrame(DIRECTION d)}] \hfill \\ Kicseréli az üres helyet a megadott iránnyal ellentétes  szomszédjával. 
 					\end{description}
 			\end{description}
 
@@ -206,10 +189,7 @@
 
 				\item[Ősosztályok] (nincs).
 				\item[Interfészek] (nincs)
-				\item[Attribútumok]$\ $
-					\begin{description}
-						\item[] (nincs)
-					\end{description}
+				\item[Attribútumok] (nincs)
 				\item[Metódusok]$\ $
 					\begin{description}
 						\item[\texttt{public Map getMap(int mapId, PubSub ps)}] \hfill \\ Létrehozza a megadott azonosítójú pályát  és feltölti elemekkel. 
@@ -222,14 +202,8 @@
 
 				\item[Ősosztályok] AbstractFrameItem $\rightarrow{}$ Platform.
 				\item[Interfészek] (nincs)
-				\item[Attribútumok]$\ $
-					\begin{description}
-						\item[] (nincs)
-					\end{description}
-				\item[Metódusok]$\ $
-					\begin{description}
-						\item[] (nincs)
-					\end{description}
+				\item[Attribútumok] (nincs)
+				\item[Metódusok] (nincs)
 			\end{description}
 
 		\subsubsection{PubSub}
@@ -240,7 +214,7 @@
 				\item[Interfészek] (nincs)
 				\item[Attribútumok]$\ $
 					\begin{description}
-						\item[] (nincs)
+						\item[\texttt{private Collection<Subscriber> subscribers}] Az eseményekre feliratkozott eseménykezelőket tárolja. 
 					\end{description}
 				\item[Metódusok]$\ $
 					\begin{description}
@@ -255,10 +229,7 @@
 
 				\item[Ősosztályok] AbstractFrameItem $\rightarrow{}$ Stickman.
 				\item[Interfészek] (nincs)
-				\item[Attribútumok]$\ $
-					\begin{description}
-						\item[] (nincs)
-					\end{description}
+				\item[Attribútumok] (nincs)
 				\item[Metódusok]$\ $
 					\begin{description}
 						\item[\texttt{private Area getNewAreaByDirection(DIRECTION direction)}] \hfill \\ A figura igényelt elmozdulása után elfoglalandó  terület kiszámítása. 
@@ -274,7 +245,7 @@
 				\item[Ősosztályok] (nincs).
 				\item[Metódusok]$\ $
 					\begin{description}
-						\item[\texttt{public void eventEmitted(String eventName, Object eventParameter)}] \hfill \\ A PubSub objektum által meghívott metódus,  a feliratkozott esemény bekövetkeztekor. 
+						\item[\texttt{public void eventEmitted(String eName, Object eParameter)}] \hfill \\ A PubSub objektum által meghívott metódus,  a feliratkozott esemény bekövetkeztekor. 
 					\end{description}
 			\end{description}
 
@@ -288,10 +259,7 @@
 					\begin{description}
 						\item[\texttt{ PubSub pubsub}] Az eseménykezelő csatorna,  melyen jelzi az idő múlását. 
 					\end{description}
-				\item[Metódusok]$\ $
-					\begin{description}
-						\item[] (nincs)
-					\end{description}
+				\item[Metódusok] (nincs)
 			\end{description}
 
 %GENERATOR:CLASS_DESCRIPTIONS
@@ -313,6 +281,7 @@
 \begin{center}\includegraphics[scale=1]{resources/23CheckNeighbouringFrame.png}\end{center}
 \begin{center}\includegraphics[scale=1]{resources/24Stickmanfalls.png}\end{center}
 \begin{center}\includegraphics[scale=1]{resources/25Pickingupakey.png}\end{center}
+\begin{center}\includegraphics[scale=1]{resources/30MoveFrame.png}\end{center}
 \begin{center}\includegraphics[scale=0.8, angle=-90]{resources/26Collisionnotification.png}\end{center}
 
 	\subsection{State-chartok}
@@ -324,5 +293,20 @@
 	% The diary generator uses the following comments to identify the beginning and the ending of the generated diary
 	% The following content is auto generated, please do NOT modify, edit the related shared document instead.
 	%GENERATOR:DIARY
-    %GENERATOR:DIARY
+    \begin{center} 
+        \begin{tabular}{| l | p{1.9cm} | p{2.6cm} | p{6.1cm} |}
+            \hline
+                Kezdet & Időtartam & Résztvevők & Leírás \\
+            \hline \hline 
+2012. 02. 29. 08:00 & 1.5 óra & Fodor, Thaler & Konzultáció\\ \hline
+2012. 02. 29. 16:30 & 1.5 óra & Thaler & Kért módosítások implementálása\\ \hline
+2012. 02. 30. 21:00 & 3 óra & Berki & Javítások átnézése\\ \hline
+2012. 02. 31. 19:00 & 2 óra & Berki & További javítások\\ \hline
+2012. 03. 04. 20:00 & 1.5 óra & Thaler & Sequence diagram javítás\\ \hline
+2012. 03. 05. 21:30 & 0.5 óra & Berki & Nyomtatás\\ \hline
+
+            \hline
+        \end{tabular}
+    \end{center}
+%GENERATOR:DIARY
 \end{document}
