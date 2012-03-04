@@ -55,7 +55,7 @@ public class javaToLatex extends Doclet {
 	public static boolean start(RootDoc root) {
 		String latexResponsibilityPlaceholder = "%GENERATOR:CLASS_RESPONSIBILITY";
 		String latexDescribePlaceholder = "%GENERATOR:CLASS_DESCRIPTIONS";
-		String targetFile = "../docs/03/03.tex";
+		String targetFile = "../docs/04/04.tex";
 		String generatedResponsibilityDoc = latexResponsibilityPlaceholder + "\n";
 		String generatedDescribeDoc = latexDescribePlaceholder + "\n";
 		
@@ -109,13 +109,24 @@ public class javaToLatex extends Doclet {
 			
 			if (!cd.isInterface()) {
 				generatedDescribeDoc += "\t\t\t\t\\item[Interfészek] " + getIfaces(cd) + "\n";
-				generatedDescribeDoc += "\t\t\t\t\\item[Attribútumok]$\\ $\n\t\t\t\t\t\\begin{description}\n";
-				generatedDescribeDoc += printFields(cd.fields());
-				generatedDescribeDoc += "\t\t\t\t\t\\end{description}\n";
+				
+				if (cd.fields().length > 0) {
+					generatedDescribeDoc += "\t\t\t\t\\item[Attribútumok]$\\ $\n\t\t\t\t\t\\begin{description}\n";
+					generatedDescribeDoc += printFields(cd.fields());
+					generatedDescribeDoc += "\t\t\t\t\t\\end{description}\n";
+				} else {
+					generatedDescribeDoc += "\t\t\t\t\\item[Attribútumok] (nincs)\n";
+				}
 			}
-			generatedDescribeDoc += "\t\t\t\t\\item[Metódusok]$\\ $\n\t\t\t\t\t\\begin{description}\n";
-			generatedDescribeDoc += printMembers(cd.methods());
-			generatedDescribeDoc += "\t\t\t\t\t\\end{description}\n";
+			
+			if (cd.methods().length > 0) {
+				generatedDescribeDoc += "\t\t\t\t\\item[Metódusok]$\\ $\n\t\t\t\t\t\\begin{description}\n";
+				generatedDescribeDoc += printMembers(cd.methods());
+				generatedDescribeDoc += "\t\t\t\t\t\\end{description}\n";
+			} else {
+				generatedDescribeDoc += "\t\t\t\t\\item[Metódusok] (nincs)\n";
+			}
+			
 			generatedDescribeDoc += "\t\t\t\\end{description}\n";
 			generatedDescribeDoc += "\n";
 		}
