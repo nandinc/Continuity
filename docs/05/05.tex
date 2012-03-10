@@ -67,6 +67,37 @@
 		\end{enumerate}
 	
 	\subsection{A szkeleton kezelői felületének terve, dialógusok}
+		A szkeleton, mint program célja annak bizonyítása, hogy a programunk statikus és dinamikus modelljeiről leképzett programváz képes az elvárt működést produkálni. A szkeletonban minden objektum szerepel, de azoknak csak az interfésze definiált.
+		
+		A szkeleton működését össze kell tudnunk vetni az elkészített szekvencia diagramokkal. Ezt úgy érjük el, hogy minden egyes metódushíváskor kiírjuk a konzolra a hívott metódus és osztály nevét, az objektum azonosítóját, valamint az átadott paraméterek jellemzőit. A metódusból való visszatérésnél ezt újra megtesszük, és kiegészítjük a visszatérési értékkel. Jelen esetben az objektum azonosítását a Java beépített hash code attribútumának segítségével fogjuk megoldani. A könnyebb eligazodás kedvéért a metódushívási hierarchiának megfelelő behúzást használunk.
+		
+		Mivel a szkeletonból hiányzik az üzleti logika megvalósítása, ezért a feltételes elágazásoknál felhasználói interakcióra van szükség. Ilyenkor megállítjuk a programot, a konzolon egy kérdést jelenítünk meg, majd miután a felhasználó bevitte a megfelelő értéket, folytatjuk a program futását.
+		
+		\subsubsection*{Metódushívás során megjelenített adatok}
+			\begin{itemize}
+				\item Osztály neve
+				\item Objektum azonosítója (hash code)
+				\item Metódus neve
+				\item Paraméter lista: osztálynév, objektumazonosító
+			\end{itemize}					
+		
+		\subsubsection*{Minta kimenet}
+			\begin{verbatim}
+			-> Map[867].addItem(FrameItem[868])
+			  -> FrameItem[868].getArea()
+			  <- FrameItem[868].getArea() :: Area[869]
+			  < Is frame at area? (y/n)
+			  > y
+			  -> Frame[450].addItem(FrameItem[868])
+			    -> FrameItem[868].setFrame(Frame[450])
+			    <- FrameItem[868].setFrame(Frame[450])
+			  <- Frame[450].addItem(FrameItem[868])
+			  -> Area[870].Area()
+			  <- Area[870].Area()
+			  -> FrameItem[868].setArea(Area[870])
+			  <- FrameItem[868].setArea(Area[870])
+			<- Map[867].addItem(FrameItem[868])
+			\end{verbatim}
 	
 	\subsection{Szekvencia diagramok a belső működésre}
 	
