@@ -1,5 +1,7 @@
 \input{../head}
 
+\usepackage{enumitem}
+
 \begin{document}
 
 \anyag{5. Szkeleton tervezése}
@@ -15,6 +17,54 @@
 		\subsubsection{Use-case leírások}
 	
 	\subsection{Architektúra}
+		Az architektúra felépítésében arra törekedik a csapatunk, hogy a szkeletonban minden egyes use-case letesztelhető legyen és meg lehessen állapítani, hogy az előző, analízisben rögzített szekvencia diagramoknak megfelelően működik minden. A tesztesetek futtatására előre inicializált pályák állnak majd rendelkezésünkre, hogy a fontos szituációk élesben is tesztelhetőek legyenek. A szkeleton tesztelése szekvenciálisan fog lefutni, ezért nincs szükség a konkurrens feladatok vizsgálatára.
+		A tesztpályák úgy lettek megválasztva, hogy az adott használati eseteket legjobban mutassák be, minél kevesebb objektummal, hogy a vizsgálandó rész legyen a középpontban. A tesztpályák mellett feltüntettük az általuk használt frame-ek számát, a realizált objektumokat, illetve a tesztelés célját. Ezeken kívül az átláthatóság érdekében az 5.1.2 Use-case leírásokban számozott használati esetek számát, amelyek reprezentálódnak.
+								
+		\begin{enumerate}[label=\textbf{\arabic*.}, start=0]
+		
+			\newcommand{\testitem}[1]{\item \textbf{Tesztpálya -- #1}\\}
+			\newcommand{\tframe}[1]{\textbf{Frame-ek száma:} #1\\}
+			\newcommand{\tobjekt}[1]{\textbf{Objektumok:} #1\\}
+			\newcommand{\tcel}[1]{\textbf{Cél:} #1\\}
+			\newcommand{\tuse}[1]{\textbf{Tesztelt Use-Case:} #1\\}
+		
+			\testitem{Inicializálás}
+				\tframe{1}
+				\tobjekt{Minden, a futtatáshoz szükséges objektumtípusból legalább egy.
+					(Game, Timer, PubSub, MapFactory, Map, Frame, Platform, Door, Key, Stickman, stb.)}
+				\tcel{Objektumok létrehozása, kapcsolatok kialakításának bemutatása.}
+				\tuse{} 
+			\testitem{NÉVNÉVNÉV}
+				\tframe{}
+				\tobjekt{}
+				\tcel{} 
+				\tuse{}
+			\testitem{NÉVNÉVNÉV}
+				\tframe{}
+				\tobjekt{}
+				\tcel{} 
+				\tuse{}
+			\testitem{NÉVNÉVNÉV}
+				\tframe{}
+				\tobjekt{}
+				\tcel{} 
+				\tuse{}
+			\testitem{NÉVNÉVNÉV}
+				\tframe{}
+				\tobjekt{}
+				\tcel{} 
+				\tuse{}
+			\testitem{NÉVNÉVNÉV}
+				\tframe{}
+				\tobjekt{}
+				\tcel{} 
+				\tuse{}
+			\testitem{NÉVNÉVNÉV}
+				\tframe{}
+				\tobjekt{}
+				\tcel{} 
+				\tuse{} 
+		\end{enumerate}
 	
 	\subsection{A szkeleton kezelői felületének terve, dialógusok}
 	
