@@ -12,93 +12,95 @@
 
 	\subsection{A szkeleton modell valóságos use-case-ei}
         %domain specific commands
-        \newcommand{\ucitem}[1]{\item \textbf{Use-case neve: } #1\\}
+        \newcommand{\ucitem}[1]{\item \textbf{Use case neve: } #1\\}
         \newcommand{\ucdesc}[1]{\textbf{Leírás: } #1\\}
         \newcommand{\ucscenario}[1]{\textbf{Forgatókönyv: }#1\\}
         
-		\subsubsection{Játékos Use-case diagram}
+		\subsubsection{Játékos use case diagram}
 		    \begin{center}
 			    \includegraphics[scale=0.9]{resources/Player.png}
 		    \end{center}
 		
-		\subsubsection{Játékos Player Use-case leírások}
-		    Az alábbi Use-case leírások mindegyikének esetében az aktor a szkeleton programot kezelő Játékos.
+		\subsubsection{Játékos Player use case leírások}
+		    Az alábbi use case leírások mindegyikének esetében az aktor a szkeleton programot kezelő Játékos.
 		    
-		    \begin{enumerate}[label=\textbf{\arabic*.}, start=0]
+		    \begin{enumerate}[label=\textbf{\arabic*.}, start=1]
                 \ucitem{Új játék indítása}
-                    \ucdesc{A játékos új játékot indít}
+                    \ucdesc{A játékos új játékot indít.}
                     \ucscenario{Az új játék indítása során létrejön a játékot reprezentáló Game objektum, a pályákat előállító MapFactory, az időzítést végző Timer valamint az üzenetküldést segítő PubSub objektum. A Game objektum az inicializálás után betölti a MapFactory segítségével az első pályát.}
                     
                 \ucitem{Megadott pálya indítása}
-                    \ucdesc{A játékos meghatározza a betöltendő pályát}
+                    \ucdesc{A játékos meghatározza a betöltendő pályát.}
                     \ucscenario{Megegyezik az előzővel, azzal a különbséggel, hogy a Game objektum az első pálya helyett a megadott pályát tölti be.}
                     
                 \ucitem{Stickman mozgatása}
-                    \ucdesc{A játékos egy megadott irányba mozgatja a stickmant}
+                    \ucdesc{A játékos egy megadott irányba mozgatja a stickmant.}
                     \ucscenario{A Stickman objektum előállítja az elfoglalni kívánt Area objektumot, majd kérést intéz a tartalmazó Frame objektumhoz a terület elfoglalására. Amennyiben a terület szabad, az új területhez tartozó Frame beállítja a Stickman új helyét.}
                     
-                \ucitem{(Stickman mozgatása) Foglalt területre}
-                    \ucdesc{A játékos olyan irányba szeretné mozgatni a stickmant, amerre Platform található}
+                \ucitem{(Stickman mozgatása) Foglalt területre.}
+                    \ucdesc{A játékos olyan irányba szeretné mozgatni a stickmant, amerre Platform található.}
                     \ucscenario{Megegyezik az előzővel, azzal a különbséggel, hogy mivel az igényelt terület foglalt, a tartalmazó keret nem állít be új helyet, és false értékkel tér vissza}
                     
                 \ucitem{(Stickman mozgatása) Keretek között}
-                    \ucdesc{A játékos a stickmant a kerethatáron keresztül egy másik keretbe mozgatja}
-                    \ucscenario{A Stickman objektum előállítja az elfoglalni kívánt Area objektumot, majd kérést intéz a tartalmazó Frame objektumhoz a terület elfoglalására. Miután a tartalmazó keret meggyőződik arról, hogy a stickman objektum elhagyja a területét, a Map objektumhoz fordul a szomszédjáért. A két keret közötti átjárhatóság és az új keretben elfoglalandó hely szabad mivolta ellenőrzésre kerül, a régi keret átadja a Stickman objektumot az új keretnek és az új keret állítja be az új pozíciót. Amennyiben az átjárhatóság vagy terület szabadsága nem teljesül, az eredeti keret false értékkel tér vissza, és nem állít be új pozíciót.}
+                    \ucdesc{A játékos a stickmant a kerethatáron keresztül egy másik keretbe mozgatja.}
+                    \ucscenario{A Stickman objektum előállítja az elfoglalni kívánt Area objektumot, majd kérést intéz a tartalmazó Frame objektumhoz a terület elfoglalására. Miután a tartalmazó keret meggyőződik arról, hogy a Stickman objektum elhagyja a területét, a Map objektumhoz fordul a szomszédjáért. A két keret közötti átjárhatóság és az új keretben elfoglalandó hely szabad mivolta ellenőrzésre kerül, a régi keret átadja a Stickman objektumot az új keretnek és az új keret állítja be az új pozíciót. Amennyiben az átjárhatóság vagy terület szabadsága nem teljesül, az eredeti keret false értékkel tér vissza, és nem állít be új pozíciót.}
                     
                 \ucitem{(Stickman mozgatása) Üres keretbe}
-                    \ucdesc{A játékos a stickmant a kerethatáron keresztül az üres keretbe mozgatja}
-                    \ucscenario{A Stickman objektum előállítja az elfoglalni kívánt Area objektumot, majd kérést intéz a tartalmazó Frame objektumhoz a terület elfoglalására. Miután a tartalmazó keret meggyőződik arról, hogy a stickman objektum elhagyja a területét, a Map objektumhoz fordul a szomszédjáért. Mivel az adott irányban üres keret található, a Map objektum null-al tér vissza. Amennyiben a mozgás iránya lefelé mutat, a stickman kiesik és a keret visszaállítattja az utolsó ellenőrzőpontra. Más esetben false értékkel tér vissza, és nem állít be új pozíciót.}
+                    \ucdesc{A játékos a stickmant a kerethatáron keresztül az üres keretbe mozgatja.}
+                    \ucscenario{A Stickman objektum előállítja az elfoglalni kívánt Area objektumot, majd kérést intéz a tartalmazó Frame objektumhoz a terület elfoglalására. Miután a tartalmazó keret meggyőződik arról, hogy a Stickman objektum elhagyja a területét, a Map objektumhoz fordul a szomszédjáért. Mivel az adott irányban üres keret található, a Map objektum nullal tér vissza. Amennyiben a mozgás iránya lefelé mutat, a stickman kiesik és a keret visszaállítattja az utolsó ellenőrzőpontra. Más esetben false értékkel tér vissza, és nem állít be új pozíciót.}
                     
                 \ucitem{Kulcs megérintése}
-                    \ucdesc{A stickman mozgás során felvesz egy kulcsot}
+                    \ucdesc{A stickman mozgás során felvesz egy kulcsot.}
                     \ucscenario{Miután a stickman mozgatása miatt a tartalmazó keret beállította az új helyét, jelzi a kulcs objektumnak, hogy megérintették, amennyiben a stickman új helyének és a kulcs objektum által elfoglalt helynek van közös metszete.}
                     
                 \ucitem{Ajtó megérintése}
-                    \ucdesc{A stickman mozgás során egy ajtóhoz ér}
+                    \ucdesc{A stickman mozgás során egy ajtóhoz ér.}
                     \ucscenario{Miután a stickman mozgatása miatt a tartalmazó keret beállította az új helyét, jelzi az ajtó objektumnak, hogy megérintették, amennyiben a stickman új helyének és az ajtó objektum által elfoglalt helynek van közös metszete.}
                     
                 \ucitem{Keret átrendezése}
-                    \ucdesc{A játékos átrendez egy keretet}
-                    \ucscenario{A játékos megadja az átrendezés irányát. A Map objektum, mely a kereteket tartalmazza, megkeresi az üres keretet. Amennyiben a megadott iránnyal ellenkező irányban van szomszédja az üres keretnek, kicseréli a kettőt, ellenkező esetben tétlen. A keretek átrendezése nem igényel objektumok közötti kommunikációt, azt a Map objektum önmagában el tudja végezni.}
+                    \ucdesc{A játékos mozgat egy keretet.}
+                    \ucscenario{A játékos megadja a mozgatás irányát. A Map objektum, mely a kereteket tartalmazza, megkeresi az üres keretet. Amennyiben a megadott iránnyal ellenkező irányban van szomszédja az üres keretnek, kicseréli a kettőt, ellenkező esetben tétlen. A keretek átrendezése nem igényel objektumok közötti kommunikációt, azt a Map objektum önmagában el tudja végezni.}
                     
                 \ucitem{Nézetváltás}
-                    \ucdesc{A játékos vált pálya- és közeli-nézet között}
-                    \ucscenario{Felhasználói interakció hatására a Game objektum állapota megváltozik, váltás történik pálya- és közeli-nézet között. Az állapotváltozás kommunikációt nem igényel, de befolyásolja a Timer actor egyes use-case-eit.}
+                    \ucdesc{A játékos vált pálya és közeli nézet között.}
+                    \ucscenario{Felhasználói interakció hatására a Game objektum állapota megváltozik, váltás történik pálya és közeli nézet között. Az állapotváltozás kommunikációt nem igényel, de befolyásolja a Timer actor egyes use-case-eit.}
                     
 		    \end{enumerate}
 		    
-		\subsubsection{Óra Use-case diagram}
+		\subsubsection{Óra use case diagram}
 		    \begin{center}
 			    \includegraphics[scale=1]{resources/Timer.png}
 		    \end{center}
 		
-		\subsubsection{Óra Use-case leírások}
-		    Az alábbi Use-case leírások mindegyikének esetében az aktor az idő múlását követő óra (Timer).
+		\subsubsection{Óra use case leírások}
+		    Az alábbi use case leírások mindegyikének esetében az aktor az idő múlását követő óra (Timer).
 		    
-		    \begin{enumerate}[label=\textbf{\arabic*.}, start=0]
+		    \begin{enumerate}[label=\textbf{\arabic*.}, start=1]
                 \ucitem{Idő léptetése}
-                    \ucdesc{A Timer objektum jelzi az idő múlását}
+                    \ucdesc{A Timer objektum jelzi az idő múlását.}
                     \ucscenario{A Timer objektum előre meghatározott időközönként egy \texttt{tick} eseményt tesz közzé a megadott PubSub objektumon keresztül. Az időre érzékeny objektumok feliratkozhatnak erre az eseményre.}
                     
                 \ucitem{Stickman mozgatása}
-                    \ucdesc{Az idő múlásával a stickman közvetlen felhasználói interakció nélkül is mozoghat}
-                    \ucscenario{A Stickman objektum a \texttt{tick} esemény hatására -- mely az idő múlását jelzi -- felfelé mozoghat, amennyiben éppen ugrik, ellenkező esetben lefelé mozog (álló helyzetben is esik, mintha hatna rá a gravitációs gyorsulás).}
+                    \ucdesc{Az idő múlásával a stickman közvetlen felhasználói interakció nélkül is mozoghat.}
+                    \ucscenario{A stickmanre minden pillanatban -- amikor nem ugrik -- lefele irányúló erő hat, ezért a \texttt{tick} esemény hatására -- amikor nincs alatta talaj -- lefelé mozdul (valójában folyamatosan lefelé mozdulna a talajon állva, de ezt a platform megakadályozza).
+                    
+                    A Stickman objektum a \texttt{tick} esemény hatására -- mely az idő múlását jelzi -- felfelé mozoghat, amennyiben éppen ugrik, ellenkező esetben lefelé mozog (álló helyzetben is esik, mintha hatna rá a gravitációs gyorsulás).}
                     
                 \ucitem{(Stickman mozgatása) Ugrik}
-                    \ucdesc{Az idő múlásával a stickman egy folyamatos ugrást hajt végre}
+                    \ucdesc{Az idő múlásával a stickman egy folyamatos ugrást hajt végre.}
                     \ucscenario{A Stickman objektum a \texttt{tick} esemény hatására -- mely az idő múlását jelzi -- felfelé mozdul, vagyis ugrik. A felfelé történő mozgások száma egy előre meghatározott véges szám. A hátralévő ugrások száma minden egyes felfelé irányuló mozgással csökken.}
                     
                 \ucitem{(Stickman mozgatása) Esik}
-                    \ucdesc{Az idő múlásával a stickman folyamatosan esik}
+                    \ucdesc{Az idő múlásával a stickman folyamatosan esik.}
                     \ucscenario{A Stickman minden pillanatban -- amikor nem ugrik -- esik, a \texttt{tick} esemény hatására lefelé mozdul.}
 		    \end{enumerate}
 	
 	\subsection{Architektúra}
-		A szkeleton architektúrális felépítésének célja, hogy minden egyes use-case tesztelhető legyen, valamint meg lehessen állapítani, hogy az előző, analízisben rögzített szekvencia diagramoknak megfelelően működik-e az osztályok közötti kommunikáció. A tesztesetek futtatására előre inicializált pályák állnak majd rendelkezésünkre, hogy a fontos szituációk élesben is tesztelhetőek legyenek. A szkeleton tesztelése szekvenciálisan fog lefutni, ezért nincs szükség a konkurrens feladatok vizsgálatára.
+		A szkeleton architektúrális felépítésének célja, hogy minden egyes use case tesztelhető legyen, valamint meg lehessen állapítani, hogy az előző -- analízisben rögzített -- szekvencia diagramoknak megfelelően működik-e az osztályok közötti kommunikáció. A tesztesetek futtatására előre inicializált pályák állnak majd rendelkezésünkre, hogy a fontos szituációk élesben is tesztelhetőek legyenek. A szkeleton tesztelése szekvenciálisan fog lefutni, ezért nincs szükség a konkurrens feladatok vizsgálatára.
 		
 		A tesztesetek úgy lettek megválasztva, hogy az adott használati eseteket legjobban mutassák be, minél kevesebb objektummal, hogy a vizsgálandó rész legyen a középpontban. A tesztesetek mellett feltüntettük az általuk használt frame-ek számát, a realizált objektumokat, illetve a tesztelés célját.
 		
-		Az alábbi tesztesetek az átláthatóság érdekében azon, az 5.1.2. és 5.1.4. Use-case leírásokban számozott használati esetek számát jelölik, amelyeket megvalósítanak (pl.: P1 -- 1. Player Use-Case; T5 -- 5. Timer Use-Case). A csillaggal jelölt Use-Case-ek nagyon hasonlóak a teszteset által kijelölt fő Use-Case-hez, ezért nem igényelnek külön tesztesetet.
+		Az alábbi tesztesetek az átláthatóság érdekében azon, az 5.1.2. és 5.1.4. use case leírásokban számozott használati esetek számát jelölik, amelyeket megvalósítanak (pl.: P1 -- 1. Player use case; T5 -- 5. Timer use case). A csillaggal jelölt use-case-ek nagyon hasonlóak a teszteset által kijelölt fő use-case-hez, ezért nem igényelnek külön tesztesetet.
 								
 		\begin{enumerate}[label=\textbf{\arabic*.}, start=0]
 		
@@ -106,64 +108,64 @@
 			\newcommand{\tframe}[1]{\textbf{Frame-ek száma:} #1\\}
 			\newcommand{\tobjekt}[1]{\textbf{Objektumok:} #1\\}
 			\newcommand{\tcel}[1]{\textbf{Cél:} #1\\}
-			\newcommand{\tuse}[1]{\textbf{Tesztelt Use-Case:} #1\\}
+			\newcommand{\tuse}[1]{\textbf{Tesztelt use case:} #1\\}
 		
 			\testitem{Inicializálás}
 				\tframe{1}
 				\tobjekt{Minden, a futtatáshoz szükséges objektumtípusból legalább egy.
-					(Game, Timer, PubSub, MapFactory, Map, Frame, Platform, Door, Key, Stickman, stb.)}
+					(Game, Timer, PubSub, MapFactory, Map, Frame, Platform, Door, Key, Stickman stb.)}
 				\tcel{Objektumok létrehozása, kapcsolatok kialakításának bemutatása.}
-				\tuse{P0, *P1}
+				\tuse{P1, *P2}
 			\testitem{Stickman mozgatása}
 				\tframe{1}
 				\tobjekt{Frame, Stickman, Area, Timer}
 				\tcel{A játékos mozdulni szeretne. Bemutatásra kerül a mozgás kérése és az arra kapott válasz, majd léptetés.} 
-				\tuse{P2, *T1, *T0}
+				\tuse{P3, *T2, *T1}
 			\testitem{Stickman ugrása}
 				\tframe{1}
 				\tobjekt{Frame, Stickman, Timer}
 				\tcel{A játékos ugrik, majd leesik, nincs akadály. Idő által kiváltott metódushívások figyelhetőek meg.} 
-				\tuse{T2, *T0}
+				\tuse{T3, *T1}
 			\testitem{Stickman mozgatása foglalt területre}
 				\tframe{1}
 				\tobjekt{Frame, Stickman, Platform, Area}
 				\tcel{A játékos mozdulni szeretne, de platform állja el az útját. Előzőhöz hasonlóan bemutatható a kommunikáció, kivéve hogy a mozgás kérésre nem kap engedélyt, pozíciója nem fog változni.}
-				\tuse{P3}
+				\tuse{P4}
 			\testitem{Stickman mozgatása keretek között}
 				\tframe{2}
-				\tobjekt{Map, 2 Frame, Stickman, Area}
+				\tobjekt{Map, 2 db. Frame, Stickman, Area}
 				\tcel{Játékos mozdulni szeretne a jelenlegi keretet elhagyva. Az előzőekhez hasonlóan a kommunikáció bemutatható a Stickman -- Frame, illetve itt a Frame -- Map objektumok között.}
-				\tuse{P4}
+				\tuse{P5}
 			\testitem{Stickman mozgatása üres keretbe horizontálisan}
 				\tframe{2}
-				\tobjekt{Map, 2 Frame, Stickman, Area}
+				\tobjekt{Map, 2 db. Frame, Stickman, Area}
 				\tcel{Stickman -- Frame, Frame -- Map kommunikáció bemutatása, lépés megtagadásával (nincs Frame).}
-				\tuse{P5}
+				\tuse{P6}
 			\testitem{Stickman kiesése keretből}
 				\tframe{2}
-				\tobjekt{Map, 2 Frame, Stickman, Area, Timer}
+				\tobjekt{Map, 2 db. Frame, Stickman, Area, Timer}
 				\tcel{Stickman -- Frame, Frame -- Map kommunikáció bemutatása, utolsó ellenőrzőpontra visszaállítás.}
-				\tuse{P5, *T3, *T0}
+				\tuse{P6, *T4, *T1}
 			\testitem{Kulcs felvétele}
 				\tframe{1}
 				\tobjekt{PubSub, Frame, Stickman, Key, Area}
 				\tcel{A játékos kulcsot tartalmazó mezőbe lép, kulcs felvétele. Üzenet terjedésének bemutatása.}
-				\tuse{P6}
+				\tuse{P7}
 			\testitem{Ajtó megérintése}
 				\tframe{1}
 				\tobjekt{PubSub, Frame, Stickman, Door, Area}
 				\tcel{A játékos az ajtót tartalmazó mezőbe lép. Üzenet terjedésének bemutatása.}
-				\tuse{P7}
+				\tuse{P8}
 			\testitem{Keret átrendezése}
 				\tframe{2}
-				\tobjekt{Map, 2 Frame}
+				\tobjekt{Map, 2 db. Frame}
 				\tcel{A játékos keretet próbál mozgatni. Objektumok nem kommunikálnak, a Map magában intézi a mozgást, ha a mozgatás irányával ellentétes irányban van keret az üres keret mellett.}
-				\tuse{P8}
+				\tuse{P9}
 			\testitem{Nézetváltás}
 				\tframe{1}
 				\tobjekt{Game}
 				\tcel{A játékos a megfelelő gomb megnyomásával nézetet vált. A Game objektumban lesz állapotváltozás, kommunikáció nem szükséges.}
-				\tuse{P9}
+				\tuse{P10}
 		\end{enumerate}
 	
 	\subsection{A szkeleton kezelői felületének terve, dialógusok}
@@ -178,7 +180,7 @@
 				\item Osztály neve
 				\item Objektum azonosítója (hash code)
 				\item Metódus neve
-				\item Paraméter lista: osztálynév, objektumazonosító
+				\item Paraméterlista: osztálynév, objektumazonosító
 			\end{itemize}					
 		
 		\subsubsection*{Minta kimenet}
