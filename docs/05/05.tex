@@ -102,7 +102,7 @@
 								
 		\begin{enumerate}[label=\textbf{\arabic*.}, start=0]
 		
-			\newcommand{\testitem}[1]{\item \textbf{Tesztpálya -- #1}\\}
+			\newcommand{\testitem}[1]{\item \textbf{Teszteset -- #1}\\}
 			\newcommand{\tframe}[1]{\textbf{Frame-ek száma:} #1\\}
 			\newcommand{\tobjekt}[1]{\textbf{Objektumok:} #1\\}
 			\newcommand{\tcel}[1]{\textbf{Cél:} #1\\}
@@ -132,12 +132,12 @@
 			\testitem{Stickman mozgatása keretek között}
 				\tframe{2}
 				\tobjekt{Map, 2 Frame, Stickman, Area}
-				\tcel{Játékos mozdulni szeretne a jelenlegi keretet elhagyva. Az előzőekhez hasonlóan kommunikáció bemutatható a stickman -- frame, illetve itt a frame -- map objektumok között.}
+				\tcel{Játékos mozdulni szeretne a jelenlegi keretet elhagyva. Az előzőekhez hasonlóan a kommunikáció bemutatható a Stickman -- Frame, illetve itt a Frame -- Map objektumok között.}
 				\tuse{P4}
 			\testitem{Stickman mozgatása üres keretbe horizontálisan}
 				\tframe{2}
 				\tobjekt{Map, 2 Frame, Stickman, Area}
-				\tcel{Stickman -- Frame, Frame -- Map kommunikáció bemutatása, lépés megtagadása.}
+				\tcel{Stickman -- Frame, Frame -- Map kommunikáció bemutatása, lépés megtagadásával (nincs Frame).}
 				\tuse{P5}
 			\testitem{Stickman kiesése keretből}
 				\tframe{2}
@@ -147,28 +147,23 @@
 			\testitem{Kulcs felvétele}
 				\tframe{1}
 				\tobjekt{PubSub, Frame, Stickman, Key, Area}
-				\tcel{Játékos kulcsot tartalmazó mezőbe lép, kulcs felvétele. Üzenet terjedésének bemutatása.}
+				\tcel{A játékos kulcsot tartalmazó mezőbe lép, kulcs felvétele. Üzenet terjedésének bemutatása.}
 				\tuse{P6}
 			\testitem{Ajtó megérintése}
 				\tframe{1}
 				\tobjekt{PubSub, Frame, Stickman, Door, Area}
-				\tcel{A Játékos az ajtót tartalmazó mezőbe lép. Üzenet terjedésének bemutatása.}
+				\tcel{A játékos az ajtót tartalmazó mezőbe lép. Üzenet terjedésének bemutatása.}
 				\tuse{P7}
 			\testitem{Keret átrendezése}
 				\tframe{2}
 				\tobjekt{Map, 2 Frame}
-				\tcel{A játékos keretet próbál mozgatni. Objektumok nem kommunikálnak, a Map magában intézi a mozgást.}
+				\tcel{A játékos keretet próbál mozgatni. Objektumok nem kommunikálnak, a Map magában intézi a mozgást, ha a mozgatás irányával ellentétes irányban van keret az üres keret mellett.}
 				\tuse{P8}
 			\testitem{Nézetváltás}
 				\tframe{1}
 				\tobjekt{Game}
 				\tcel{A játékos a megfelelő gomb megnyomásával nézetet vált. A Game objektumban lesz állapotváltozás, kommunikáció nem szükséges.}
 				\tuse{P9}
-			\testitem{Kulcs felvétele}
-				\tframe{1}
-				\tobjekt{PubSub, Frame, Stickman, Key, Area}
-				\tcel{Játékos kulcsot tartalmazó mezőbe lép, kulcs felvétele. Üzenet terjedésének bemutatása.}
-				\tuse{P6}
 		\end{enumerate}
 	
 	\subsection{A szkeleton kezelői felületének terve, dialógusok}
