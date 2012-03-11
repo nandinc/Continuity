@@ -82,9 +82,7 @@
                     
                 \ucitem{Stickman mozgatása}
                     \ucdesc{Az idő múlásával a stickman közvetlen felhasználói interakció nélkül is mozoghat.}
-                    \ucscenario{A stickmanre minden pillanatban -- amikor nem ugrik -- lefele irányúló erő hat, ezért a \texttt{tick} esemény hatására -- amikor nincs alatta talaj -- lefelé mozdul (valójában folyamatosan lefelé mozdulna a talajon állva, de ezt a platform megakadályozza).
-                    
-                    A Stickman objektum a \texttt{tick} esemény hatására -- mely az idő múlását jelzi -- felfelé mozoghat, amennyiben éppen ugrik, ellenkező esetben lefelé mozog (álló helyzetben is esik, mintha hatna rá a gravitációs gyorsulás).}
+                    \ucscenario{A Stickman objektum a \texttt{tick} esemény hatására -- mely az idő múlását jelzi -- felfelé mozoghat, amennyiben éppen ugrik, ellenkező esetben lefelé mozog (álló helyzetben is esik, mintha hatna rá a gravitációs gyorsulás).}
                     
                 \ucitem{(Stickman mozgatása) Ugrik}
                     \ucdesc{Az idő múlásával a stickman egy folyamatos ugrást hajt végre.}
@@ -92,7 +90,7 @@
                     
                 \ucitem{(Stickman mozgatása) Esik}
                     \ucdesc{Az idő múlásával a stickman folyamatosan esik.}
-                    \ucscenario{A Stickman minden pillanatban -- amikor nem ugrik -- esik, a \texttt{tick} esemény hatására lefelé mozdul.}
+                    \ucscenario{A stickmanre minden pillanatban -- amikor nem ugrik -- lefele irányúló erő hat, ezért a \texttt{tick} esemény hatására -- amikor nincs alatta talaj -- lefelé mozdul (valójában folyamatosan lefelé mozdulna a talajon állva, de ezt a platform megakadályozza).}
 		    \end{enumerate}
 	
 	\subsection{Architektúra}
