@@ -94,11 +94,11 @@
 		    \end{enumerate}
 	
 	\subsection{Architektúra}
-		Az architektúra felépítésében arra törekedik a csapatunk, hogy a szkeletonban minden egyes use-case letesztelhető legyen és meg lehessen állapítani, hogy az előző, analízisben rögzített szekvencia diagramoknak megfelelően működik minden. A tesztesetek futtatására előre inicializált pályák állnak majd rendelkezésünkre, hogy a fontos szituációk élesben is tesztelhetőek legyenek. A szkeleton tesztelése szekvenciálisan fog lefutni, ezért nincs szükség a konkurrens feladatok vizsgálatára.
+		A szkeleton architektúrális felépítésének célja, hogy minden egyes use-case tesztelhető legyen, valamint meg lehessen állapítani, hogy az előző, analízisben rögzített szekvencia diagramoknak megfelelően működik-e az osztályok közötti kommunikáció. A tesztesetek futtatására előre inicializált pályák állnak majd rendelkezésünkre, hogy a fontos szituációk élesben is tesztelhetőek legyenek. A szkeleton tesztelése szekvenciálisan fog lefutni, ezért nincs szükség a konkurrens feladatok vizsgálatára.
 		
-		A tesztpályák úgy lettek megválasztva, hogy az adott használati eseteket legjobban mutassák be, minél kevesebb objektummal, hogy a vizsgálandó rész legyen a középpontban. A tesztpályák mellett feltüntettük az általuk használt frame-ek számát, a realizált objektumokat, illetve a tesztelés célját.
+		A tesztesetek úgy lettek megválasztva, hogy az adott használati eseteket legjobban mutassák be, minél kevesebb objektummal, hogy a vizsgálandó rész legyen a középpontban. A tesztesetek mellett feltüntettük az általuk használt frame-ek számát, a realizált objektumokat, illetve a tesztelés célját.
 		
-		Az alábbi tesztpályák az átláthatóság érdekében azon, az 5.1.2. és 5.1.4. Use-case leírásokban számozott használati esetek számát jelölik, amelyeket megvalósítanak (pl.: P1 -- 1. Player Use-Case; T5 -- 5. Timer Use-Case). A csillaggal jelölt Use-Case-ek nagyon hasonlóak a tesztpálya által kijelölt fő Use-Case-hez, ezért nem igényelnek külön tesztpályát.
+		Az alábbi tesztesetek az átláthatóság érdekében azon, az 5.1.2. és 5.1.4. Use-case leírásokban számozott használati esetek számát jelölik, amelyeket megvalósítanak (pl.: P1 -- 1. Player Use-Case; T5 -- 5. Timer Use-Case). A csillaggal jelölt Use-Case-ek nagyon hasonlóak a teszteset által kijelölt fő Use-Case-hez, ezért nem igényelnek külön tesztesetet.
 								
 		\begin{enumerate}[label=\textbf{\arabic*.}, start=0]
 		
