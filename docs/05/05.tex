@@ -95,7 +95,10 @@
 	
 	\subsection{Architektúra}
 		Az architektúra felépítésében arra törekedik a csapatunk, hogy a szkeletonban minden egyes use-case letesztelhető legyen és meg lehessen állapítani, hogy az előző, analízisben rögzített szekvencia diagramoknak megfelelően működik minden. A tesztesetek futtatására előre inicializált pályák állnak majd rendelkezésünkre, hogy a fontos szituációk élesben is tesztelhetőek legyenek. A szkeleton tesztelése szekvenciálisan fog lefutni, ezért nincs szükség a konkurrens feladatok vizsgálatára.
-		A tesztpályák úgy lettek megválasztva, hogy az adott használati eseteket legjobban mutassák be, minél kevesebb objektummal, hogy a vizsgálandó rész legyen a középpontban. A tesztpályák mellett feltüntettük az általuk használt frame-ek számát, a realizált objektumokat, illetve a tesztelés célját. Ezeken kívül az átláthatóság érdekében az 5.1.2 Use-case leírásokban számozott használati esetek számát, amelyek reprezentálódnak.
+		
+		A tesztpályák úgy lettek megválasztva, hogy az adott használati eseteket legjobban mutassák be, minél kevesebb objektummal, hogy a vizsgálandó rész legyen a középpontban. A tesztpályák mellett feltüntettük az általuk használt frame-ek számát, a realizált objektumokat, illetve a tesztelés célját.
+		
+		Az alábbi tesztpályák az átláthatóság érdekében azon, az 5.1.2. és 5.1.4. Use-case leírásokban számozott használati esetek számát jelölik, amelyeket megvalósítanak (pl.: P1 -- 1. Player Use-Case; T5 -- 5. Timer Use-Case). A csillaggal jelölt Use-Case-ek nagyon hasonlóak a tesztpálya által kijelölt fő Use-Case-hez, ezért nem igényelnek külön tesztpályát.
 								
 		\begin{enumerate}[label=\textbf{\arabic*.}, start=0]
 		
@@ -110,37 +113,62 @@
 				\tobjekt{Minden, a futtatáshoz szükséges objektumtípusból legalább egy.
 					(Game, Timer, PubSub, MapFactory, Map, Frame, Platform, Door, Key, Stickman, stb.)}
 				\tcel{Objektumok létrehozása, kapcsolatok kialakításának bemutatása.}
-				\tuse{} 
-			\testitem{NÉVNÉVNÉV}
-				\tframe{}
-				\tobjekt{}
-				\tcel{} 
-				\tuse{}
-			\testitem{NÉVNÉVNÉV}
-				\tframe{}
-				\tobjekt{}
-				\tcel{} 
-				\tuse{}
-			\testitem{NÉVNÉVNÉV}
-				\tframe{}
-				\tobjekt{}
-				\tcel{} 
-				\tuse{}
-			\testitem{NÉVNÉVNÉV}
-				\tframe{}
-				\tobjekt{}
-				\tcel{} 
-				\tuse{}
-			\testitem{NÉVNÉVNÉV}
-				\tframe{}
-				\tobjekt{}
-				\tcel{} 
-				\tuse{}
-			\testitem{NÉVNÉVNÉV}
-				\tframe{}
-				\tobjekt{}
-				\tcel{} 
-				\tuse{} 
+				\tuse{P0, *P1}
+			\testitem{Stickman mozgatása}
+				\tframe{1}
+				\tobjekt{Frame, Stickman, Area, Timer}
+				\tcel{A játékos mozdulni szeretne. Bemutatásra kerül a mozgás kérése és az arra kapott válasz, majd léptetés.} 
+				\tuse{P2, *T1, *T0}
+			\testitem{Stickman ugrása}
+				\tframe{1}
+				\tobjekt{Frame, Stickman, Timer}
+				\tcel{A játékos ugrik, majd leesik, nincs akadály. Idő által kiváltott metódushívások figyelhetőek meg.} 
+				\tuse{T2, *T0}
+			\testitem{Stickman mozgatása foglalt területre}
+				\tframe{1}
+				\tobjekt{Frame, Stickman, Platform, Area}
+				\tcel{A játékos mozdulni szeretne, de platform állja el az útját. Előzőhöz hasonlóan bemutatható a kommunikáció, kivéve hogy a mozgás kérésre nem kap engedélyt, pozíciója nem fog változni.}
+				\tuse{P3}
+			\testitem{Stickman mozgatása keretek között}
+				\tframe{2}
+				\tobjekt{Map, 2 Frame, Stickman, Area}
+				\tcel{Játékos mozdulni szeretne a jelenlegi keretet elhagyva. Az előzőekhez hasonlóan kommunikáció bemutatható a stickman -- frame, illetve itt a frame -- map objektumok között.}
+				\tuse{P4}
+			\testitem{Stickman mozgatása üres keretbe horizontálisan}
+				\tframe{2}
+				\tobjekt{Map, 2 Frame, Stickman, Area}
+				\tcel{Stickman -- Frame, Frame -- Map kommunikáció bemutatása, lépés megtagadása.}
+				\tuse{P5}
+			\testitem{Stickman kiesése keretből}
+				\tframe{2}
+				\tobjekt{Map, 2 Frame, Stickman, Area, Timer}
+				\tcel{Stickman -- Frame, Frame -- Map kommunikáció bemutatása, utolsó ellenőrzőpontra visszaállítás.}
+				\tuse{P5, *T3, *T0}
+			\testitem{Kulcs felvétele}
+				\tframe{1}
+				\tobjekt{PubSub, Frame, Stickman, Key, Area}
+				\tcel{Játékos kulcsot tartalmazó mezőbe lép, kulcs felvétele. Üzenet terjedésének bemutatása.}
+				\tuse{P6}
+			\testitem{Ajtó megérintése}
+				\tframe{1}
+				\tobjekt{PubSub, Frame, Stickman, Door, Area}
+				\tcel{A Játékos az ajtót tartalmazó mezőbe lép. Üzenet terjedésének bemutatása.}
+				\tuse{P7}
+			\testitem{Keret átrendezése}
+				\tframe{2}
+				\tobjekt{Map, 2 Frame}
+				\tcel{A játékos keretet próbál mozgatni. Objektumok nem kommunikálnak, a Map magában intézi a mozgást.}
+				\tuse{P8}
+			\testitem{Nézetváltás}
+				\tframe{1}
+				\tobjekt{Game}
+				\tcel{A játékos a megfelelő gomb megnyomásával nézetet vált. A Game objektumban lesz állapotváltozás, kommunikáció nem szükséges.}
+				\tuse{P9}
+			\testitem{Kulcs felvétele}
+				\tframe{1}
+				\tobjekt{PubSub, Frame, Stickman, Key, Area}
+				\tcel{Játékos kulcsot tartalmazó mezőbe lép, kulcs felvétele. Üzenet terjedésének bemutatása.}
+				\tuse{P6}
 		\end{enumerate}
 	
 	\subsection{A szkeleton kezelői felületének terve, dialógusok}
