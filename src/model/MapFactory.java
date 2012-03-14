@@ -17,6 +17,7 @@ public class MapFactory {
      * @param ps
      */
     public Map getMap(int mapId, PubSub ps) {
-        throw new UnsupportedOperationException();
+        // TODO register call at JTrace
+    	return null;
     }
 }
