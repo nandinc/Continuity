@@ -92,8 +92,7 @@ public class SkeletonRunner {
 		}	
 		
 		System.out.println("----------------");
-		System.out.println("");
-		System.out.print("Please choose a test: ");
+		System.out.print("\nPlease choose a test: ");
 		
 		Integer testIndex = null;
 		try {
@@ -126,8 +125,7 @@ public class SkeletonRunner {
 			tests.get(testIndex - 1).run();
 		}
 		
-		System.out.println("");
-		System.out.println("");
+		System.out.print("\n\n");
 		askForTest();
 	}
 }
