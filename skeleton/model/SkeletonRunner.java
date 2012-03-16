@@ -11,6 +11,10 @@ import java.util.List;
 
 import model.test.Test;
 
+/**
+ * 
+ * @file Szkeleton tesztek futtatókörnyezete
+ */
 public class SkeletonRunner {
 
 	private static List<Test> tests = new ArrayList<Test>();
