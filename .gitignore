@@ -9,3 +9,5 @@ docs/*/*.synctex.gz
 .project
 vpproject
 
+#ignore java binary
+*.class
