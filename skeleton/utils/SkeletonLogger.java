@@ -79,7 +79,7 @@ public class SkeletonLogger {
 		if (object == null) {
 			s = "null";
 		} else {
-			s = object.getClass().getName();
+			s = object.getClass().getSimpleName();
 			s += "[";
 			
 			if (objectMap.containsKey(object)) {
@@ -109,7 +109,7 @@ public class SkeletonLogger {
 			String s;
 			
 			s = getObjectString(this.object);
-			s += ".(";
+			s += "." + method + "(";
 			for (int i = 0; i < this.parameters.length; i++) {
 				if (i != 0) {
 					s += ", ";
