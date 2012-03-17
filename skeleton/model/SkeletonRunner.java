@@ -12,14 +12,31 @@ import java.util.List;
 import model.test.Test;
 
 /**
+ * Szkeleton tesztek futtatása
+ * 
+ * Betölti a mellette található test csomagból az összes
+ * Test felületet megvalósító osztályt, és felkínálja őket futtatásra.
+ * Felhasználói utasításra lefuttatja a kiválasztott tesztet. 
+ * 
+ * @warning The correct functionality of this class depends on it's placement,
+ * because of the automatic test explore procedure. 
+ * Move this carefully or don't move it at all.
  * 
  * @file Szkeleton tesztek futtatókörnyezete
  */
 public class SkeletonRunner {
 
+	/**
+	 * Tesztek listája
+	 */
 	private static List<Test> tests = new ArrayList<Test>();
 	
 	/**
+	 * Program belépőpontja
+	 * 
+	 * Összegyűjti a rendelkezésre álló teszteket
+	 * és felkínálja őket.
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -30,8 +47,10 @@ public class SkeletonRunner {
 		askForTest();
 	}
 
+	/**
+	 * Betölti a rendelkezésre álló teszteket
+	 */
 	private static void loadTests() {
-		//testNames.add("model.test.LoadGameTest");
 		List<String> testNames = getTestNames();
 		
 		try {
@@ -50,6 +69,8 @@ public class SkeletonRunner {
 				}
 				
 				if (test instanceof Test) {
+					// If instantiation succeeded and object
+					// implements Test, add it to tests
 					tests.add((Test)test);
 				}
 			}
@@ -59,6 +80,12 @@ public class SkeletonRunner {
 		
 	}
 	
+	/**
+	 * Kigyűjti a futtató osztály melletti 'test' mappából
+	 * az összes fájlt, és megbecsüli a tartalmazott osztály nevét.
+	 * 
+	 * @return A talált fájlokban található osztályok becsült neve
+	 */
 	private static List<String> getTestNames() {
 		String packageName = "model.test.";
 		List<String> testNames = new LinkedList<String>();
@@ -80,11 +107,21 @@ public class SkeletonRunner {
 		return testNames;
 	}
 	
+	/**
+	 * Kilistázza az elérhető teszteket,
+	 * és vár a felhasználó választására.
+	 * 
+	 * Szabályos választás esetén futtatja a kiválasztott tesztet.
+	 * 0 választás esetén kilép.
+	 */
 	private static void askForTest() {
 		System.out.println("----------------");
 		System.out.println("Available Tests:");
 		System.out.println("----------------");
 		
+		//
+		// LIST TESTS
+		//
 		System.out.println("0: Exit");
 		int i = 1;
 		for (Test test : tests) {
@@ -98,6 +135,9 @@ public class SkeletonRunner {
 		System.out.println("----------------");
 		System.out.print("\nPlease choose a test: ");
 		
+		//
+		// READ INPUT
+		//
 		Integer testIndex = null;
 		try {
 			// read input
@@ -118,6 +158,9 @@ public class SkeletonRunner {
 			return;
 		}
 		
+		//
+		// EXECUTE INPUT
+		//
 		if (testIndex == 0) {
 			System.exit(0);
 		} else if (testIndex < 0 || testIndex > tests.size()) {
@@ -126,6 +169,7 @@ public class SkeletonRunner {
 			return;
 		} else {
 			System.out.println("~~~~~~~~~~~~~~~~~~~~\n");
+			// run choosen test
 			tests.get(testIndex - 1).run();
 		}
 		

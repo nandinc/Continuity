@@ -2,6 +2,10 @@ package model.test;
 
 import model.Game;
 
+/**
+ * 
+ * @file 1.0 Load Game teszt
+ */
 public class LoadGameTest extends AbstractTest {
 
 	public LoadGameTest() {
