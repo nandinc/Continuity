@@ -1,5 +1,7 @@
 package model;
 
+import utils.SkeletonLogger;
+
 /**
  * Az idő múlását nyilvántartó objektum. 
  * Elsősorban Stickman esését szabályozhatjuk vele, de a
@@ -7,8 +9,14 @@ package model;
  * a stickmentől vagy bármely más objektumtól függetlenek. 
  * 
  * @responsibility Időzítésért felelős osztály, bizonyos időközönként kibocsát egy 'tick' eseményt az átadott PubSub objektumra.
+ * @file Timer osztály
  */
 public class Timer {
+	
+	public Timer() {
+		SkeletonLogger.register(this, "t");
+		SkeletonLogger.call(this, "<<create>>");
+	}
 	
 	/**
 	 * Az eseménykezelő csatorna,

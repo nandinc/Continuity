@@ -7,6 +7,7 @@ package model;
  * paraméterekkel írható le.
  * 
  * @responsibility Területrészt leíró osztály. Összehasonlítható egy másik osztállyal, hogy fedik-e egymást.
+ * @file Area osztály
  */
 public class Area {
 

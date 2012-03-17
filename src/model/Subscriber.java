@@ -4,6 +4,7 @@ package model;
  * A PubSub objektumnak átadható eseménykezelő felülete.
  * 
  * @responsibility Olyan interfész, melyen keresztül eseményeket lehet fogadni a PubSubtól.
+ * @file Subscriber interface
  */
 public interface Subscriber {
 	/**

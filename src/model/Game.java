@@ -1,9 +1,12 @@
 package model;
 
+import utils.SkeletonLogger;
+
 /**
  * A játékot szervező objektum. Felelős az új pályák betöltéséért és a teljesített pályák törléséért.
  * 
  * @responsibility A játékot reprezentáló objektum, amely kezeli az aktuális pályát.
+ * @file Game osztály
  */
 public class Game {
 
@@ -16,7 +19,8 @@ public class Game {
     private PubSub pubSub;
     
     public Game() {
-    	// TODO register this in JTrace
+    	// register this in JTrace
+    	SkeletonLogger.register(this, "g");
     	
     	// initialize components
     	mapFactory = new MapFactory();

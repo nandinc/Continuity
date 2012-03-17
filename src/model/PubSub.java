@@ -2,13 +2,21 @@ package model;
 
 import java.util.*;
 
+import utils.SkeletonLogger;
+
 /**
  * Üzenetközvetítő csatorna, mely a Publish/Subscribe mintát valósítja meg.
  * 
  * @responsibility Üzenetközvetítő osztály, mely feliratkozásokat tart számon, és ha valakitől eseményt kap, arról értesíti az arra feliratkozottakat.
+ * @file PubSub osztály
  */
 public class PubSub {
 
+	public PubSub() {
+		SkeletonLogger.register(this, "ps");
+		SkeletonLogger.call(this, "<<create>>");
+	}
+	
     /**
      * Esemény publikálása
      * 
