@@ -23,7 +23,7 @@ public abstract class AbstractFrameItem implements FrameItem {
     /**
      * Üzenetküldő
      */
-    protected PubSub ps;
+    protected PubSub ps = null;
     
     /**
      * Üzenetküldő beállítás

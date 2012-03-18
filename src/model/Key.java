@@ -78,7 +78,7 @@ public class Key extends AbstractFrameItem {
 		String notif = "keyPickedUp";
 		SkeletonLogger.register(notif, "'KeyPickedUp'");
 		if(ps == null) {
-			ps = new PubSub(new Game());
+			ps = new PubSub();
 		}
 		ps.emit(notif, this);
 		

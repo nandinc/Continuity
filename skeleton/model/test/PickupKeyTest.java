@@ -20,14 +20,18 @@ public class PickupKeyTest extends AbstractTest{
 		// Logger mute-olása, ami azt jelenti, hogy a konstruktorók
 		// által hívott .create metódus nem fog lefutni.
 		SkeletonLogger.mute();
-			Game g = new Game();
-			SkeletonLogger.register(g, "g");
-			PubSub ps = new PubSub(g);
+			PubSub ps = new PubSub();
 			SkeletonLogger.register(ps, "ps");
+			
+			Game g = new Game(ps);
+			SkeletonLogger.register(g, "g");
+			
 			Stickman s = new Stickman();
 			SkeletonLogger.register(s, "stickman");
+			
 			Key k = new Key();
 			SkeletonLogger.register(k, "k");
+			
 		SkeletonLogger.unMute();
 		
 		// Üzenet küldő bejegyzése a kulcshoz.

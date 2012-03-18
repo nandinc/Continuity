@@ -1,6 +1,9 @@
 package model;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 import utils.SkeletonLogger;
 
@@ -11,11 +14,11 @@ import utils.SkeletonLogger;
  * @file PubSub osztály
  */
 public class PubSub {
-	private Game g;
-
-	public PubSub(Game g) {
+	
+	public PubSub() {
 		SkeletonLogger.create(this, "ps");
-		this.g = g;
+		
+		subscribers = new HashMap<String, List<Subscriber>>();
 	}
 	
     /**
@@ -28,8 +31,12 @@ public class PubSub {
     	// Metódushívás rögzítése.
     	SkeletonLogger.call(this, "emit", eventName, data);
     	
-    	// Értesítjük a map-ot a kulcs felvételéről.
-    	g.callBack_KeyPickedUp(data);
+    	if (subscribers.containsKey(eventName)) {
+	    	List<Subscriber> eventSubs = subscribers.get(eventName);
+	    	for (Subscriber subscriber : eventSubs) {
+				subscriber.eventEmitted(eventName, data);
+			}
+    	}
     	
     	// Függvény vége, visszatérés logolása.
     	SkeletonLogger.back();
@@ -42,12 +49,16 @@ public class PubSub {
      * @param callback Az esemény bekövetkeztekor meghívandó eseménykezelő
      */
     public void on(String eventName, Subscriber callback) {
-        throw new UnsupportedOperationException();
+        if (!subscribers.containsKey(eventName)) {
+        	subscribers.put(eventName, new LinkedList<Subscriber>());
+        }
+        
+        subscribers.get(eventName).add(callback);
     }
 
     /**
      * Az eseményekre feliratkozott eseménykezelőket tárolja.
      */
-    private Collection<Subscriber> subscribers;
+    private Map<String, List<Subscriber>> subscribers;
 
 }

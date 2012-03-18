@@ -16,7 +16,7 @@ public class Game {
     protected Map currentMap;
     
     private MapFactory mapFactory;
-    private PubSub pubSub;
+    private PubSub pubSub = null;
     
     public Game() {
     	// Regisztrálás
@@ -25,7 +25,24 @@ public class Game {
     	// initialize components
     	mapFactory = new MapFactory();
     	Timer t = new Timer();
-    	pubSub = new PubSub(this);
+    	
+		pubSub = new PubSub();
+    }
+    
+    public Game(PubSub ps) {
+    	this();
+    	pubSub = ps;
+    	
+    	pubSub.on("keyPickedUp", new Subscriber() {
+			
+			@Override
+			public void eventEmitted(String eName, Object eParameter) {
+				// Metódushívás rögzítése.
+				SkeletonLogger.call(this, "callBack:KeyPickedUp", eParameter);
+				// Függvény vége, visszatérés logolása.
+				SkeletonLogger.back();	
+			}
+		});
     }
 
     /**
@@ -42,15 +59,4 @@ public class Game {
     	// Függvény vége, visszatérés logolása.
 		SkeletonLogger.back();
     }
-
-	/**
-	 * @param data
-	 */
-	public void callBack_KeyPickedUp(Object data) {
-		// Metódushívás rögzítése.
-		SkeletonLogger.call(this, "callBack:KeyPickedUp", data);
-		// Függvény vége, visszatérés logolása.
-		SkeletonLogger.back();
-	}
-
 }
