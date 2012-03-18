@@ -1,5 +1,7 @@
 package model;
 
+import utils.SkeletonLogger;
+
 /**
  * Egy pályán belüli keret, amelyben mozoghat a Stickman. Tartalmazza a pálya többi elemét (Door, Key, Platform).
  * 
@@ -7,14 +9,18 @@ package model;
  * @file Frame osztály
  */
 public class Frame {
-
+	
     /**
      * Hozzáadja a megadott elemet a kerethez.
      * 
      * @param item
      */
     public void addItem(FrameItem item) {
-        throw new UnsupportedOperationException();
+    	// register method call in JTrace
+    	SkeletonLogger.call(item, "setFrame", this);
+    	
+    	// register the frame to the item
+    	item.setFrame(this);
     }
 
     /**

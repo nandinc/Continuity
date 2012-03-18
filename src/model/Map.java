@@ -27,7 +27,7 @@ public class Map {
      * @param item
      */
     public void addItem(FrameItem item) {
-        throw new UnsupportedOperationException();
+        item.getArea();
     }
 
     /**

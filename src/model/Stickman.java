@@ -1,5 +1,7 @@
 package model;
 
+import utils.SkeletonLogger;
+
 /**
  * A játékos által irányított figurát reprezentáló elem.
  * 
@@ -35,8 +37,10 @@ public class Stickman extends AbstractFrameItem {
 
 	@Override
 	public Area getArea() {
-		// TODO Auto-generated method stub
-		return null;
+		area = new Area();
+		SkeletonLogger.register(area, "a");
+		SkeletonLogger.back(area);
+		return area;
 	}
 
 	@Override
