@@ -58,8 +58,15 @@ public class Key extends AbstractFrameItem {
 
 	@Override
 	public boolean isSolid() {
-		// TODO Auto-generated method stub
-		return false;
+		// Metódushívás rögzítése.
+		SkeletonLogger.call(this, "isSolid");
+		
+		boolean _isSolid = false;
+		SkeletonLogger.register(_isSolid, "true");
+		
+		// Függvény vége, visszatérés logolása.
+		SkeletonLogger.back(_isSolid);
+		return _isSolid;
 	}
 
 	@Override

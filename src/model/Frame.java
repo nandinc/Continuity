@@ -100,44 +100,13 @@ public class Frame {
     	}
     	
     	// Ütközés lekérdezése.
-    	boolean collision = checkCollision(area);
+    	boolean collision = checkCollision(area, s);
     	// Regisztrálás a logger osztályba.
     	SkeletonLogger.register(!collision, "!collision");
     	
     	// Ha nincs ütközés, akkor áthelyezzük a stickmant.
     	if(!collision) {
     		s.setArea(area);
-    	// Skeletonhoz van a következő rész, COllision Notification:
-    	} else {
-    		// Elemek inicializálása
-    		SkeletonLogger.mute();
-	    		FrameItem fa = new Key();
-				FrameItem fb = new Key();
-				SkeletonLogger.register(fa, "fa");
-				SkeletonLogger.register(fb, "fb");
-			SkeletonLogger.unMute();
-			
-			// Lekérdezzük az egyes itemek helyét és a helyekre(area)
-			// megnézzük, hogy ütközésben van-e a stickman új helyével.
-			Area aa = fa.getArea();
-			SkeletonLogger.register(aa, "aa");
-			
-			boolean _collision = aa.hasCollision(area);
-			SkeletonLogger.register(_collision, "collision");
-			
-			if(_collision) {
-				fa.collision(s);
-			}
-			
-			Area ab = fb.getArea();
-			SkeletonLogger.register(ab, "aa");
-			
-			_collision = ab.hasCollision(area);
-			SkeletonLogger.register(_collision, "collision");
-			
-			if(_collision) {
-				fb.collision(s);
-			}
     	}
 
     	// Függvény vége, visszatérés logolása.
@@ -151,7 +120,7 @@ public class Frame {
      * 
      * @param area
      */
-    protected boolean checkCollision(Area area) {
+    protected boolean checkCollision(Area area, Stickman s) {
     	// Metódushívás rögzítése.
     	SkeletonLogger.call(this, "checkCollision", area);
     	
@@ -159,10 +128,57 @@ public class Frame {
     	boolean collision = SkeletonLogger.askYesOrNo("IsCollision");
     	// Regisztrálás a logger osztályba.
     	SkeletonLogger.register(collision, "collision");
+    	// Lépés engedélyezése.
+		boolean freeFlag = true;
+		SkeletonLogger.register(freeFlag, "freeFlag");
+    	
+    	if(collision) {
+			// Elemek inicializálása
+			SkeletonLogger.mute();
+	    		FrameItem fa = new Key();
+				FrameItem fb = new Key();
+				SkeletonLogger.register(fa, "fa");
+				SkeletonLogger.register(fb, "fb");
+			SkeletonLogger.unMute();
+			
+			// Lekérdezzük az egyes itemek helyét és a helyekre(area)
+			// megnézzük, hogy ütközésben van-e a stickman új helyével.
+			// Illetve megnézzük, hogy solid vagy sem.
+			
+			boolean solidFlag = fa.isSolid();
+			if (solidFlag) {
+				freeFlag = false;
+			}
+			
+			Area aa = fa.getArea();
+			SkeletonLogger.register(aa, "aa");
+			
+			boolean _collision = aa.hasCollision(area);
+			SkeletonLogger.register(_collision, "collision");
+			
+			if(_collision) {
+				fa.collision(s);
+			}
+			
+			solidFlag = fb.isSolid();
+			if (solidFlag) {
+				freeFlag = false;
+			}
+			
+			Area ab = fb.getArea();
+			SkeletonLogger.register(ab, "aa");
+			
+			_collision = ab.hasCollision(area);
+			SkeletonLogger.register(_collision, "collision");
+			
+			if(_collision) {
+				fb.collision(s);
+			}
+    	}
     	
     	// Függvény vége, visszatérés logolása.
-    	SkeletonLogger.back(collision);
-    	return collision;
+    	SkeletonLogger.back(freeFlag);
+    	return freeFlag;
     }
 
     /**

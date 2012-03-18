@@ -2,7 +2,6 @@ package model.test;
 
 import utils.SkeletonLogger;
 import model.Game;
-import model.MapFactory;
 
 /**
  * @file 1.1 Load Map

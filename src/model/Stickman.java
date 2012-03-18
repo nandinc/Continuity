@@ -52,7 +52,8 @@ public class Stickman extends AbstractFrameItem {
      * utolsó ellenőrzőpontra.
      */
     public void resetToCheckpoint() {
-        throw new UnsupportedOperationException();
+    	SkeletonLogger.call(this, "resetToCheckpoint");
+    	SkeletonLogger.back();
     }
 
 	@Override
