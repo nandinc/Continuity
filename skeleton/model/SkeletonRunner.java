@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import utils.SkeletonLogger;
+
 import model.test.Test;
 
 /**
@@ -169,6 +171,10 @@ public class SkeletonRunner {
 			return;
 		} else {
 			System.out.println("~~~~~~~~~~~~~~~~~~~~\n");
+			
+			// Reset the SkeletonLogger
+			SkeletonLogger.clearStack();
+			
 			// run choosen test
 			tests.get(testIndex - 1).run();
 		}

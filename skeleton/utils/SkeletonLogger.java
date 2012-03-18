@@ -50,14 +50,35 @@ public class SkeletonLogger {
 		logCall(self, method, new Object[] { p1 });
 	}
 	
+	/**
+	 * Regisztrálja a metódushívást, illetve megjeleníti a meghívott metódus
+	 * paramétereit (hívott osztály/objektum, metódusnév, paraméterek).
+	 * @param self Hívott objektum
+	 * @param method Metódus neve
+	 * @param pi i. paraméter
+	 */
 	public static void call(Object self, String method, Object p1, Object p2) {
 		logCall(self, method, new Object[] { p1, p2 });
 	}
 	
+	/**
+	 * Regisztrálja a metódushívást, illetve megjeleníti a meghívott metódus
+	 * paramétereit (hívott osztály/objektum, metódusnév, paraméterek).
+	 * @param self Hívott objektum
+	 * @param method Metódus neve
+	 * @param pi i. paraméter
+	 */
 	public static void call(Object self, String method, Object p1, Object p2, Object p3) {
 		logCall(self, method, new Object[] { p1, p2, p3 });
 	}
 	
+	/**
+	 * Regisztrálja a metódushívást, illetve megjeleníti a meghívott metódus
+	 * paramétereit (hívott osztály/objektum, metódusnév, paraméterek).
+	 * @param self Hívott objektum
+	 * @param method Metódus neve
+	 * @param pi i. paraméter
+	 */
 	public static void call(Object self, String method, Object p1, Object p2, Object p3, Object p4) {
 		logCall(self, method, new Object[] { p1, p2, p3, p4 });
 	}
@@ -72,7 +93,7 @@ public class SkeletonLogger {
 	public static void create(Object self, String name) {
 		register(self, name);
 		call(self, "<<create>>");
-		back();
+//		back();
 	}
 	
 	/**
@@ -189,6 +210,14 @@ public class SkeletonLogger {
 		}
 		
 		return s;
+	}
+	
+	/**
+	 * Új teszteset futtatása előtt a Stackek üríthetőek.
+	 */
+	public static void clearStack() {
+		callStack.clear();
+		objectMap.clear();
 	}
 	
 	/**
