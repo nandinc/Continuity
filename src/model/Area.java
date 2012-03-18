@@ -1,5 +1,7 @@
 package model;
 
+import utils.SkeletonLogger;
+
 /**
  * Egy tetszőleges keret egy területét leíró osztály.
  * Ez az osztály elfedi, hogy egy keret valójában hány dimenziós,
@@ -19,7 +21,13 @@ public class Area {
      * @return true Ha van ilyen közös pont
      */
     public boolean hasCollision(Area area) {
-        throw new UnsupportedOperationException();
+    	SkeletonLogger.call(this, "hasCollision", area);
+		
+    	boolean _collision = SkeletonLogger.askYesOrNo("Collide with this?");
+    	SkeletonLogger.register(_collision, "collision");
+    	
+		SkeletonLogger.back(_collision);
+    	return _collision;
     }
 
     public int getX() {

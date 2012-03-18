@@ -19,13 +19,13 @@ public class Game {
     private PubSub pubSub;
     
     public Game() {
-    	// register this in JTrace
-    	SkeletonLogger.register(this, "g");
+    	// Regisztrálás
+    	SkeletonLogger.create(this, "g");
     	
     	// initialize components
     	mapFactory = new MapFactory();
     	Timer t = new Timer();
-    	pubSub = new PubSub();
+    	pubSub = new PubSub(this);
     }
 
     /**
@@ -33,11 +33,24 @@ public class Game {
      * @param mapId
      */
     public void loadMap(int mapId) {
+    	// Metódushívás rögzítése.
 		SkeletonLogger.call(this, "loadMap", mapId);
 		
+		// Map bekérése a Mapfactoryból
     	mapFactory.getMap(mapId, pubSub);
     	
+    	// Függvény vége, visszatérés logolása.
 		SkeletonLogger.back();
     }
+
+	/**
+	 * @param data
+	 */
+	public void callBack_KeyPickedUp(Object data) {
+		// Metódushívás rögzítése.
+		SkeletonLogger.call(this, "callBack:KeyPickedUp", data);
+		// Függvény vége, visszatérés logolása.
+		SkeletonLogger.back();
+	}
 
 }

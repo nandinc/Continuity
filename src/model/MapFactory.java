@@ -13,7 +13,7 @@ import utils.SkeletonLogger;
 public class MapFactory {
 
 	public MapFactory() {
-		SkeletonLogger.create(this, "mf");
+		SkeletonLogger.create(this, "mp");
 	}
 	
     /**
@@ -24,23 +24,30 @@ public class MapFactory {
      * @param ps
      */
     public Map getMap(int mapId, PubSub ps) {
+    	// Metódushívás rögzítése.
     	SkeletonLogger.call(this, "getMap", mapId, ps);
     	
+    	// Teszteléshez új pálya készítése és néhány elem belepakolása.
     	Map m = new Map();
+    	// Regisztrálás a logger osztályba.
     	SkeletonLogger.create(m, "m");
     	
     	FrameItem fa = new Key();
+    	// Regisztrálás a logger osztályba.
     	SkeletonLogger.create(fa, "fa");
     	m.addItem(fa);
     	
     	FrameItem fb = new Key();
+    	// Regisztrálás a logger osztályba.
     	SkeletonLogger.create(fb, "fb");
     	m.addItem(fb);
     	
     	FrameItem fc = new Door();
+    	// Regisztrálás a logger osztályba.
     	SkeletonLogger.create(fc, "fc");
     	m.addItem(fc);
     	
+    	// Függvény vége, visszatérés logolása.
     	SkeletonLogger.back(m);
     	return m;
     }

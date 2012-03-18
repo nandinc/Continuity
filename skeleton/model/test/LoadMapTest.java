@@ -19,11 +19,10 @@ public class LoadMapTest extends AbstractTest{
 		// regisztrálása a Logger osztályba.
 		Game g = new Game();
 		SkeletonLogger.register(g, "g");
-		MapFactory mp = new MapFactory();
-		SkeletonLogger.register(mp, "mp");
 		int mapId = 1;
 		SkeletonLogger.register(mapId, "mapId");
 		
+		// Beléptetés egy új map megnyitásával.
 		g.loadMap(mapId);
 	}
 

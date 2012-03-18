@@ -29,11 +29,13 @@ public class Map {
      * @param item
      */
     public void addItem(FrameItem item) {
+    	// Metódushívás rögzítése.
     	SkeletonLogger.call(this, "addItem", item);
     	
+    	// Terület lekérdezése.
         item.getArea();
        
-        
+        // Függvény vége, visszatérés logolása.
         SkeletonLogger.back();
     }
 
@@ -46,24 +48,33 @@ public class Map {
      * @param direction
      */
     public Frame getNeighbour(Frame caller, DIRECTION direction) {
+    	// Metódushívás rögzítése.
     	SkeletonLogger.call(this, "getNeighbour", caller, direction);
     	
+    	// Felhasználótól megkérdezzük, hogy van-e a lépés irányában frame.
     	boolean hasNeighbourInDirection = SkeletonLogger.askYesOrNo("hasNeighbourInDirection");
     	
+    	// Ha van frame a lépés irányába, akkor létrehozunk egy Frame-et a teszteléshez,
+    	// amelyet a szomszédos frame-ként fogunk kezelni.
     	if (hasNeighbourInDirection) {
     		Frame neighbourFrame = new Frame(this);
         	SkeletonLogger.register(neighbourFrame, "neighbour");
+        	
+        	// Megvizsgáljuk, hogy az adott irányba átjárható-e a szomszédos frame.
     		boolean isTraversable = neighbourFrame.isTraversable(caller, direction);
     		
+    		// Ha átjárható, akkor visszatérítjük a szomszédos framet.
     		if (isTraversable) {
     			SkeletonLogger.back(neighbourFrame);
     			return neighbourFrame;
+    		// Ha nem átjárható, akkor null-al térünk vissza.
     		} else {
     			SkeletonLogger.back(null);
     			return null;
     		}
     	}
     	
+    	// Ha nincs Frame a lépés irányába, akkor is null-al térünk vissza.
     	SkeletonLogger.back(null);
     	return null;
     }

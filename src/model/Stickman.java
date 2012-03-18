@@ -9,16 +9,19 @@ import utils.SkeletonLogger;
  * @file Stickman osztály
  */
 public class Stickman extends AbstractFrameItem {
-
+	
     /**
      * A figura mozgatása a megadott irányba.
      * @param direction
      */
     public void move(DIRECTION direction) {
+    	// Metódushívás rögzítése.
     	SkeletonLogger.call(this, "move", direction);
 
+    	// Új terület lekérése lépés irányába.
     	getNewAreaByDirection(direction);
     	
+    	// Függvény vége, visszatérés logolása.
     	SkeletonLogger.back();
     }
 
@@ -28,13 +31,18 @@ public class Stickman extends AbstractFrameItem {
      * @param direction
      */
     private Area getNewAreaByDirection(DIRECTION direction) {
+    	// Metódushívás rögzítése.
     	SkeletonLogger.call(this, "getNewAreaByDirection", direction);
     	
+    	// Teszteléshez új terület létrehozása.
     	Area na = new Area();
+    	// Regisztrálás a logger osztályba.
     	SkeletonLogger.create(na, "na");
     	
+    	// Kérés indítása a lépéshez.
     	frame.requestArea(this, na, direction);
     	
+    	// Függvény vége, visszatérés logolása.
     	SkeletonLogger.back(na);
     	return na;
     }
@@ -49,24 +57,40 @@ public class Stickman extends AbstractFrameItem {
 
 	@Override
 	public Area getArea() {
+		// Metódushívás rögzítése.
 		SkeletonLogger.call(this, "getArea");
-		area = new Area();
+		
+		// Teszteléshez, ha nincs még terület újat készít.
+		if(area == null) area = new Area();
+		// Regisztrálás a logger osztályba.
 		SkeletonLogger.register(area, "a");
+		
+		// Függvény vége, visszatérés logolása.
 		SkeletonLogger.back(area);
 		return area;
 	}
 
 	@Override
 	public void setArea(Area area) {
+		// Metódushívás rögzítése.
 		SkeletonLogger.call(this, "setArea", area);
+		
+		// Terület beállítása.
 		this.area = area;
+		
+		// Függvény vége, visszatérés logolása.
 		SkeletonLogger.back();
 	}
 
 	@Override
 	public void setFrame(Frame frame) {
+		// Metódushívás rögzítése.
 		SkeletonLogger.call(this, "setFrame", frame);
+		
+		// Frame beállítása
 		this.frame = frame;
+		
+		// Függvény vége, visszatérés logolása.
 		SkeletonLogger.back();
 	}
 

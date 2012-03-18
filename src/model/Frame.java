@@ -11,6 +11,10 @@ import utils.SkeletonLogger;
 public class Frame {
 	private Map map;
 	
+	/**
+	 * Frame létrehozása az őt tartalmazó pályával.
+	 * @param m Tartalmazó pálya
+	 */
 	public Frame(Map m) {
 		map = m;
 	}
@@ -21,12 +25,13 @@ public class Frame {
      * @param item
      */
     public void addItem(FrameItem item) {
-    	// register method call in JTrace
+    	// Metódushívás rögzítése.
     	SkeletonLogger.call(this, "addItem", item);
     	
-    	// register the frame to the item
+    	// A frame regisztrálása az itemhez.
     	item.setFrame(this);
     	
+    	// Függvény vége, visszatérés logolása.
     	SkeletonLogger.back();
     }
 
@@ -36,10 +41,9 @@ public class Frame {
      * @param item
      */
     public void removeItem(FrameItem item) {
+    	// Metódushívás rögzítése.
     	SkeletonLogger.call(this, "removeItem", item);
-    	
-    	
-    	
+    	// Függvény vége, visszatérés logolása.
     	SkeletonLogger.back();
     }
 
@@ -51,40 +55,92 @@ public class Frame {
      * 
      * @param s
      * @param area
+     * @param direction Irány, ha új keretbe lépne.
      */
     public boolean requestArea(Stickman s, Area area, DIRECTION direction) {
+    	// Metódushívás rögzítése.
     	SkeletonLogger.call(this, "requestArea", s, area);
     	
+    	// Bekérjük a tesztelőtől, hogy van-e terület, amerre lépni akarunk.
+    	// Ha nem, akkor pályahatárként kezeljük tovább.
     	if(!SkeletonLogger.askYesOrNo("areaInBound")) {
+    		// A pálya határnál új Frame lesz a szomszédos frame, amelyet a
+    		// map-tól tudunk lekérdezni.
     		Frame newFrame = map.getNeighbour(this, direction);
+    		// Regisztrálás a logger osztályba.
     		SkeletonLogger.register(newFrame, "newFrame");
     		
+    		// Ha van szomszédos frame.
     		if (newFrame != null) {
     			newFrame.requestArea(s, area, direction);
+    			// Elem eltávolítása a jelenlegi frameből
     			removeItem(s);
+    			// Elem áthelyezése a szomszédos framebe
     			newFrame.addItem(s);
+    			
     			boolean _true = true;
+    			// Regisztrálás a logger osztályba.
     			SkeletonLogger.register(_true, "true");
+    			// Függvény vége, visszatérés logolása.
     			SkeletonLogger.back(_true);
     			return true;
+    		// Ha nincs szomszédos frame.
     		} else {
+    			// Külön kezeljük, ha lefele lépne, mert az halállal ér véget.
     			if (direction == DIRECTION.DOWN) {
     				s.resetToCheckpoint();
     			}
     			boolean _false = false;
+    			// Regisztrálás a logger osztályba.
     			SkeletonLogger.register(_false, "false");
+    			// Függvény vége, visszatérés logolása.
     			SkeletonLogger.back(_false);
     			return false;
     		}
     	}
     	
+    	// Ütközés lekérdezése.
     	boolean collision = checkCollision(area);
+    	// Regisztrálás a logger osztályba.
     	SkeletonLogger.register(!collision, "!collision");
     	
+    	// Ha nincs ütközés, akkor áthelyezzük a stickmant.
     	if(!collision) {
     		s.setArea(area);
+    	// Skeletonhoz van a következő rész, COllision Notification:
+    	} else {
+    		// Elemek inicializálása
+    		SkeletonLogger.mute();
+	    		FrameItem fa = new Key();
+				FrameItem fb = new Key();
+				SkeletonLogger.register(fa, "fa");
+				SkeletonLogger.register(fb, "fb");
+			SkeletonLogger.unMute();
+			
+			// Lekérdezzük az egyes itemek helyét és a helyekre(area)
+			// megnézzük, hogy ütközésben van-e a stickman új helyével.
+			Area aa = fa.getArea();
+			SkeletonLogger.register(aa, "aa");
+			
+			boolean _collision = aa.hasCollision(area);
+			SkeletonLogger.register(_collision, "collision");
+			
+			if(_collision) {
+				fa.collision(s);
+			}
+			
+			Area ab = fb.getArea();
+			SkeletonLogger.register(ab, "aa");
+			
+			_collision = ab.hasCollision(area);
+			SkeletonLogger.register(_collision, "collision");
+			
+			if(_collision) {
+				fb.collision(s);
+			}
     	}
 
+    	// Függvény vége, visszatérés logolása.
 		SkeletonLogger.back(!collision);
     	return !collision;
     }
@@ -96,11 +152,15 @@ public class Frame {
      * @param area
      */
     protected boolean checkCollision(Area area) {
+    	// Metódushívás rögzítése.
     	SkeletonLogger.call(this, "checkCollision", area);
     	
+    	// Megkérdezzük a tesztelőtől, hogy lesz-e ütközés.
     	boolean collision = SkeletonLogger.askYesOrNo("IsCollision");
+    	// Regisztrálás a logger osztályba.
     	SkeletonLogger.register(collision, "collision");
     	
+    	// Függvény vége, visszatérés logolása.
     	SkeletonLogger.back(collision);
     	return collision;
     }
@@ -114,11 +174,16 @@ public class Frame {
      * @param d
      */
     protected boolean isTraversable(Frame frame, DIRECTION d) {
+    	// Metódushívás rögzítése.
     	SkeletonLogger.call(this, "isTraversable", frame, d);
     	
+    	// Megkérdezzük a tesztelőt, hogy átjárható-e a frame a paraméterben
+    	// kapott másik frame-ből.
     	boolean isTraversable = SkeletonLogger.askYesOrNo("IsTraversable");
+    	// Regisztrálás a logger osztályba.
     	SkeletonLogger.register(isTraversable, "isTraversable");
     	
+    	// Függvény vége, visszatérés logolása.
     	SkeletonLogger.back(isTraversable);
     	return isTraversable;
     }

@@ -1,5 +1,7 @@
 package model;
 
+import utils.SkeletonLogger;
+
 /**
  * A pályák befejezésére szolgáló ajtót reprezentálja.
  * Ha a Stickman az összes kulcs birtokában megérinti,
@@ -10,10 +12,25 @@ package model;
  */
 public class Door extends AbstractFrameItem {
 
+	public Door() {
+		area = new Area();
+	}
+	
 	@Override
 	public Area getArea() {
-		// TODO Auto-generated method stub
-		return null;
+		// Metódushívás rögzítése.
+		SkeletonLogger.call(this, "getArea");
+		
+		// Teszteléshez, ha nicns terület beállítva, új terület beállítása.
+		if (area == null) {
+			area = new Area();
+			// Regisztrálás a logger osztályba.
+			SkeletonLogger.register(area, "area");
+		}
+		
+		// Függvény vége, visszatérés logolása.
+		SkeletonLogger.back(area);
+		return area;
 	}
 
 	@Override

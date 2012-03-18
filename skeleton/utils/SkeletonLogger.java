@@ -30,6 +30,11 @@ public class SkeletonLogger {
 	protected static Stack<StackLevel> callStack = new Stack<StackLevel>();
 	
 	/**
+	 * Egy változó, ami segítségével kikapcsolható a Logger osztály.
+	 */
+	private static boolean mute = false;
+	
+	/**
 	 * Regisztrálja a metódushívást, illetve megjeleníti a meghívott metódus
 	 * paramétereit (hívott osztály/objektum, metódusnév, paraméterek).
 	 * @param o Hívott objektum
@@ -86,14 +91,16 @@ public class SkeletonLogger {
 	/**
 	 * Shorthand az objektumok létrehozásához, mely beregisztrálja az
 	 * objektumot, megjeleníti, hogy meghívták a konstruktorát, illetve rögtön
-	 * vissza is tér.
+	 * vissza is tér, ha nincs kikapcsolva a loggolás.
 	 * @param self Létrehozott objektum
 	 * @param name Objektum neve
 	 */
 	public static void create(Object self, String name) {
-		register(self, name);
-		call(self, "<<create>>");
-		callStack.pop();
+		if(!mute) {
+			register(self, name);
+			call(self, "<<create>>");
+			callStack.pop();
+		}
 	}
 	
 	/**
@@ -228,6 +235,20 @@ public class SkeletonLogger {
 		for (int i = 0; i < level * 2; i++) {
 			System.out.print(" ");
 		};
+	}
+	
+	/**
+	 * Loggolás kikapcsolása
+	 */
+	public static void mute() {
+		mute = true;
+	}
+	
+	/**
+	 * A Loggolás bekapcsolása
+	 */
+	public static void unMute() {
+		mute = false;
 	}
 	
 	/**

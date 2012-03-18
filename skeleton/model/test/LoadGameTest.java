@@ -1,5 +1,6 @@
 package model.test;
 
+import utils.SkeletonLogger;
 import model.Game;
 
 /**
@@ -14,6 +15,7 @@ public class LoadGameTest extends AbstractTest {
 	
 	@Override
 	public void runTest() {
+		SkeletonLogger.unMute();
 		Game game = new Game();
 		game.loadMap(1);
 	}

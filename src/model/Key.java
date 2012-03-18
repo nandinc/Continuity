@@ -1,5 +1,7 @@
 package model;
 
+import utils.SkeletonLogger;
+
 /**
  * A pályán található kulcsokat reprezentáló objektum.
  * 
@@ -13,6 +15,10 @@ public class Key extends AbstractFrameItem {
 	 */
     private boolean collected;
 
+    public Key() {
+    	this.area = new Area();
+    }
+    
     /**
      * Megadja, hogy megszerezték-e a kulcsot.
      * @return Igaz, ha megszerezték-e a kulcsot.
@@ -23,8 +29,19 @@ public class Key extends AbstractFrameItem {
 
 	@Override
 	public Area getArea() {
-		// TODO Auto-generated method stub
-		return null;
+		// Metódushívás rögzítése.
+		SkeletonLogger.call(this, "getArea");
+		
+		// Teszteléshez, ha nicns terület beállítva, új terület beállítása.
+		if (area == null) {
+			area = new Area();
+			// Regisztrálás a logger osztályba.
+			SkeletonLogger.register(area, "area");
+		}
+		
+		// Függvény vége, visszatérés logolása.
+		SkeletonLogger.back(area);
+		return area;
 	}
 
 	@Override
@@ -47,8 +64,19 @@ public class Key extends AbstractFrameItem {
 
 	@Override
 	public void collision(FrameItem colliding) {
-		// TODO Auto-generated method stub
+		// Metódushívás rögzítése.
+		SkeletonLogger.call(this, "collision", colliding);
 		
+		// Teszteléshez kulcs felvételének eljátszása.
+		String notif = "keyPickedUp";
+		SkeletonLogger.register(notif, "'KeyPickedUp'");
+		if(ps == null) {
+			ps = new PubSub(new Game());
+		}
+		ps.emit(notif, this);
+		
+		// Függvény vége, visszatérés logolása.
+		SkeletonLogger.back();
 	}
 
 }

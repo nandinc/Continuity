@@ -11,9 +11,11 @@ import utils.SkeletonLogger;
  * @file PubSub osztály
  */
 public class PubSub {
+	private Game g;
 
-	public PubSub() {
+	public PubSub(Game g) {
 		SkeletonLogger.create(this, "ps");
+		this.g = g;
 	}
 	
     /**
@@ -23,7 +25,14 @@ public class PubSub {
      * @param data Az eseményhez tartozó paraméter.
      */
     public void emit(String eventName, Object data) {
-        throw new UnsupportedOperationException();
+    	// Metódushívás rögzítése.
+    	SkeletonLogger.call(this, "emit", eventName, data);
+    	
+    	// Értesítjük a map-ot a kulcs felvételéről.
+    	g.callBack_KeyPickedUp(data);
+    	
+    	// Függvény vége, visszatérés logolása.
+    	SkeletonLogger.back();
     }
 
     /**

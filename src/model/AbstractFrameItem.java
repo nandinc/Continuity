@@ -19,4 +19,17 @@ public abstract class AbstractFrameItem implements FrameItem {
      * A tartalmazó keret
      */
     protected Frame frame;
+    
+    /**
+     * Üzenetküldő
+     */
+    protected PubSub ps;
+    
+    /**
+     * Üzenetküldő beállítás
+     * @param ps Üzenetküldő
+     */
+    public void setPubSub(PubSub ps) {
+    	this.ps = ps;
+    }
 }
