@@ -33,7 +33,11 @@ public class Game {
      * @param mapId
      */
     public void loadMap(int mapId) {
+		SkeletonLogger.call(this, "loadMap", mapId);
+		
     	mapFactory.getMap(mapId, pubSub);
+    	
+		SkeletonLogger.back();
     }
 
 }

@@ -13,8 +13,7 @@ import utils.SkeletonLogger;
 public class PubSub {
 
 	public PubSub() {
-		SkeletonLogger.register(this, "ps");
-		SkeletonLogger.call(this, "<<create>>");
+		SkeletonLogger.create(this, "ps");
 	}
 	
     /**

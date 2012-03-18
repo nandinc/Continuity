@@ -27,11 +27,9 @@ public class AddFrameItemToMapTest extends AbstractTest{
 		SkeletonLogger.register(map, "Map");
 		FrameItem fi = new Stickman();
 		SkeletonLogger.register(fi, "fi");
-		Frame f = new Frame();
+		Frame f = new Frame(map);
 		SkeletonLogger.register(f, "f");
 		
-		// Művelethívás regisztrálása.
-		SkeletonLogger.call(map, "addItem", fi);
 		// Hozzáadjuk a FrameItemet a Maphoz.
 		map.addItem(fi);
 		
@@ -40,19 +38,16 @@ public class AddFrameItemToMapTest extends AbstractTest{
 		// osztály közvetíti.
 		if(SkeletonLogger.askYesOrNo("IsFrameAtArea")) {
 			// Ha van a lépni kívánt helyen Frame, akkor
-			// Beregisztráljuk a művelethívást a loggerbe és
-			// Hozzáadjuk a frame-hez az elemet.
-			SkeletonLogger.call(f, "addItem", fi);
+			// hozzáadjuk a frame-hez az elemet.
 			f.addItem(fi);
 		} else {
 			// Ha nincs a lépni kívánt helyen Frame, akkor
 			// létrehozunk egyet, regisztráljuk a Loggerbe
 			// majd regisztráljuk a művelethívást és
 			// hozzáadjuk az elemet az új Frame-hez.
-			Frame f2 = new Frame();
+			Frame f2 = new Frame(map);
 			SkeletonLogger.create(f2, "f2");
 			
-			SkeletonLogger.call(f2, "addItem", fi);
 			f2.addItem(fi);
 		}
 		
@@ -62,7 +57,6 @@ public class AddFrameItemToMapTest extends AbstractTest{
 		Area na = new Area();
 		SkeletonLogger.create(na, "na");
 		
-		SkeletonLogger.call(fi, "setArea", na);
 		fi.setArea(na);
 	}
 

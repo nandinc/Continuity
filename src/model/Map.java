@@ -2,6 +2,8 @@ package model;
 
 import java.util.*;
 
+import utils.SkeletonLogger;
+
 /**
  * A pályákat reprezentálja. Tartalmazza a kereteket és azok elhelyezkedését,
  * kontrolállja az átrendezésüket, melyet kommunikáció nélkül meg tud tenni, mivel a keretek nem tudnak relatív elhelyezkedésükről.
@@ -27,7 +29,12 @@ public class Map {
      * @param item
      */
     public void addItem(FrameItem item) {
+    	SkeletonLogger.call(this, "addItem", item);
+    	
         item.getArea();
+       
+        
+        SkeletonLogger.back();
     }
 
     /**
@@ -39,7 +46,26 @@ public class Map {
      * @param direction
      */
     public Frame getNeighbour(Frame caller, DIRECTION direction) {
-        throw new UnsupportedOperationException();
+    	SkeletonLogger.call(this, "getNeighbour", caller, direction);
+    	
+    	boolean hasNeighbourInDirection = SkeletonLogger.askYesOrNo("hasNeighbourInDirection");
+    	
+    	if (hasNeighbourInDirection) {
+    		Frame neighbourFrame = new Frame(this);
+        	SkeletonLogger.register(neighbourFrame, "neighbour");
+    		boolean isTraversable = neighbourFrame.isTraversable(caller, direction);
+    		
+    		if (isTraversable) {
+    			SkeletonLogger.back(neighbourFrame);
+    			return neighbourFrame;
+    		} else {
+    			SkeletonLogger.back(null);
+    			return null;
+    		}
+    	}
+    	
+    	SkeletonLogger.back(null);
+    	return null;
     }
 
     /**

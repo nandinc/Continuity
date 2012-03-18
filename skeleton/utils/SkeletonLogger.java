@@ -93,7 +93,7 @@ public class SkeletonLogger {
 	public static void create(Object self, String name) {
 		register(self, name);
 		call(self, "<<create>>");
-//		back();
+		callStack.pop();
 	}
 	
 	/**

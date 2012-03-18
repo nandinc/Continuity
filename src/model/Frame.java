@@ -9,6 +9,11 @@ import utils.SkeletonLogger;
  * @file Frame osztály
  */
 public class Frame {
+	private Map map;
+	
+	public Frame(Map m) {
+		map = m;
+	}
 	
     /**
      * Hozzáadja a megadott elemet a kerethez.
@@ -17,10 +22,12 @@ public class Frame {
      */
     public void addItem(FrameItem item) {
     	// register method call in JTrace
-    	SkeletonLogger.call(item, "setFrame", this);
+    	SkeletonLogger.call(this, "addItem", item);
     	
     	// register the frame to the item
     	item.setFrame(this);
+    	
+    	SkeletonLogger.back();
     }
 
     /**
@@ -29,7 +36,11 @@ public class Frame {
      * @param item
      */
     public void removeItem(FrameItem item) {
-        throw new UnsupportedOperationException();
+    	SkeletonLogger.call(this, "removeItem", item);
+    	
+    	
+    	
+    	SkeletonLogger.back();
     }
 
     /**
@@ -38,11 +49,44 @@ public class Frame {
      * A keret felelőssége a terület ellenőrzése, és szabad
      * terület esetén az elem pozíciójának frissítése.
      * 
-     * @param item
+     * @param s
      * @param area
      */
-    public boolean requestArea(FrameItem item, Area area) {
-        throw new UnsupportedOperationException();
+    public boolean requestArea(Stickman s, Area area, DIRECTION direction) {
+    	SkeletonLogger.call(this, "requestArea", s, area);
+    	
+    	if(!SkeletonLogger.askYesOrNo("areaInBound")) {
+    		Frame newFrame = map.getNeighbour(this, direction);
+    		SkeletonLogger.register(newFrame, "newFrame");
+    		
+    		if (newFrame != null) {
+    			newFrame.requestArea(s, area, direction);
+    			removeItem(s);
+    			newFrame.addItem(s);
+    			boolean _true = true;
+    			SkeletonLogger.register(_true, "true");
+    			SkeletonLogger.back(_true);
+    			return true;
+    		} else {
+    			if (direction == DIRECTION.DOWN) {
+    				s.resetToCheckpoint();
+    			}
+    			boolean _false = false;
+    			SkeletonLogger.register(_false, "false");
+    			SkeletonLogger.back(_false);
+    			return false;
+    		}
+    	}
+    	
+    	boolean collision = checkCollision(area);
+    	SkeletonLogger.register(!collision, "!collision");
+    	
+    	if(!collision) {
+    		s.setArea(area);
+    	}
+
+		SkeletonLogger.back(!collision);
+    	return !collision;
     }
 
     /**
@@ -52,7 +96,13 @@ public class Frame {
      * @param area
      */
     protected boolean checkCollision(Area area) {
-        throw new UnsupportedOperationException();
+    	SkeletonLogger.call(this, "checkCollision", area);
+    	
+    	boolean collision = SkeletonLogger.askYesOrNo("IsCollision");
+    	SkeletonLogger.register(collision, "collision");
+    	
+    	SkeletonLogger.back(collision);
+    	return collision;
     }
 
     /**
@@ -64,6 +114,12 @@ public class Frame {
      * @param d
      */
     protected boolean isTraversable(Frame frame, DIRECTION d) {
-        throw new UnsupportedOperationException();
+    	SkeletonLogger.call(this, "isTraversable", frame, d);
+    	
+    	boolean isTraversable = SkeletonLogger.askYesOrNo("IsTraversable");
+    	SkeletonLogger.register(isTraversable, "isTraversable");
+    	
+    	SkeletonLogger.back(isTraversable);
+    	return isTraversable;
     }
 }

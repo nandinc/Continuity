@@ -14,8 +14,7 @@ import utils.SkeletonLogger;
 public class Timer {
 	
 	public Timer() {
-		SkeletonLogger.register(this, "t");
-		SkeletonLogger.call(this, "<<create>>");
+		SkeletonLogger.create(this, "t");
 	}
 	
 	/**

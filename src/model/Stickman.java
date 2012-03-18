@@ -15,7 +15,11 @@ public class Stickman extends AbstractFrameItem {
      * @param direction
      */
     public void move(DIRECTION direction) {
-        throw new UnsupportedOperationException();
+    	SkeletonLogger.call(this, "move", direction);
+
+    	getNewAreaByDirection(direction);
+    	
+    	SkeletonLogger.back();
     }
 
     /**
@@ -24,7 +28,15 @@ public class Stickman extends AbstractFrameItem {
      * @param direction
      */
     private Area getNewAreaByDirection(DIRECTION direction) {
-        throw new UnsupportedOperationException();
+    	SkeletonLogger.call(this, "getNewAreaByDirection", direction);
+    	
+    	Area na = new Area();
+    	SkeletonLogger.create(na, "na");
+    	
+    	frame.requestArea(this, na, direction);
+    	
+    	SkeletonLogger.back(na);
+    	return na;
     }
 
     /**
@@ -37,6 +49,7 @@ public class Stickman extends AbstractFrameItem {
 
 	@Override
 	public Area getArea() {
+		SkeletonLogger.call(this, "getArea");
 		area = new Area();
 		SkeletonLogger.register(area, "a");
 		SkeletonLogger.back(area);
@@ -45,14 +58,16 @@ public class Stickman extends AbstractFrameItem {
 
 	@Override
 	public void setArea(Area area) {
-		// TODO Auto-generated method stub
-		
+		SkeletonLogger.call(this, "setArea", area);
+		this.area = area;
+		SkeletonLogger.back();
 	}
 
 	@Override
 	public void setFrame(Frame frame) {
-		// TODO Auto-generated method stub
-		
+		SkeletonLogger.call(this, "setFrame", frame);
+		this.frame = frame;
+		SkeletonLogger.back();
 	}
 
 	@Override
