@@ -9,7 +9,7 @@
 \section{Szkeleton tervezése}
 
 	\subsection{Fordítási és futtatási útmutató}
-	
+
 		\subsubsection{Fájllista}
 			\begin{center}
 			    \begin{tabular}{ | l | l | l | p{5cm} |}
@@ -47,15 +47,15 @@
 					%GENERATOR:FILE_LIST
 			    \end{tabular}
 			\end{center}
-			
+
 		\subsubsection{Fordítás}
-		 A Szkeleton fordításának menete: a könyvtárszerkezet /skeleton mappájában állva a \\ \texttt{javac model/*.java} \\
-paranccsal lefordíthatóak a szükséges modellelemek, majd \\ \texttt{javac model/test/*.java} \\utasítással megtörténik a tesztek lefordítása. Ezzel a futtatható fájlok elkészítése megtörtént.
-		
+		 A Szkeleton fordításának menete: a könyvtárszerkezet /skeleton mappájában állva a \\ \texttt{javac utils/*.java} \\ paranccsal lefordul a SkeletonLogger, majd \\ \texttt{javac model/*.java} \\
+paranccsal lefordíthatóak a szükséges modellelemek, végül \\ \texttt{javac model/test/*.java} \\utasítással megtörténik a tesztek lefordítása. Ezzel a futtatható fájlok elkészítése megtörtént.
+
 		\subsubsection{Futtatás}
 		 A futtatható fájlok elkészítése után \\ \texttt{java model/SkeletonRunner} \\ paranccsal elindítható a teszteket összefogó program, mely a console-on keresztül valósítja meg a felhasználóval történő kommunikációt. \\
  	 A kipróbálható teszteseteket a program kilistázza, mindegyikhez egy számot rendelve, a felhasználó a billentyűzet segítségével adhatja meg a választott tesztesetet. Bizonyos tesztek működése során további interakció szükséges, ilyenkor a program ismét a felhasználó beavatkozására vár. A teszt lefolyásáról a console-on keresztül a felhasználó minden esetben részletes tájékoztatást kap. Egy teszt végrehajtása után a felhasználónak további tesztesetek kipróbálására van lehetősége, a programból való kilépés a '0' bemenenettel hajtható végre.
-		
+
 	\subsection{Értékelés}
 		\begin{center}
 		    \begin{tabular}{ | l | c |}
