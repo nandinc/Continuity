@@ -13,5 +13,5 @@ public interface Subscriber {
 	 * @param eventName az esemény neve
 	 * @param eventParameter az esemény paramétere
 	 */
-	public void eventEmitted(String eName, Object eParameter);
+	public void eventEmitted(String eventName, Object eventParameter);
 }
