@@ -13,19 +13,25 @@ public interface FrameItem {
 	 * Visszaadja az elem pozícióját a kereten belül.
 	 * @return
 	 */
-    Area getArea();
+    public Area getArea();
 
     /**
      * Beállítja az elem pozícióját a kereten belül.
      * @param area
      */
-    void setArea(Area area);
+    public void setArea(Area area);
 
     /**
      * Beállítja az elemet tartalmazó keretet.
      * @param frame
      */
-    void setFrame(Frame frame);
+    public void setFrame(Frame frame);
+    
+    /**
+     * Sets pubsub object
+     * @param pubsub object
+     */
+    public void setPubSub(PubSub pubSub);
     
     /**
      * Megadja, hogy az elem szilárd-e vagy sem.
@@ -33,7 +39,7 @@ public interface FrameItem {
      * ütközések ellenőrzésekor használatos.
      * @return
      */
-    boolean isSolid();
+    public boolean isSolid();
 
     /**
      * A tartalmazó keret jelezheti ezen a metóduson keresztül,
@@ -41,5 +47,5 @@ public interface FrameItem {
      * hozzáért (collision) ehez az elemhez.
      * @param colliding
      */
-    void collision(FrameItem colliding);
+    public void collision(FrameItem colliding);
 }
