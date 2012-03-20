@@ -7,13 +7,16 @@ package model;
  */
 public class Frame {
 
+	public static final int FRAME_WIDTH = 200;
+	public static final int FRAME_HEIGHT = 150;
+	
     /**
      * Hozzáadja a megadott elemet a kerethez.
      * 
      * @param item
      */
     public void addItem(FrameItem item) {
-        throw new UnsupportedOperationException();
+        item.setFrame(this);
     }
 
     /**
