@@ -1,6 +1,8 @@
 package model;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * A pályákat reprezentálja. Tartalmazza a kereteket és azok elhelyezkedését,
@@ -14,8 +16,11 @@ public class Map {
 	 * A pályához tartozó kereteket tárolja. A Map osztály
 	 * meg tudja állapítani a keretek közötti szomszédossági
 	 * viszonyokat a gyűjtemény alapján.
+	 * 
+	 * A 2 dimenziós lista először az x eltolással, 
+	 * majd az y eltolással indexelhető.
 	 */
-    protected Collection<Frame> frames;
+    protected List<List<Frame>> frames = new ArrayList<List<Frame>>();
 
     /**
      * Hozzáadja a megadott elemet az elem által specifikált pozícióhoz.
@@ -26,7 +31,35 @@ public class Map {
      * @param item
      */
     public void addItem(FrameItem item) {
-        throw new UnsupportedOperationException();
+        // determine containing frame
+    	int frameCoordX = item.getArea().getX() / Frame.FRAME_WIDTH;
+    	int frameCoordY = item.getArea().getY() / Frame.FRAME_HEIGHT;
+    	
+    	// add new frame columns if needed
+    	if (frames.size() <= frameCoordX) {
+    		for (int currentSize = frames.size(); currentSize <= frameCoordX; currentSize++) {
+				frames.add(new ArrayList<Frame>());
+			}
+    	}
+    	
+    	List<Frame> column = frames.get(frameCoordX);
+    	// add new frames if needed
+    	if (column.size() <= frameCoordY) {
+    		for (int currentSize = column.size(); currentSize <= frameCoordY; currentSize++) {
+    			column.add(new Frame());
+    		}
+    	}
+    	
+    	// set item position relative to frame
+    	int itemOffsetX = item.getArea().getX() % Frame.FRAME_WIDTH;
+    	int itemOffsetY = item.getArea().getY() % Frame.FRAME_HEIGHT;
+    	
+    	item.getArea().setX(itemOffsetX);
+    	item.getArea().setY(itemOffsetY);
+    	
+    	// finally add item to the containing frame
+    	Frame containingFrame = column.get(frameCoordY);
+    	containingFrame.addItem(item);
     }
 
     /**
