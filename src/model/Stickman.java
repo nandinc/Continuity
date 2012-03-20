@@ -31,4 +31,13 @@ public class Stickman extends AbstractFrameItem {
     public void resetToCheckpoint() {
         throw new UnsupportedOperationException();
     }
+
+	@Override
+	public boolean isSolid() {
+		// By setting solid flag true,
+		// it opens a new perspective to cooperative
+		// strategies like jumping from the top of
+		// the other player.
+		return true;
+	}
 }

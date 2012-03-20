@@ -6,4 +6,10 @@ package model;
  * @responsibility Olyan elem, mellyel nem tud a Stickman egy helyen tartózkodni, azaz korlátozza a Stickman mozgásterét.
  */
 public class Platform extends AbstractFrameItem {
+
+	@Override
+	public boolean isSolid() {
+		// Don't let them just raid over me
+		return true;
+	}
 }

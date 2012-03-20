@@ -20,4 +20,9 @@ public class Key extends AbstractFrameItem {
         return this.collected;
     }
 
+	@Override
+	public boolean isSolid() {
+		return false;
+	}
+
 }
