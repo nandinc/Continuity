@@ -7,12 +7,15 @@ package model;
  */
 public class Stickman extends AbstractFrameItem {
 
+	private Frame checkpointFrame = null;
+	private Area checkpointArea = null;
     /**
      * A figura mozgatása a megadott irányba.
      * @param direction
      */
     public void move(DIRECTION direction) {
-        throw new UnsupportedOperationException();
+    	Area newArea = getNewAreaByDirection(direction);
+    	frame.requestArea(this, newArea);
     }
 
     /**
@@ -21,7 +24,42 @@ public class Stickman extends AbstractFrameItem {
      * @param direction
      */
     private Area getNewAreaByDirection(DIRECTION direction) {
-        throw new UnsupportedOperationException();
+        Area newArea = area.clone();
+        
+        // change the new area by direction
+        // please note: the origin of the coordinate system
+        // is in the top left corner.
+        switch (direction) {
+		case UP:
+			// TODO implement jump properly
+			newArea.setY(
+				newArea.getY() - 1
+			);
+			break;
+			
+		case RIGHT:
+			newArea.setX(
+				newArea.getX() + 1
+			);
+			break;
+			
+		case DOWN:
+			newArea.setY(
+				newArea.getY() + 1
+			);
+			break;
+			
+		case LEFT:
+			newArea.setX(
+				newArea.getX() - 1
+			);
+			break;
+
+		default:
+			break;
+		}
+        
+        return newArea;
     }
 
     /**
@@ -29,7 +67,41 @@ public class Stickman extends AbstractFrameItem {
      * utolsó ellenőrzőpontra.
      */
     public void resetToCheckpoint() {
-        throw new UnsupportedOperationException();
+        area = checkpointArea;
+        checkpointFrame.addItem(this);
+    }
+    
+    @Override
+    public void setFrame(Frame frame) {
+    	super.setFrame(frame);
+    	
+    	// set initial checkpoint
+    	// if not yet set
+    	if (checkpointFrame == null) {
+    		checkpointFrame = frame;
+    	}
+    	
+    	if (checkpointArea == null) {
+    		// area is the current area
+    		checkpointArea = area;
+    	}
+    }
+    
+    @Override
+    public void setPubSub(PubSub pubSub) {
+    	this.pubSub = pubSub;
+    	
+    	pubSub.on("tick", new Subscriber() {
+			
+			@Override
+			public void eventEmitted(String eventName, Object eventParameter) {
+				move(DIRECTION.DOWN);
+			}
+		});
+    	
+    	// TODO subscribe to key picked up event to collect key
+    	// and save checkpoint. Take care about events emitted by
+    	// another stickman
     }
 
 	@Override
