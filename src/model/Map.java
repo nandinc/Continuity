@@ -46,7 +46,9 @@ public class Map {
     	// add new frames if needed
     	if (column.size() <= frameCoordY) {
     		for (int currentSize = column.size(); currentSize <= frameCoordY; currentSize++) {
-    			column.add(new Frame());
+    			Frame frame = new Frame();
+    			frame.setMap(this);
+    			column.add(frame);
     		}
     	}
     	
@@ -71,7 +73,71 @@ public class Map {
      * @param direction
      */
     public Frame getNeighbour(Frame caller, DIRECTION direction) {
-        throw new UnsupportedOperationException();
+        // search for the given frame
+    	int callerColIndex = -2;
+    	int callerRowIndex = -2;
+    	
+    	SEARCH: for (int columnIndex = 0; columnIndex < frames.size(); columnIndex++) {
+    		List<Frame> column = frames.get(columnIndex);
+    		for (int rowIndex = 0; rowIndex < column.size(); rowIndex++) {
+    			if (column.get(rowIndex) == caller) {
+    				// caller found
+    				callerColIndex = columnIndex;
+    				callerRowIndex = rowIndex;
+    				break SEARCH;
+    			}
+    		}
+    	}
+    	
+    	// get neighbour index
+    	int neighbourColIndex = -1;
+    	int neighbourRowIndex = -1;
+    	
+    	switch (direction) {
+		case UP:
+			neighbourColIndex = callerColIndex;
+			neighbourRowIndex = callerRowIndex - 1;
+			break;
+			
+		case RIGHT:
+			neighbourColIndex = callerColIndex + 1;
+			neighbourRowIndex = callerRowIndex;
+			break;
+			
+		case DOWN:
+			neighbourColIndex = callerColIndex;
+			neighbourRowIndex = callerRowIndex + 1;
+			break;
+			
+		case LEFT:
+			neighbourColIndex = callerColIndex - 1;
+			neighbourRowIndex = callerRowIndex;
+			break;
+
+		default:
+			break;
+		}
+    	
+    	//check for bounds
+    	if (neighbourColIndex < 0 || neighbourColIndex >= frames.size()) {
+    		// neighbour is out of horizontal index
+    		return null;
+    	}
+    	
+    	List<Frame> neighbourColumn = frames.get(neighbourColIndex);
+    	
+    	if (neighbourRowIndex < 0 || neighbourRowIndex >= neighbourColumn.size()) {
+    		// neighbour is out of vertical index
+    		return null;
+    	}
+    	
+    	Frame neighbour = neighbourColumn.get(callerRowIndex);
+    	
+    	if (caller.isTraversable(neighbour, direction)) {
+    		return neighbour;
+    	} else {
+    		return null;
+    	}
     }
 
     /**
