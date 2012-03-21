@@ -12,4 +12,15 @@ public class Platform extends AbstractFrameItem {
 		// Don't let them just raid over me
 		return true;
 	}
+	
+	/**
+     * Tells whether the item should be considered
+     * while checking frame traversability or shouldn't.
+     * 
+     * @return true if affects
+     */
+	@Override
+    public boolean doesAffectTraversability() {
+		return true;
+	}
 }

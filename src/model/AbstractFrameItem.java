@@ -57,6 +57,17 @@ public abstract class AbstractFrameItem implements FrameItem {
     }
     
     /**
+     * Tells whether the item should be considered
+     * while checking frame traversability or shouldn't.
+     * 
+     * @return true if affects
+     */
+    @Override
+    public boolean doesAffectTraversability() {
+    	return false;
+    }
+    
+    /**
      * Do nothing on collision
      * 
      * By default, subclasses of this class doesn't response

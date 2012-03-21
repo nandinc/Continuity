@@ -40,6 +40,14 @@ public interface FrameItem {
      * @return
      */
     public boolean isSolid();
+    
+    /**
+     * Tells whether the item should be considered
+     * while checking frame traversability or shouldn't.
+     * 
+     * @return true if affects
+     */
+    public boolean doesAffectTraversability();
 
     /**
      * A tartalmazó keret jelezheti ezen a metóduson keresztül,
