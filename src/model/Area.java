@@ -18,8 +18,60 @@ public class Area {
      * @return true Ha van ilyen közös pont
      */
     public boolean hasCollision(Area area) {
-        throw new UnsupportedOperationException();
+    	// TODO review this logic
+        return (
+		// doesn't collide itself
+		this != area &&
+		
+		(
+        (	x <= area.x
+        &&  area.x <= x+width
+        &&  y <= area.y
+        &&  area.y <= y+height)
+        
+        ||
+        
+        (	area.x <= x
+		&&  x <= area.x+area.width
+		&&  area.y <= y
+		&&  y <= area.y+area.height)
+		)
+		);
     }
+    
+    /**
+     * Calculates the relative direction of the given area.
+     * 
+     * Takes only one dimension into account at a time.
+     * If the areas are placed diagonally, the horizontal
+     * direction will be returned.
+     * 
+     * @param area
+     * @return the relative direction or null if it has the same position
+     */
+	public DIRECTION getRelativeDirection(Area area) {
+		int directionX = x - area.x;
+		
+		if (directionX < 0) {
+			return DIRECTION.RIGHT;
+		}
+		
+		if (directionX > 0) {
+			return DIRECTION.LEFT;
+		}
+		
+		int directionY = y - area.y;
+		
+		if (directionY < 0) {
+			return DIRECTION.UP;
+		}
+		
+		if (directionY > 0) {
+			return DIRECTION.DOWN;
+		}
+		
+		return null;
+	}
 
     public int getX() {
         return this.x;
@@ -51,6 +103,17 @@ public class Area {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+    
+    @Override
+    public Area clone() {
+    	Area clone = new Area();
+    	clone.setX(x);
+    	clone.setY(y);
+    	clone.setHeight(height);
+    	clone.setWidth(width);
+    	
+    	return clone;
     }
     
     /**
