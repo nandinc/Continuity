@@ -1,0 +1,57 @@
+\input{../head}
+
+\usepackage{enumitem}
+
+\begin{document}
+
+\anyag{7. 7. Prototípus koncepciója}
+\fedlap
+
+\addtocounter{section}{6}
+\section{Prototípus koncepciója}
+
+	\subsection{Prototípus interface-definíciója}
+	%Definiálni kell a teszteket leíró nyelvet. Külön figyelmet kell fordítani arra, hogy ha a rendszer véletlen elemeket is tartalmaz, akkor a véletlenszerűség ki-bekapcsolható legyen, és a program determinisztikusan is tesztelhető legyen.
+	    \subsubsection{Az interfész általános leírása}
+	    %A protó (karakteres) input és output felületeit úgy kell kialakítani, hogy az input fájlból is vehető legyen illetőleg az output fájlba menthető legyen, vagyis kommunikációra csak a szabványos be- és kimenet használható.
+	    \subsubsection{Bemeneti nyelv}
+	    %Definiálni kell a teszteket leíró nyelvet. Külön figyelmet kell fordítani arra, hogy ha a rendszer véletlen elemeket is tartalmaz, akkor a véletlenszerűség ki-bekapcsolható legyen, és a program determinisztikusan is futtatható legyen. A szálkezelést is tesztelhető, irányítható módon kell megoldani.
+	    %Parancs1 \ Leírás: \ Opciók:
+	    %Ha szükséges, meg kell adni a konfigurációs (pl. pályaképet megadó) fájlok nyelvtanát is.
+	    \subsubsection{Kimeneti nyelv}	
+	    %Egyértelműen definiálni kell, hogy az egyes bemeneti parancsok végrehajtása után előálló állapot milyen formában jelenik meg a szabványos kimeneten.	
+	
+	\subsection{Összes részletes use-case}
+        %domain specific commands
+        \newcommand{\ucitem}[1]{\item \textbf{Név: #1}\\}
+        \newcommand{\ucdesc}[1]{\textbf{Leírás: } #1\\}
+        \newcommand{\ucscenario}[1]{\textbf{Forgatókönyv: }#1\\}
+        
+        \subsubsection{XYZ Actor use-case-ek} % TODO
+		
+	    \begin{enumerate}[label=\textbf{\arabic*.}, start=1]
+	        \ucitem{UC neve} % TODO
+	        \ucdesc{UC leírás} % TODO
+	        \ucscenario{UC forgatókönyv} % TODO
+	    \end{enumerate}
+	
+	\subsection{Tesztelési terv}
+		\newcommand{\testitem}[1]{\item \textbf{Név: #1}\\}
+		\newcommand{\tdesc}[1]{\textbf{Leírás: } #1\\}
+		\newcommand{\tcel}[1]{\textbf{Cél:} #1\\}
+	
+		\begin{enumerate}[label=\textbf{\arabic*.}, start=1]
+		    \testitem{T teszt neve} % TODO
+	        \tdesc{T teszt leírása} % TODO
+	        \tcel{T teszt célja} % TODO
+		\end{enumerate}
+	
+	\subsection{Tesztelést támogató segéd- és fordítóprogramok specifikálása}		
+
+
+	\subsection{Napló}
+	% The diary generator uses the following comments to identify the beginning and the ending of the generated diary
+	% The following content is auto generated, please do NOT modify, edit the related shared document instead.
+	%GENERATOR:DIARY
+    %GENERATOR:DIARY
+\end{document}
