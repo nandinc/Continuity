@@ -52,7 +52,7 @@ public class Frame {
     	boolean inBounds = isAreaInBounds(area);
     	
     	if (inBounds) {
-    		if (checkCollision(area)) {
+    		if (!hasCollision(item)) {
     			// no collision with solid items
     			item.setArea(area);
     			
@@ -107,10 +107,10 @@ public class Frame {
     
     private boolean isAreaInBounds(Area area) {
     	return (
-			area.getX() < 0 
-		||  area.getX() > FRAME_WIDTH
-		||  area.getY() < 0
-		||  area.getY() > FRAME_HEIGHT
+			area.getX() >= 0 
+		&&  area.getX() < FRAME_WIDTH
+		&&  area.getY() >= 0
+		&&  area.getY() < FRAME_HEIGHT
 		);
     }
     
@@ -119,17 +119,18 @@ public class Frame {
      * található-e szilárd objektum.
      * 
      * @param area
-     * @return true if no collision, false otherwise
+     * @return true if there is collision, false otherwise
      */
-    private boolean checkCollision(Area area) {
+    private boolean hasCollision(FrameItem movingItem) {
+    	Area area = movingItem.getArea();
     	for (FrameItem item : items) {
-			if (item.isSolid() && item.getArea().hasCollision(area)) {
+			if (item != movingItem && item.isSolid() && item.getArea().hasCollision(area)) {
 				// area collides with solid item
-				return false;
+				return true;
 			}
 		}
     	
-    	return true;
+    	return false;
     }
     
     private void notifyCollision(FrameItem colliding, Area area) {
