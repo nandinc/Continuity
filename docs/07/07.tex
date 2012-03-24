@@ -44,7 +44,7 @@
         
 	    \subsubsection{Kimeneti nyelv}	
 	    %Egyértelműen definiálni kell, hogy az egyes bemeneti parancsok végrehajtása után előálló állapot milyen formában jelenik meg a szabványos kimeneten.	
-	    A karakteres kimeneten minden -- a modell állapotának változását okozó -- esemény után megjelenik a modell aktuális állapotát reprezentáló szöveges ábra. Az ábrán a következő szimbólumok fordulhatnak elő:
+	    A karakteres kimeneten minden -- a modell állapotának változását okozó -- esemény, valamint bármely parancs után megjelenik a modell aktuális állapotát reprezentáló szöveges ábra. Az ábrán a következő szimbólumok fordulhatnak elő:
 	    
 	    \begin{description}
 	        \newcommand{\frameitem}[1]{\item{\textbf{#1}} }
@@ -57,19 +57,28 @@
 	        \frameitem{Đ}: Ajtó
         \end{description}
 
-        A pálya szöveges reprezentációja például az alábbi formát öltheti:        
-        \begin{verbatim}
-+----------+ +----------+ +----------+
-|          | |        ##| |#        #|
-|  Ö##   ##| |##        | |#   *     |
-|##########| |##########| |##########|
-+----------+ +----------+ +----------+
-+----------+ +----------+
-|##   *    | |##     ###|
-|    ##    | |    Ó   Đ |
-|##########| |##########|
-+----------+ +----------+
-        \end{verbatim}
+        A pálya szöveges reprezentációja például az alábbi formát öltheti:
+        
+\begin{figure}[hb]
+  \begin{center}
+  % let me introduce the centering of dummy people
+\begin{verbatim}
+                +----------+ +----------+ +----------+
+                |          | |        ##| |#        #|
+                |  Ö##   ##| |##        | |#   *     |
+                |##########| |##########| |##########|
+                +----------+ +----------+ +----------+
+                +----------+ +----------+
+                |##   *    | |##     ###|
+                |    ##    | |    Ó   Đ |
+                |##########| |##########|
+                +----------+ +----------+
+\end{verbatim}
+  \caption{A pálya szöveges reprezentációja}
+  \end{center}
+\end{figure}        
+        
+        Mivel a program a kimenetét sztandard kimenetre írja ki, így az egyszerűen elemezhető a konzolon vagy írható fájlba.
 	
 	\subsection{Összes részletes use-case}
         %domain specific commands
