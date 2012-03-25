@@ -109,7 +109,7 @@
 	        \ucitem{Stickman mozgatása} 
 	        \ucdesc{Játékos irányítja az egyik Stickmant.} 
 	        \ucact{Játékos}
-	        \ucscenario{A lehetséges irányok: jobbra, balra, fel(ugrás).}
+	        \ucscenario{A lehetséges irányok: jobbra, balra, fel(ugrás). Amennyiben a mozgás irányában van szabad terület, a pozíciója megváltozik, egyébként blokkolódik (helyben marad)}
 		
 	        \ucitem{Nézetváltás} 
 	        \ucdesc{A játékos nézetet vált.} 
@@ -156,15 +156,6 @@
 	        \ucscenario{Amennyiben van szomszédos keret és a két keret átjárható, a stickman belép az új keretbe. Amennyiben a szomszédos keret nem átjárható, akkor ha a célkeret alsószomszéd, a stickman kiesik, egyébként blokkolódik (helyben marad).}
 	        
 	    \end{enumerate}
-	    
-%        \subsubsection{XYZ Actor use-case-ek} % TODO
-%		
-%	    \begin{enumerate}[label=\textbf{\arabic*.}, start=1]
-%	        \ucitem{} % TODO
-%	        \ucdesc{} % TODO
-%	        \ucact{Játékos}
-%	        \ucscenario{}
-%	    \end{enumerate}
 	    
     	\subsection{Tesztelési terv}
 			\newcommand{\testitem}[1]{\item \textbf{Név: #1}\\}
