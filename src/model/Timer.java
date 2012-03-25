@@ -37,5 +37,9 @@ public class Timer {
 			}
 		}, 100, 100);
 	}
+	
+	public void stop() {
+		timer.cancel();
+	}
 
 }
