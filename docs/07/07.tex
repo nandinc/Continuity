@@ -187,6 +187,17 @@
 %	        \ucact{Játékos}
 %	        \ucscenario{} % TODO
 %	    \end{enumerate}
+	    
+    	\subsection{Tesztelési terv}
+			\newcommand{\testitem}[1]{\item \textbf{Név: #1}\\}
+			\newcommand{\tdesc}[1]{\textbf{Leírás: } #1\\}
+			\newcommand{\tcel}[1]{\textbf{Cél:} #1\\}
+	
+			\begin{enumerate}[label=\textbf{\arabic*.}, start=1]
+			    \testitem{T teszt neve} % TODO
+		        \tdesc{T teszt leírása} % TODO
+		        \tcel{T teszt célja} % TODO
+			\end{enumerate}
 	    	
 	\subsection{Tesztelést támogató segéd- és fordítóprogramok specifikálása}		
 A tesztelés során keletkező kimenetek összehasonlítása az előre definiált kimenetekkel nem kézi erővel történik, erre a unix(-like) rendszereken megtalálható \texttt{diff} -- vagy azzal azonos funkcionalitású, más platformon futó -- programot fogunk használni. Egy teszteset akkor tekinthető sikeresnek, ha a \texttt{diff} program nem jelez különbséget a kapott kimenet és az előre definiált kimenet között.
