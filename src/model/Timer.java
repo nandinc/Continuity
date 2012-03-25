@@ -24,22 +24,22 @@ public class Timer {
     	this.pubSub = pubSub;
     }
 
-	public void start() {
-		// true: runs as a daemon
-    	// @see: http://docs.oracle.com/javase/1.4.2/docs/api/java/util/Timer.html#Timer(boolean)
-		// timer couldn't be initialized in the constructor, because it's not restartable, see docs.
-    	timer = new java.util.Timer(true);
-    	timer.schedule(new TimerTask() {
-			
-			@Override
-			public void run() {
-				pubSub.emit("tick", null);
-			}
-		}, 100, 100);
-	}
-	
-	public void stop() {
-		timer.cancel();
-	}
+    public void start() {
+        // true: runs as a daemon
+        // @see: http://docs.oracle.com/javase/1.4.2/docs/api/java/util/Timer.html#Timer(boolean)
+        // timer couldn't be initialized in the constructor, because it's not restartable, see docs.
+        timer = new java.util.Timer(true);
+        timer.schedule(new TimerTask() {
+            
+            @Override
+            public void run() {
+                pubSub.emit("tick", null);
+            }
+        }, 100, 100);
+    }
+    
+    public void stop() {
+        timer.cancel();
+    }
 
 }
