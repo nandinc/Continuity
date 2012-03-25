@@ -92,90 +92,94 @@
 		    \includegraphics[scale=0.9]{resources/player.png}
 		\end{center}        
         
-        \subsubsection{Actorhoz kapcsolódó use-case-ek} % TODO
+        \subsubsection{Actorhoz kapcsolódó use-case-ek} 
 		
 	    \begin{enumerate}[label=\textbf{\arabic*.}, start=1]
-	        \ucitem{Játék indítása} % TODO
-	        \ucdesc{A felhasználó elindítja a játékot.} % TODO
+	        \ucitem{Játék indítása} 
+	        \ucdesc{A felhasználó elindítja a játékot.} 
 	        \ucact{Játékos}
-	        \ucscenario{A pálya betöltődik, a stickmanek és a többi frameitem elhelyeződik a pályán.} % TODO
+	        \ucscenario{A pálya betöltődik, a stickmanek és a többi frameitem elhelyeződik a pályán.} 
+	        \uccommand{} %TODO
 		
-	        \ucitem{Játék szüneteltetése} % TODO
-	        \ucdesc{A játék megállítása, szüneteltetése} % TODO
+	        \ucitem{Játék szüneteltetése} 
+	        \ucdesc{A játék megállítása, szüneteltetése} 
 	        \ucact{Játékos}
-	        \ucscenario{Az idő számlálása leáll, az irányítás letiltódik.} % TODO
+	        \ucscenario{Az idő számlálása leáll, az irányítás letiltódik.} 
+	        \uccommand{} %TODO
 		
-	        \ucitem{Játék folytatása} % TODO
-	        \ucdesc{Megállított játék folytatása} % TODO
+	        \ucitem{Játék folytatása} 
+	        \ucdesc{Megállított játék folytatása} 
 	        \ucact{Játékos}
-	        \ucscenario{Az idő számlálása újraindul, irányítás újra engedélyezése, a játék a szüneteltetés kezdetétől folytatódik.} % TODO
+	        \ucscenario{Az idő számlálása újraindul, irányítás újra engedélyezése, a játék a szüneteltetés kezdetétől folytatódik.} 
+	        \uccommand{} %TODO
 		
-	        \ucitem{Játék befejezése} % TODO
-	        \ucdesc{Kilépés a játékból.} % TODO
+	        \ucitem{Játék befejezése} 
+	        \ucdesc{Kilépés a játékból.} 
 	        \ucact{Játékos}
-	        \ucscenario{Az utolsó mentett pozíció alapján a játék mentése. Fájlok lezárása és kilépés a programból.} % TODO
+	        \ucscenario{Az utolsó mentett pozíció alapján a játék mentése. Fájlok lezárása és kilépés a programból.} 
+	        \uccommand{} %TODO
 	        
-	        \ucitem{Stickman mozgatása} % TODO
-	        \ucdesc{Játékos irányítja az egyik Stickmant.} % TODO
+	        \ucitem{Stickman mozgatása} 
+	        \ucdesc{Játékos irányítja az egyik Stickmant.} 
 	        \ucact{Játékos}
-	        \ucscenario{A lehetséges irányok: jobbra, balra, fel(ugrás).} % TODO
+	        \ucscenario{A lehetséges irányok: jobbra, balra, fel(ugrás).}
 	        \uccommand{move \emph{stickmanID direction}}
 		
-	        \ucitem{Nézetváltás} % TODO
-	        \ucdesc{A játékos nézetet vált.} % TODO
+	        \ucitem{Nézetváltás} 
+	        \ucdesc{A játékos nézetet vált.} 
 	        \ucact{Játékos}
-	        \ucscenario{Ha közeli nézetben volt, akkor pálya nézetbe lép, ahol látja a kereteket. Ekkor a Stickman irányítása letiltódik és a keret átrendezés irányítása aktiválódik. Ha pálya nézetben volt, akkor fordítva.} % TODO
+	        \ucscenario{Ha közeli nézetben volt, akkor pálya nézetbe lép, ahol látja a kereteket. Ekkor a Stickman irányítása letiltódik és a keret átrendezés irányítása aktiválódik. Ha pálya nézetben volt, akkor fordítva.} 
 	        \uccommand{viewportSwitch}
 	        
-	        \ucitem{Keret átrendezése} % TODO
-	        \ucdesc{Pálya nézetben a keretek átrendezése.} % TODO
+	        \ucitem{Keret átrendezése} 
+	        \ucdesc{Pálya nézetben a keretek átrendezése.} 
 	        \ucact{Játékos}
-	        \ucscenario{A megadott irányok mentén a frame-ek helyet cserélnek, a keretek átrendeződnek, mindig az üres keret irányába.} % TODO
+	        \ucscenario{A megadott irányok mentén a frame-ek helyet cserélnek, a keretek átrendeződnek, mindig az üres keret irányába.} 
 	        \uccommand{moveFrame \emph{direction}}
 	    \end{enumerate}
 	    
-        \subsubsection{Időhöz kapcsolódó use-case-ek} % TODO
+        \subsubsection{Időhöz kapcsolódó use-case-ek} 
 		
 	    \begin{enumerate}[label=\textbf{\arabic*.}, start=1]
-	        \ucitem{Idő léptetése} % TODO
-	        \ucdesc{Jelzi az idő múlását.} % TODO
+	        \ucitem{Idő léptetése} 
+	        \ucdesc{Jelzi az idő múlását.} 
 	        \ucact{Óra}
-	        \ucscenario{Számítógép által vezérelt, idő léptetés, amely a Stickman vertikális pozíciójára lehet hatással.} % TODO
+	        \ucscenario{Számítógép által vezérelt, idő léptetés, amely a Stickman vertikális pozícióját befolyásolja.} 
 	    \end{enumerate}
 	    
-        \subsubsection{Stickman(ek)hez kapcsolódó use-case-ek} % TODO
+        \subsubsection{Stickman(ek)hez kapcsolódó use-case-ek} 
 
 	    \begin{enumerate}[label=\textbf{\arabic*.}, start=1]
 	    
-	        \ucitem{Stickmanek találkozása} % TODO
-	        \ucdesc{Két Stickman mozgásuk során találkozik.} % TODO
+	        \ucitem{Stickmanek találkozása} 
+	        \ucdesc{Két Stickman mozgásuk során találkozik.} 
 	        \ucact{Játékos}
-	        \ucscenario{A két Stickman nem lép egymással reakcióba, elhaladnak egymás mellett.} % TODO
+	        \ucscenario{A két Stickman nem lép egymással reakcióba, elhaladnak egymás mellett.} 
 		
-	        \ucitem{Kulcs megérintése} % TODO
-	        \ucdesc{A Stickman mozgása során felvesz egy kulcsot.} % TODO
+	        \ucitem{Kulcs megérintése} 
+	        \ucdesc{A Stickman mozgása során felvesz egy kulcsot.} 
 	        \ucact{Játékos}
-	        \ucscenario{A kulcs felvevődik.} % TODO
+	        \ucscenario{A kulcs felvevődik.}
 		
-	        \ucitem{Ajtó megérintése} % TODO
-	        \ucdesc{A Stickman mozgása során egy ajtóhoz ér.} % TODO
+	        \ucitem{Ajtó megérintése}
+	        \ucdesc{A Stickman mozgása során egy ajtóhoz ér.}
 	        \ucact{Játékos}
-	        \ucscenario{Amennyiben minden kulcsot megszereztek, akkor vége a pályának, ha nem akkor áthalad az ajtó előtt a Stickman.} % TODO
+	        \ucscenario{Amennyiben minden kulcsot megszereztek, akkor vége a pályának, ha nem akkor áthalad az ajtó előtt a Stickman.}
 
-	        \ucitem{Foglalt területre lépés} % TODO
-	        \ucdesc{A Stickman mozgásának irányában foglalt terület van.} % TODO
+	        \ucitem{Foglalt területre lépés} 
+	        \ucdesc{A Stickman mozgásának irányában foglalt terület van.} 
 	        \ucact{Játékos}
-	        \ucscenario{Platform lévén a lépés érvénytelenítése, a Stickman nem mozog tovább.} % TODO
+	        \ucscenario{Platform lévén a lépés érvénytelenítése, a Stickman nem mozog tovább.} 
 
-	        \ucitem{Másik keretbe mozgás} % TODO
-	        \ucdesc{A Stickman beleesik egy másik keretbe, vagy átmozog egybe.} % TODO
+	        \ucitem{Másik keretbe mozgás} 
+	        \ucdesc{A Stickman beleesik egy másik keretbe, vagy átmozog egybe.} 
 	        \ucact{Játékos}
-	        \ucscenario{Amennyiben a két keret átjárható, a stickman átmozog rajtuk.} % TODO
+	        \ucscenario{Amennyiben a két keret átjárható, a stickman átmozog rajtuk.}
 	        
-	        \ucitem{Keretből kiesés} % TODO
-	        \ucdesc{A Stickman kiesik a keretből lefele, üres keretbe.} % TODO
+	        \ucitem{Keretből kiesés} 
+	        \ucdesc{A Stickman kiesik a keretből lefele, üres keretbe.}
 	        \ucact{Játékos}
-	        \ucscenario{A kiesés hatására a Stickman "meghal", visszakerül a legutóbbi mentett pozícióba.} % TODO
+	        \ucscenario{A kiesés hatására a Stickman "meghal", visszakerül a legutóbbi mentett pozícióba.}
 	        
 	    \end{enumerate}
 	    
@@ -185,7 +189,7 @@
 %	        \ucitem{} % TODO
 %	        \ucdesc{} % TODO
 %	        \ucact{Játékos}
-%	        \ucscenario{} % TODO
+%	        \ucscenario{}
 %	    \end{enumerate}
 	    
     	\subsection{Tesztelési terv}
