@@ -99,7 +99,8 @@ public class SkeletonLogger {
 		if(!mute) {
 			register(self, name);
 			call(self, "<<create>>");
-			callStack.pop();
+			//callStack.pop();
+			back();
 		}
 	}
 	

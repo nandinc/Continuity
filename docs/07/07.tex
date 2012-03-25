@@ -140,7 +140,7 @@
 	        \ucitem{Idő léptetése} % TODO
 	        \ucdesc{Jelzi az idő múlását.} % TODO
 	        \ucact{Óra}
-	        \ucscenario{Számítógép által vezérelt, idő léptetés, amely a Stickman vertikális pozícióját befolyásolja.} % TODO
+	        \ucscenario{Számítógép által vezérelt, idő léptetés, amely a Stickman vertikális pozíciójára lehet hatással.} % TODO
 	    \end{enumerate}
 	    
         \subsubsection{Stickman(ek)hez kapcsolódó use-case-ek} % TODO
@@ -194,9 +194,37 @@
 			\newcommand{\tcel}[1]{\textbf{Cél:} #1\\}
 	
 			\begin{enumerate}[label=\textbf{\arabic*.}, start=1]
-			    \testitem{T teszt neve} % TODO
-		        \tdesc{T teszt leírása} % TODO
-		        \tcel{T teszt célja} % TODO
+%			    \testitem{}
+%		        \tdesc{}
+%		        \tcel{}
+		        
+		        \testitem{Pálya betöltése}
+		        \tdesc{Betöltésre kerül egy objektumokkal feltöltött pálya, melyet a \texttt{MapFactory} készít el a pálya fájlreprezentációja alapján, és elhelyezi rajta a stickmaneket.}
+		        \tcel{Ellenőrizni, hogy a pálya fájlreprezentációjából helyes pályakép generálódik a programban, minden objektum a helyén van-e.}
+		        
+		        \testitem{Stickman mozgatása kereten belül}
+		        \tdesc{Az egyik stickmant megmozgatjuk kereten belül minden irányba: vízszintesen és horizontálisan (felfele), úgy hogy van tereptárgy a mozgás irányában, mely azt megakadályozza, és úgy is hogy nincs, illetve leugrunk vele egy magaslatról.}
+		        \tcel{Ellenőrizni, hogy a kiadott mozgatási parancsok a várt helyre viszik-e a stickmant, a tereptárgyak megakadályozzák-e a mozgását, ill. hogy az ugrás helyesen működik-e (a parancs kiadása után az idő múlása során először fölfele mozog, majd megáll, lefele mozog, és talajt érve újra megáll).}
+		        
+		        \testitem{Stickman mozgatása keretek között}
+		        \tdesc{A Stickmant először olyan keretek között mozgatjuk, melyek átjárhatóak, majd egy olyanba próbáljuk vezérelni, ahova nincs lehetősége átmenni.}
+		        \tcel{Keretek közti átjárhatóság megállapítását végző algoritmus, ill. a \texttt{Stickman} egyik \texttt{Frame}-ből másikba való áthelyezésének ellenőrzése.}
+		        
+		        \testitem{Stickman kiesése}
+		        \tdesc{Stickmant úgy vezéreljük, hogy essen ki egy keret alján úgy, hogy arra nincs több keret, vagy afelé a keret nem átjárható.}
+		        \tcel{Ellenőrizzük, hogy a {Stickman} kiesik-e, ha a játék szabályai szerint ki kell esnie, illetve megnézzük, hogy ilyenkor visszakerül-e az utolsó ellenőrzőponthoz.}
+		        
+		        \testitem{Kulcs felvétele, pálya teljesítése}
+		        \tdesc{Stickmannel először megérintjük az ajtót, ezután felvesszük a kucsot, majd megint megérintjük az ajtót.}
+		        \tcel{Ellenőrizzük, hogy az ajtó csak kulccsal nyitható-e, illetve hogy a kulcs felvétele megfelelően rögzítődik-e.}
+		        
+		        \testitem{Keret mozgatása}
+		        \tdesc{Távoli nézetben keret mozgatása parancsot adunk ki.}
+		        \tcel{Ellenőrizzük, hogy a keret mozgatása a megfelelő keretet mozgatja és azt a megfelelő helyre viszi.}
+		        
+		        \testitem{Nézetek közötti váltás}
+		        \tdesc{A pálya betöltése után a kezdeti távoli nézetből közelibe váltunk. Itt ugrunk egyet, majd megpróbáljuk a kereteket átrendezni, ami nem sikerül. Esünk egyet, mely közben távoli nézetbe váltunk. Ekkor megpróbáljuk vízszintesen mozgatni a stickmant, ami nem sikerül.}
+		        \tcel{Ellenőrizzük, hogy a stickman mozgatása le van-e tiltva távoli nézetben, illetve a keretek mozgatása közeli nézetben. Megnézzük még, hogy az időzítés helyesen működik-e, a kiadott \texttt{tick} parancs ellenére sem esik tovább a \texttt{Stickman} távoli nézetben.}
 			\end{enumerate}
 	    	
 	\subsection{Tesztelést támogató segéd- és fordítóprogramok specifikálása}		
