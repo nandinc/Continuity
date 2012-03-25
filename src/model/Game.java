@@ -29,13 +29,17 @@ public class Game {
      */
     protected PubSub pubSub;
     
+    protected VIEWPORT_STATE viewportState; 
+    
     public Game() {
     	mapFactory = new MapFactory();
     	pubSub = new PubSub();
     	timer = new Timer();
+    	viewportState = VIEWPORT_STATE.CLOSE;
     	
     	timer.setPubSub(pubSub);
     	
+    	// TODO remove this debug subscription
     	pubSub.on("tick", new Subscriber() {
 			
 			@Override
@@ -56,6 +60,24 @@ public class Game {
     
     public void start() {
     	timer.start();
+    }
+    
+    public void toggleViewportState() {
+    	if (viewportState == VIEWPORT_STATE.CLOSE) {
+    		viewportState = VIEWPORT_STATE.MAP;
+    		timer.stop();
+    	} else {
+    		viewportState = VIEWPORT_STATE.CLOSE;
+    		timer.start();
+    	}
+    }
+    
+    public PubSub getPubSub() {
+    	return pubSub;
+    }
+    
+    public Map getMap() {
+    	return currentMap;
     }
 
 }
