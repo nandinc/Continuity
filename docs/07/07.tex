@@ -59,10 +59,10 @@
 
         A pálya szöveges reprezentációja például az alábbi formát öltheti:
         
-\begin{figure}[hb]
-  \begin{center}
-  % let me introduce the centering of dummy people
-\begin{verbatim}
+		\begin{figure}[hb]
+		  \begin{center}
+		  % let me introduce the centering of dummy people
+		\begin{verbatim}
                 +----------+ +----------+ +----------+
                 |          | |        ##| |#        #|
                 |  Ö##   ##| |##        | |#   *     |
@@ -73,38 +73,121 @@
                 |    ##    | |    Ó   Đ |
                 |##########| |##########|
                 +----------+ +----------+
-\end{verbatim}
-  \caption{A pálya szöveges reprezentációja}
-  \end{center}
-\end{figure}        
+		\end{verbatim}
+		  \caption{A pálya szöveges reprezentációja}
+		  \end{center}
+		\end{figure}        
         
         Mivel a program a kimenetét sztandard kimenetre írja ki, így az egyszerűen elemezhető a konzolon vagy írható fájlba.
 	
 	\subsection{Összes részletes use-case}
         %domain specific commands
         \newcommand{\ucitem}[1]{\item \textbf{Név: #1}\\}
-        \newcommand{\ucdesc}[1]{\textbf{Leírás: } #1\\}
+        \newcommand{\ucdesc}[1]{\textbf{Rövid leírás: } #1\\}
+        \newcommand{\ucact}[1]{\textbf{Actor: } #1\\}
         \newcommand{\ucscenario}[1]{\textbf{Forgatókönyv: }#1\\}
+        \newcommand{\uccommand}[1]{\textbf{Parancs: }#1\\}
         
-        \subsubsection{XYZ Actor use-case-ek} % TODO
+		\begin{center}	
+		    \includegraphics[scale=0.9]{resources/player.png}
+		\end{center}        
+        
+        \subsubsection{Actorhoz kapcsolódó use-case-ek} % TODO
 		
 	    \begin{enumerate}[label=\textbf{\arabic*.}, start=1]
-	        \ucitem{UC neve} % TODO
-	        \ucdesc{UC leírás} % TODO
-	        \ucscenario{UC forgatókönyv} % TODO
+	        \ucitem{Játék indítása} % TODO
+	        \ucdesc{A felhasználó elindítja a játékot.} % TODO
+	        \ucact{Játékos}
+	        \ucscenario{A pálya betöltődik, a stickmanek és a többi frameitem elhelyeződik a pályán.} % TODO
+		
+	        \ucitem{Játék szüneteltetése} % TODO
+	        \ucdesc{A játék megállítása, szüneteltetése} % TODO
+	        \ucact{Játékos}
+	        \ucscenario{Az idő számlálása leáll, az irányítás letiltódik.} % TODO
+		
+	        \ucitem{Játék folytatása} % TODO
+	        \ucdesc{Megállított játék folytatása} % TODO
+	        \ucact{Játékos}
+	        \ucscenario{Az idő számlálása újraindul, irányítás újra engedélyezése, a játék a szüneteltetés kezdetétől folytatódik.} % TODO
+		
+	        \ucitem{Játék befejezése} % TODO
+	        \ucdesc{Kilépés a játékból.} % TODO
+	        \ucact{Játékos}
+	        \ucscenario{Az utolsó mentett pozíció alapján a játék mentése. Fájlok lezárása és kilépés a programból.} % TODO
+	        
+	        \ucitem{Stickman mozgatása} % TODO
+	        \ucdesc{Játékos irányítja az egyik Stickmant.} % TODO
+	        \ucact{Játékos}
+	        \ucscenario{A lehetséges irányok: jobbra, balra, fel(ugrás).} % TODO
+	        \uccommand{move \emph{stickmanID direction}}
+		
+	        \ucitem{Nézetváltás} % TODO
+	        \ucdesc{A játékos nézetet vált.} % TODO
+	        \ucact{Játékos}
+	        \ucscenario{Ha közeli nézetben volt, akkor pálya nézetbe lép, ahol látja a kereteket. Ekkor a Stickman irányítása letiltódik és a keret átrendezés irányítása aktiválódik. Ha pálya nézetben volt, akkor fordítva.} % TODO
+	        \uccommand{viewportSwitch}
+	        
+	        \ucitem{Keret átrendezése} % TODO
+	        \ucdesc{Pálya nézetben a keretek átrendezése.} % TODO
+	        \ucact{Játékos}
+	        \ucscenario{A megadott irányok mentén a frame-ek helyet cserélnek, a keretek átrendeződnek, mindig az üres keret irányába.} % TODO
+	        \uccommand{moveFrame \emph{direction}}
 	    \end{enumerate}
-	
-	\subsection{Tesztelési terv}
-		\newcommand{\testitem}[1]{\item \textbf{Név: #1}\\}
-		\newcommand{\tdesc}[1]{\textbf{Leírás: } #1\\}
-		\newcommand{\tcel}[1]{\textbf{Cél:} #1\\}
-	
-		\begin{enumerate}[label=\textbf{\arabic*.}, start=1]
-		    \testitem{T teszt neve} % TODO
-	        \tdesc{T teszt leírása} % TODO
-	        \tcel{T teszt célja} % TODO
-		\end{enumerate}
-	
+	    
+        \subsubsection{Időhöz kapcsolódó use-case-ek} % TODO
+		
+	    \begin{enumerate}[label=\textbf{\arabic*.}, start=1]
+	        \ucitem{Idő léptetése} % TODO
+	        \ucdesc{Jelzi az idő múlását.} % TODO
+	        \ucact{Óra}
+	        \ucscenario{Számítógép által vezérelt, idő léptetés, amely a Stickman vertikális pozícióját befolyásolja.} % TODO
+	    \end{enumerate}
+	    
+        \subsubsection{Stickman(ek)hez kapcsolódó use-case-ek} % TODO
+
+	    \begin{enumerate}[label=\textbf{\arabic*.}, start=1]
+	    
+	        \ucitem{Stickmanek találkozása} % TODO
+	        \ucdesc{Két Stickman mozgásuk során találkozik.} % TODO
+	        \ucact{Játékos}
+	        \ucscenario{A két Stickman nem lép egymással reakcióba, elhaladnak egymás mellett.} % TODO
+		
+	        \ucitem{Kulcs megérintése} % TODO
+	        \ucdesc{A Stickman mozgása során felvesz egy kulcsot.} % TODO
+	        \ucact{Játékos}
+	        \ucscenario{A kulcs felvevődik.} % TODO
+		
+	        \ucitem{Ajtó megérintése} % TODO
+	        \ucdesc{A Stickman mozgása során egy ajtóhoz ér.} % TODO
+	        \ucact{Játékos}
+	        \ucscenario{Amennyiben minden kulcsot megszereztek, akkor vége a pályának, ha nem akkor áthalad az ajtó előtt a Stickman.} % TODO
+
+	        \ucitem{Foglalt területre lépés} % TODO
+	        \ucdesc{A Stickman mozgásának irányában foglalt terület van.} % TODO
+	        \ucact{Játékos}
+	        \ucscenario{Platform lévén a lépés érvénytelenítése, a Stickman nem mozog tovább.} % TODO
+
+	        \ucitem{Másik keretbe mozgás} % TODO
+	        \ucdesc{A Stickman beleesik egy másik keretbe, vagy átmozog egybe.} % TODO
+	        \ucact{Játékos}
+	        \ucscenario{Amennyiben a két keret átjárható, a stickman átmozog rajtuk.} % TODO
+	        
+	        \ucitem{Keretből kiesés} % TODO
+	        \ucdesc{A Stickman kiesik a keretből lefele, üres keretbe.} % TODO
+	        \ucact{Játékos}
+	        \ucscenario{A kiesés hatására a Stickman "meghal", visszakerül a legutóbbi mentett pozícióba.} % TODO
+	        
+	    \end{enumerate}
+	    
+%        \subsubsection{XYZ Actor use-case-ek} % TODO
+%		
+%	    \begin{enumerate}[label=\textbf{\arabic*.}, start=1]
+%	        \ucitem{} % TODO
+%	        \ucdesc{} % TODO
+%	        \ucact{Játékos}
+%	        \ucscenario{} % TODO
+%	    \end{enumerate}
+	    	
 	\subsection{Tesztelést támogató segéd- és fordítóprogramok specifikálása}		
 A tesztelés során keletkező kimenetek összehasonlítása az előre definiált kimenetekkel nem kézi erővel történik, erre a unix(-like) rendszereken megtalálható \texttt{diff} -- vagy azzal azonos funkcionalitású, más platformon futó -- programot fogunk használni. Egy teszteset akkor tekinthető sikeresnek, ha a \texttt{diff} program nem jelez különbséget a kapott kimenet és az előre definiált kimenet között.
 
