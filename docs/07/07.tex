@@ -27,16 +27,17 @@
 	    
 	    \newcommand{\cmd}[1]{\item{\texttt{#1}} }
 	    \begin{description}
-	        \cmd{timerStart}: Idő múlását nyilvántartó számláló indítása
-	        \cmd{timerStop}: Idő múlását nyilvántartó számláló megállítása
-	        \cmd{tick} \emph{count}: Megadott számú öraütést szimulál
-	        \cmd{loadMap} \emph{mapId}: Megadott pálya betöltése
-	        \cmd{move} \emph{stickmanId} \emph{direction}: A megadott azonosítójú stickman megfelelő irányba mozgatása (up, right, down, left)
-	        \cmd{viewportSwitch}: Pálya- és Közeli-nézet közötti váltás
-	        \cmd{moveFrame} \emph{direction}: Keret mozgatása pályanézetben a megadott irányba (up, right, down, left)
+	        \cmd{timerStart}: Óraütések automatikus kiadásának bekapcsolása.
+	        \cmd{timerStop}: Óraütések automatikus kiadásának kikapcsolása.
+	        \cmd{tick} \emph{count}: Megadott számú öraütést szimulál.
+	        \cmd{loadMap} \emph{mapId}: Megadott pálya betöltése.
+	        \cmd{move} \emph{stickmanId} \emph{direction}: A megadott azonosítójú stickman megfelelő irányba mozgatása (up, right, down, left).
+	        \cmd{viewportSwitch}: Pálya és közeli nézet közötti váltás.
+	        \cmd{moveFrame} \emph{direction}: Keret mozgatása pályanézetben a megadott irányba (up, right, down, left).
+	        \cmd{echoCommands} \emph{status}: Bemeneti parancsok kiírása a kimenetre a könnyebb debuggolás kedvéért.
         \end{description}
         
-        A parancsokat a program a sztandard bemenetről olvassa be, így tetszőleges fájl beállítható a prancsok forrásának, ha a megfelelő fájlt a bemenetre irányítjuk.
+        A parancsokat a program a szabványos bemenetről olvassa be, így tetszőleges fájl beállítható a parancsok forrásának, ha a megfelelő fájlt a bemenetre irányítjuk.
         
         \subsubsection{Pálya fájlreprezentációja}
         %Ha szükséges, meg kell adni a konfigurációs (pl. pályaképet megadó) fájlok nyelvtanát is.
@@ -53,8 +54,8 @@
 	        \frameitem{Ö, Ó}: A stickmanek
 	        \frameitem{|, --, +}: Keret függőleges széle, keret vízszintes széle, keret sarka
 	        \frameitem{\#}: Platform
-	        \frameitem{*}: Kulcs
-	        \frameitem{Đ}: Ajtó
+	        \frameitem{K}: Kulcs
+	        \frameitem{A}: Ajtó
         \end{description}
 
         A pálya szöveges reprezentációja például az alábbi formát öltheti:
@@ -65,12 +66,12 @@
 		\begin{verbatim}
                 +----------+ +----------+ +----------+
                 |          | |        ##| |#        #|
-                |  Ö##   ##| |##        | |#   *     |
+                |  Ö##   ##| |##        | |#   K     |
                 |##########| |##########| |##########|
                 +----------+ +----------+ +----------+
                 +----------+ +----------+
-                |##   *    | |##     ###|
-                |    ##    | |    Ó   Đ |
+                |##   K    | |##     ###|
+                |    ##    | |    Ó   A |
                 |##########| |##########|
                 +----------+ +----------+
 		\end{verbatim}
