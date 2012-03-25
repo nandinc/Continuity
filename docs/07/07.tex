@@ -34,7 +34,7 @@
 	        \cmd{move} \emph{stickmanId} \emph{direction}: A megadott azonosítójú stickman megfelelő irányba mozgatása (up, right, down, left).
 	        \cmd{viewportSwitch}: Pálya és közeli nézet közötti váltás.
 	        \cmd{moveFrame} \emph{direction}: Keret mozgatása pályanézetben a megadott irányba (up, right, down, left).
-	        \cmd{echoCommands} \emph{status}: Bemeneti parancsok kiírása a kimenetre a könnyebb debuggolás kedvéért.
+	        \cmd{echoCommands} \emph{status}: Bemeneti parancsok kiírása a kimenetre a könnyebb debuggolás kedvéért. (status: true vagy false)
         \end{description}
         
         A parancsokat a program a szabványos bemenetről olvassa be, így tetszőleges fájl beállítható a parancsok forrásának, ha a megfelelő fájlt a bemenetre irányítjuk.
@@ -45,13 +45,13 @@
         
 	    \subsubsection{Kimeneti nyelv}	
 	    %Egyértelműen definiálni kell, hogy az egyes bemeneti parancsok végrehajtása után előálló állapot milyen formában jelenik meg a szabványos kimeneten.	
-	    A karakteres kimeneten minden -- a modell állapotának változását okozó -- esemény, valamint bármely parancs után megjelenik a modell aktuális állapotát reprezentáló szöveges ábra. Az ábrán a következő szimbólumok fordulhatnak elő:
+	    A karakteres kimeneten minden -- a modell állapotának változását okozó -- esemény, valamint bármely parancs után megjelenik a modell aktuális állapotát reprezentáló szöveges ábra. Alapértelmezetten nem, de az \texttt{echoCommands} parancs használatával a megadott parancs is kiírásra kerül pályarajz után, így segítve a kimenet követését, ha azt fájlba írtuk. A pálya szöveges reprezentációját képező ábrán a következő szimbólumok fordulhatnak elő:
 	    
 	    \begin{description}
 	        \newcommand{\frameitem}[1]{\item{\textbf{#1}} }
 	        % pdflatex doesn't accept the following symbols, use simpler ones
 	        % ☺, ☻, █, ⚷, ☐
-	        \frameitem{Ö, Ó}: A stickmanek
+	        \frameitem{X, Y}: A stickmanek
 	        \frameitem{|, --, +}: Keret függőleges széle, keret vízszintes széle, keret sarka
 	        \frameitem{\#}: Platform
 	        \frameitem{K}: Kulcs
@@ -66,12 +66,12 @@
 		\begin{verbatim}
                 +----------+ +----------+ +----------+
                 |          | |        ##| |#        #|
-                |  Ö##   ##| |##        | |#   K     |
+                |  X##   ##| |##        | |#   K     |
                 |##########| |##########| |##########|
                 +----------+ +----------+ +----------+
                 +----------+ +----------+
                 |##   K    | |##     ###|
-                |    ##    | |    Ó   A |
+                |    ##    | |    Y   A |
                 |##########| |##########|
                 +----------+ +----------+
 		\end{verbatim}
@@ -79,7 +79,7 @@
 		  \end{center}
 		\end{figure}        
         
-        Mivel a program a kimenetét sztandard kimenetre írja ki, így az egyszerűen elemezhető a konzolon vagy írható fájlba.
+        Mivel a program a kimenetét sztandard kimenetre írja ki, így az egyszerűen elemezhető a konzolon vagy írható fájlba. Amennyiben egy stickman megérint egy kulcsot, a kulcs eltűnik és a megszerzője tulajdonába kerül.
 	
 	\subsection{Összes részletes use-case}
         %domain specific commands
@@ -87,56 +87,39 @@
         \newcommand{\ucdesc}[1]{\textbf{Rövid leírás: } #1\\}
         \newcommand{\ucact}[1]{\textbf{Actor: } #1\\}
         \newcommand{\ucscenario}[1]{\textbf{Forgatókönyv: }#1\\}
-        \newcommand{\uccommand}[1]{\textbf{Parancs: }#1\\}
         
 		\begin{center}	
 		    \includegraphics[scale=0.9]{resources/player.png}
 		\end{center}        
         
-        \subsubsection{Actorhoz kapcsolódó use-case-ek} 
+        \subsubsection{Irányításhoz kapcsolódó use-case-ek} 
 		
 	    \begin{enumerate}[label=\textbf{\arabic*.}, start=1]
 	        \ucitem{Játék indítása} 
 	        \ucdesc{A felhasználó elindítja a játékot.} 
 	        \ucact{Játékos}
-	        \ucscenario{A pálya betöltődik, a stickmanek és a többi frameitem elhelyeződik a pályán.} 
-	        \uccommand{} %TODO
-		
-	        \ucitem{Játék szüneteltetése} 
-	        \ucdesc{A játék megállítása, szüneteltetése} 
-	        \ucact{Játékos}
-	        \ucscenario{Az idő számlálása leáll, az irányítás letiltódik.} 
-	        \uccommand{} %TODO
-		
-	        \ucitem{Játék folytatása} 
-	        \ucdesc{Megállított játék folytatása} 
-	        \ucact{Játékos}
-	        \ucscenario{Az idő számlálása újraindul, irányítás újra engedélyezése, a játék a szüneteltetés kezdetétől folytatódik.} 
-	        \uccommand{} %TODO
+	        \ucscenario{A pálya betöltődik, a stickmanek és a többi elem elhelyezésre kerül a pályán.} 
+
 		
 	        \ucitem{Játék befejezése} 
 	        \ucdesc{Kilépés a játékból.} 
 	        \ucact{Játékos}
 	        \ucscenario{Az utolsó mentett pozíció alapján a játék mentése. Fájlok lezárása és kilépés a programból.} 
-	        \uccommand{} %TODO
 	        
 	        \ucitem{Stickman mozgatása} 
 	        \ucdesc{Játékos irányítja az egyik Stickmant.} 
 	        \ucact{Játékos}
 	        \ucscenario{A lehetséges irányok: jobbra, balra, fel(ugrás).}
-	        \uccommand{move \emph{stickmanID direction}}
 		
 	        \ucitem{Nézetváltás} 
 	        \ucdesc{A játékos nézetet vált.} 
 	        \ucact{Játékos}
 	        \ucscenario{Ha közeli nézetben volt, akkor pálya nézetbe lép, ahol látja a kereteket. Ekkor a Stickman irányítása letiltódik és a keret átrendezés irányítása aktiválódik. Ha pálya nézetben volt, akkor fordítva.} 
-	        \uccommand{viewportSwitch}
 	        
 	        \ucitem{Keret átrendezése} 
 	        \ucdesc{Pálya nézetben a keretek átrendezése.} 
 	        \ucact{Játékos}
-	        \ucscenario{A megadott irányok mentén a frame-ek helyet cserélnek, a keretek átrendeződnek, mindig az üres keret irányába.} 
-	        \uccommand{moveFrame \emph{direction}}
+	        \ucscenario{A megadott irányok mentén a keretek átrendezhetőek, mindig az üres kerettel helyet cserélve} 
 	    \end{enumerate}
 	    
         \subsubsection{Időhöz kapcsolódó use-case-ek} 
@@ -145,7 +128,7 @@
 	        \ucitem{Idő léptetése} 
 	        \ucdesc{Jelzi az idő múlását.} 
 	        \ucact{Óra}
-	        \ucscenario{Számítógép által vezérelt, idő léptetés, amely a Stickman vertikális pozícióját befolyásolja.} 
+	        \ucscenario{Számítógép által vezérelt idő léptetés, amely a Stickman vertikális pozícióját befolyásolja.} 
 	    \end{enumerate}
 	    
         \subsubsection{Stickman(ek)hez kapcsolódó use-case-ek} 
@@ -155,32 +138,22 @@
 	        \ucitem{Stickmanek találkozása} 
 	        \ucdesc{Két Stickman mozgásuk során találkozik.} 
 	        \ucact{Játékos}
-	        \ucscenario{A két Stickman nem lép egymással reakcióba, elhaladnak egymás mellett.} 
+	        \ucscenario{A két Stickman ütközik egymással, mint két szilárd objektum, de további interakció nem történik} 
 		
 	        \ucitem{Kulcs megérintése} 
 	        \ucdesc{A Stickman mozgása során felvesz egy kulcsot.} 
 	        \ucact{Játékos}
-	        \ucscenario{A kulcs felvevődik.}
+	        \ucscenario{A kulcs a stickmanhez kerül és eltűnik a pályáról}
 		
 	        \ucitem{Ajtó megérintése}
 	        \ucdesc{A Stickman mozgása során egy ajtóhoz ér.}
 	        \ucact{Játékos}
-	        \ucscenario{Amennyiben minden kulcsot megszereztek, akkor vége a pályának, ha nem akkor áthalad az ajtó előtt a Stickman.}
+	        \ucscenario{Amennyiben minden kulcsot megszereztek, akkor vége a pályának, egyébként a Stickman elhalad az ajtó előtt.}
 
-	        \ucitem{Foglalt területre lépés} 
-	        \ucdesc{A Stickman mozgásának irányában foglalt terület van.} 
+	        \ucitem{Keret elhagyása} 
+	        \ucdesc{A Stickman valamely irányba elhagyja az aktuális keretet} 
 	        \ucact{Játékos}
-	        \ucscenario{Platform lévén a lépés érvénytelenítése, a Stickman nem mozog tovább.} 
-
-	        \ucitem{Másik keretbe mozgás} 
-	        \ucdesc{A Stickman beleesik egy másik keretbe, vagy átmozog egybe.} 
-	        \ucact{Játékos}
-	        \ucscenario{Amennyiben a két keret átjárható, a stickman átmozog rajtuk.}
-	        
-	        \ucitem{Keretből kiesés} 
-	        \ucdesc{A Stickman kiesik a keretből lefele, üres keretbe.}
-	        \ucact{Játékos}
-	        \ucscenario{A kiesés hatására a Stickman "meghal", visszakerül a legutóbbi mentett pozícióba.}
+	        \ucscenario{Amennyiben van szomszédos keret és a két keret átjárható, a stickman belép az új keretbe. Amennyiben a szomszédos keret nem átjárható, akkor ha a célkeret alsószomszéd, a stickman kiesik, egyébként blokkolódik (helyben marad).}
 	        
 	    \end{enumerate}
 	    
