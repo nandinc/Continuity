@@ -19,24 +19,19 @@ public class Area {
      */
     public boolean hasCollision(Area area) {
     	// TODO review this logic
-        return (
-		// doesn't collide itself
-		this != area &&
-		
-		(
-        (	x <= area.x
-        &&  area.x <= x+width
-        &&  y <= area.y
-        &&  area.y <= y+height)
-        
-        ||
-        
-        (	area.x <= x
-		&&  x <= area.x+area.width
-		&&  area.y <= y
-		&&  y <= area.y+area.height)
-		)
-		);
+        return
+	        (	x <= area.x
+	        &&  area.x <= x+width
+	        &&  y <= area.y
+	        &&  area.y <= y+height)
+	        
+	        ||
+	        
+	        (	area.x <= x
+			&&  x <= area.x+area.width
+			&&  area.y <= y
+			&&  y <= area.y+area.height)
+		;
     }
     
     /**
