@@ -33,26 +33,26 @@ public class Stickman extends AbstractFrameItem {
         case UP:
             // TODO implement jump properly
             newArea.setY(
-                    newArea.getY() - 1
-                    );
+                newArea.getY() - 1
+            );
             break;
 
         case RIGHT:
             newArea.setX(
-                    newArea.getX() + 1
-                    );
+                newArea.getX() + 1
+            );
             break;
 
         case DOWN:
             newArea.setY(
-                    newArea.getY() + 1
-                    );
+                newArea.getY() + 1
+            );
             break;
 
         case LEFT:
             newArea.setX(
-                    newArea.getX() - 1
-                    );
+                newArea.getX() - 1
+            );
             break;
 
         default:
@@ -97,6 +97,15 @@ public class Stickman extends AbstractFrameItem {
             @Override
             public void eventEmitted(String eventName, Object eventParameter) {
                 move(DIRECTION.DOWN);
+            }
+        });
+        
+        pubSub.on("controller:move", new Subscriber() {
+            
+            @Override
+            public void eventEmitted(String eventName, Object eventParameter) {
+                DIRECTION direction = (DIRECTION)eventParameter;
+                move(direction);
             }
         });
 
