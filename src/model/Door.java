@@ -9,9 +9,9 @@ package model;
  */
 public class Door extends AbstractFrameItem {
 
-	@Override
-	public boolean isSolid() {
-		return false;
-	}
+    @Override
+    public boolean isSolid() {
+        return false;
+    }
 
 }

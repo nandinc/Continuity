@@ -11,17 +11,17 @@ import java.util.TimerTask;
  * @responsibility Időzítésért felelős osztály, bizonyos időközönként kibocsát egy 'tick' eseményt az átadott PubSub objektumra.
  */
 public class Timer {
-	
-	/**
-	 * Az eseménykezelő csatorna,
-	 * melyen jelzi az idő múlását.
-	 */
+
+    /**
+     * Az eseménykezelő csatorna,
+     * melyen jelzi az idő múlását.
+     */
     private PubSub pubSub;
-    
+
     private java.util.Timer timer;
-    
+
     public void setPubSub(PubSub pubSub) {
-    	this.pubSub = pubSub;
+        this.pubSub = pubSub;
     }
 
     public void start() {
@@ -30,14 +30,14 @@ public class Timer {
         // timer couldn't be initialized in the constructor, because it's not restartable, see docs.
         timer = new java.util.Timer(true);
         timer.schedule(new TimerTask() {
-            
+
             @Override
             public void run() {
                 pubSub.emit("tick", null);
             }
         }, 100, 100);
     }
-    
+
     public void stop() {
         timer.cancel();
     }

@@ -9,28 +9,28 @@ package model;
  */
 public abstract class AbstractFrameItem implements FrameItem {
 
-	/**
-	 * A tartalmazó kereten belül elfoglalt pozíció
-	 */
+    /**
+     * A tartalmazó kereten belül elfoglalt pozíció
+     */
     protected Area area;
-    
+
     /**
      * A tartalmazó keret
      */
     protected Frame frame;
-    
+
     /**
      * Publish Subscribe channel
      */
     protected PubSub pubSub;
-    
-	/**
-	 * Visszaadja az elem pozícióját a kereten belül.
-	 * @return
-	 */
+
+    /**
+     * Visszaadja az elem pozícióját a kereten belül.
+     * @return
+     */
     @Override
     public Area getArea() {
-    	return area;
+        return area;
     }
 
     /**
@@ -39,7 +39,8 @@ public abstract class AbstractFrameItem implements FrameItem {
      */
     @Override
     public void setArea(Area area) {
-    	this.area = area;
+        this.area = area;
+        invalidate();
     }
 
     /**
@@ -48,14 +49,14 @@ public abstract class AbstractFrameItem implements FrameItem {
      */
     @Override
     public void setFrame(Frame frame) {
-    	this.frame = frame;
+        this.frame = frame;
     }
-    
+
     @Override
     public void setPubSub(PubSub pubSub) {
-    	this.pubSub = pubSub;
+        this.pubSub = pubSub;
     }
-    
+
     /**
      * Tells whether the item should be considered
      * while checking frame traversability or shouldn't.
@@ -64,9 +65,9 @@ public abstract class AbstractFrameItem implements FrameItem {
      */
     @Override
     public boolean doesAffectTraversability() {
-    	return false;
+        return false;
     }
-    
+
     /**
      * Do nothing on collision
      * 
@@ -76,6 +77,12 @@ public abstract class AbstractFrameItem implements FrameItem {
      */
     @Override
     public void collision(FrameItem colliding) {
-    	// do nothing like a boss
+        // do nothing like a boss
+    }
+
+    protected void invalidate() {
+        if (pubSub != null) {
+            pubSub.emit("invalidate", null);
+        }
     }
 }

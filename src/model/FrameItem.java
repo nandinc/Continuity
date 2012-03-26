@@ -8,11 +8,11 @@ package model;
  * @responsibility A keretben elhelyezkedő elemek által megvalósított iterfész, melyen keresztül a keret menedzselni tudja a benne lévő elemeket.
  */
 public interface FrameItem {
-	
-	/**
-	 * Visszaadja az elem pozícióját a kereten belül.
-	 * @return
-	 */
+
+    /**
+     * Visszaadja az elem pozícióját a kereten belül.
+     * @return
+     */
     public Area getArea();
 
     /**
@@ -26,13 +26,13 @@ public interface FrameItem {
      * @param frame
      */
     public void setFrame(Frame frame);
-    
+
     /**
      * Sets pubsub object
      * @param pubsub object
      */
     public void setPubSub(PubSub pubSub);
-    
+
     /**
      * Megadja, hogy az elem szilárd-e vagy sem.
      * Ez a kereten belüli mozgások esetén az
@@ -40,7 +40,7 @@ public interface FrameItem {
      * @return
      */
     public boolean isSolid();
-    
+
     /**
      * Tells whether the item should be considered
      * while checking frame traversability or shouldn't.

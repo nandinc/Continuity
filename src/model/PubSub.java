@@ -20,12 +20,12 @@ public class PubSub {
      * @param data Az eseményhez tartozó paraméter.
      */
     public void emit(String eventName, Object data) {
-    	if (subscribers.containsKey(eventName)) {
-	    	List<Subscriber> eventSubs = subscribers.get(eventName);
-	    	for (Subscriber subscriber : eventSubs) {
-				subscriber.eventEmitted(eventName, data);
-			}
-    	}
+        if (subscribers.containsKey(eventName)) {
+            List<Subscriber> eventSubs = subscribers.get(eventName);
+            for (Subscriber subscriber : eventSubs) {
+                subscriber.eventEmitted(eventName, data);
+            }
+        }
     }
 
     /**
@@ -36,9 +36,9 @@ public class PubSub {
      */
     public void on(String eventName, Subscriber callback) {
         if (!subscribers.containsKey(eventName)) {
-        	subscribers.put(eventName, new LinkedList<Subscriber>());
+            subscribers.put(eventName, new LinkedList<Subscriber>());
         }
-        
+
         subscribers.get(eventName).add(callback);
     }
 

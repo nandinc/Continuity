@@ -7,20 +7,20 @@ package model;
  */
 public class Platform extends AbstractFrameItem {
 
-	@Override
-	public boolean isSolid() {
-		// Don't let them just raid over me
-		return true;
-	}
-	
-	/**
+    @Override
+    public boolean isSolid() {
+        // Don't let them just raid over me
+        return true;
+    }
+
+    /**
      * Tells whether the item should be considered
      * while checking frame traversability or shouldn't.
      * 
      * @return true if affects
      */
-	@Override
+    @Override
     public boolean doesAffectTraversability() {
-		return true;
-	}
+        return true;
+    }
 }

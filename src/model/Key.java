@@ -7,9 +7,9 @@ package model;
  */
 public class Key extends AbstractFrameItem {
 
-	/**
-	 * A kulcs összegyűjtöttségének állapotát tárolja.
-	 */
+    /**
+     * A kulcs összegyűjtöttségének állapotát tárolja.
+     */
     private boolean collected;
 
     /**
@@ -20,9 +20,9 @@ public class Key extends AbstractFrameItem {
         return this.collected;
     }
 
-	@Override
-	public boolean isSolid() {
-		return false;
-	}
+    @Override
+    public boolean isSolid() {
+        return false;
+    }
 
 }
