@@ -2,6 +2,8 @@ package application;
 
 import java.io.IOException;
 
+import controller.console.FrontController;
+
 import ui.console.FrontView;
 
 import model.Game;
@@ -16,15 +18,9 @@ public class Application {
         Game game = newGame(1);
         FrontView view = new FrontView(game);
 
-        game.start();
-
-        // prevent program termination
-        try {
-            System.in.read();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        //game.start();
+        FrontController controller = new FrontController(game.getPubSub());
+        controller.start();
     }
 
     private static Game newGame(int mapId) {
