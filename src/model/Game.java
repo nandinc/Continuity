@@ -38,15 +38,6 @@ public class Game {
         viewportState = VIEWPORT_STATE.CLOSE;
 
         timer.setPubSub(pubSub);
-
-        // TODO remove this debug subscription
-        /*pubSub.on("tick", new Subscriber() {
-
-			@Override
-			public void eventEmitted(String eName, Object eParameter) {
-				System.out.println(eName);
-			}
-		});*/
     }
 
     /**
