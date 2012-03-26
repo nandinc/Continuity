@@ -205,11 +205,11 @@ public class Map {
             return currentColumnIterator.next();
         }
 
-        public Area getFrameOffset() {
+        public Area getFramePosition() {
             Area offset = new Area();
 
-            offset.setX((nextColumnIndex-1) * Frame.FRAME_WIDTH);
-            offset.setY(currentRowIndex * Frame.FRAME_HEIGHT);
+            offset.setX(nextColumnIndex-1);
+            offset.setY(currentRowIndex);
 
             return offset;
         }
