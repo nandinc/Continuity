@@ -53,7 +53,7 @@ public class Frame {
         boolean inBounds = isAreaInBounds(area);
 
         if (inBounds) {
-            if (!hasCollision(item)) {
+            if (!hasCollision(item, area)) {
                 // no collision with solid items
                 item.setArea(area);
 
@@ -122,10 +122,9 @@ public class Frame {
      * @param area
      * @return true if there is collision, false otherwise
      */
-    private boolean hasCollision(FrameItem movingItem) {
-        Area area = movingItem.getArea();
+    private boolean hasCollision(FrameItem movingItem, Area requestedArea) {
         for (FrameItem item : items) {
-            if (item != movingItem && item.isSolid() && item.getArea().hasCollision(area)) {
+            if (item != movingItem && item.isSolid() && item.getArea().hasCollision(requestedArea)) {
                 // area collides with solid item
                 return true;
             }
