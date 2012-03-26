@@ -14,23 +14,23 @@ public class Area {
      * Ellenőrzi, hogy a kapott Area objektummal van-e közös pontja.
      * A metódus feltételezi, hogy a két terület azonos keretben található.
      * 
-     * @param area
+     * @param other
      * @return true Ha van ilyen közös pont
      */
-    public boolean hasCollision(Area area) {
+    public boolean hasCollision(Area other) {
         // TODO review this logic
         return
-                (	x <= area.x
-                &&  area.x <= x+width
-                &&  y <= area.y
-                &&  area.y <= y+height)
+                (	x <= other.x
+                &&  other.x < x+width
+                &&  y <= other.y
+                &&  other.y < y+height)
 
                 ||
 
-                (	area.x <= x
-                &&  x <= area.x+area.width
-                &&  area.y <= y
-                &&  y <= area.y+area.height)
+                (	other.x <= x
+                &&  x < other.x+other.width
+                &&  other.y <= y
+                &&  y < other.y+other.height)
                 ;
     }
 
