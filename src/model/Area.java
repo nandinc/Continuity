@@ -58,11 +58,11 @@ public class Area {
         int directionY = y - area.y;
 
         if (directionY < 0) {
-            return DIRECTION.UP;
+            return DIRECTION.DOWN;
         }
 
         if (directionY > 0) {
-            return DIRECTION.DOWN;
+            return DIRECTION.UP;
         }
 
         return null;
