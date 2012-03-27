@@ -39,6 +39,10 @@ public class Frame {
     public void removeItem(FrameItem item) {
         items.remove(item);
     }
+    
+    private boolean hasItem(FrameItem item) {
+        return items.contains(item);
+    }
 
     /**
      * A metódust hívó elem kérést intéz a kerethez,
@@ -54,6 +58,9 @@ public class Frame {
 
         if (inBounds) {
             if (!hasCollision(item, area)) {
+                if (!hasItem(item)) {
+                    addItem(item);
+                }
                 // no collision with solid items
                 item.setArea(area);
 
@@ -65,30 +72,31 @@ public class Frame {
                 return false;
             }
         } else {
-            DIRECTION direction = item.getArea().getRelativeDirection(area);
+            DIRECTION moveDirection = item.getArea().getRelativeDirection(area);
 
-            // new area changed
-            if (direction != null) {
-                Frame neighbour = map.getNeighbour(this, direction);
+            if (moveDirection != null) {    // new area changed compared to the actual one
+                Frame neighbour = map.getNeighbour(this, moveDirection);
 
-                // frame has neighbour in direction
-                if (neighbour != null) {
-                    boolean successfulMove = neighbour.requestArea(item, area);
+                if (neighbour != null) {    // frame has neighbour in direction
+                    Area neighbourArea = transformAreaToNeighbourAreaByDirection(area, moveDirection);
+                    // remove item before passing it to the neighbour
+                    // to avoid cloned items
+                    removeItem(item);
+                    boolean successfulMove = neighbour.requestArea(item, neighbourArea);
 
                     if (successfulMove) {
-                        removeItem(item);
-                        neighbour.addItem(item);
                         return true;
                     } else {
                         // the way is blocked
                         // (e.g: another stickman is in the way, 
                         //  but not at the edge of the frame)
+                        addItem(item);
                         return false;
                     }
 
                 } else {	// no traversable neighbour
 
-                    if (direction == DIRECTION.DOWN) {
+                    if (moveDirection == DIRECTION.DOWN) {
                         // TODO cast ahead, fix this design error.
                         // fall out
                         removeItem(item);
@@ -146,10 +154,10 @@ public class Frame {
      * maga között fennáll-e az átjárhatóság a
      * megadott irányban.
      * 
-     * @param frame
+     * @param neighbour
      * @param d
      */
-    protected boolean isTraversable(Frame frame, DIRECTION d) {
+    protected boolean isTraversable(Frame neighbour, DIRECTION d) {
         boolean[] ownProfile = getSideProfile(d);
 
         DIRECTION neighbourSide;
@@ -175,7 +183,7 @@ public class Frame {
             break;
         }
 
-        boolean[] neighbourProfile = getSideProfile(neighbourSide);
+        boolean[] neighbourProfile = neighbour.getSideProfile(neighbourSide);
 
         // check for profile equality
         for (int i = 0; i < ownProfile.length; i++) {
@@ -271,6 +279,33 @@ public class Frame {
         }
 
         return profile;
+    }
+    
+    private Area transformAreaToNeighbourAreaByDirection(Area area, DIRECTION direction) {
+        Area neighbourArea = area.clone();
+        
+        switch (direction) {
+        case UP:
+            neighbourArea.setY(FRAME_HEIGHT - 1);
+            break;
+
+        case RIGHT:
+            neighbourArea.setX(0);
+            break;
+
+        case DOWN:
+            neighbourArea.setY(0);
+            break;
+
+        case LEFT:
+            neighbourArea.setX(FRAME_WIDTH - 1);
+            break;
+
+        default:
+            break;
+        }
+        
+        return neighbourArea;
     }
 
     public Iterator<FrameItem> itemIterator() {
