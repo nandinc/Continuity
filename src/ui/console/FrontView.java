@@ -22,6 +22,9 @@ public class FrontView {
 
     private int printWidth;
     private int printHeight;
+    
+    private char[][] canvas;
+    private boolean[][] checked;
 
     public FrontView(Game game) {
         this.map = game.getMap();
@@ -35,6 +38,13 @@ public class FrontView {
                 repaint();
             }
         });
+        pubSub.on("makemap", new Subscriber() {
+			
+			@Override
+			public void eventEmitted(String eventName, Object eventParameter) {
+				createMap();
+			}
+		});
     }
 
     private void initPrintDimensions() {
@@ -82,6 +92,7 @@ public class FrontView {
         }
         
         System.out.println("");
+        this.canvas = canvas;
     }
     
     private Area itemOffsetByFramePosition(Area framePosition) {
@@ -173,5 +184,100 @@ public class FrontView {
         
         // bottom right
         canvas[cornerY + Frame.FRAME_HEIGHT + 1][cornerX + Frame.FRAME_WIDTH + 1] = '+';
+    }
+    
+    // Create the map
+    private void createMap() {
+    	if (canvas != null) {
+    		checked = new boolean[canvas.length][canvas[0].length];
+    		int vb = 0, hb = 0;
+	    	for (int row = 0; row < printHeight-1; row++) {
+	    		hb = 0;
+	            for (int col = 0; col < printWidth-1; col++) {
+	            	if (!checked[row][col]) {
+		            	char c = canvas[row][col];
+		            	int realCol = col - hb;
+		            	int realRow = row - vb;
+		            	
+		            	if (c == '|') {
+		            		hb++;
+		            	}else if (c == '-') {
+		            		vb++;
+		            		row++;
+		            	} else {
+			            	if (c == 'X') {
+			            		System.out.println("Stickman\t" + realCol + "\t" + realRow + "\t"
+			            				+ getRange(c, row, col));
+			            	}
+			            	
+			            	else if (c == '#') {
+			            		System.out.println("Platform\t" + realCol + "\t" + realRow + "\t"
+			            				+ getRange(c, row, col));
+			            	}
+			            	
+			            	else if (c == 'K') {
+			            		System.out.println("Key\t" + realCol + "\t" + realRow + "\t"
+			            				+ getRange(c, row, col));
+			            	}
+			            	
+			            	else if (c == 'A') {
+			            		System.out.println("Door\t" + realCol + "\t" + realRow + "\t"
+			            				+ getRange(c, row, col));
+			            	}
+			            	
+			            	else if (c == '?') {
+			            		System.out.println("Unknown\t" + realCol + "\t" + realRow + "\t"
+			            				+ getRange(c, row, col));
+			            	}
+		            	}
+	            	}
+	            }
+	        }
+    	}
+    }
+    
+    // Check horizontal and vertical range
+    // TODO More comment
+    private String getRange(char c, int row, int col) {
+    	int tempWidth = 0;
+    	int tempHeight = 0;
+    	int minlength = Frame.FRAME_WIDTH;
+    	boolean row_continous = true;
+    	boolean col_continous;
+    	
+    	for (int i = 0; i < Frame.FRAME_HEIGHT; i++) {
+    		int temp = 0;
+    		if (canvas[row+i][col] != c) {
+    			break;
+    		}
+    		for (int j = 0; j < Frame.FRAME_WIDTH; j++) {
+    			if (canvas[row+i][col+j] == c) {
+    				temp++;
+    			} else {
+    				break;
+    			}
+    		}
+    		if (minlength > temp) {
+    			minlength = temp;
+    		}
+    		tempHeight++;
+    	}
+    	tempWidth = minlength;
+    	
+		for (int i = row; i < row+tempHeight && row_continous; i++) {
+			col_continous = true;
+	    	for (int j = col; j < col+minlength && col_continous; j++) {
+	    		if (canvas[i][j] == c) {
+	    			checked[i][j] = true;
+	    		} else {
+	    			if (row != i) {
+	    				row_continous = false;
+	    			}
+	    			col_continous = false;
+	    		}
+	    	}
+		}
+		
+    	return tempWidth + "\t" + tempHeight;
     }
 }
