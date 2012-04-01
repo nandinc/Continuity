@@ -39,7 +39,9 @@ public class Timer {
     }
 
     public void stop() {
-        timer.cancel();
+        if (timer != null) {
+            timer.cancel();
+        }
     }
 
 }

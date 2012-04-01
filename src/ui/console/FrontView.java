@@ -1,6 +1,5 @@
 package ui.console;
 
-import java.io.IOException;
 import java.util.Iterator;
 
 import model.Area;
@@ -18,14 +17,14 @@ import model.Subscriber;
 
 public class FrontView {
 
+    private Game game;
     private Map map;
 
     private int printWidth;
     private int printHeight;
 
     public FrontView(Game game) {
-        this.map = game.getMap();
-        initPrintDimensions();
+        this.game = game;
 
         PubSub pubSub = game.getPubSub();
         pubSub.on("invalidate", new Subscriber() {
@@ -37,14 +36,11 @@ public class FrontView {
         });
     }
 
-    private void initPrintDimensions() {
-        // +2 because of the borders
+    private void repaint() {
+        Map map = game.getMap();
+        
         printWidth = map.horizontalFrameCount() * (Frame.FRAME_WIDTH + 2);
         printHeight = map.verticalFrameCount() * (Frame.FRAME_HEIGHT + 2);
-    }
-
-    private void repaint() {
-        clearConsole();
 
         char[][] canvas = new char[printHeight][printWidth];
         
@@ -96,23 +92,6 @@ public class FrontView {
         );
         
         return itemOffset;
-    }
-
-    private void clearConsole() {
-        if (System.console() != null) {
-            // Attention, hack around
-            try {
-                Runtime.getRuntime().exec("cls");
-            } catch (IOException e) {
-                try {
-                    Runtime.getRuntime().exec("clear");
-                } catch (IOException e1) {
-                    // no way to clear, do nothing
-                    e1.printStackTrace();
-                }
-                e.printStackTrace();
-            }
-        }
     }
 
     private void drawItemToCanvas(FrameItem item, Area offset, char[][] canvas) {

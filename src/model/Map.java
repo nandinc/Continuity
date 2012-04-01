@@ -152,7 +152,7 @@ public class Map {
     public void moveFrame(DIRECTION d) {
         // TODO implement moveFrame
         //throw new UnsupportedOperationException();
-        Logger.logStatus("Move Frame/Don't move frame: wrong viewport/Don't move frame: wrong direction");
+        Logger.logStatus("Move Frame "+d.toString()+"/Don't move frame: wrong viewport/Don't move frame: wrong direction");
     }
 
     public FrameIterator frameIterator() {
