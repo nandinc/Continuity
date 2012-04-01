@@ -37,8 +37,6 @@ public class FrontController {
             pubSub.emit("controller:move", DIRECTION.RIGHT);
         } else if (command.compareTo("tick") == 0) {
             pubSub.emit("tick", null);
-        } else if (command.compareTo("make map") == 0) {
-        	pubSub.emit("makemap", null);
         }
         
         
