@@ -155,16 +155,38 @@ public class Map {
         Logger.logStatus("Move Frame "+d.toString()+"/Don't move frame: wrong viewport/Don't move frame: wrong direction");
     }
 
+    /**
+     * Visszaad egy iteratort, mellyel a tartalmazott kereteken lehet végigmenni
+     * @return keret iterator
+     */
     public FrameIterator frameIterator() {
         return new FrameIterator();
     }
 
+    /**
+     * A pálya által tartalmazott kereteken lépdel végig
+     * @responsibility A mögöttes implementációtól függetlenül felsorolja a pálya által tartalmazott kereteket.
+     */
     public class FrameIterator implements Iterator<Frame> {
 
+        /**
+         * Következő oszlop indexe
+         */
         private int nextColumnIndex = 0;
+        
+        /**
+         * Aktuális oszlop iteratora
+         */
         private Iterator<Frame> currentColumnIterator = null;
+        
+        /**
+         * Aktuális sor indexe
+         */
         private int currentRowIndex;
 
+        /**
+         * Inicializálás
+         */
         public FrameIterator() {
             List<Frame> firstColumn = getNextColumn();
 
@@ -173,6 +195,10 @@ public class Map {
             }
         }
 
+        /**
+         * Váltás a következő oszlopra
+         * @return következő oszlop
+         */
         private List<Frame> getNextColumn() {
             List<Frame> nextColumn = null;
 
@@ -185,6 +211,10 @@ public class Map {
             return nextColumn;
         }
 
+        /**
+         * Ellenőrzi, hogy van-e még bejáratlan keret
+         * @return true, ha van még nem bejárt keret
+         */
         @Override
         public boolean hasNext() {
             if (currentColumnIterator.hasNext() == true) {
@@ -202,12 +232,24 @@ public class Map {
             }
         }
 
+        /**
+         * Lépés a következő keretre
+         */
         @Override
         public Frame next() {
             currentRowIndex++;
             return currentColumnIterator.next();
         }
 
+        /**
+         * Megadja az aktuális keret által elfoglalt
+         * pozíciót a pálya keretrácsában.
+         * 
+         * A bal felső sarokban a x:0, y:0
+         * pozíciójú keret található.
+         * 
+         * @return aktuális keret pozíciója
+         */
         public Area getFramePosition() {
             Area offset = new Area();
 
@@ -217,6 +259,10 @@ public class Map {
             return offset;
         }
 
+        /**
+         * Nem támogatott a keret ilyen módú eltávolítása
+         * @throws UnsupportedOperationException
+         */
         @Override
         public void remove() {
             throw new UnsupportedOperationException();
@@ -224,10 +270,18 @@ public class Map {
 
     }
 
+    /**
+     * Megadja a tartalmazott keretek által alkotott keretrács szélességét
+     * @return Tartalmazott keretek által alkotott keretrács szélessége
+     */
     public int horizontalFrameCount() {
         return frames.size();
     }
 
+    /**
+     * Megadja a tartalmazott keretek által alkotott keretrács magasságát
+     * @return Tartalmazott keretek által alkotott keretrács magassága
+     */
     public int verticalFrameCount() {
         int verticalFrameCount = 0;
         for (List<Frame> column : frames) {

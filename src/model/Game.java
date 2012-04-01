@@ -30,8 +30,14 @@ public class Game {
      */
     protected PubSub pubSub;
 
+    /**
+     * Nézet állapota
+     */
     protected VIEWPORT_STATE viewportState; 
 
+    /**
+     * Inicializálja a tartalmazott objektumokat
+     */
     public Game() {
         mapFactory = new MapFactory();
         pubSub = new PubSub();
@@ -51,6 +57,9 @@ public class Game {
         currentMap = mapFactory.getMap(mapId, pubSub);
     }
 
+    /**
+     * Elindítja a játékot
+     */
     public void start() {
         // TODO review this whole method after prototype release
         //timer.start();
@@ -59,6 +68,9 @@ public class Game {
         pubSub.emit("invalidate", null);
     }
 
+    /**
+     * Megváltoztatja a nézetet a jelenlegi ellenkezőjére
+     */
     public void toggleViewportState() {
         if (viewportState == VIEWPORT_STATE.CLOSE) {
             viewportState = VIEWPORT_STATE.MAP;
@@ -72,10 +84,18 @@ public class Game {
         }
     }
 
+    /**
+     * Megadja a használt kommunikációs csatornát
+     * @return kommunikációs csatorna
+     */
     public PubSub getPubSub() {
         return pubSub;
     }
 
+    /**
+     * Megadja az aktuális pályát
+     * @return az aktuális pálya
+     */
     public Map getMap() {
         return currentMap;
     }

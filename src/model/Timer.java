@@ -18,12 +18,22 @@ public class Timer {
      */
     private PubSub pubSub;
 
+    /**
+     * Az idő múlásának követését ténylegesen megvalósító osztály
+     */
     private java.util.Timer timer;
 
+    /**
+     * Kommunikációs csatorna beállítása
+     * @param pubSub a használni kíván kommunikációs csatorna
+     */
     public void setPubSub(PubSub pubSub) {
         this.pubSub = pubSub;
     }
 
+    /**
+     * Időmúlás nyivlántartásának indítása
+     */
     public void start() {
         // true: runs as a daemon
         // @see: http://docs.oracle.com/javase/1.4.2/docs/api/java/util/Timer.html#Timer(boolean)
@@ -38,6 +48,9 @@ public class Timer {
         }, 100, 100);
     }
 
+    /**
+     * Időmúlás nyivlántartásának leállítása
+     */
     public void stop() {
         if (timer != null) {
             timer.cancel();

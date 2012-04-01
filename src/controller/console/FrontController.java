@@ -9,16 +9,35 @@ import java.util.regex.Pattern;
 import model.DIRECTION;
 import model.PubSub;
 
+/**
+ * A felhasználó parancsait kezelő felület
+ * 
+ * @responsibility Felhasználói parancsok fogadása, értelemezése, továbbítása
+ */
 public class FrontController {
     
+    /**
+     * Kommunikációs csatorna a model irányába
+     */
     private PubSub pubSub;
     
+    /**
+     * Bemeneti parancsok ismétlésének engedélyezése
+     */
     private boolean echoCommands = false;
     
+    /**
+     * Inicializálás
+     * 
+     * @param pubSub kommunikációs csatorna
+     */
     public FrontController(PubSub pubSub) {
         this.pubSub = pubSub;
     }
     
+    /**
+     * Parancsok olvasásának indítása a sztandard bemenetről
+     */
     public void start() {
         InputStreamReader reader = new InputStreamReader(System.in);
         BufferedReader br = new BufferedReader(reader);
@@ -37,6 +56,11 @@ public class FrontController {
         }
     }
     
+    /**
+     * A kapott parancs végrehajtása
+     * 
+     * @param command bejövő parancs
+     */
     private void execute(String command) {
         if (echoCommands == true) {
             System.out.println(command);

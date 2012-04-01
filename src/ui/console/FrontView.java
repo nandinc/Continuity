@@ -15,14 +15,32 @@ import model.PubSub;
 import model.Stickman;
 import model.Subscriber;
 
+/**
+ * Egy játékba betöltött pálya aktuális állapotát jeleníti meg a sztandard kimeneten.
+ * @responsibility A felügyelt játékhoz tartozó pálya szöveges reprezentációjának előállítása és megjelenítése. 
+ */
 public class FrontView {
 
+    /**
+     * Felügyelt pálya
+     */
     private Game game;
-    private Map map;
 
+    /**
+     * Kimenet szélessége
+     */
     private int printWidth;
+    
+    /**
+     * Kimenet magassága
+     */
     private int printHeight;
 
+    /**
+     * Inicializálás, feliratkozás a felügyelt pálya változásaira.
+     * 
+     * @param game a felügyelt pálya
+     */
     public FrontView(Game game) {
         this.game = game;
 
@@ -35,7 +53,10 @@ public class FrontView {
             }
         });
     }
-
+    
+    /**
+     * A szöveges reprezentáció előállítása és megjelenítése
+     */
     private void repaint() {
         Map map = game.getMap();
         
@@ -80,6 +101,13 @@ public class FrontView {
         System.out.println("");
     }
     
+    /**
+     * Elem abszolút eltolásának megállapítása,
+     * számbavéve a keretek széleit is.
+     * 
+     * @param framePosition keret pozíció
+     * @return abszolút eltolás
+     */
     private Area itemOffsetByFramePosition(Area framePosition) {
         Area itemOffset = new Area();
         
@@ -94,6 +122,13 @@ public class FrontView {
         return itemOffset;
     }
 
+    /**
+     * Kapott elem kirajzolása a kapott vászonra.
+     * 
+     * @param item kirajzolandó elem
+     * @param offset elem abszolút eltolása
+     * @param canvas a felhasználandó vászon
+     */
     private void drawItemToCanvas(FrameItem item, Area offset, char[][] canvas) {
         // top left corner
         int cornerY = offset.getY() + item.getArea().getY();
@@ -120,6 +155,12 @@ public class FrontView {
         }
     }
 
+    /**
+     * Keret rajzolása a vászonra, a megadott pozícióban
+     * 
+     * @param framePosition keret pozíciója
+     * @param canvas a felhasználandó vászon
+     */
     private void drawFrameToCanvas(Area framePosition, char[][] canvas) {
         // top left corner
         int cornerY = framePosition.getY() * (Frame.FRAME_HEIGHT + 2); 

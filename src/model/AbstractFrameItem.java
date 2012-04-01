@@ -52,16 +52,19 @@ public abstract class AbstractFrameItem implements FrameItem {
         this.frame = frame;
     }
 
+    /**
+     * Kommunikációs csatorna beállítása
+     */
     @Override
     public void setPubSub(PubSub pubSub) {
         this.pubSub = pubSub;
     }
 
     /**
-     * Tells whether the item should be considered
-     * while checking frame traversability or shouldn't.
+     * Megadja, hogy számba kell-e venni az elemet,
+     * ha a keretek közötti átjárást vizsgáljuk.
      * 
-     * @return true if affects
+     * @return true, ha számba kell venni
      */
     @Override
     public boolean doesAffectTraversability() {
@@ -69,17 +72,19 @@ public abstract class AbstractFrameItem implements FrameItem {
     }
 
     /**
-     * Do nothing on collision
+     * Nem csinál semmit ütközés esetén
      * 
-     * By default, subclasses of this class doesn't response
-     * to collisions. Override this method to take action
-     * on collision.
+     * Alapértelmezetten az elemek nem reagálnak az üktözésre.
+     * E metódus felüldefiniálásával ez a viselkedés megváltoztatható.
      */
     @Override
     public void collision(FrameItem colliding) {
         // do nothing like a boss
     }
 
+    /**
+     * Jelzés kibocsájtása az elem állapotának megváltozásáról
+     */
     protected void invalidate() {
         if (pubSub != null) {
             pubSub.emit("invalidate", null);

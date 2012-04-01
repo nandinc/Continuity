@@ -7,6 +7,14 @@ package model;
  */
 public class Platform extends AbstractFrameItem {
 
+    /**
+     * Megadja, hogy az elem szilárd-e vagy sem.
+     * Ez a kereten belüli mozgások esetén az
+     * ütközések ellenőrzésekor használatos.
+     * 
+     * A Platform mindig szilárd.
+     * @return true
+     */
     @Override
     public boolean isSolid() {
         // Don't let them just raid over me
@@ -14,10 +22,10 @@ public class Platform extends AbstractFrameItem {
     }
 
     /**
-     * Tells whether the item should be considered
-     * while checking frame traversability or shouldn't.
+     * Megadja, hogy számba kell-e venni az elemet,
+     * ha a keretek közötti átjárást vizsgáljuk.
      * 
-     * @return true if affects
+     * @return true, a Platformot mindig számba kell venni
      */
     @Override
     public boolean doesAffectTraversability() {

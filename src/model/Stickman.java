@@ -7,8 +7,16 @@ package model;
  */
 public class Stickman extends AbstractFrameItem {
 
+    /**
+     * Ellenőrzőpontot tartalmazó keret
+     */
     private Frame checkpointFrame = null;
+    
+    /**
+     * Ellenőrzőponthoz tartozó terület
+     */
     private Area checkpointArea = null;
+    
     /**
      * A figura mozgatása a megadott irányba.
      * @param direction
@@ -72,6 +80,9 @@ public class Stickman extends AbstractFrameItem {
         invalidate();
     }
 
+    /**
+     * Tartalmazó keret beállítása
+     */
     @Override
     public void setFrame(Frame frame) {
         super.setFrame(frame);
@@ -88,6 +99,11 @@ public class Stickman extends AbstractFrameItem {
         }
     }
 
+    /**
+     * Kommunikációs csatorna beállítása
+     * 
+     * Feliratkozik a kezelendő eseményekre.
+     */
     @Override
     public void setPubSub(PubSub pubSub) {
         this.pubSub = pubSub;
@@ -114,6 +130,13 @@ public class Stickman extends AbstractFrameItem {
         // another stickman
     }
 
+    /**
+     * Megadja, hogy az elem szilárd-e vagy sem.
+     * Ez a kereten belüli mozgások esetén az
+     * ütközések ellenőrzésekor használatos.
+     * 
+     * @return true, minden stickman szilárd
+     */
     @Override
     public boolean isSolid() {
         // By setting solid flag true,
