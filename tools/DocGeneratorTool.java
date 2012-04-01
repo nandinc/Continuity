@@ -12,8 +12,7 @@ import java.util.Arrays;
  *  - arguments: -doclet DocGeneratorTool -s ../src -all
  */
 public class DocGeneratorTool extends Doclet {
-	protected static String targetPath = "c:/Berci/Programozas/Continuity/tmp/javadoc.tex";
-	
+	protected static String targetPath = "../docs/08/08.tex";
 	
 	private static String readFileAsString(String filePath) throws java.io.IOException {
 	    byte[] buffer = new byte[(int) new File(filePath).length()];
@@ -177,8 +176,8 @@ public class DocGeneratorTool extends Doclet {
 		String generatedFieldDoc = new String();
 		Arrays.sort(mems);
 		for (FieldDoc mem : mems) {
-			generatedFieldDoc += "\t\t\t\t\t\t\\item[\\texttt{" + mem.modifiers() + " "
-				+ getTypeName(mem.type()) + " " + mem.name().replace("_", "\\_") + "}]";
+			generatedFieldDoc += "\t\t\t\t\t\t\\item[\\texttt{" + getVisibility(mem) + (mem.isStatic() ? "\\underline{" : "")
+				+ mem.name().replace("_", "\\_") + " : " + getTypeName(mem.type()) + (mem.isStatic() ? "}" : "") + "}]";
 			generatedFieldDoc += mem.commentText().replace('\n', ' ');
 			if (mem.commentText().length() < 5) {
 				generatedFieldDoc += "% TODO\n";
@@ -206,9 +205,12 @@ public class DocGeneratorTool extends Doclet {
 					//generatedMemberDoc += "%";
 				//}
 				
-				generatedMemberDoc += "\t\t\t\t\t\t\\item[\\texttt{" + mem.modifiers() + " "
-					+ getTypeName(mem.returnType()) + " "
-					+ mem.name().replace("_", "\\_") + "(" + getParams(mem) + ")}] \\hfill \\\\";
+				generatedMemberDoc += "\t\t\t\t\t\t\\item[\\texttt{" + getVisibility(mem)  + (mem.isStatic() ? "\\underline{" : "")
+					+ mem.name().replace("_", "\\_") + "(" + getParams(mem) + ")";
+				if (!(mem.returnType().toString().equals("void"))) {
+					generatedMemberDoc += " : " + getTypeName(mem.returnType());
+				}
+				generatedMemberDoc += (mem.isStatic() ? "}" : "") + "}] \\hfill \\\\";
 				generatedMemberDoc += mem.commentText().replace('\n', ' ');
 				if (mem.commentText().length() < 5) {
 					generatedMemberDoc += "\n\t\t\t\t\t\t% TODO document " + mem.name();
@@ -252,8 +254,24 @@ public class DocGeneratorTool extends Doclet {
 			if (ret.length() > 0) {
 				ret += ", ";
 			}
-			ret += getTypeName(p.type()) + " " + p.name();
+			ret += p.name() + " : " + getTypeName(p.type());
 		}
 		return ret;
+	}
+	
+	private static String getVisibility(ProgramElementDoc mem) {
+		if (mem.isPublic()) {
+			return "+";
+		} else if (mem.isProtected()) {
+			return "\\#";
+		} else if (mem.isPrivate()) {
+			return "-";
+		} else {
+			return "";
+		}
+	}
+	
+	private static String getModifiersSansVisibility(ProgramElementDoc mem) {
+		return mem.modifiers().replace("public", "").replace("protected", "").replace("private", "").replace("  ", " ").trim();
 	}
 }
