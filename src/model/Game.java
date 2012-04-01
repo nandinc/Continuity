@@ -52,7 +52,11 @@ public class Game {
     }
 
     public void start() {
-        timer.start();
+        // TODO review this whole method after prototype release
+        //timer.start();
+        // show map
+        Logger.logStatus("Start game");
+        pubSub.emit("invalidate", null);
     }
 
     public void toggleViewportState() {
