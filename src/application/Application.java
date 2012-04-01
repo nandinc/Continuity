@@ -18,7 +18,7 @@ public class Application {
         Game game = newGame(1);
         FrontView view = new FrontView(game);
 
-//        game.start();
+        //game.start();
         FrontController controller = new FrontController(game.getPubSub());
         controller.start();
     }
