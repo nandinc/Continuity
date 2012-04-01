@@ -67,7 +67,8 @@ public class Game {
         } else {
             viewportState = VIEWPORT_STATE.CLOSE;
             Logger.logStatus("Viewport changed to close view");
-            timer.start();
+            // TODO enable this after prototype release
+            //timer.start();
         }
     }
 
