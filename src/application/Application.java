@@ -1,7 +1,5 @@
 package application;
 
-import java.io.IOException;
-
 import controller.console.FrontController;
 
 import ui.console.FrontView;
