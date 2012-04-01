@@ -14,43 +14,306 @@
 %GENERATOR:CLASS_DESCRIPTIONS	
 	
 	\subsection{A tesztek részletes tervei, leírásuk a teszt nyelvén}
-			\newcommand{\testitem}[1]{\item \textbf{Név: #1}\\}
-			\newcommand{\tdesc}[1]{\textbf{Leírás: } #1\\}
-			\newcommand{\tcel}[1]{\textbf{Cél:} #1\\}
-	
-			\begin{enumerate}[label=\textbf{\arabic*.}, start=1]
-%			    \testitem{}
-%		        \tdesc{}
-%		        \tcel{}
+			\newcommand{\testitem}[1]{\subsubsection{#1}}
+			\newcommand{\tdesc}[1]{\paragraph*{Leírás} #1}
+			\newcommand{\tcel}[1]{\paragraph*{Ellenőrzött funkcionalitás, várható hibahelyek} #1}
 		        
 		        \testitem{Pálya betöltése}
 		        \tdesc{Betöltésre kerül egy objektumokkal feltöltött pálya, melyet a \texttt{MapFactory} készít el a pálya fájlreprezentációja alapján, és elhelyezi rajta a stickmaneket.}
 		        \tcel{Ellenőrizni, hogy a pálya fájlreprezentációjából helyes pályakép generálódik a programban, minden objektum a helyén van-e. \texttt{MapFactory}-nak létre kell hoznia a megfelelő számú \texttt{Frame}-et és azokat helyesen elhelyezni, valamint létre kell hoznia a \texttt{FrameItem}eket.}
+		        \paragraph*{Bemenet}
+\begin{verbatim}
+loadMap 1	
+\end{verbatim}
+		        \paragraph*{Elvárt kimenet}
+\begin{verbatim}
+> loadMap 1
+Load map1
+Start game
++--------------++--------------++--------------+
+|             X||              ||              |
+|              ||              ||              |
+|             K||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+      
+\end{verbatim}
 		        
 		        \testitem{Stickman mozgatása kereten belül}
 		        \tdesc{Az egyik stickmant megmozgatjuk kereten belül minden irányba: vízszintesen és horizontálisan (felfele), úgy hogy van tereptárgy a mozgás irányában, mely azt megakadályozza, és úgy is hogy nincs, illetve leugrunk vele egy magaslatról.}
 		        \tcel{Ellenőrizni, hogy a kiadott mozgatási parancsok a várt helyre viszik-e a stickmant, a tereptárgyak megakadályozzák-e a mozgását, ill. hogy az ugrás helyesen működik-e (a parancs kiadása után az idő múlása során először fölfele mozog, majd megáll, lefele mozog, és talajt érve újra megáll). A teszt során a \texttt{Stickman} \texttt{area} attribútuma áll középpontban, illetve hogy a \texttt{PubSub}-ból jövő \texttt{tick} események hatására hogyan reagál.}
+		        \paragraph*{Bemenet}
+\begin{verbatim}
+
+\end{verbatim}
+		        \paragraph*{Elvárt kimenet}
+\begin{verbatim}
+> loadMap 2
+Load map2
+Start game
++--------------++--------------++--------------+
+|##            ||              ||              |
+|# X           ||              ||              |
+|####         K||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move left
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|##            ||              ||              |
+|#X            ||              ||              |
+|####         K||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move left
+In-frame move
+Colliding with solid item, do nothing
+> move up
+In-frame move
+Colliding with solid item, do nothing
+> move right
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|##            ||              ||              |
+|# X           ||              ||              |
+|####         K||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move right
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|##            ||              ||              |
+|#  X          ||              ||              |
+|####         K||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move right
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|##            ||              ||              |
+|#   X         ||              ||              |
+|####         K||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> tick
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|##            ||              ||              |
+|#             ||              ||              |
+|####X        K||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> tick
+In-frame move
+Colliding with solid item, do nothing
+> move up
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|##            ||              ||              |
+|#   X         ||              ||              |
+|####         K||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> tick
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|##  X         ||              ||              |
+|#             ||              ||              |
+|####         K||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> tick
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|##            ||              ||              |
+|#   X         ||              ||              |
+|####         K||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> tick
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|##            ||              ||              |
+|#             ||              ||              |
+|####X        K||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> tick
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|##            ||              ||              |
+|#             ||              ||              |
+|####X        K||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+\end{verbatim}
 		        
 		        \testitem{Stickman mozgatása keretek között}
 		        \tdesc{A Stickmant először olyan keretek között mozgatjuk, melyek átjárhatóak, majd egy olyanba próbáljuk vezérelni, ahova nincs lehetősége átmenni.}
 		        \tcel{Keretek közti átjárhatóság megállapítását végző algoritmus, ill. a \texttt{Stickman} egyik \texttt{Frame}-ből másikba való áthelyezésének ellenőrzése. \texttt{Frame} kérésére a \texttt{Map} visszaadja a szomszédos \texttt{Frame}-et, és az előbbi \texttt{Frame} átrakja oda a \texttt{Stickman}t.}
-		        
-		        \testitem{Stickman kiesése}
+		        \paragraph*{Bemenet}
+\begin{verbatim}
+
+\end{verbatim}
+		        \paragraph*{Elvárt kimenet}
+\begin{verbatim}
+
+\end{verbatim}
+		       
+		       \testitem{Stickman kiesése}
 		        \tdesc{Stickmant úgy vezéreljük, hogy essen ki egy keret alján úgy, hogy arra nincs több keret, vagy afelé a keret nem átjárható.}
 		        \tcel{Ellenőrizzük, hogy a {Stickman} kiesik-e, ha a játék szabályai szerint ki kell esnie, illetve megnézzük, hogy ilyenkor visszakerül-e az utolsó ellenőrzőponthoz. Az aktuális \texttt{Frame} elkéri a \texttt{Map}től a szomszédját, melyre az \texttt{null} értékkel válaszol, erről pedig értesíti a \texttt{Stickmant}.}
 		        
 		        \testitem{Kulcs felvétele, pálya teljesítése}
 		        \tdesc{Stickmannel először megérintjük az ajtót, ezután felvesszük a kucsot, majd megint megérintjük az ajtót.}
 		        \tcel{Ellenőrizzük, hogy az ajtó csak kulccsal nyitható-e, illetve hogy a kulcs felvétele megfelelően rögzítődik-e. A teszt középpontjában a \texttt{Frame} által megvalósított ütközésértesítés áll, illetve az állapotok rögzítése, mely a \texttt{PubSub}-on jövő értesítés után a \texttt{Game}-ben történik.}
+		        \paragraph*{Bemenet}
+\begin{verbatim}
+
+\end{verbatim}
+		        \paragraph*{Elvárt kimenet}
+\begin{verbatim}
+
+\end{verbatim}
 		        
 		        \testitem{Keret mozgatása}
 		        \tdesc{Távoli nézetben keret mozgatása parancsot adunk ki.}
 		        \tcel{Ellenőrizzük, hogy a keret mozgatása parancs hatására a \texttt{Map} a megfelelő \texttt{Frame}-et mozgatja és azt a megfelelő helyre viszi.}
-		        
+		        \paragraph*{Bemenet}
+\begin{verbatim}
+
+\end{verbatim}
+		        \paragraph*{Elvárt kimenet}
+\begin{verbatim}
+
+\end{verbatim}
+
 		        \testitem{Nézetek közötti váltás}
 		        \tdesc{A pálya betöltése után a kezdeti távoli nézetből közelibe váltunk. Itt ugrunk egyet, majd megpróbáljuk a kereteket átrendezni, ami nem sikerül. Esünk egyet, mely közben távoli nézetbe váltunk. Ekkor megpróbáljuk vízszintesen mozgatni a stickmant, ami nem sikerül.}
 		        \tcel{Ellenőrizzük, hogy a stickman mozgatása le van-e tiltva távoli nézetben, illetve a keretek mozgatása közeli nézetben. Megnézzük még, hogy az időzítés helyesen működik-e, a kiadott \texttt{tick} parancs ellenére sem esik tovább a \texttt{Stickman} távoli nézetben.}
-			\end{enumerate}
+		        \paragraph*{Bemenet}
+\begin{verbatim}
+
+\end{verbatim}
+		        \paragraph*{Elvárt kimenet}
+\begin{verbatim}
+
+\end{verbatim}
 	
 	\subsection{A tesztelést támogató programok tervei}
 		A tesztelés során keletkező kimenetek összehasonlítása az előre definiált kimenetekkel nem kézi erővel történik, erre a unix(-like) rendszereken megtalálható \texttt{diff} -- vagy azzal azonos funkcionalitású, más platformon futó -- programot fogunk használni. Egy teszteset akkor tekinthető sikeresnek, ha a \texttt{diff} program nem jelez különbséget a kapott kimenet és az előre definiált kimenet között.
