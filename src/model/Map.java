@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import debug.Logger;
+
 
 /**
  * A pályákat reprezentálja. Tartalmazza a kereteket és azok elhelyezkedését,
@@ -149,7 +151,8 @@ public class Map {
      */
     public void moveFrame(DIRECTION d) {
         // TODO implement moveFrame
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
+        Logger.logStatus("Move Frame/Don't move frame: wrong viewport/Don't move frame: wrong direction");
     }
 
     public FrameIterator frameIterator() {

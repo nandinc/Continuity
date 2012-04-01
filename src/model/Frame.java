@@ -4,6 +4,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 
+import debug.Logger;
+
 /**
  * Egy pályán belüli keret, amelyben mozoghat a Stickman. Tartalmazza a pálya többi elemét (Door, Key, Platform).
  * 
@@ -57,27 +59,32 @@ public class Frame {
         boolean inBounds = isAreaInBounds(area);
 
         if (inBounds) {
+            Logger.logStatus("In-frame move");
             if (!hasCollision(item, area)) {
                 if (!hasItem(item)) {
                     addItem(item);
                 }
                 // no collision with solid items
+                Logger.logStatus("No collision, do move");
                 item.setArea(area);
 
                 // notify non solid colliding items
                 notifyCollision(item, area);
                 return true;
             } else {
+                Logger.logStatus("Colliding with solid item, do nothing");
                 // solid item in the way
                 return false;
             }
         } else {
+            Logger.logStatus("Inter-frame move");
             DIRECTION moveDirection = item.getArea().getRelativeDirection(area);
 
             if (moveDirection != null) {    // new area changed compared to the actual one
                 Frame neighbour = map.getNeighbour(this, moveDirection);
 
                 if (neighbour != null) {    // frame has neighbour in direction
+                    Logger.logStatus("Neighbour found");
                     Area neighbourArea = transformAreaToNeighbourAreaByDirection(area, moveDirection);
                     // remove item before passing it to the neighbour
                     // to avoid cloned items
@@ -91,17 +98,22 @@ public class Frame {
                         // (e.g: another stickman is in the way, 
                         //  but not at the edge of the frame)
                         addItem(item);
+                        Logger.logStatus("Colliding with solid item, do nothing");
                         return false;
                     }
 
                 } else {	// no traversable neighbour
-
+                    Logger.logStatus("No neighbour found");
+                    
                     if (moveDirection == DIRECTION.DOWN) {
                         // TODO cast ahead, fix this design error.
                         // fall out
                         removeItem(item);
                         Stickman stickman = (Stickman) item;
                         stickman.resetToCheckpoint();
+                        Logger.logStatus("Fall out, reset to checkpoint");
+                    } else {
+                        Logger.logStatus("Don't move");
                     }
 
                     return false;

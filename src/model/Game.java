@@ -1,5 +1,6 @@
 package model;
 
+import debug.Logger;
 import model.exception.MapNotFoundException;
 
 /**
@@ -46,6 +47,7 @@ public class Game {
      * @throws MapNotFoundException 
      */
     public void loadMap(int mapId) throws MapNotFoundException {
+        Logger.logStatus("Load map" + mapId);
         currentMap = mapFactory.getMap(mapId, pubSub);
     }
 
@@ -57,9 +59,11 @@ public class Game {
         if (viewportState == VIEWPORT_STATE.CLOSE) {
             viewportState = VIEWPORT_STATE.MAP;
             timer.stop();
+            Logger.logStatus("Viewport changed to map view");
         } else {
             viewportState = VIEWPORT_STATE.CLOSE;
             timer.start();
+            Logger.logStatus("Viewport changed to close view");
         }
     }
 

@@ -1,5 +1,7 @@
 package model;
 
+import debug.Logger;
+
 /**
  * A pályán található kulcsokat reprezentáló objektum.
  * 
@@ -23,6 +25,12 @@ public class Key extends AbstractFrameItem {
     @Override
     public boolean isSolid() {
         return false;
+    }
+    
+    @Override
+    public void collision(FrameItem colliding) {
+        // TODO Door.collision: add business logic
+        Logger.logStatus("Key collected");
     }
 
 }
