@@ -123,8 +123,11 @@ public class FrontView {
         if (item instanceof Door) {
             canvas[cornerY][cornerX] = 'A';
         } else if (item instanceof Key) {
-            // TODO check key state, don't display if already picked up
-            canvas[cornerY][cornerX] = 'K';
+            // TODO cast ahead...
+            Key key = (Key)item;
+            if (key.isCollected() == false) {
+                canvas[cornerY][cornerX] = 'K';
+            }
         } else if (item instanceof Platform) {
             for (int row = cornerY; row < cornerY + item.getArea().getHeight(); row++) {
                 for (int col = cornerX; col < cornerX + item.getArea().getWidth(); col++) {

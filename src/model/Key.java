@@ -29,7 +29,8 @@ public class Key extends AbstractFrameItem {
     
     @Override
     public void collision(FrameItem colliding) {
-        // TODO Door.collision: add business logic
+        // TODO Key.collision: add collect notification
+        collected = true;
         Logger.logStatus("Key collected");
     }
 
