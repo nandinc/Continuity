@@ -51,7 +51,20 @@ Start game
 		        \tcel{Ellenőrizni, hogy a kiadott mozgatási parancsok a várt helyre viszik-e a stickmant, a tereptárgyak megakadályozzák-e a mozgását, ill. hogy az ugrás helyesen működik-e (a parancs kiadása után az idő múlása során először fölfele mozog, majd megáll, lefele mozog, és talajt érve újra megáll). A teszt során a \texttt{Stickman} \texttt{area} attribútuma áll középpontban, illetve hogy a \texttt{PubSub}-ból jövő \texttt{tick} események hatására hogyan reagál.}
 		        \paragraph*{Bemenet}
 \begin{verbatim}
-
+loadMap 2
+move left
+move left
+move up
+move right
+move right
+move right
+tick
+tick
+move up
+tick
+tick
+tick
+tick           
 \end{verbatim}
 		        \paragraph*{Elvárt kimenet}
 \begin{verbatim}
