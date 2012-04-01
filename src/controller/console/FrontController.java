@@ -21,9 +21,12 @@ public class FrontController {
         
         String line;
         
+        System.out.print("> ");
+        
         try {
             while ((line = br.readLine()) != null) {
                 execute(line);
+                System.out.print("> ");
             }
         } catch (IOException e) {
             e.printStackTrace();
