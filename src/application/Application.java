@@ -10,10 +10,17 @@ import model.PubSub;
 import model.Subscriber;
 import model.exception.MapNotFoundException;
 
+/**
+ * Az alkalmazás osztályait inicializáló entitás 
+ * 
+ * @responsibility A program működéséhez szükséges osztályok inicializálása és összekötése
+ */
 public class Application {
 
     /**
-     * @param args
+     * Létrehoz egy új játékot, előkészíti a controllert és a megjelenítést.
+     * 
+     * @param args Indítási paraméterek -- használaton kívül
      */
     public static void main(String[] args) {
         final Game game = new Game();

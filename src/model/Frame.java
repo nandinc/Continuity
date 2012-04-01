@@ -13,12 +13,30 @@ import debug.Logger;
  */
 public class Frame {
 
+    /**
+     * Keret szélessége
+     */
     public static final int FRAME_WIDTH = 14;
+    
+    /**
+     * Keret magassága
+     */
     public static final int FRAME_HEIGHT = 5;
 
+    /**
+     * Tartalmazó pálya
+     */
     private Map map;
+    
+    /**
+     * Tartalmazott elemek
+     */
     private List<FrameItem> items = new ArrayList<FrameItem>();
 
+    /**
+     * Tartalmazó pálya beállítása
+     * @param map tartalmazó pálya
+     */
     public void setMap(Map map) {
         this.map = map;
     }
@@ -42,6 +60,11 @@ public class Frame {
         items.remove(item);
     }
     
+    /**
+     * Ellenőrzi, hogy tartalmazza-e a kapott elemet
+     * @param item a vizsgálandó elem
+     * @return true, ha tartalmazza, false egyébként
+     */
     private boolean hasItem(FrameItem item) {
         return items.contains(item);
     }
@@ -127,6 +150,12 @@ public class Frame {
         }
     }
 
+    /**
+     * Ellenőrzi, hogy a kapott terület a határain belül van-e-
+     * 
+     * @param area Ellenőrizendő terület
+     * @return true, ha a terület bal felső sarka a határokon belül van, false egyébként
+     */
     private boolean isAreaInBounds(Area area) {
         return (
                 area.getX() >= 0 
@@ -141,7 +170,7 @@ public class Frame {
      * található-e szilárd objektum.
      * 
      * @param area
-     * @return true if there is collision, false otherwise
+     * @return true, ha van szilárd objektum, false egyébként
      */
     private boolean hasCollision(FrameItem movingItem, Area requestedArea) {
         for (FrameItem item : items) {
@@ -154,6 +183,14 @@ public class Frame {
         return false;
     }
 
+    /**
+     * Értesíti a kapott területen található tartalmazott elemeket az ütközésről
+     * 
+     * Az értesített elemek jellemzően nem-szilárd elemek
+     * 
+     * @param colliding Az ütköző elem
+     * @param area Az ütközés területe
+     */
     private void notifyCollision(FrameItem colliding, Area area) {
         for (FrameItem item : items) {
             if (item.getArea().hasCollision(area)) {
@@ -167,8 +204,8 @@ public class Frame {
      * maga között fennáll-e az átjárhatóság a
      * megadott irányban.
      * 
-     * @param neighbour
-     * @param d
+     * @param neighbour Szomszéd keret
+     * @param d szomszéd relatív iránya a kerethez (this) képest
      */
     protected boolean isTraversable(Frame neighbour, DIRECTION d) {
         boolean[] ownProfile = getSideProfile(d);
@@ -209,18 +246,17 @@ public class Frame {
     }
 
     /**
-     * Returns a boolean array side profile.
+     * Visszaadja a keret megadott szélének profilját.
      * 
-     * The side profiles size equals to the
-     * FRAME_WIDTH or FRAME_HEIGHT, depending
-     * on the passed in side argument.
+     * A profil egy boolan tömb, melynek szélessége
+     * FRAME_WIDTH vagy FRAME_HEIGHT, a megadott oldaltól
+     * függően.
      * 
-     * sideProfile[i] is true, if there are
-     * any part of any solid object at the i.
-     * position of the requested side.
+     * profil[i] igaz, ha az i. pozicióban szilárd
+     * elem található, egyébként hamis.
      * 
-     * @param side
-     * @return side profile
+     * @param side Lekérdezett oldal
+     * @return oldal profil
      */
     private boolean[] getSideProfile(DIRECTION side) {
         boolean[] profile;
@@ -294,6 +330,14 @@ public class Frame {
         return profile;
     }
     
+    /**
+     * Átalakítja a kapott terület eltolását, hogy az egy
+     * szomszédos keret relatív eltolásához igazodjon.
+     * 
+     * @param area Az átalakítandó terület
+     * @param direction A szomszéd relatív elhelyezkedése
+     * @return Az átalakított terület
+     */
     private Area transformAreaToNeighbourAreaByDirection(Area area, DIRECTION direction) {
         Area neighbourArea = area.clone();
         
@@ -321,6 +365,12 @@ public class Frame {
         return neighbourArea;
     }
 
+    /**
+     * Visszaad egy iteratort, mely a tartalmazott
+     * elemeken megy végig.
+     * 
+     * @return elem iterator
+     */
     public Iterator<FrameItem> itemIterator() {
         return items.iterator();
     }

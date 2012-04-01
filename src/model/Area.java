@@ -68,38 +68,79 @@ public class Area {
         return null;
     }
 
+    /**
+     * Megadja a terület bal felső sarkának x eltolását
+     * @return x eltolás
+     */
     public int getX() {
         return this.x;
     }
 
+    /**
+     * Beállítja a terület bal felső sarkának x eltolását
+     * @param x x eltolás
+     */
     public void setX(int x) {
         this.x = x;
     }
 
+    /**
+     * Megadja a terület bal felső sarkának y eltolását
+     * 
+     * Az eltolás felülről lefelé nő
+     * @return y eltolás
+     */
     public int getY() {
         return this.y;
     }
 
+    /**
+     * Beállítja a terület bal felső sarkának y eltolását
+     * 
+     * Az eltolás felülről lefelé nő
+     * @param y eltolás
+     */
     public void setY(int y) {
         this.y = y;
     }
 
+    /**
+     * Megadja a terület szélességét
+     * @return a terület szélessége
+     */
     public int getWidth() {
         return this.width;
     }
 
+    /**
+     * Beállítja a terület szélességét
+     * @param width a terület szélessége
+     */
     public void setWidth(int width) {
         this.width = width;
     }
 
+    /**
+     * Megadja a terület magasságát
+     * @return a terület magassága
+     */
     public int getHeight() {
         return this.height;
     }
 
+    /**
+     * Beállítja a terület magasságát
+     * @param height a terület magassága
+     */
     public void setHeight(int height) {
         this.height = height;
     }
 
+    /**
+     * Létrehoz egy új területet, magával megegyező paraméterekkel
+     * 
+     * A másolt paraméterek: x, y, height, width.
+     */
     @Override
     public Area clone() {
         Area clone = new Area();

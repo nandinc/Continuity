@@ -37,22 +37,22 @@ public interface FrameItem {
      * Megadja, hogy az elem szilárd-e vagy sem.
      * Ez a kereten belüli mozgások esetén az
      * ütközések ellenőrzésekor használatos.
-     * @return
+     * @return true, ha szilárd, false egyébként
      */
     public boolean isSolid();
 
     /**
-     * Tells whether the item should be considered
-     * while checking frame traversability or shouldn't.
+     * Megadja, hogy számba kell-e venni az elemet,
+     * ha a keretek közötti átjárást vizsgáljuk.
      * 
-     * @return true if affects
+     * @return true, ha számba kell venni
      */
     public boolean doesAffectTraversability();
 
     /**
      * A tartalmazó keret jelezheti ezen a metóduson keresztül,
      * hogy egy másik elem, melyet paraméterül ad,
-     * hozzáért (collision) ehez az elemhez.
+     * hozzáért (collision) ehhez az elemhez.
      * @param colliding
      */
     public void collision(FrameItem colliding);

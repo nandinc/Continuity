@@ -22,16 +22,32 @@ public class Key extends AbstractFrameItem {
         return this.collected;
     }
 
+    /**
+     * Nem szilárd objektum
+     * @return false
+     */
     @Override
     public boolean isSolid() {
         return false;
     }
     
+    /**
+     * A tartalmazó keret jelezheti ezen a metóduson keresztül,
+     * hogy egy másik elem, melyet paraméterül ad,
+     * hozzáért (collision) ehhez az elemhez.
+     * 
+     * A kulcs állapota összegyűjtöttre változik, és jelzi az összegyűjtés
+     * tényét a kommunikációs csatornán.
+     * 
+     * @param colliding
+     */
     @Override
     public void collision(FrameItem colliding) {
         // TODO Key.collision: add collect notification
+        if (!collected) {
+            Logger.logStatus("Key collected");
+        }
         collected = true;
-        Logger.logStatus("Key collected");
     }
 
 }

@@ -18,8 +18,14 @@ import model.exception.MapNotFoundException;
  */
 public class MapFactory {
 
+    /**
+     * A String -> FrameItem fordítást segítő szótár
+     */
     private java.util.Map<String, Class<? extends FrameItem>> itemNameToClass = new HashMap<String, Class<? extends FrameItem>>();
 
+    /**
+     * Szótár inicializálása
+     */
     public MapFactory() {
         // init itemNameToClass field
         // this logic could be replaced by a more dynamic resource
@@ -34,9 +40,9 @@ public class MapFactory {
      * Létrehozza a megadott azonosítójú pályát
      * és feltölti elemekkel.
      * 
-     * @param mapId
-     * @param pubSub PubSub channel set to every item
-     * @throws MapNotFoundException 
+     * @param mapId Pálya azonosítója
+     * @param pubSub PubSub minden elemnek beállítandó kommunikációs csatorna
+     * @throws MapNotFoundException Ha nem található a megadott azonosítójú pálya
      */
     public Map getMap(int mapId, PubSub pubSub) throws MapNotFoundException {
         // open map stream
@@ -66,12 +72,12 @@ public class MapFactory {
     }
 
     /**
-     * Opens a stream of the map file using ClassLoader
-     * to access to resources.
+     * Egy InputStream-et nyit a megadott pálya azonosító által
+     * kijelölt pálya fájlra
      * 
      * @see http://docs.oracle.com/javase/1.4.2/docs/guide/resources/resources.html
-     * @param mapId
-     * @return stream of the map file
+     * @param mapId Pálya azonosítója
+     * @return Pályát olvasó bemeneti folyam
      * @throws MapNotFoundException
      */
     private InputStream getMapStream(Integer mapId) throws MapNotFoundException {
@@ -86,6 +92,9 @@ public class MapFactory {
         return mapStream;
     }
 
+    /**
+     * A kapott String alapján előállít egy megfelelő FrameItem-et. 
+     */
     private FrameItem getItemByString(String itemDescriber) throws MapErrorException {
         String[] parameters = itemDescriber.split("\t");
 
