@@ -11,6 +11,325 @@
 \section{Szkeleton tervezése}
 	\subsection{Osztályok és metódusok tervei}
 %GENERATOR:CLASS_DESCRIPTIONS
+		\subsubsection{AbstractFrameItem} Absztrakt osztály.
+			\begin{description}
+
+				\item[Felelősség] Alapértelmezett megvalósítása egy keretben lévő objektumnak.
+
+				\item[Ősosztályok] (nincs)
+				\item[Interfészek] FrameItem.
+				\item[Attribútumok]$\ $
+					\begin{description}
+						\item[\texttt{\#area : Area}]A tartalmazó kereten belül elfoglalt pozíció
+						\item[\texttt{\#frame : Frame}]A tartalmazó keret
+						\item[\texttt{\#pubSub : PubSub}]Publish Subscribe channel
+					\end{description}
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+collision(colliding : FrameItem)}] \hfill \\Nem csinál semmit ütközés esetén    Alapértelmezetten az elemek nem reagálnak az üktözésre.  E metódus felüldefiniálásával ez a viselkedés megváltoztatható. 
+						\item[\texttt{+doesAffectTraversability() : boolean}] \hfill \\Megadja, hogy számba kell-e venni az elemet,  ha a keretek közötti átjárást vizsgáljuk. 
+						\item[\texttt{+getArea() : Area}] \hfill \\Visszaadja az elem pozícióját a kereten belül. 
+						\item[\texttt{\#invalidate()}] \hfill \\Jelzés kibocsájtása az elem állapotának megváltozásáról 
+						\item[\texttt{+setArea(area : Area)}] \hfill \\Beállítja az elem pozícióját a kereten belül. 
+						\item[\texttt{+setFrame(frame : Frame)}] \hfill \\Beállítja az elemet tartalmazó keretet. 
+						\item[\texttt{+setPubSub(pubSub : PubSub)}] \hfill \\Kommunikációs csatorna beállítása 
+					\end{description}
+			\end{description}
+
+		\subsubsection{Area}
+			\begin{description}
+
+				\item[Felelősség] Területrészt leíró osztály. Összehasonlítható egy másik osztállyal, hogy fedik-e egymást.
+
+				\item[Ősosztályok] (nincs)
+				\item[Interfészek] (nincs)
+				\item[Attribútumok] (nincs)
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+clone() : Area}] \hfill \\Létrehoz egy új területet, magával megegyező paraméterekkel    A másolt paraméterek: x, y, height, width. 
+						\item[\texttt{+getHeight() : int}] \hfill \\Megadja a terület magasságát 
+						\item[\texttt{+getRelativeDirection(area : Area) : DIRECTION}] \hfill \\Calculates the relative direction of the given area.    Takes only one dimension into account at a time.  If the areas are placed diagonally, the horizontal  direction will be returned. 
+						\item[\texttt{+getWidth() : int}] \hfill \\Megadja a terület szélességét 
+						\item[\texttt{+getX() : int}] \hfill \\Megadja a terület bal felső sarkának x eltolását 
+						\item[\texttt{+getY() : int}] \hfill \\Megadja a terület bal felső sarkának y eltolását    Az eltolás felülről lefelé nő 
+						\item[\texttt{+hasCollision(other : Area) : boolean}] \hfill \\Ellenőrzi, hogy a kapott Area objektummal van-e közös pontja.  A metódus feltételezi, hogy a két terület azonos keretben található. 
+						\item[\texttt{+setHeight(height : int)}] \hfill \\Beállítja a terület magasságát 
+						\item[\texttt{+setWidth(width : int)}] \hfill \\Beállítja a terület szélességét 
+						\item[\texttt{+setX(x : int)}] \hfill \\Beállítja a terület bal felső sarkának x eltolását 
+						\item[\texttt{+setY(y : int)}] \hfill \\Beállítja a terület bal felső sarkának y eltolását    Az eltolás felülről lefelé nő 
+					\end{description}
+			\end{description}
+
+		\subsubsection{DIRECTION}
+			\begin{description}
+
+				\item[Felelősség] Irányokat jelöl a két dimenziós térben.
+
+				\item[Ősosztályok] Enum $\rightarrow{}$ DIRECTION
+				\item[Interfészek] (nincs)
+				\item[Attribútumok]$\ $
+					\begin{description}
+						\item[\texttt{+\underline{DOWN : DIRECTION}}]% TODO
+						\item[\texttt{+\underline{LEFT : DIRECTION}}]% TODO
+						\item[\texttt{+\underline{RIGHT : DIRECTION}}]% TODO
+						\item[\texttt{+\underline{UP : DIRECTION}}]% TODO
+					\end{description}
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+\underline{valueOf(name : String) : DIRECTION}}] \hfill \\
+						% TODO document valueOf 
+						\item[\texttt{+\underline{values() : DIRECTION[]}}] \hfill \\
+						% TODO document values 
+					\end{description}
+			\end{description}
+
+		\subsubsection{Door}
+			\begin{description}
+
+				\item[Felelősség] Ajtó objektum, melyet ha megérint a Stickman arról esemény bocsát ki.
+
+				\item[Ősosztályok] AbstractFrameItem $\rightarrow{}$ Door
+				\item[Interfészek] (nincs)
+				\item[Attribútumok] (nincs)
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+collision(colliding : FrameItem)}] \hfill \\A tartalmazó keret jelezheti ezen a metóduson keresztül,  hogy egy másik elem, melyet paraméterül ad,  hozzáért (collision) ehhez az elemhez.    A megérintésének tényét jelzi a kommunikációs csatornán,  hogy -- amennyiben minden kulcs össze van gyűjtve --  lehetővé váljon a pálya teljesítése. 
+						\item[\texttt{+isSolid() : boolean}] \hfill \\Megadja, hogy az elem szilárd-e vagy sem.  Ez a kereten belüli mozgások esetén az  ütközések ellenőrzésekor használatos. 
+					\end{description}
+			\end{description}
+
+		\subsubsection{Frame}
+			\begin{description}
+
+				\item[Felelősség] A pálya által alkotott táblázat egy cellája, amely elemeket tartalmaz. Ez felelős az elemek (Stickman) mozgatásáért kereten belül és között egyaránt. Két elem egy helyen való tartózkodásáról értesíti az elemeket (collision notify).
+
+				\item[Ősosztályok] (nincs)
+				\item[Interfészek] (nincs)
+				\item[Attribútumok]$\ $
+					\begin{description}
+						\item[\texttt{+\underline{FRAME\_HEIGHT : int}}]Keret magassága
+						\item[\texttt{+\underline{FRAME\_WIDTH : int}}]Keret szélessége
+					\end{description}
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+addItem(item : FrameItem)}] \hfill \\Hozzáadja a megadott elemet a kerethez. 
+						\item[\texttt{\#isTraversable(neighbour : Frame, d : DIRECTION) : boolean}] \hfill \\Megállapítja, hogy a megkapott Keret és saját  maga között fennáll-e az átjárhatóság a  megadott irányban. 
+						\item[\texttt{+itemIterator() : Iterator}] \hfill \\Visszaad egy iteratort, mely a tartalmazott  elemeken megy végig. 
+						\item[\texttt{+removeItem(item : FrameItem)}] \hfill \\Eltávolítja a megadott elemet a keretből 
+						\item[\texttt{+requestArea(item : FrameItem, area : Area) : boolean}] \hfill \\A metódust hívó elem kérést intéz a kerethez,  hogy el szeretné foglalni a megadott területet.  A keret felelőssége a terület ellenőrzése, és szabad  terület esetén az elem pozíciójának frissítése. 
+						\item[\texttt{+setMap(map : Map)}] \hfill \\Tartalmazó pálya beállítása 
+					\end{description}
+			\end{description}
+
+		\subsubsection{FrameItem} Interfész.
+			\begin{description}
+
+				\item[Felelősség] A keretben elhelyezkedő elemek által megvalósított iterfész, melyen keresztül a keret menedzselni tudja a benne lévő elemeket.
+
+				\item[Ősosztályok] (nincs)
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+collision(colliding : FrameItem)}] \hfill \\A tartalmazó keret jelezheti ezen a metóduson keresztül,  hogy egy másik elem, melyet paraméterül ad,  hozzáért (collision) ehhez az elemhez. 
+						\item[\texttt{+doesAffectTraversability() : boolean}] \hfill \\Megadja, hogy számba kell-e venni az elemet,  ha a keretek közötti átjárást vizsgáljuk. 
+						\item[\texttt{+getArea() : Area}] \hfill \\Visszaadja az elem pozícióját a kereten belül. 
+						\item[\texttt{+isSolid() : boolean}] \hfill \\Megadja, hogy az elem szilárd-e vagy sem.  Ez a kereten belüli mozgások esetén az  ütközések ellenőrzésekor használatos. 
+						\item[\texttt{+setArea(area : Area)}] \hfill \\Beállítja az elem pozícióját a kereten belül. 
+						\item[\texttt{+setFrame(frame : Frame)}] \hfill \\Beállítja az elemet tartalmazó keretet. 
+						\item[\texttt{+setPubSub(pubSub : PubSub)}] \hfill \\Sets pubsub object 
+					\end{description}
+			\end{description}
+
+		\subsubsection{Game}
+			\begin{description}
+
+				\item[Felelősség] A játékot reprezentáló objektum, amely kezeli az aktuális pályát.
+
+				\item[Ősosztályok] (nincs)
+				\item[Interfészek] (nincs)
+				\item[Attribútumok]$\ $
+					\begin{description}
+						\item[\texttt{\#currentMap : Map}]Az aktuális pálya
+						\item[\texttt{\#mapFactory : MapFactory}]Pályákat előállítására
+						\item[\texttt{\#pubSub : PubSub}]Kommunikációs csatorna
+						\item[\texttt{\#timer : Timer}]Idő múlásának követésére
+						\item[\texttt{\#viewportState : VIEWPORT\_STATE}]Nézet állapota
+					\end{description}
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+getMap() : Map}] \hfill \\Megadja az aktuális pályát 
+						\item[\texttt{+getPubSub() : PubSub}] \hfill \\Megadja a használt kommunikációs csatornát 
+						\item[\texttt{+loadMap(mapId : int)}] \hfill \\Betölti a megadott pályát. 
+						\item[\texttt{+start()}] \hfill \\Elindítja a játékot 
+						\item[\texttt{+toggleViewportState()}] \hfill \\Megváltoztatja a nézetet a jelenlegi ellenkezőjére 
+					\end{description}
+			\end{description}
+
+		\subsubsection{Key}
+			\begin{description}
+
+				\item[Felelősség] Kulcs elem, melyet megérintve a Stickman meg tud szerezni. Erről egy esemény küldésén keresztül értesíti a külvilágot.
+
+				\item[Ősosztályok] AbstractFrameItem $\rightarrow{}$ Key
+				\item[Interfészek] (nincs)
+				\item[Attribútumok] (nincs)
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+collision(colliding : FrameItem)}] \hfill \\A tartalmazó keret jelezheti ezen a metóduson keresztül,  hogy egy másik elem, melyet paraméterül ad,  hozzáért (collision) ehhez az elemhez.    A kulcs állapota összegyűjtöttre változik, és jelzi az összegyűjtés  tényét a kommunikációs csatornán. 
+						\item[\texttt{+isCollected() : boolean}] \hfill \\Megadja, hogy megszerezték-e a kulcsot. 
+						\item[\texttt{+isSolid() : boolean}] \hfill \\Nem szilárd objektum 
+					\end{description}
+			\end{description}
+
+		\subsubsection{Map}
+			\begin{description}
+
+				\item[Felelősség] Számon tartja a pályán elhelyezett kulcsokat számát, valamint a már összegyűjtött kulcsok számát. Felelős a keretek mozgatásáért, amit kommunikácó nélkül meg tud valósítani.
+
+				\item[Ősosztályok] (nincs)
+				\item[Interfészek] (nincs)
+				\item[Attribútumok]$\ $
+					\begin{description}
+						\item[\texttt{\#frames : List}]A pályához tartozó kereteket tárolja. A Map osztály  meg tudja állapítani a keretek közötti szomszédossági  viszonyokat a gyűjtemény alapján.    A 2 dimenziós lista először az x eltolással,   majd az y eltolással indexelhető.
+					\end{description}
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+addItem(item : FrameItem)}] \hfill \\Hozzáadja a megadott elemet az elem által specifikált pozícióhoz.  Amennyiben a pálya inicializálása során az adott helyen még nincs keret,  létrehoz egyet.   A hozzáadott elem pozícióját megváltoztatja úgy, hogy az relatív  legyen a tartalmazó kerethez. 
+						\item[\texttt{+frameIterator() : Map.FrameIterator}] \hfill \\Visszaad egy iteratort, mellyel a tartalmazott kereteken lehet végigmenni 
+						\item[\texttt{+getNeighbour(caller : Frame, direction : DIRECTION) : Frame}] \hfill \\Visszaadja a megadott keret direction irányba található  szomszédját. null-t ad vissza, ha a megadott irányban  nincs szomszéd. 
+						\item[\texttt{+horizontalFrameCount() : int}] \hfill \\Megadja a tartalmazott keretek által alkotott keretrács szélességét 
+						\item[\texttt{+moveFrame(d : DIRECTION)}] \hfill \\Kicseréli az üres helyet a megadott iránnyal ellentétes  szomszédjával. 
+						\item[\texttt{+verticalFrameCount() : int}] \hfill \\Megadja a tartalmazott keretek által alkotott keretrács magasságát 
+					\end{description}
+			\end{description}
+
+		\subsubsection{Map.FrameIterator}
+			\begin{description}
+
+				\item[Felelősség] A mögöttes implementációtól függetlenül felsorolja a pálya által tartalmazott kereteket.
+
+				\item[Ősosztályok] (nincs)
+				\item[Interfészek] Iterator.
+				\item[Attribútumok] (nincs)
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+getFramePosition() : Area}] \hfill \\Megadja az aktuális keret által elfoglalt  pozíciót a pálya keretrácsában.    A bal felső sarokban a x:0, y:0  pozíciójú keret található. 
+						\item[\texttt{+hasNext() : boolean}] \hfill \\Ellenőrzi, hogy van-e még bejáratlan keret 
+						\item[\texttt{+next() : Frame}] \hfill \\Lépés a következő keretre 
+						\item[\texttt{+remove()}] \hfill \\Nem támogatott a keret ilyen módú eltávolítása 
+					\end{description}
+			\end{description}
+
+		\subsubsection{MapFactory}
+			\begin{description}
+
+				\item[Felelősség] Felelős a pályák létrehozásáért, bennük a keretek és az elemek elhelyezéséért.
+
+				\item[Ősosztályok] (nincs)
+				\item[Interfészek] (nincs)
+				\item[Attribútumok] (nincs)
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+getMap(mapId : int, pubSub : PubSub) : Map}] \hfill \\Létrehozza a megadott azonosítójú pályát  és feltölti elemekkel. 
+					\end{description}
+			\end{description}
+
+		\subsubsection{Platform}
+			\begin{description}
+
+				\item[Felelősség] Olyan elem, mellyel nem tud a Stickman egy helyen tartózkodni, azaz korlátozza a Stickman mozgásterét.
+
+				\item[Ősosztályok] AbstractFrameItem $\rightarrow{}$ Platform
+				\item[Interfészek] (nincs)
+				\item[Attribútumok] (nincs)
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+doesAffectTraversability() : boolean}] \hfill \\Megadja, hogy számba kell-e venni az elemet,  ha a keretek közötti átjárást vizsgáljuk. 
+						\item[\texttt{+isSolid() : boolean}] \hfill \\Megadja, hogy az elem szilárd-e vagy sem.  Ez a kereten belüli mozgások esetén az  ütközések ellenőrzésekor használatos.    A Platform mindig szilárd. 
+					\end{description}
+			\end{description}
+
+		\subsubsection{PubSub}
+			\begin{description}
+
+				\item[Felelősség] Üzenetközvetítő osztály, mely feliratkozásokat tart számon, és ha valakitől eseményt kap, arról értesíti az arra feliratkozottakat.
+
+				\item[Ősosztályok] (nincs)
+				\item[Interfészek] (nincs)
+				\item[Attribútumok] (nincs)
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+emit(eventName : String, data : Object)}] \hfill \\Esemény publikálása 
+						\item[\texttt{+on(eventName : String, callback : Subscriber)}] \hfill \\Feliratkozás eseményre 
+					\end{description}
+			\end{description}
+
+		\subsubsection{Stickman}
+			\begin{description}
+
+				\item[Felelősség] A játékos által irányított figura, mely a pályán mozog.
+
+				\item[Ősosztályok] AbstractFrameItem $\rightarrow{}$ Stickman
+				\item[Interfészek] (nincs)
+				\item[Attribútumok] (nincs)
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+isSolid() : boolean}] \hfill \\Megadja, hogy az elem szilárd-e vagy sem.  Ez a kereten belüli mozgások esetén az  ütközések ellenőrzésekor használatos. 
+						\item[\texttt{+move(direction : DIRECTION)}] \hfill \\A figura mozgatása a megadott irányba. 
+						\item[\texttt{+resetToCheckpoint()}] \hfill \\A figura pozíciójának visszaállítása az  utolsó ellenőrzőpontra. 
+						\item[\texttt{+setFrame(frame : Frame)}] \hfill \\Tartalmazó keret beállítása 
+						\item[\texttt{+setPubSub(pubSub : PubSub)}] \hfill \\Kommunikációs csatorna beállítása    Feliratkozik a kezelendő eseményekre. 
+					\end{description}
+			\end{description}
+
+		\subsubsection{Subscriber} Interfész.
+			\begin{description}
+
+				\item[Felelősség] Olyan interfész, melyen keresztül eseményeket lehet fogadni a PubSubtól.
+
+				\item[Ősosztályok] (nincs)
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+eventEmitted(eventName : String, eventParameter : Object)}] \hfill \\A PubSub objektum által meghívott metódus,  a feliratkozott esemény bekövetkeztekor. 
+					\end{description}
+			\end{description}
+
+		\subsubsection{Timer}
+			\begin{description}
+
+				\item[Felelősség] Időzítésért felelős osztály, bizonyos időközönként kibocsát egy 'tick' eseményt az átadott PubSub objektumra.
+
+				\item[Ősosztályok] (nincs)
+				\item[Interfészek] (nincs)
+				\item[Attribútumok] (nincs)
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+setPubSub(pubSub : PubSub)}] \hfill \\Kommunikációs csatorna beállítása 
+						\item[\texttt{+start()}] \hfill \\Időmúlás nyivlántartásának indítása 
+						\item[\texttt{+stop()}] \hfill \\Időmúlás nyivlántartásának leállítása 
+					\end{description}
+			\end{description}
+
+		\subsubsection{VIEWPORT\_STATE}
+			\begin{description}
+
+				\item[Felelősség] A pályanézet lehetséges állapotainak számontartása
+
+				\item[Ősosztályok] Enum $\rightarrow{}$ VIEWPORT\_STATE
+				\item[Interfészek] (nincs)
+				\item[Attribútumok]$\ $
+					\begin{description}
+						\item[\texttt{+\underline{CLOSE : VIEWPORT\_STATE}}]% TODO
+						\item[\texttt{+\underline{MAP : VIEWPORT\_STATE}}]% TODO
+					\end{description}
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+\underline{valueOf(name : String) : VIEWPORT\_STATE}}] \hfill \\
+						% TODO document valueOf 
+						\item[\texttt{+\underline{values() : VIEWPORT\_STATE[]}}] \hfill \\
+						% TODO document values 
+					\end{description}
+			\end{description}
+
 %GENERATOR:CLASS_DESCRIPTIONS	
 	
 	\subsection{A tesztek részletes tervei, leírásuk a teszt nyelvén}
@@ -54,13 +373,13 @@ Start game
 loadMap 2
 move 1 left
 move 1 left
-move up
+move 1 up
 move 1 right
 move 1 right
 move 1 right
 tick
 tick
-move up
+move 1 up
 tick
 tick
 tick
@@ -107,7 +426,7 @@ No collision, do move
 > move 1 left
 In-frame move
 Colliding with solid item, do nothing
-> move up
+> move 1 up
 In-frame move
 Colliding with solid item, do nothing
 > move 1 right
@@ -185,7 +504,7 @@ No collision, do move
 > tick
 In-frame move
 Colliding with solid item, do nothing
-> move up
+> move 1 up
 In-frame move
 No collision, do move
 +--------------++--------------++--------------+
@@ -849,7 +1168,7 @@ Start game
 > viewportSwitch
 Viewport changed to map view
 > moveFrame down
-Move Frame DOWN
+move 1 Frame DOWN
 +--------------++--------------+                
 |              ||              |                
 |              ||              |                
@@ -899,7 +1218,7 @@ Start game
 +--------------++--------------+                
 
 > moveFrame down
-Don't move frame: wrong viewport
+Don't move 1 frame: wrong viewport
 > move 1 right
 In-frame move
 No collision, do move
@@ -918,7 +1237,7 @@ No collision, do move
 |  ##          || ###          |                
 +--------------++--------------+                
 
-> move 1 right
+> move right
 In-frame move
 No collision, do move
 +--------------++--------------++--------------+
@@ -938,7 +1257,7 @@ No collision, do move
 
 > viewportSwitch
 Viewport changed to map view
-> move 1 right
+> move right
 Don't move: wrong viewport
 \end{verbatim}
 	
