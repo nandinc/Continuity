@@ -867,15 +867,79 @@ Move Frame DOWN
 \end{verbatim}
 
 		        \testitem{Nézetek közötti váltás}
-		        \tdesc{A pálya betöltése után a kezdeti távoli nézetből közelibe váltunk. Itt ugrunk egyet, majd megpróbáljuk a kereteket átrendezni, ami nem sikerül. Esünk egyet, mely közben távoli nézetbe váltunk. Ekkor megpróbáljuk vízszintesen mozgatni a stickmant, ami nem sikerül.}
+		        \tdesc{A pálya betöltése után a kezdeti nézetben vagyunk. Itt megpróbáljuk a kereteket átrendezni, ami nem sikerül. Esünk egyet, mely közben távoli nézetbe váltunk. Ekkor megpróbáljuk vízszintesen mozgatni a stickmant, ami nem sikerül.}
 		        \tcel{Ellenőrizzük, hogy a stickman mozgatása le van-e tiltva távoli nézetben, illetve a keretek mozgatása közeli nézetben. Megnézzük még, hogy az időzítés helyesen működik-e, a kiadott \texttt{tick} parancs ellenére sem esik tovább a \texttt{Stickman} távoli nézetben.}
 		        \paragraph*{Bemenet}
 \begin{verbatim}
-
+loadMap 2
+moveFrame down
+move right
+move right
+viewportSwitch
+move right
 \end{verbatim}
 		        \paragraph*{Elvárt kimenet}
 \begin{verbatim}
+> loadMap 2
+Load map2
+Start game
++--------------++--------------++--------------+
+|##            ||              ||              |
+|# X           ||              ||              |
+|####         K||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
 
+> moveFrame down
+Don't move frame: wrong viewport
+> move right
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|##            ||              ||              |
+|#  X          ||              ||              |
+|####         K||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move right
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|##            ||              ||              |
+|#   X         ||              ||              |
+|####         K||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> viewportSwitch
+Viewport changed to map view
+> move right
+Don't move: wrong viewport
 \end{verbatim}
 	
 	\subsection{A tesztelést támogató programok tervei}
