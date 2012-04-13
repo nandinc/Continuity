@@ -1,0 +1,1280 @@
+\input{../head}
+
+\usepackage{enumitem}
+
+\begin{document}
+
+\anyag{8. Részletes tervek}
+\fedlap
+
+\addtocounter{section}{7}
+\section{Szkeleton tervezése}
+	\subsection{Osztályok és metódusok tervei}
+%GENERATOR:CLASS_DESCRIPTIONS
+		\subsubsection{AbstractFrameItem} Absztrakt osztály.
+			\begin{description}
+
+				\item[Felelősség] Alapértelmezett megvalósítása egy keretben lévő objektumnak.
+
+				\item[Ősosztályok] (nincs)
+				\item[Interfészek] FrameItem.
+				\item[Attribútumok]$\ $
+					\begin{description}
+						\item[\texttt{\#area : Area}]A tartalmazó kereten belül elfoglalt pozíció
+						\item[\texttt{\#frame : Frame}]A tartalmazó keret
+						\item[\texttt{\#pubSub : PubSub}]Publish Subscribe channel
+					\end{description}
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+collision(colliding : FrameItem)}] \hfill \\Nem csinál semmit ütközés esetén    Alapértelmezetten az elemek nem reagálnak az ütközésre.  E metódus felüldefiniálásával ez a viselkedés megváltoztatható. 
+						\item[\texttt{+doesAffectTraversability() : boolean}] \hfill \\Megadja, hogy számba kell-e venni az elemet,  ha a keretek közötti átjárást vizsgáljuk. 
+						\item[\texttt{+getArea() : Area}] \hfill \\Visszaadja az elem pozícióját a kereten belül. 
+						\item[\texttt{\#invalidate()}] \hfill \\Jelzés kibocsájtása az elem állapotának megváltozásáról 
+						\item[\texttt{+setArea(area : Area)}] \hfill \\Beállítja az elem pozícióját a kereten belül. 
+						\item[\texttt{+setFrame(frame : Frame)}] \hfill \\Beállítja az elemet tartalmazó keretet. 
+						\item[\texttt{+setPubSub(pubSub : PubSub)}] \hfill \\Kommunikációs csatorna beállítása 
+					\end{description}
+			\end{description}
+
+		\subsubsection{Area}
+			\begin{description}
+
+				\item[Felelősség] Területrészt leíró osztály. Összehasonlítható egy másik osztállyal, hogy fedik-e egymást.
+
+				\item[Ősosztályok] (nincs)
+				\item[Interfészek] (nincs)
+				\item[Attribútumok] (nincs)
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+clone() : Area}] \hfill \\Létrehoz egy új területet, magával megegyező paraméterekkel    A másolt paraméterek: x, y, height, width. 
+						\item[\texttt{+getHeight() : int}] \hfill \\Megadja a terület magasságát 
+						\item[\texttt{+getRelativeDirection(area : Area) : DIRECTION}] \hfill \\ Kiszámolja az adott terület relatív irányát. Egyszerre csak egy dimenziót vesz figyelembe. Ha a területek átlósan vannak elhelyezve, a vízszintes iránnyal tér vissza.
+						\item[\texttt{+getWidth() : int}] \hfill \\Megadja a terület szélességét 
+						\item[\texttt{+getX() : int}] \hfill \\Megadja a terület bal felső sarkának x eltolását 
+						\item[\texttt{+getY() : int}] \hfill \\Megadja a terület bal felső sarkának y eltolását    Az eltolás felülről lefelé nő 
+						\item[\texttt{+hasCollision(other : Area) : boolean}] \hfill \\Ellenőrzi, hogy a kapott Area objektummal van-e közös pontja.  A metódus feltételezi, hogy a két terület azonos keretben található. 
+						\item[\texttt{+setHeight(height : int)}] \hfill \\Beállítja a terület magasságát 
+						\item[\texttt{+setWidth(width : int)}] \hfill \\Beállítja a terület szélességét 
+						\item[\texttt{+setX(x : int)}] \hfill \\Beállítja a terület bal felső sarkának x eltolását 
+						\item[\texttt{+setY(y : int)}] \hfill \\Beállítja a terület bal felső sarkának y eltolását    Az eltolás felülről lefelé nő 
+					\end{description}
+			\end{description}
+
+		\subsubsection{DIRECTION}
+			\begin{description}
+
+				\item[Felelősség] Irányokat jelöl a két dimenziós térben.
+
+				\item[Ősosztályok] Enum $\rightarrow{}$ DIRECTION
+				\item[Interfészek] (nincs)
+				\item[Attribútumok]$\ $
+					\begin{description}
+						\item[\texttt{+\underline{DOWN : DIRECTION}}]% TODO
+						\item[\texttt{+\underline{LEFT : DIRECTION}}]% TODO
+						\item[\texttt{+\underline{RIGHT : DIRECTION}}]% TODO
+						\item[\texttt{+\underline{UP : DIRECTION}}]% TODO
+					\end{description}
+				\item[Metódusok] (nincs)
+			\end{description}
+
+		\subsubsection{Door}
+			\begin{description}
+
+				\item[Felelősség] Ajtó objektum, melyet ha megérint a Stickman arról esemény bocsát ki.
+
+				\item[Ősosztályok] AbstractFrameItem $\rightarrow{}$ Door
+				\item[Interfészek] (nincs)
+				\item[Attribútumok] (nincs)
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+collision(colliding : FrameItem)}] \hfill \\A tartalmazó keret jelezheti ezen a metóduson keresztül,  hogy egy másik elem, melyet paraméterül ad,  hozzáért (collision) ehhez az elemhez.    A megérintésének tényét jelzi a kommunikációs csatornán,  hogy -- amennyiben minden kulcs össze van gyűjtve --  lehetővé váljon a pálya teljesítése. 
+						\item[\texttt{+isSolid() : boolean}] \hfill \\Megadja, hogy az elem szilárd-e vagy sem.  Ez a kereten belüli mozgások esetén az  ütközések ellenőrzésekor használatos. 
+					\end{description}
+			\end{description}
+
+		\subsubsection{Frame}
+			\begin{description}
+
+				\item[Felelősség] A pálya által alkotott táblázat egy cellája, amely elemeket tartalmaz. Ez felelős az elemek (Stickman) mozgatásáért kereten belül és között egyaránt. Két elem egy helyen való tartózkodásáról értesíti az elemeket (collision notify).
+
+				\item[Ősosztályok] (nincs)
+				\item[Interfészek] (nincs)
+				\item[Attribútumok]$\ $
+					\begin{description}
+						\item[\texttt{+\underline{FRAME\_HEIGHT : int}}]Keret magassága
+						\item[\texttt{+\underline{FRAME\_WIDTH : int}}]Keret szélessége
+					\end{description}
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+addItem(item : FrameItem)}] \hfill \\Hozzáadja a megadott elemet a kerethez. 
+						\item[\texttt{\#isTraversable(neighbour : Frame, d : DIRECTION) : boolean}] \hfill \\Megállapítja, hogy a megkapott Keret és saját  maga között fennáll-e az átjárhatóság a  megadott irányban. 
+						\item[\texttt{+itemIterator() : Iterator}] \hfill \\Visszaad egy iterátort, mely a tartalmazott  elemeken megy végig. 
+						\item[\texttt{+removeItem(item : FrameItem)}] \hfill \\Eltávolítja a megadott elemet a keretből 
+						\item[\texttt{+requestArea(item : FrameItem, area : Area) : boolean}] \hfill \\A metódust hívó elem kérést intéz a kerethez,  hogy el szeretné foglalni a megadott területet.  A keret felelőssége a terület ellenőrzése, és szabad  terület esetén az elem pozíciójának frissítése. 
+						\item[\texttt{+setMap(map : Map)}] \hfill \\Tartalmazó pálya beállítása 
+					\end{description}
+			\end{description}
+
+		\subsubsection{FrameItem} Interfész.
+			\begin{description}
+
+				\item[Felelősség] A keretben elhelyezkedő elemek által megvalósított interfész, melyen keresztül a keret menedzselni tudja a benne lévő elemeket.
+
+				\item[Ősosztályok] (nincs)
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+collision(colliding : FrameItem)}] \hfill \\A tartalmazó keret jelezheti ezen a metóduson keresztül,  hogy egy másik elem, melyet paraméterül ad,  hozzáért (collision) ehhez az elemhez. 
+						\item[\texttt{+doesAffectTraversability() : boolean}] \hfill \\Megadja, hogy számba kell-e venni az elemet,  ha a keretek közötti átjárást vizsgáljuk. 
+						\item[\texttt{+getArea() : Area}] \hfill \\Visszaadja az elem pozícióját a kereten belül. 
+						\item[\texttt{+isSolid() : boolean}] \hfill \\Megadja, hogy az elem szilárd-e vagy sem.  Ez a kereten belüli mozgások esetén az  ütközések ellenőrzésekor használatos. 
+						\item[\texttt{+setArea(area : Area)}] \hfill \\Beállítja az elem pozícióját a kereten belül. 
+						\item[\texttt{+setFrame(frame : Frame)}] \hfill \\Beállítja az elemet tartalmazó keretet. 
+						\item[\texttt{+setPubSub(pubSub : PubSub)}] \hfill \\Beállítja a PubSubot.
+					\end{description}
+			\end{description}
+
+		\subsubsection{Game}
+			\begin{description}
+
+				\item[Felelősség] A játékot reprezentáló objektum, amely kezeli az aktuális pályát.
+
+				\item[Ősosztályok] (nincs)
+				\item[Interfészek] (nincs)
+				\item[Attribútumok]$\ $
+					\begin{description}
+						\item[\texttt{\#currentMap : Map}]Az aktuális pálya
+						\item[\texttt{\#mapFactory : MapFactory}]Pályákat előállítására
+						\item[\texttt{\#pubSub : PubSub}]Kommunikációs csatorna
+						\item[\texttt{\#timer : Timer}]Idő múlásának követésére
+						\item[\texttt{\#viewportState : VIEWPORT\_STATE}]Nézet állapota
+					\end{description}
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+getMap() : Map}] \hfill \\Megadja az aktuális pályát 
+						\item[\texttt{+getPubSub() : PubSub}] \hfill \\Megadja a használt kommunikációs csatornát 
+						\item[\texttt{+loadMap(mapId : int)}] \hfill \\Betölti a megadott pályát. 
+						\item[\texttt{+start()}] \hfill \\Elindítja a játékot 
+						\item[\texttt{+toggleViewportState()}] \hfill \\Megváltoztatja a nézetet a jelenlegi ellenkezőjére 
+					\end{description}
+			\end{description}
+
+		\subsubsection{Key}
+			\begin{description}
+
+				\item[Felelősség] Kulcs elem, melyet megérintve a Stickman meg tud szerezni. Erről egy esemény küldésén keresztül értesíti a külvilágot.
+
+				\item[Ősosztályok] AbstractFrameItem $\rightarrow{}$ Key
+				\item[Interfészek] (nincs)
+				\item[Attribútumok] (nincs)
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+collision(colliding : FrameItem)}] \hfill \\A tartalmazó keret jelezheti ezen a metóduson keresztül,  hogy egy másik elem, melyet paraméterül ad,  hozzáért (collision) ehhez az elemhez.    A kulcs állapota összegyűjtöttre változik, és jelzi az összegyűjtés  tényét a kommunikációs csatornán. 
+						\item[\texttt{+isCollected() : boolean}] \hfill \\Megadja, hogy megszerezték-e a kulcsot. 
+						\item[\texttt{+isSolid() : boolean}] \hfill \\Nem szilárd objektum 
+					\end{description}
+			\end{description}
+
+		\subsubsection{Map}
+			\begin{description}
+
+				\item[Felelősség] Számon tartja a pályán elhelyezett kulcsokat számát, valamint a már összegyűjtött kulcsok számát. Felelős a keretek mozgatásáért, amit kommunikáció nélkül meg tud valósítani.
+
+				\item[Ősosztályok] (nincs)
+				\item[Interfészek] (nincs)
+				\item[Attribútumok]$\ $
+					\begin{description}
+						\item[\texttt{\#frames : List}]A pályához tartozó kereteket tárolja. A Map osztály  meg tudja állapítani a keretek közötti szomszédossági  viszonyokat a gyűjtemény alapján.    A 2 dimenziós lista először az x eltolással,   majd az y eltolással indexelhető.
+					\end{description}
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+addItem(item : FrameItem)}] \hfill \\Hozzáadja a megadott elemet az elem által specifikált pozícióhoz.  Amennyiben a pálya inicializálása során az adott helyen még nincs keret,  létrehoz egyet.   A hozzáadott elem pozícióját megváltoztatja úgy, hogy az relatív  legyen a tartalmazó kerethez. 
+						\item[\texttt{+frameIterator() : Map.FrameIterator}] \hfill \\Visszaad egy iterátort, mellyel a tartalmazott kereteken lehet végigmenni 
+						\item[\texttt{+getNeighbour(caller : Frame, direction : DIRECTION) : Frame}] \hfill \\Visszaadja a megadott keret direction irányba található  szomszédját. null-t ad vissza, ha a megadott irányban  nincs szomszéd. 
+						\item[\texttt{+horizontalFrameCount() : int}] \hfill \\Megadja a tartalmazott keretek által alkotott keretrács szélességét 
+						\item[\texttt{+moveFrame(d : DIRECTION)}] \hfill \\Kicseréli az üres helyet a megadott iránnyal ellentétes  szomszédjával. 
+						\item[\texttt{+verticalFrameCount() : int}] \hfill \\Megadja a tartalmazott keretek által alkotott keretrács magasságát 
+					\end{description}
+			\end{description}
+
+		\subsubsection{Map.FrameIterator}
+			\begin{description}
+
+				\item[Felelősség] A mögöttes implementációtól függetlenül felsorolja a pálya által tartalmazott kereteket.
+
+				\item[Ősosztályok] (nincs)
+				\item[Interfészek] Iterator.
+				\item[Attribútumok] (nincs)
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+getFramePosition() : Area}] \hfill \\Megadja az aktuális keret által elfoglalt  pozíciót a pálya keretrácsában.    A bal felső sarokban a x:0, y:0  pozíciójú keret található. 
+						\item[\texttt{+hasNext() : boolean}] \hfill \\Ellenőrzi, hogy van-e még bejáratlan keret 
+						\item[\texttt{+next() : Frame}] \hfill \\Lépés a következő keretre 
+						\item[\texttt{+remove()}] \hfill \\Nem támogatott a keret ilyen módú eltávolítása 
+					\end{description}
+			\end{description}
+
+		\subsubsection{MapFactory}
+			\begin{description}
+
+				\item[Felelősség] Felelős a pályák létrehozásáért, bennük a keretek és az elemek elhelyezéséért.
+
+				\item[Ősosztályok] (nincs)
+				\item[Interfészek] (nincs)
+				\item[Attribútumok] (nincs)
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+getMap(mapId : int, pubSub : PubSub) : Map}] \hfill \\Létrehozza a megadott azonosítójú pályát  és feltölti elemekkel. 
+					\end{description}
+			\end{description}
+
+		\subsubsection{Platform}
+			\begin{description}
+
+				\item[Felelősség] Olyan elem, mellyel nem tud a Stickman egy helyen tartózkodni, azaz korlátozza a Stickman mozgásterét.
+
+				\item[Ősosztályok] AbstractFrameItem $\rightarrow{}$ Platform
+				\item[Interfészek] (nincs)
+				\item[Attribútumok] (nincs)
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+doesAffectTraversability() : boolean}] \hfill \\Megadja, hogy számba kell-e venni az elemet,  ha a keretek közötti átjárást vizsgáljuk. 
+						\item[\texttt{+isSolid() : boolean}] \hfill \\Megadja, hogy az elem szilárd-e vagy sem.  Ez a kereten belüli mozgások esetén az  ütközések ellenőrzésekor használatos.    A Platform mindig szilárd. 
+					\end{description}
+			\end{description}
+
+		\subsubsection{PubSub}
+			\begin{description}
+
+				\item[Felelősség] Üzenetközvetítő osztály, mely feliratkozásokat tart számon, és ha valakitől eseményt kap, arról értesíti az arra feliratkozottakat.
+
+				\item[Ősosztályok] (nincs)
+				\item[Interfészek] (nincs)
+				\item[Attribútumok] (nincs)
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+emit(eventName : String, data : Object)}] \hfill \\Esemény publikálása 
+						\item[\texttt{+on(eventName : String, callback : Subscriber)}] \hfill \\Feliratkozás eseményre 
+					\end{description}
+			\end{description}
+
+		\subsubsection{Stickman}
+			\begin{description}
+
+				\item[Felelősség] A játékos által irányított figura, mely a pályán mozog.
+
+				\item[Ősosztályok] AbstractFrameItem $\rightarrow{}$ Stickman
+				\item[Interfészek] (nincs)
+				\item[Attribútumok] (nincs)
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+isSolid() : boolean}] \hfill \\Megadja, hogy az elem szilárd-e vagy sem.  Ez a kereten belüli mozgások esetén az  ütközések ellenőrzésekor használatos. 
+						\item[\texttt{+move(direction : DIRECTION)}] \hfill \\A figura mozgatása a megadott irányba. 
+						\item[\texttt{+resetToCheckpoint()}] \hfill \\A figura pozíciójának visszaállítása az  utolsó ellenőrzőpontra. 
+						\item[\texttt{+setFrame(frame : Frame)}] \hfill \\Tartalmazó keret beállítása 
+						\item[\texttt{+setPubSub(pubSub : PubSub)}] \hfill \\Kommunikációs csatorna beállítása    Feliratkozik a kezelendő eseményekre. 
+					\end{description}
+			\end{description}
+
+		\subsubsection{Subscriber} Interfész.
+			\begin{description}
+
+				\item[Felelősség] Olyan interfész, melyen keresztül eseményeket lehet fogadni a PubSubtól.
+
+				\item[Ősosztályok] (nincs)
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+eventEmitted(eventName : String, eventParameter : Object)}] \hfill \\A PubSub objektum által meghívott metódus,  a feliratkozott esemény bekövetkeztekor. 
+					\end{description}
+			\end{description}
+
+		\subsubsection{Timer}
+			\begin{description}
+
+				\item[Felelősség] Időzítésért felelős osztály, bizonyos időközönként kibocsát egy 'tick' eseményt az átadott PubSub objektumra.
+
+				\item[Ősosztályok] (nincs)
+				\item[Interfészek] (nincs)
+				\item[Attribútumok] (nincs)
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+setPubSub(pubSub : PubSub)}] \hfill \\Kommunikációs csatorna beállítása 
+						\item[\texttt{+start()}] \hfill \\Időmúlás nyilvántartásának indítása 
+						\item[\texttt{+stop()}] \hfill \\Időmúlás nyilvántartásának leállítása 
+					\end{description}
+			\end{description}
+
+		\subsubsection{VIEWPORT\_STATE}
+			\begin{description}
+
+				\item[Felelősség] A pályanézet lehetséges állapotainak számontartása
+
+				\item[Ősosztályok] Enum $\rightarrow{}$ VIEWPORT\_STATE
+				\item[Interfészek] (nincs)
+				\item[Attribútumok]$\ $
+					\begin{description}
+						\item[\texttt{+\underline{CLOSE : VIEWPORT\_STATE}}]% TODO
+						\item[\texttt{+\underline{MAP : VIEWPORT\_STATE}}]% TODO
+					\end{description}
+				\item[Metódusok] (nincs)
+			\end{description}
+
+%GENERATOR:CLASS_DESCRIPTIONS	
+	
+	\subsection{A tesztek részletes tervei, leírásuk a teszt nyelvén}
+			\newcommand{\testitem}[1]{\subsubsection{#1}}
+			\newcommand{\tdesc}[1]{\paragraph*{Leírás} #1}
+			\newcommand{\tcel}[1]{\paragraph*{Ellenőrzött funkcionalitás, várható hibahelyek} #1}
+		        
+		        \testitem{Pálya betöltése}
+		        \tdesc{Betöltésre kerül egy objektumokkal feltöltött pálya, melyet a \texttt{MapFactory} készít el a pálya fájlreprezentációja alapján, és elhelyezi rajta a stickmaneket.}
+		        \tcel{Ellenőrizni, hogy a pálya fájlreprezentációjából helyes pályakép generálódik a programban, minden objektum a helyén van-e. \texttt{MapFactory}-nak létre kell hoznia a megfelelő számú \texttt{Frame}-et és azokat helyesen elhelyezni, valamint létre kell hoznia a \texttt{FrameItem}eket.}
+		        \paragraph*{Bemenet}
+\begin{verbatim}
+loadMap 1	
+\end{verbatim}
+		        \paragraph*{Elvárt kimenet}
+\begin{verbatim}
+> loadMap 1
+Load map1
+Start game
++--------------++--------------++--------------+
+|             X||              ||              |
+|              ||              ||              |
+|             K||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+      
+\end{verbatim}
+		        
+		        \testitem{Stickman mozgatása kereten belül}
+		        \tdesc{Az egyik stickmant megmozgatjuk kereten belül minden irányba: vízszintesen és horizontálisan (felfele), úgy hogy van tereptárgy a mozgás irányában, mely azt megakadályozza, és úgy is hogy nincs, illetve leugrunk vele egy magaslatról.}
+		        \tcel{Ellenőrizni, hogy a kiadott mozgatási parancsok a várt helyre viszik-e a stickmant, a tereptárgyak megakadályozzák-e a mozgását, ill. hogy az ugrás helyesen működik-e (a parancs kiadása után az idő múlása során először fölfele mozog, majd megáll, lefele mozog, és talajt érve újra megáll). A teszt során a \texttt{Stickman} \texttt{area} attribútuma áll középpontban, illetve hogy a \texttt{PubSub}-ból jövő \texttt{tick} események hatására hogyan reagál.}
+		        \paragraph*{Bemenet}
+\begin{verbatim}
+loadMap 2
+move 1 left
+move 1 left
+move 1 up
+move 1 right
+move 1 right
+move 1 right
+tick
+tick
+move 1 up
+tick
+tick
+tick
+tick           
+\end{verbatim}
+		        \paragraph*{Elvárt kimenet}
+\begin{verbatim}
+> loadMap 2
+Load map2
+Start game
++--------------++--------------++--------------+
+|##            ||              ||              |
+|# X           ||              ||              |
+|####         K||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move 1 left
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|##            ||              ||              |
+|#X            ||              ||              |
+|####         K||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move 1 left
+In-frame move
+Colliding with solid item, do nothing
+> move 1 up
+In-frame move
+Colliding with solid item, do nothing
+> move 1 right
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|##            ||              ||              |
+|# X           ||              ||              |
+|####         K||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move 1 right
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|##            ||              ||              |
+|#  X          ||              ||              |
+|####         K||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move 1 right
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|##            ||              ||              |
+|#   X         ||              ||              |
+|####         K||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> tick
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|##            ||              ||              |
+|#             ||              ||              |
+|####X        K||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> tick
+In-frame move
+Colliding with solid item, do nothing
+> move 1 up
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|##            ||              ||              |
+|#   X         ||              ||              |
+|####         K||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> tick
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|##  X         ||              ||              |
+|#             ||              ||              |
+|####         K||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> tick
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|##            ||              ||              |
+|#   X         ||              ||              |
+|####         K||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> tick
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|##            ||              ||              |
+|#             ||              ||              |
+|####X        K||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> tick
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|##            ||              ||              |
+|#             ||              ||              |
+|####X        K||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+\end{verbatim}
+		        
+		        \testitem{Stickman mozgatása keretek között}
+		        \tdesc{A Stickmant először olyan keretek között mozgatjuk, melyek átjárhatóak, majd egy olyanba próbáljuk vezérelni, ahova nincs lehetősége átmenni.}
+		        \tcel{Keretek közti átjárhatóság megállapítását végző algoritmus, ill. a \texttt{Stickman} egyik \texttt{Frame}-ből másikba való áthelyezésének ellenőrzése. \texttt{Frame} kérésére a \texttt{Map} visszaadja a szomszédos \texttt{Frame}-et, és az előbbi \texttt{Frame} átrakja oda a \texttt{Stickman}t.}
+		        \paragraph*{Bemenet}
+\begin{verbatim}
+loadMap 3
+move 1 right
+move 1 left
+move 1 left
+move 1 left
+move 1 left
+move 1 left
+move 1 left
+move 1 left
+move 1 left
+move 1 left
+move 1 left
+move 1 left
+move 1 left
+move 1 left
+move 1 left
+\end{verbatim}
+		        \paragraph*{Elvárt kimenet}
+\begin{verbatim}
+> loadMap 3
+Load map3
+Start game
++--------------++--------------++--------------+
+|              ||              ||              |
+|              ||              ||              |
+|             X||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move 1 right
+Inter-frame move
+Neighbour found
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|              ||              ||              |
+|              ||              ||              |
+|              ||X             ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move 1 left
+Inter-frame move
+Neighbour found
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|              ||              ||              |
+|              ||              ||              |
+|             X||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move 1 left
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|              ||              ||              |
+|              ||              ||              |
+|            X ||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move 1 left
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|              ||              ||              |
+|              ||              ||              |
+|           X  ||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move 1 left
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|              ||              ||              |
+|              ||              ||              |
+|          X   ||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move 1 left
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|              ||              ||              |
+|              ||              ||              |
+|         X    ||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move 1 left
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|              ||              ||              |
+|              ||              ||              |
+|        X     ||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move 1 left
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|              ||              ||              |
+|              ||              ||              |
+|       X      ||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move 1 left
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|              ||              ||              |
+|              ||              ||              |
+|      X       ||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move 1 left
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|              ||              ||              |
+|              ||              ||              |
+|     X        ||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move 1 left
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|              ||              ||              |
+|              ||              ||              |
+|    X         ||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move 1 left
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|              ||              ||              |
+|              ||              ||              |
+|   X          ||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move 1 left
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|              ||              ||              |
+|              ||              ||              |
+|  X           ||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move 1 left
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|              ||              ||              |
+|              ||              ||              |
+| X            ||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move 1 left
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|              ||              ||              |
+|              ||              ||              |
+|X             ||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move 1 left
+Inter-frame move
+No neighbour found
+Don't move
+\end{verbatim}
+		       
+		       \testitem{Stickman kiesése}
+		        \tdesc{Stickmant úgy vezéreljük, hogy essen ki egy keret alján úgy, hogy arra nincs több keret, vagy afelé a keret nem átjárható.}
+		        \tcel{Ellenőrizzük, hogy a {Stickman} kiesik-e, ha a játék szabályai szerint ki kell esnie, illetve megnézzük, hogy ilyenkor visszakerül-e az utolsó ellenőrzőponthoz. Az aktuális \texttt{Frame} elkéri a \texttt{Map}től a szomszédját, melyre az \texttt{null} értékkel válaszol, erről pedig értesíti a \texttt{Stickmant}.}
+		        \paragraph*{Bemenet}
+\begin{verbatim}
+loadMap 4
+move 1 right
+tick
+tick
+tick
+\end{verbatim}
+		        \paragraph*{Elvárt kimenet}
+\begin{verbatim}
+> loadMap 4
+Load map4
+Start game
++--------------++--------------++--------------+
+|              ||              ||              |
+|              ||              ||              |
+|              ||         X    ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move 1 right
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|              ||              ||              |
+|              ||              ||              |
+|              ||          X   ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> tick
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|              ||              ||              |
+|              ||              ||              |
+|              ||              ||              |
+|##############||##########X   ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> tick
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|              ||              ||              |
+|              ||              ||              |
+|              ||              ||              |
+|##############||##########    ||##            |
+|##############||##########X   ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> tick
+Inter-frame move
+No neighbour found
+Fall out, reset to checkpoint
++--------------++--------------++--------------+
+|              ||              ||              |
+|              ||              ||              |
+|              ||         X    ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+\end{verbatim}
+		        
+		        \testitem{Kulcs felvétele, pálya teljesítése}
+		        \tdesc{Stickmannel először megérintjük az ajtót, ezután felvesszük a kulcsot, majd megint megérintjük az ajtót.}
+		        \tcel{Ellenőrizzük, hogy az ajtó csak kulccsal nyitható-e, illetve hogy a kulcs felvétele megfelelően rögzítődik-e. A teszt középpontjában a \texttt{Frame} által megvalósított ütközésértesítés áll, illetve az állapotok rögzítése, mely a \texttt{PubSub}-on jövő értesítés után a \texttt{Game}-ben történik.}
+		        \paragraph*{Bemenet}
+\begin{verbatim}
+loadMap 5
+move 1 right
+move 1 left
+move 1 left
+move 1 right
+move 1 right
+\end{verbatim}
+		        \paragraph*{Elvárt kimenet}
+\begin{verbatim}
+> loadMap 5
+Load map5
+Start game
++--------------++--------------++--------------+
+|              ||              ||              |
+|              ||              ||              |
+|           KXA||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move 1 right
+In-frame move
+No collision, do move
+Door touched
++--------------++--------------++--------------+
+|              ||              ||              |
+|              ||              ||              |
+|           K A||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move 1 left
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|              ||              ||              |
+|              ||              ||              |
+|           KXA||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move 1 left
+In-frame move
+No collision, do move
+Key collected
++--------------++--------------++--------------+
+|              ||              ||              |
+|              ||              ||              |
+|           X A||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move 1 right
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|              ||              ||              |
+|              ||              ||              |
+|            XA||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move 1 right
+In-frame move
+No collision, do move
+Door touched
+Door opened
+\end{verbatim}
+		        
+		        \testitem{Keret mozgatása}
+		        \tdesc{Távoli nézetben keret mozgatása parancsot adunk ki.}
+		        \tcel{Ellenőrizzük, hogy a keret mozgatása parancs hatására a \texttt{Map} a megfelelő \texttt{Frame}-et mozgatja és azt a megfelelő helyre viszi.}
+		        \paragraph*{Bemenet}
+\begin{verbatim}
+loadMap 5
+viewportSwitch
+moveFrame left
+\end{verbatim}
+		        \paragraph*{Elvárt kimenet}
+\begin{verbatim}
+> loadMap 5
+Load map5
+Start game
++--------------++--------------++--------------+
+|              ||              ||              |
+|              ||              ||              |
+|           KXA||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> viewportSwitch
+Viewport changed to map view
+> moveFrame down
+move 1 Frame DOWN
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|           KXA||              |                
+|##############||##########    |                
+|##############||##########    |                
++--------------++--------------+                
++--------------++--------------++--------------+
+|              ||              ||              |
+|              ||              ||              |
+|              || ###          ||              |
+|  ##          || ###          ||##            |
+|  ##          || ###          ||##            |
++--------------++--------------++--------------+
+\end{verbatim}
+
+		        \testitem{Nézetek közötti váltás}
+		        \tdesc{A pálya betöltése után a kezdeti nézetben vagyunk. Itt megpróbáljuk a kereteket átrendezni, ami nem sikerül. Esünk egyet, mely közben távoli nézetbe váltunk. Ekkor megpróbáljuk vízszintesen mozgatni a stickmant, ami nem sikerül.}
+		        \tcel{Ellenőrizzük, hogy a stickman mozgatása le van-e tiltva távoli nézetben, illetve a keretek mozgatása közeli nézetben. Megnézzük még, hogy az időzítés helyesen működik-e, a kiadott \texttt{tick} parancs ellenére sem esik tovább a \texttt{Stickman} távoli nézetben.}
+		        \paragraph*{Bemenet}
+\begin{verbatim}
+loadMap 2
+moveFrame down
+move 1 right
+move 1 right
+viewportSwitch
+move 1 right
+\end{verbatim}
+		        \paragraph*{Elvárt kimenet}
+\begin{verbatim}
+> loadMap 2
+Load map2
+Start game
++--------------++--------------++--------------+
+|##            ||              ||              |
+|# X           ||              ||              |
+|####         K||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> moveFrame down
+Don't move 1 frame: wrong viewport
+> move 1 right
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|##            ||              ||              |
+|#  X          ||              ||              |
+|####         K||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> move right
+In-frame move
+No collision, do move
++--------------++--------------++--------------+
+|##            ||              ||              |
+|#   X         ||              ||              |
+|####         K||              ||              |
+|##############||##########    ||##            |
+|##############||##########    ||##            |
++--------------++--------------++--------------+
++--------------++--------------+                
+|              ||              |                
+|              ||              |                
+|              || ###          |                
+|  ##          || ###          |                
+|  ##          || ###          |                
++--------------++--------------+                
+
+> viewportSwitch
+Viewport changed to map view
+> move right
+Don't move: wrong viewport
+\end{verbatim}
+	
+	\subsection{A tesztelést támogató programok tervei}
+		A tesztelés során keletkező kimenetek összehasonlítása az előre definiált kimenetekkel nem kézi erővel történik, erre a unix(-like) rendszereken megtalálható \texttt{diff} -- vagy azzal azonos funkcionalitású, más platformon futó -- programot fogunk használni. Egy teszteset akkor tekinthető sikeresnek, ha a \texttt{diff} program nem jelez különbséget a kapott kimenet és az előre definiált kimenet között.
+
+
+	\subsection{Napló}
+	% The diary generator uses the following comments to identify the beginning and the ending of the generated diary
+	% The following content is auto generated, please do NOT modify, edit the related shared document instead.
+	%GENERATOR:DIARY
+    \begin{center} 
+        \begin{tabular}{| l | p{1.9cm} | p{2.6cm} | p{6.1cm} |}
+            \hline
+                Kezdet & Időtartam & Résztvevők & Leírás \\
+            \hline \hline 
+2012. 03. 26. 17:30 & 4 óra & Thaler & Prototípus kidolgozás\\ \hline
+2012. 03. 27. 10:15 & 1 óra & Thaler & Prototípus kidolgozás\\ \hline
+2012. 03. 27. 15:00 & 0.5 óra & Thaler & Management\\ \hline
+2012. 03. 31. 12:30 & 0.5 óra & Kádár & Beállíás, ismerkedés\\ \hline
+2012. 03. 31. 13:15 & 1.5 óra & Kádár & Map generáló\\ \hline
+2012. 03. 31. 16:15 & 2 óra & Kádár & Map generáló\\ \hline
+2012. 03. 28. 8:00 & 1.5 óra & Fodor, Thaler & Konzultáció\\ \hline
+2012. 04. 01. 18:00 & 2 óra & Fodor & Doc tool\\ \hline
+2012. 04. 01. 20:20 & 4 óra & Thaler & Prototípus kidolgozás\\ \hline
+2012. 04. 01. 20:00 & 4.5 óra & Fodor & Tesztesetek\\ \hline
+2012. 04. 02. 00:30 & 2 óra & Berki & Nyomtatás, átnézés\\ \hline
+
+            \hline
+        \end{tabular}
+    \end{center}
+%GENERATOR:DIARY
+\end{document}

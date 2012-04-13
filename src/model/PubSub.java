@@ -5,8 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import utils.SkeletonLogger;
-
 /**
  * Üzenetközvetítő csatorna, mely a Publish/Subscribe mintát valósítja meg.
  * 
@@ -28,18 +26,12 @@ public class PubSub {
      * @param data Az eseményhez tartozó paraméter.
      */
     public void emit(String eventName, Object data) {
-    	// Metódushívás rögzítése.
-    	SkeletonLogger.call(this, "emit", eventName, data);
-    	
-    	if (subscribers.containsKey(eventName)) {
-	    	List<Subscriber> eventSubs = subscribers.get(eventName);
-	    	for (Subscriber subscriber : eventSubs) {
-				subscriber.eventEmitted(eventName, data);
-			}
-    	}
-    	
-    	// Függvény vége, visszatérés logolása.
-    	SkeletonLogger.back();
+        if (subscribers.containsKey(eventName)) {
+            List<Subscriber> eventSubs = subscribers.get(eventName);
+            for (Subscriber subscriber : eventSubs) {
+                subscriber.eventEmitted(eventName, data);
+            }
+        }
     }
 
     /**
@@ -50,15 +42,15 @@ public class PubSub {
      */
     public void on(String eventName, Subscriber callback) {
         if (!subscribers.containsKey(eventName)) {
-        	subscribers.put(eventName, new LinkedList<Subscriber>());
+            subscribers.put(eventName, new LinkedList<Subscriber>());
         }
-        
+
         subscribers.get(eventName).add(callback);
     }
 
     /**
      * Az eseményekre feliratkozott eseménykezelőket tárolja.
      */
-    private Map<String, List<Subscriber>> subscribers;
+    private Map<String, List<Subscriber>> subscribers = new HashMap<String, List<Subscriber>>();
 
 }

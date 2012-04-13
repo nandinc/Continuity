@@ -1,6 +1,6 @@
 package model;
 
-import utils.SkeletonLogger;
+import debug.Logger;
 
 /**
  * A pályán található kulcsokat reprezentáló objektum.
@@ -10,9 +10,9 @@ import utils.SkeletonLogger;
  */
 public class Key extends AbstractFrameItem {
 
-	/**
-	 * A kulcs összegyűjtöttségének állapotát tárolja.
-	 */
+    /**
+     * A kulcs összegyűjtöttségének állapotát tárolja.
+     */
     private boolean collected;
 
     public Key() {
@@ -27,63 +27,46 @@ public class Key extends AbstractFrameItem {
         return this.collected;
     }
 
-	@Override
-	public Area getArea() {
-		// Metódushívás rögzítése.
-		SkeletonLogger.call(this, "getArea");
-		
-		// Teszteléshez, ha nicns terület beállítva, új terület beállítása.
-		if (area == null) {
-			area = new Area();
-			// Regisztrálás a logger osztályba.
-			SkeletonLogger.register(area, "area");
-		}
-		
-		// Függvény vége, visszatérés logolása.
-		SkeletonLogger.back(area);
-		return area;
-	}
-
-	@Override
-	public void setArea(Area area) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setFrame(Frame frame) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean isSolid() {
-		// Metódushívás rögzítése.
-		SkeletonLogger.call(this, "isSolid");
-		
-		boolean _isSolid = false;
-		SkeletonLogger.register(_isSolid, "true");
-		
-		// Függvény vége, visszatérés logolása.
-		SkeletonLogger.back(_isSolid);
-		return _isSolid;
-	}
-
-	@Override
-	public void collision(FrameItem colliding) {
-		// Metódushívás rögzítése.
-		SkeletonLogger.call(this, "collision", colliding);
-		
-		// Teszteléshez kulcs felvételének eljátszása.
-		String notif = "keyPickedUp";
-		SkeletonLogger.register(notif, "'KeyPickedUp'");
-		if(ps == null) {
-			ps = new PubSub();
-		}
-		ps.emit(notif, this);
-		
-		// Függvény vége, visszatérés logolása.
-		SkeletonLogger.back();
-	}
+    /**
+     * Nem szilárd objektum
+     * @return false
+     */
+    @Override
+    public boolean isSolid() {
+        return false;
+    }
+    
+    /**
+     * Kommunikációs csatorna beállítása
+     * 
+     * Jelzi a csatornán, hogy új kulcs került a rendszerbe.
+     * 
+     * @param pubSub a beállítandó kommunikációs csatorna
+     */
+    @Override
+    public void setPubSub(PubSub pubSub) {
+        this.pubSub = pubSub;
+        
+        pubSub.emit("key:added", null);
+    }
+    
+    /**
+     * A tartalmazó keret jelezheti ezen a metóduson keresztül,
+     * hogy egy másik elem, melyet paraméterül ad,
+     * hozzáért (collision) ehhez az elemhez.
+     * 
+     * A kulcs állapota összegyűjtöttre változik, és jelzi az összegyűjtés
+     * tényét a kommunikációs csatornán.
+     * 
+     * @param colliding
+     */
+    @Override
+    public void collision(FrameItem colliding) {
+        if (!collected) {
+            Logger.logStatus("Key collected");
+            pubSub.emit("key:collected", colliding);
+        }
+        collected = true;
+    }
 
 }

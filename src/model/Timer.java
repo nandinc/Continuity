@@ -1,6 +1,6 @@
 package model;
 
-import utils.SkeletonLogger;
+import java.util.TimerTask;
 
 /**
  * Az idő múlását nyilvántartó objektum. 
@@ -12,15 +12,50 @@ import utils.SkeletonLogger;
  * @file Timer osztály
  */
 public class Timer {
-	
-	public Timer() {
-		SkeletonLogger.create(this, "t");
-	}
-	
-	/**
-	 * Az eseménykezelő csatorna,
-	 * melyen jelzi az idő múlását.
-	 */
-    PubSub pubsub;
+
+    /**
+     * Az eseménykezelő csatorna,
+     * melyen jelzi az idő múlását.
+     */
+    private PubSub pubSub;
+
+    /**
+     * Az idő múlásának követését ténylegesen megvalósító osztály
+     */
+    private java.util.Timer timer;
+
+    /**
+     * Kommunikációs csatorna beállítása
+     * @param pubSub a használni kíván kommunikációs csatorna
+     */
+    public void setPubSub(PubSub pubSub) {
+        this.pubSub = pubSub;
+    }
+
+    /**
+     * Időmúlás nyivlántartásának indítása
+     */
+    public void start() {
+        // true: runs as a daemon
+        // @see: http://docs.oracle.com/javase/1.4.2/docs/api/java/util/Timer.html#Timer(boolean)
+        // timer couldn't be initialized in the constructor, because it's not restartable, see docs.
+        timer = new java.util.Timer(true);
+        timer.schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                pubSub.emit("tick", null);
+            }
+        }, 100, 100);
+    }
+
+    /**
+     * Időmúlás nyivlántartásának leállítása
+     */
+    public void stop() {
+        if (timer != null) {
+            timer.cancel();
+        }
+    }
 
 }

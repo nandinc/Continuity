@@ -8,33 +8,28 @@ package model;
  */
 public class Platform extends AbstractFrameItem {
 
-	@Override
-	public Area getArea() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    /**
+     * Megadja, hogy az elem szilárd-e vagy sem.
+     * Ez a kereten belüli mozgások esetén az
+     * ütközések ellenőrzésekor használatos.
+     * 
+     * A Platform mindig szilárd.
+     * @return true
+     */
+    @Override
+    public boolean isSolid() {
+        // Don't let them just raid over me
+        return true;
+    }
 
-	@Override
-	public void setArea(Area area) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setFrame(Frame frame) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean isSolid() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void collision(FrameItem colliding) {
-		// TODO Auto-generated method stub
-		
-	}
+    /**
+     * Megadja, hogy számba kell-e venni az elemet,
+     * ha a keretek közötti átjárást vizsgáljuk.
+     * 
+     * @return true, a Platformot mindig számba kell venni
+     */
+    @Override
+    public boolean doesAffectTraversability() {
+        return true;
+    }
 }

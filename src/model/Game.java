@@ -1,6 +1,7 @@
 package model;
 
-import utils.SkeletonLogger;
+import debug.Logger;
+import model.exception.MapNotFoundException;
 
 /**
  * A játékot szervező objektum. Felelős az új pályák betöltéséért és a teljesített pályák törléséért.
@@ -10,53 +11,116 @@ import utils.SkeletonLogger;
  */
 public class Game {
 
-	/**
-	 * Az aktuális pálya
-	 */
+    /**
+     * Az aktuális pálya
+     */
     protected Map currentMap;
     
-    private MapFactory mapFactory;
-    private PubSub pubSub = null;
-    
+    /**
+     * Az aktuális pálya azonosítója
+     */
+    protected int currentMapId;
+
+    /**
+     * Pályákat előállítására
+     */
+    protected MapFactory mapFactory;
+
+    /**
+     * Idő múlásának követésére
+     */
+    protected Timer timer;
+
+    /**
+     * Kommunikációs csatorna
+     */
+    protected PubSub pubSub;
+
+    /**
+     * Nézet állapota
+     */
+    protected VIEWPORT_STATE viewportState; 
+
+    /**
+     * Inicializálja a tartalmazott objektumokat
+     */
     public Game() {
-    	// Regisztrálás
-    	SkeletonLogger.create(this, "g");
-    	
-    	// initialize components
-    	mapFactory = new MapFactory();
-    	Timer t = new Timer();
-    	
-		pubSub = new PubSub();
+        mapFactory = new MapFactory();
+        initPubSub();
+        timer = new Timer();
+        viewportState = VIEWPORT_STATE.CLOSE;
+
+        timer.setPubSub(pubSub);
     }
     
-    public Game(PubSub ps) {
-    	this();
-    	pubSub = ps;
-    	
-    	pubSub.on("keyPickedUp", new Subscriber() {
-			
-			@Override
-			public void eventEmitted(String eName, Object eParameter) {
-				// Metódushívás rögzítése.
-				SkeletonLogger.call(this, "callBack:KeyPickedUp", eParameter);
-				// Függvény vége, visszatérés logolása.
-				SkeletonLogger.back();	
-			}
-		});
+    private void initPubSub() {
+        pubSub = new PubSub();
+        
+        pubSub.on("map:completed", new Subscriber() {
+            
+            @Override
+            public void eventEmitted(String eventName, Object eventParameter) {
+                try {
+                    loadMap(currentMapId + 1);
+                } catch (MapNotFoundException e) {
+                    // end of map list
+                    // TODO implement end of game rutine
+                } 
+            }
+        });
     }
 
     /**
      * Betölti a megadott pályát.
-     * @param mapId
+     * @param mapId Pálya azonosítója
+     * @throws MapNotFoundException 
      */
-    public void loadMap(int mapId) {
-    	// Metódushívás rögzítése.
-		SkeletonLogger.call(this, "loadMap", mapId);
-		
-		// Map bekérése a Mapfactoryból
-    	mapFactory.getMap(mapId, pubSub);
-    	
-    	// Függvény vége, visszatérés logolása.
-		SkeletonLogger.back();
+    public void loadMap(int mapId) throws MapNotFoundException {
+        Logger.logStatus("Load map" + mapId);
+        currentMap = mapFactory.getMap(mapId, pubSub);
+        currentMapId = mapId;
+    }
+
+    /**
+     * Elindítja a játékot
+     */
+    public void start() {
+        // TODO review this whole method after prototype release
+        //timer.start();
+        // show map
+        Logger.logStatus("Start game");
+        pubSub.emit("invalidate", null);
+    }
+
+    /**
+     * Megváltoztatja a nézetet a jelenlegi ellenkezőjére
+     */
+    public void toggleViewportState() {
+        if (viewportState == VIEWPORT_STATE.CLOSE) {
+            viewportState = VIEWPORT_STATE.MAP;
+            Logger.logStatus("Viewport changed to map view");
+            timer.stop();
+        } else {
+            viewportState = VIEWPORT_STATE.CLOSE;
+            Logger.logStatus("Viewport changed to close view");
+            // TODO enable this after prototype release
+            //timer.start();
+        }
+    }
+
+    /**
+     * Megadja a használt kommunikációs csatornát
+     * @return kommunikációs csatorna
+     */
+    public PubSub getPubSub() {
+        return pubSub;
+    }
+
+    /**
+     * Megadja az aktuális pályát
+     * @return az aktuális pálya
+     */
+    public Map getMap() {
+        return currentMap;
     }
 }

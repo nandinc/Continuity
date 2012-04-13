@@ -10,26 +10,85 @@ package model;
  */
 public abstract class AbstractFrameItem implements FrameItem {
 
-	/**
-	 * A tartalmazó kereten belül elfoglalt pozíció
-	 */
+    /**
+     * A tartalmazó kereten belül elfoglalt pozíció
+     */
     protected Area area;
-    
+
     /**
      * A tartalmazó keret
      */
     protected Frame frame;
-    
+
     /**
-     * Üzenetküldő
+     * Publish Subscribe channel
      */
-    protected PubSub ps = null;
-    
+    protected PubSub pubSub;
+
     /**
-     * Üzenetküldő beállítás
-     * @param ps Üzenetküldő
+     * Visszaadja az elem pozícióját a kereten belül.
+     * @return
      */
-    public void setPubSub(PubSub ps) {
-    	this.ps = ps;
+    @Override
+    public Area getArea() {
+        return area;
+    }
+
+    /**
+     * Beállítja az elem pozícióját a kereten belül.
+     * @param area
+     */
+    @Override
+    public void setArea(Area area) {
+        this.area = area;
+        invalidate();
+    }
+
+    /**
+     * Beállítja az elemet tartalmazó keretet.
+     * @param frame
+     */
+    @Override
+    public void setFrame(Frame frame) {
+        this.frame = frame;
+    }
+
+    /**
+     * Kommunikációs csatorna beállítása
+     */
+    @Override
+    public void setPubSub(PubSub pubSub) {
+        this.pubSub = pubSub;
+    }
+
+    /**
+     * Megadja, hogy számba kell-e venni az elemet,
+     * ha a keretek közötti átjárást vizsgáljuk.
+     * 
+     * @return true, ha számba kell venni
+     */
+    @Override
+    public boolean doesAffectTraversability() {
+        return false;
+    }
+
+    /**
+     * Nem csinál semmit ütközés esetén
+     * 
+     * Alapértelmezetten az elemek nem reagálnak az üktözésre.
+     * E metódus felüldefiniálásával ez a viselkedés megváltoztatható.
+     */
+    @Override
+    public void collision(FrameItem colliding) {
+        // do nothing like a boss
+    }
+
+    /**
+     * Jelzés kibocsájtása az elem állapotának megváltozásáról
+     */
+    protected void invalidate() {
+        if (pubSub != null) {
+            pubSub.emit("invalidate", null);
+        }
     }
 }
