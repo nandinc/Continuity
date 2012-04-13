@@ -26,7 +26,7 @@
 					\end{description}
 				\item[Metódusok]$\ $
 					\begin{description}
-						\item[\texttt{+collision(colliding : FrameItem)}] \hfill \\Nem csinál semmit ütközés esetén    Alapértelmezetten az elemek nem reagálnak az üktözésre.  E metódus felüldefiniálásával ez a viselkedés megváltoztatható. 
+						\item[\texttt{+collision(colliding : FrameItem)}] \hfill \\Nem csinál semmit ütközés esetén    Alapértelmezetten az elemek nem reagálnak az ütközésre.  E metódus felüldefiniálásával ez a viselkedés megváltoztatható. 
 						\item[\texttt{+doesAffectTraversability() : boolean}] \hfill \\Megadja, hogy számba kell-e venni az elemet,  ha a keretek közötti átjárást vizsgáljuk. 
 						\item[\texttt{+getArea() : Area}] \hfill \\Visszaadja az elem pozícióját a kereten belül. 
 						\item[\texttt{\#invalidate()}] \hfill \\Jelzés kibocsájtása az elem állapotának megváltozásáról 
@@ -48,7 +48,7 @@
 					\begin{description}
 						\item[\texttt{+clone() : Area}] \hfill \\Létrehoz egy új területet, magával megegyező paraméterekkel    A másolt paraméterek: x, y, height, width. 
 						\item[\texttt{+getHeight() : int}] \hfill \\Megadja a terület magasságát 
-						\item[\texttt{+getRelativeDirection(area : Area) : DIRECTION}] \hfill \\Calculates the relative direction of the given area.    Takes only one dimension into account at a time.  If the areas are placed diagonally, the horizontal  direction will be returned. 
+						\item[\texttt{+getRelativeDirection(area : Area) : DIRECTION}] \hfill \\ Kiszámolja az adott terület relatív irányát. Egyszerre csak egy dimenziót vesz figyelembe. Ha a területek átlósan vannak elhelyezve, a vízszintes iránnyal tér vissza.
 						\item[\texttt{+getWidth() : int}] \hfill \\Megadja a terület szélességét 
 						\item[\texttt{+getX() : int}] \hfill \\Megadja a terület bal felső sarkának x eltolását 
 						\item[\texttt{+getY() : int}] \hfill \\Megadja a terület bal felső sarkának y eltolását    Az eltolás felülről lefelé nő 
@@ -108,7 +108,7 @@
 					\begin{description}
 						\item[\texttt{+addItem(item : FrameItem)}] \hfill \\Hozzáadja a megadott elemet a kerethez. 
 						\item[\texttt{\#isTraversable(neighbour : Frame, d : DIRECTION) : boolean}] \hfill \\Megállapítja, hogy a megkapott Keret és saját  maga között fennáll-e az átjárhatóság a  megadott irányban. 
-						\item[\texttt{+itemIterator() : Iterator}] \hfill \\Visszaad egy iteratort, mely a tartalmazott  elemeken megy végig. 
+						\item[\texttt{+itemIterator() : Iterator}] \hfill \\Visszaad egy iterátort, mely a tartalmazott  elemeken megy végig. 
 						\item[\texttt{+removeItem(item : FrameItem)}] \hfill \\Eltávolítja a megadott elemet a keretből 
 						\item[\texttt{+requestArea(item : FrameItem, area : Area) : boolean}] \hfill \\A metódust hívó elem kérést intéz a kerethez,  hogy el szeretné foglalni a megadott területet.  A keret felelőssége a terület ellenőrzése, és szabad  terület esetén az elem pozíciójának frissítése. 
 						\item[\texttt{+setMap(map : Map)}] \hfill \\Tartalmazó pálya beállítása 
@@ -118,7 +118,7 @@
 		\subsubsection{FrameItem} Interfész.
 			\begin{description}
 
-				\item[Felelősség] A keretben elhelyezkedő elemek által megvalósított iterfész, melyen keresztül a keret menedzselni tudja a benne lévő elemeket.
+				\item[Felelősség] A keretben elhelyezkedő elemek által megvalósított interfész, melyen keresztül a keret menedzselni tudja a benne lévő elemeket.
 
 				\item[Ősosztályok] (nincs)
 				\item[Metódusok]$\ $
@@ -129,7 +129,7 @@
 						\item[\texttt{+isSolid() : boolean}] \hfill \\Megadja, hogy az elem szilárd-e vagy sem.  Ez a kereten belüli mozgások esetén az  ütközések ellenőrzésekor használatos. 
 						\item[\texttt{+setArea(area : Area)}] \hfill \\Beállítja az elem pozícióját a kereten belül. 
 						\item[\texttt{+setFrame(frame : Frame)}] \hfill \\Beállítja az elemet tartalmazó keretet. 
-						\item[\texttt{+setPubSub(pubSub : PubSub)}] \hfill \\Sets pubsub object 
+						\item[\texttt{+setPubSub(pubSub : PubSub)}] \hfill \\Beállítja a PubSubot.
 					\end{description}
 			\end{description}
 
@@ -177,7 +177,7 @@
 		\subsubsection{Map}
 			\begin{description}
 
-				\item[Felelősség] Számon tartja a pályán elhelyezett kulcsokat számát, valamint a már összegyűjtött kulcsok számát. Felelős a keretek mozgatásáért, amit kommunikácó nélkül meg tud valósítani.
+				\item[Felelősség] Számon tartja a pályán elhelyezett kulcsokat számát, valamint a már összegyűjtött kulcsok számát. Felelős a keretek mozgatásáért, amit kommunikáció nélkül meg tud valósítani.
 
 				\item[Ősosztályok] (nincs)
 				\item[Interfészek] (nincs)
@@ -188,7 +188,7 @@
 				\item[Metódusok]$\ $
 					\begin{description}
 						\item[\texttt{+addItem(item : FrameItem)}] \hfill \\Hozzáadja a megadott elemet az elem által specifikált pozícióhoz.  Amennyiben a pálya inicializálása során az adott helyen még nincs keret,  létrehoz egyet.   A hozzáadott elem pozícióját megváltoztatja úgy, hogy az relatív  legyen a tartalmazó kerethez. 
-						\item[\texttt{+frameIterator() : Map.FrameIterator}] \hfill \\Visszaad egy iteratort, mellyel a tartalmazott kereteken lehet végigmenni 
+						\item[\texttt{+frameIterator() : Map.FrameIterator}] \hfill \\Visszaad egy iterátort, mellyel a tartalmazott kereteken lehet végigmenni 
 						\item[\texttt{+getNeighbour(caller : Frame, direction : DIRECTION) : Frame}] \hfill \\Visszaadja a megadott keret direction irányba található  szomszédját. null-t ad vissza, ha a megadott irányban  nincs szomszéd. 
 						\item[\texttt{+horizontalFrameCount() : int}] \hfill \\Megadja a tartalmazott keretek által alkotott keretrács szélességét 
 						\item[\texttt{+moveFrame(d : DIRECTION)}] \hfill \\Kicseréli az üres helyet a megadott iránnyal ellentétes  szomszédjával. 
@@ -298,8 +298,8 @@
 				\item[Metódusok]$\ $
 					\begin{description}
 						\item[\texttt{+setPubSub(pubSub : PubSub)}] \hfill \\Kommunikációs csatorna beállítása 
-						\item[\texttt{+start()}] \hfill \\Időmúlás nyivlántartásának indítása 
-						\item[\texttt{+stop()}] \hfill \\Időmúlás nyivlántartásának leállítása 
+						\item[\texttt{+start()}] \hfill \\Időmúlás nyilvántartásának indítása 
+						\item[\texttt{+stop()}] \hfill \\Időmúlás nyilvántartásának leállítása 
 					\end{description}
 			\end{description}
 
@@ -1011,7 +1011,7 @@ Fall out, reset to checkpoint
 \end{verbatim}
 		        
 		        \testitem{Kulcs felvétele, pálya teljesítése}
-		        \tdesc{Stickmannel először megérintjük az ajtót, ezután felvesszük a kucsot, majd megint megérintjük az ajtót.}
+		        \tdesc{Stickmannel először megérintjük az ajtót, ezután felvesszük a kulcsot, majd megint megérintjük az ajtót.}
 		        \tcel{Ellenőrizzük, hogy az ajtó csak kulccsal nyitható-e, illetve hogy a kulcs felvétele megfelelően rögzítődik-e. A teszt középpontjában a \texttt{Frame} által megvalósított ütközésértesítés áll, illetve az állapotok rögzítése, mely a \texttt{PubSub}-on jövő értesítés után a \texttt{Game}-ben történik.}
 		        \paragraph*{Bemenet}
 \begin{verbatim}
@@ -1271,7 +1271,7 @@ Don't move: wrong viewport
 2012. 04. 01. 18:00 & 2 óra & Fodor & Doc tool\\ \hline
 2012. 04. 01. 20:20 & 4 óra & Thaler & Prototípus kidolgozás\\ \hline
 2012. 04. 01. 20:00 & 4.5 óra & Fodor & Tesztesetek\\ \hline
-2012. 04. 02. 00:30 & 1 óra & Berki & Nyomtatás, átnézés\\ \hline
+2012. 04. 02. 00:30 & 2 óra & Berki & Nyomtatás, átnézés\\ \hline
 
             \hline
         \end{tabular}
