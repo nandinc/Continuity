@@ -14,6 +14,11 @@ public class Game {
      * Az aktuális pálya
      */
     protected Map currentMap;
+    
+    /**
+     * Az aktuális pálya azonosítója
+     */
+    protected int currentMapId;
 
     /**
      * Pályákat előállítására
@@ -40,11 +45,28 @@ public class Game {
      */
     public Game() {
         mapFactory = new MapFactory();
-        pubSub = new PubSub();
+        initPubSub();
         timer = new Timer();
         viewportState = VIEWPORT_STATE.CLOSE;
 
         timer.setPubSub(pubSub);
+    }
+    
+    private void initPubSub() {
+        pubSub = new PubSub();
+        
+        pubSub.on("map:completed", new Subscriber() {
+            
+            @Override
+            public void eventEmitted(String eventName, Object eventParameter) {
+                try {
+                    loadMap(currentMapId + 1);
+                } catch (MapNotFoundException e) {
+                    // end of map list
+                    // TODO implement end of game rutine
+                } 
+            }
+        });
     }
 
     /**
@@ -55,6 +77,7 @@ public class Game {
     public void loadMap(int mapId) throws MapNotFoundException {
         Logger.logStatus("Load map" + mapId);
         currentMap = mapFactory.getMap(mapId, pubSub);
+        currentMapId = mapId;
     }
 
     /**
