@@ -90,10 +90,11 @@ public class Frame {
                 // no collision with solid items
                 Logger.logStatus("No collision, do move");
 
+                item.setArea(area);
+
                 // notify non solid colliding items
                 notifyCollision(item, area);
                 
-                item.setArea(area);
                 return true;
             } else {
                 Logger.logStatus("Colliding with solid item, do nothing");
