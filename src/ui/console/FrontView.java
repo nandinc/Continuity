@@ -2,6 +2,8 @@ package ui.console;
 
 import java.util.Iterator;
 
+import debug.Logger;
+
 import model.Area;
 import model.Door;
 import model.Frame;
@@ -93,12 +95,15 @@ public class FrontView {
         // print canvas
         for (int row = 0; row < printHeight; row++) {
             for (int col = 0; col < printWidth; col++) {
-                System.out.print(canvas[row][col]);
+                //System.out.print(canvas[row][col]);
+                Logger.logMap(new Character(canvas[row][col]).toString());
             }
-            System.out.println("");
+            //System.out.println("");
+            Logger.logMap("\n");
         }
         
-        System.out.println("");
+        //System.out.println("");
+        Logger.logMap("\n");
     }
     
     /**
