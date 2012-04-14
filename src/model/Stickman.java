@@ -24,6 +24,13 @@ public class Stickman extends AbstractFrameItem {
     private int jumpSpeed = 0;
     
     /**
+     * Azonosító
+     * 
+     * A pályán található különböző stickmanek megkülönböztetésére szolgál
+     */
+    private Integer identifier;
+    
+    /**
      * A figura mozgatása a megadott irányba.
      * @param direction
      */
@@ -130,7 +137,7 @@ public class Stickman extends AbstractFrameItem {
             }
         });
         
-        pubSub.on("controller:move", new Subscriber() {
+        pubSub.on("controller:move:" + identifier.toString(), new Subscriber() {
             
             @Override
             public void eventEmitted(String eventName, Object eventParameter) {
@@ -153,6 +160,17 @@ public class Stickman extends AbstractFrameItem {
             }
         });
     }
+    
+    /**
+     * Beállítja a map fájlban talált opcionális paramétereket
+     * 
+     * Beállítja a stickmand id-t
+     * 
+     * @param args Map file vonatkozó sorának összes argumentuma 
+     */
+    public void setAdditionalParameters(String[] args) {
+        identifier = Integer.parseInt(args[5]);
+    }
 
     /**
      * Megadja, hogy az elem szilárd-e vagy sem.
@@ -168,5 +186,13 @@ public class Stickman extends AbstractFrameItem {
         // strategies like jumping from the top of
         // the other player.
         return true;
+    }
+    
+    /**
+     * Megadja a stickman azonosítóját
+     * @return azonosító
+     */
+    public int getStickmanId() {
+        return identifier;
     }
 }

@@ -138,6 +138,10 @@ public class MapFactory {
                 // has x coordinate
                 itemArea.setHeight(Integer.parseInt(parameters[4]));
             }
+            
+            if (parameters.length >= 6) {
+                item.setAdditionalParameters(parameters);
+            }
 
         } catch (NumberFormatException e) {
             throw new MapErrorException(e);

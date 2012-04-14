@@ -59,6 +59,17 @@ public abstract class AbstractFrameItem implements FrameItem {
     public void setPubSub(PubSub pubSub) {
         this.pubSub = pubSub;
     }
+    
+    /**
+     * Beállítja a map fájlban talált opcionális paramétereket
+     * 
+     * Alapértelmezetten nem csinál semmit
+     * 
+     * @param args Map file vonatkozó sorának összes argumentuma 
+     */
+    public void setAdditionalParameters(String[] args) {
+        // do nothing by default
+    }
 
     /**
      * Megadja, hogy számba kell-e venni az elemet,

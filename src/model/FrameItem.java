@@ -32,6 +32,12 @@ public interface FrameItem {
      * @param pubsub object
      */
     public void setPubSub(PubSub pubSub);
+    
+    /**
+     * Beállítja a map fájlban talált opcionális paramétereket
+     * @param args Map file vonatkozó sorának összes argumentuma 
+     */
+    public void setAdditionalParameters(String[] args);
 
     /**
      * Megadja, hogy az elem szilárd-e vagy sem.

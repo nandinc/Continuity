@@ -157,7 +157,12 @@ public class FrontView {
                 }
             }
         } else if (item instanceof Stickman) {
-            canvas[cornerY][cornerX] = 'X';
+            Stickman stickman = (Stickman)item;
+            if (stickman.getStickmanId() == 1) {
+                canvas[cornerY][cornerX] = 'X';
+            } else {
+                canvas[cornerY][cornerX] = 'Y';
+            }
         } else {
             canvas[cornerY][cornerX] = '?';
         }

@@ -7,8 +7,9 @@ public class Move extends Command {
 
     @Override
     public void execute(String[] args) throws InvalidArgumentException {
-        DIRECTION direction = readDirection(args, 1);
-        getPubSub().emit("controller:move", direction);
+        Integer stickmanId = readInteger(args, 1);
+        DIRECTION direction = readDirection(args, 2);
+        getPubSub().emit("controller:move:" + stickmanId.toString(), direction);
     }
 
 }
