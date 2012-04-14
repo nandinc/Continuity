@@ -18,12 +18,22 @@ public class Stickman extends AbstractFrameItem {
     private Area checkpointArea = null;
     
     /**
+     * Az ugrásból származó hátralévő felfelé
+     * irányuló mozgások száma
+     */
+    private int jumpSpeed = 0;
+    
+    /**
      * A figura mozgatása a megadott irányba.
      * @param direction
      */
     public void move(DIRECTION direction) {
         Area newArea = getNewAreaByDirection(direction);
         frame.requestArea(this, newArea);
+        
+        if (direction == DIRECTION.UP && jumpSpeed == 0) {
+            jumpSpeed = 1;
+        }
     }
 
     /**
@@ -112,7 +122,11 @@ public class Stickman extends AbstractFrameItem {
 
             @Override
             public void eventEmitted(String eventName, Object eventParameter) {
-                move(DIRECTION.DOWN);
+                if (jumpSpeed == 0) {
+                    move(DIRECTION.DOWN);
+                } else {
+                    jumpSpeed--;
+                }
             }
         });
         

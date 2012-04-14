@@ -72,6 +72,8 @@ public class FrontController {
             pubSub.emit("controller:move", DIRECTION.LEFT);
         } else if (command.compareTo("move right") == 0) {
             pubSub.emit("controller:move", DIRECTION.RIGHT);
+        } else if (command.compareTo("move up") == 0) {
+            pubSub.emit("controller:move", DIRECTION.UP);
         } else if (command.compareTo("tick") == 0) {
             pubSub.emit("tick", null);
         } else if (command.startsWith("tick")) {
