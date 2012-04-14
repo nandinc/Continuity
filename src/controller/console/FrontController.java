@@ -3,12 +3,13 @@ package controller.console;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.HashMap;
+import java.util.Map;
+
+import controller.console.exception.InvalidArgumentException;
 
 import debug.Logger;
 
-import model.DIRECTION;
 import model.PubSub;
 
 /**
@@ -19,14 +20,14 @@ import model.PubSub;
 public class FrontController {
     
     /**
-     * Kommunikációs csatorna a model irányába
-     */
-    private PubSub pubSub;
-    
-    /**
      * Bemeneti parancsok ismétlésének engedélyezése
      */
     private boolean echoCommands = false;
+    
+    /**
+     * Használható parancsok
+     */
+    private Map<String, Command> commands = new HashMap<String, Command>();
     
     /**
      * Inicializálás
@@ -34,7 +35,23 @@ public class FrontController {
      * @param pubSub kommunikációs csatorna
      */
     public FrontController(PubSub pubSub) {
-        this.pubSub = pubSub;
+        Command move = new Move();
+        Command tick = new Tick();
+        Command loadMap = new LoadMap();
+        Command viewportSwitch = new ViewportSwitch();
+        Command moveFrame = new MoveFrame();
+        
+        move.setPubSub(pubSub);
+        tick.setPubSub(pubSub);
+        loadMap.setPubSub(pubSub);
+        viewportSwitch.setPubSub(pubSub);
+        moveFrame.setPubSub(pubSub);
+        
+        commands.put("move", move);
+        commands.put("tick", tick);
+        commands.put("loadMap", loadMap);
+        commands.put("viewportSwitch", viewportSwitch);
+        commands.put("moveFrame", moveFrame);
     }
     
     /**
@@ -61,63 +78,32 @@ public class FrontController {
     /**
      * A kapott parancs végrehajtása
      * 
-     * @param command bejövő parancs
+     * @param commandString bejövő parancs
      */
-    private void execute(String command) {
+    private void execute(String commandString) {
         if (echoCommands == true) {
-            System.out.println(command);
+            System.out.println(commandString);
         }
         
-        if (command.compareTo("move left") == 0) {
-            pubSub.emit("controller:move", DIRECTION.LEFT);
-        } else if (command.compareTo("move right") == 0) {
-            pubSub.emit("controller:move", DIRECTION.RIGHT);
-        } else if (command.compareTo("move up") == 0) {
-            pubSub.emit("controller:move", DIRECTION.UP);
-        } else if (command.compareTo("tick") == 0) {
-            pubSub.emit("tick", null);
-        } else if (command.startsWith("tick")) {
-            Pattern p = Pattern.compile("\\d+");
-            Matcher m = p.matcher(command);
-            boolean found = m.find();
-
-            if (found) {
-                int tickCount = Integer.parseInt(m.group());
-                
-                for (int i = 0; i < tickCount; i++) {
-                    pubSub.emit("tick", null);
+        if (commandString.compareTo("echoCommands true") == 0) {
+            echoCommands = true;
+        } else if (commandString.compareTo("echoCommands false") == 0) {
+            echoCommands = false;
+        } else {
+            String[] args = commandString.split(" ");
+            String commandName = args[0];
+            
+            if (commands.containsKey(commandName)) {
+                Command command = commands.get(commandName);
+                try {
+                    command.execute(args);
+                } catch (InvalidArgumentException e) {
+                    System.out.print("Invalid command: ");
+                    System.out.println(e.getMessage());
                 }
             } else {
                 System.out.println("Unknown command");
             }
-        } else if (command.startsWith("loadMap")) {
-            Pattern p = Pattern.compile("\\d+");
-            Matcher m = p.matcher(command);
-            boolean found = m.find();
-
-            if (found) {
-                int mapId = Integer.parseInt(m.group());
-                
-                pubSub.emit("controller:loadMap", mapId);
-            } else {
-                System.out.println("Unknown command");
-            }
-        } else if (command.compareTo("viewportSwitch") == 0) {
-            pubSub.emit("controller:viewportSwitch", null);
-        } else if (command.compareTo("moveFrame up") == 0) {
-            pubSub.emit("controller:moveFrame", DIRECTION.UP);
-        } else if (command.compareTo("moveFrame right") == 0) {
-            pubSub.emit("controller:moveFrame", DIRECTION.RIGHT);
-        } else if (command.compareTo("moveFrame down") == 0) {
-            pubSub.emit("controller:moveFrame", DIRECTION.DOWN);
-        } else if (command.compareTo("moveFrame left") == 0) {
-            pubSub.emit("controller:moveFrame", DIRECTION.LEFT);
-        } else if (command.compareTo("echoCommands true") == 0) {
-            echoCommands = true;
-        } else if (command.compareTo("echoCommands false") == 0) {
-            echoCommands = false;
-        } else {
-            System.out.println("Unknown command");
         }
         
         Logger.flush();
