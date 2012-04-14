@@ -2,6 +2,8 @@ package model;
 
 import java.util.TimerTask;
 
+import debug.Logger;
+
 /**
  * Az idő múlását nyilvántartó objektum. 
  * Elsősorban Stickman esését szabályozhatjuk vele, de a
@@ -29,6 +31,19 @@ public class Timer {
      */
     public void setPubSub(PubSub pubSub) {
         this.pubSub = pubSub;
+        
+        pubSub.on("controller:timer", new Subscriber() {
+            
+            @Override
+            public void eventEmitted(String eventName, Object eventParameter) {
+                boolean start = (Boolean)eventParameter;
+                if (start) {
+                    start();
+                } else {
+                    stop();
+                }
+            }
+        });
     }
 
     /**
@@ -44,6 +59,8 @@ public class Timer {
             @Override
             public void run() {
                 pubSub.emit("tick", null);
+                // TODO remove this after prototype release
+                Logger.flush();
             }
         }, 100, 100);
     }

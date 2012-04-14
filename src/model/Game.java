@@ -145,12 +145,9 @@ public class Game {
         if (viewportState == VIEWPORT_STATE.CLOSE) {
             viewportState = VIEWPORT_STATE.MAP;
             Logger.logStatus("Viewport changed to map view");
-            timer.stop();
         } else {
             viewportState = VIEWPORT_STATE.CLOSE;
             Logger.logStatus("Viewport changed to close view");
-            // TODO enable this after prototype release
-            //timer.start();
         }
     }
 

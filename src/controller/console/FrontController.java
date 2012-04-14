@@ -40,18 +40,22 @@ public class FrontController {
         Command loadMap = new LoadMap();
         Command viewportSwitch = new ViewportSwitch();
         Command moveFrame = new MoveFrame();
+        Command timer = new Timer();
         
         move.setPubSub(pubSub);
         tick.setPubSub(pubSub);
         loadMap.setPubSub(pubSub);
         viewportSwitch.setPubSub(pubSub);
         moveFrame.setPubSub(pubSub);
+        timer.setPubSub(pubSub);
         
         commands.put("move", move);
         commands.put("tick", tick);
         commands.put("loadMap", loadMap);
         commands.put("viewportSwitch", viewportSwitch);
         commands.put("moveFrame", moveFrame);
+        commands.put("timerStart", timer);
+        commands.put("timerStop", timer);
     }
     
     /**
