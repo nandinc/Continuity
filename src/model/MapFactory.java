@@ -135,7 +135,7 @@ public class MapFactory {
             }
 
             if (parameters.length >= 5) {
-                // has x coordinate
+                // has height
                 itemArea.setHeight(Integer.parseInt(parameters[4]));
             }
             
