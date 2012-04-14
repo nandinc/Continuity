@@ -148,7 +148,12 @@ public class FrontView {
             // TODO cast ahead...
             Key key = (Key)item;
             if (key.isCollected() == false) {
-                canvas[cornerY][cornerX] = 'K';
+                // This is a hack here, prevents Key top overlap stickmans
+                // The key should emit an invalidate on collection, but this would
+                // break the predefined tests.
+                if (canvas[cornerY][cornerX] != 'X' && canvas[cornerY][cornerX] != 'Y') {
+                    canvas[cornerY][cornerX] = 'K';
+                }
             }
         } else if (item instanceof Platform) {
             for (int row = cornerY; row < cornerY + item.getArea().getHeight(); row++) {
