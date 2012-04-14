@@ -48,36 +48,36 @@ public class Decoder {
 							dontcare_width++;
 						} else {
 							if (c == 'X') {
-			            		decoded+=("Stickman\t" + realRow*main.Constants.multiplier + "\t"
-			            				+ realCol*main.Constants.multiplier + "\t"
-			            				+ getRange(c, row, col) + "1\n");
+			            		decoded+=("Stickman\t" + realCol*main.Constants.multiplier + "\t"
+			            				+ realRow*main.Constants.multiplier + "\t"
+			            				+ getRange(c, row, col) + "\t1\n");
 							} else if (c == 'Y') {
-			            		decoded+=("Stickman\t" + realRow*main.Constants.multiplier + "\t"
-			            				+ realCol*main.Constants.multiplier + "\t"
+			            		decoded+=("Stickman\t" + realCol*main.Constants.multiplier + "\t"
+			            				+ realRow*main.Constants.multiplier + "\t"
 			            				+ getRange(c, row, col) + "\t2\n");
 							}
 
 			            	else if (c == '#') {
-			            		decoded+=("Platform\t" + realRow*main.Constants.multiplier + "\t"
-			            				+ realCol*main.Constants.multiplier + "\t"
+			            		decoded+=("Platform\t" + realCol*main.Constants.multiplier + "\t"
+			            				+ realRow*main.Constants.multiplier + "\t"
 			            				+ getRange(c, row, col) + "\t\n");
 			            	}
 
 			            	else if (c == 'K') {
-			            		decoded+=("Key\t" + realRow*main.Constants.multiplier + "\t" 
-			            				+ realCol*main.Constants.multiplier + "\t"
+			            		decoded+=("Key\t" + realCol*main.Constants.multiplier + "\t" 
+			            				+ realRow*main.Constants.multiplier + "\t"
 			            				+ getRange(c, row, col) + "\n");
 			            	}
 
 			            	else if (c == 'A') {
-			            		decoded+=("Door\t" + realRow*main.Constants.multiplier + "\t" 
-			            				+ realCol*main.Constants.multiplier + "\t"
+			            		decoded+=("Door\t" + realCol*main.Constants.multiplier + "\t" 
+			            				+ realRow*main.Constants.multiplier + "\t"
 			            				+ getRange(c, row, col) + "\n");
 			            	}
 
 			            	else if (c == '?') {
-			            		decoded+=("Unknown\t" + realRow*main.Constants.multiplier + "\t" 
-			            				+ realCol*main.Constants.multiplier + "\t"
+			            		decoded+=("Unknown\t" + realCol*main.Constants.multiplier + "\t" 
+			            				+ realRow*main.Constants.multiplier + "\t"
 			            				+ getRange(c, row, col) + "\n");
 			            	}
 						}

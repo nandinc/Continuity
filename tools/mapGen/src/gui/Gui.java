@@ -146,9 +146,7 @@ public class Gui extends JFrame {
 	        	if (decoder != null) {
 		        	JFileChooser fc = new JFileChooser(new File(System.getProperty("user.dir")));
 		            fc.setAcceptAllFileFilterUsed(false);
-		            FileNameExtensionFilter filter = new FileNameExtensionFilter("map files only", "map");
-		            fc.setFileFilter(filter);
-		            fc.setSelectedFile(new File("testmap.map"));
+		            fc.setSelectedFile(new File("map_"));
 		            
 		            int returnVal = fc.showSaveDialog(Gui.this);
 		            if (returnVal == JFileChooser.APPROVE_OPTION) {
