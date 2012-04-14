@@ -10,19 +10,9 @@ import debug.Logger;
  * Egy pályán belüli keret, amelyben mozoghat a Stickman. Tartalmazza a pálya többi elemét (Door, Key, Platform).
  * 
  * @responsibility A pálya által alkotott táblázat egy cellája, amely elemeket tartalmaz. Ez felelős az elemek (Stickman) mozgatásáért kereten belül és között egyaránt. Két elem egy helyen való tartózkodásáról értesíti az elemeket (collision notify).
- * @file Frame osztály
  */
 public class Frame {
-	private Map map;
-	
-	/**
-	 * Frame létrehozása az őt tartalmazó pályával.
-	 * @param m Tartalmazó pálya
-	 */
-	public Frame(Map m) {
-		map = m;
-	}
-	
+
     /**
      * Keret szélessége
      */
@@ -85,9 +75,8 @@ public class Frame {
      * A keret felelőssége a terület ellenőrzése, és szabad
      * terület esetén az elem pozíciójának frissítése.
      * 
-     * @param s
+     * @param item
      * @param area
-     * @param direction Irány, ha új keretbe lépne.
      */
     public boolean requestArea(FrameItem item, Area area) {
         boolean inBounds = isAreaInBounds(area);

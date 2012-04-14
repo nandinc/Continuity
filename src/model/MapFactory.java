@@ -15,14 +15,9 @@ import model.exception.MapNotFoundException;
  * a megfelelő objektumokkal.
  * 
  * @responsibility Felelős a pályák létrehozásáért, bennük a keretek és az elemek elhelyezéséért.
- * @file MapFactory osztály
  */
 public class MapFactory {
 
-	public MapFactory() {
-		SkeletonLogger.create(this, "mp");
-	}
-	
     /**
      * A String -> FrameItem fordítást segítő szótár
      */

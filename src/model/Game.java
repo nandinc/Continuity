@@ -7,7 +7,6 @@ import model.exception.MapNotFoundException;
  * A játékot szervező objektum. Felelős az új pályák betöltéséért és a teljesített pályák törléséért.
  * 
  * @responsibility A játékot reprezentáló objektum, amely kezeli az aktuális pályát.
- * @file Game osztály
  */
 public class Game {
 
@@ -123,4 +122,5 @@ public class Game {
     public Map getMap() {
         return currentMap;
     }
+
 }

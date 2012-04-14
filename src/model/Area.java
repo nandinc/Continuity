@@ -1,7 +1,5 @@
 package model;
 
-import utils.SkeletonLogger;
-
 /**
  * Egy tetszőleges keret egy területét leíró osztály.
  * Ez az osztály elfedi, hogy egy keret valójában hány dimenziós,
@@ -9,7 +7,6 @@ import utils.SkeletonLogger;
  * paraméterekkel írható le.
  * 
  * @responsibility Területrészt leíró osztály. Összehasonlítható egy másik osztállyal, hogy fedik-e egymást.
- * @file Area osztály
  */
 public class Area {
 

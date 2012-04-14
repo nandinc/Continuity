@@ -7,14 +7,11 @@ import java.util.List;
 import debug.Logger;
 
 
-import utils.SkeletonLogger;
-
 /**
  * A pályákat reprezentálja. Tartalmazza a kereteket és azok elhelyezkedését,
  * kontrolállja az átrendezésüket, melyet kommunikáció nélkül meg tud tenni, mivel a keretek nem tudnak relatív elhelyezkedésükről.
  * 
  * @responsibility Számon tartja a pályán elhelyezett kulcsokat számát, valamint a már összegyűjtött kulcsok számát. Felelős a keretek mozgatásáért, amit kommunikácó nélkül meg tud valósítani.
- * @file Map osztály
  */
 public class Map {
 

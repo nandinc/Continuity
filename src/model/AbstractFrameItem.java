@@ -6,7 +6,6 @@ package model;
  * egy referenciát a tartalmazó keretre.
  * 
  * @responsibility Alapértelmezett megvalósítása egy keretben lévő objektumnak.
- * @file AbstractFrameItem osztály
  */
 public abstract class AbstractFrameItem implements FrameItem {
 

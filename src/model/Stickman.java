@@ -1,15 +1,12 @@
 package model;
 
-import utils.SkeletonLogger;
-
 /**
  * A játékos által irányított figurát reprezentáló elem.
  * 
  * @responsibility A játékos által irányított figura, mely a pályán mozog.
- * @file Stickman osztály
  */
 public class Stickman extends AbstractFrameItem {
-	
+
     /**
      * Ellenőrzőpontot tartalmazó keret
      */
@@ -158,55 +155,4 @@ public class Stickman extends AbstractFrameItem {
         // the other player.
         return true;
     }
-
-	@Override
-	public Area getArea() {
-		// Metódushívás rögzítése.
-		SkeletonLogger.call(this, "getArea");
-		
-		// Teszteléshez, ha nincs még terület újat készít.
-		if(area == null) area = new Area();
-		// Regisztrálás a logger osztályba.
-		SkeletonLogger.register(area, "a");
-		
-		// Függvény vége, visszatérés logolása.
-		SkeletonLogger.back(area);
-		return area;
-	}
-
-	@Override
-	public void setArea(Area area) {
-		// Metódushívás rögzítése.
-		SkeletonLogger.call(this, "setArea", area);
-		
-		// Terület beállítása.
-		this.area = area;
-		
-		// Függvény vége, visszatérés logolása.
-		SkeletonLogger.back();
-	}
-
-	@Override
-	public void setFrame(Frame frame) {
-		// Metódushívás rögzítése.
-		SkeletonLogger.call(this, "setFrame", frame);
-		
-		// Frame beállítása
-		this.frame = frame;
-		
-		// Függvény vége, visszatérés logolása.
-		SkeletonLogger.back();
-	}
-
-	@Override
-	public boolean isSolid() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void collision(FrameItem colliding) {
-		// TODO Auto-generated method stub
-		
-	}
 }

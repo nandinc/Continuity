@@ -6,7 +6,6 @@ package model;
  * melybe a játékos mozoghat, vagy keretet cserélhet. 
  * 
  * @responsibility Irányokat jelöl a két dimenziós térben.
- * @file DIRECTION enumeráció
  */
 public enum DIRECTION {
     UP, RIGHT, DOWN, LEFT

@@ -6,7 +6,6 @@ import debug.Logger;
  * A pályán található kulcsokat reprezentáló objektum.
  * 
  * @responsibility Kulcs elem, melyet megérintve a Stickman meg tud szerezni. Erről egy esemény küldésén keresztül értesíti a külvilágot.
- * @file Key osztály
  */
 public class Key extends AbstractFrameItem {
 
@@ -15,10 +14,6 @@ public class Key extends AbstractFrameItem {
      */
     private boolean collected;
 
-    public Key() {
-    	this.area = new Area();
-    }
-    
     /**
      * Megadja, hogy megszerezték-e a kulcsot.
      * @return Igaz, ha megszerezték-e a kulcsot.

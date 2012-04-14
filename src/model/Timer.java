@@ -9,7 +9,6 @@ import java.util.TimerTask;
  * a stickmentől vagy bármely más objektumtól függetlenek. 
  * 
  * @responsibility Időzítésért felelős osztály, bizonyos időközönként kibocsát egy 'tick' eseményt az átadott PubSub objektumra.
- * @file Timer osztály
  */
 public class Timer {
 

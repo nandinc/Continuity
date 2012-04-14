@@ -6,7 +6,6 @@ package model;
  * Ezen interfacet valósítják meg a pályán lévő objektumok (Platform, Door, Key, Stickman)
  * 
  * @responsibility A keretben elhelyezkedő elemek által megvalósított iterfész, melyen keresztül a keret menedzselni tudja a benne lévő elemeket.
- * @file FrameItem osztály
  */
 public interface FrameItem {
 
