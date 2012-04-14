@@ -47,7 +47,7 @@ public class FrontView {
         this.game = game;
 
         PubSub pubSub = game.getPubSub();
-        pubSub.on("invalidate", new Subscriber() {
+        pubSub.on("view:invalidate", new Subscriber() {
 
             @Override
             public void eventEmitted(String eventName, Object eventParameter) {

@@ -55,7 +55,7 @@ public class Game {
     private void initPubSub() {
         pubSub = new PubSub();
         
-        pubSub.on("loadMap", new Subscriber() {
+        pubSub.on("controller:loadMap", new Subscriber() {
             
             @Override
             public void eventEmitted(String eventName, Object eventParameter) {
@@ -70,7 +70,7 @@ public class Game {
             }
         });
         
-        pubSub.on("viewportSwitch", new Subscriber() {
+        pubSub.on("controller:viewportSwitch", new Subscriber() {
             
             @Override
             public void eventEmitted(String eventName, Object eventParameter) {
@@ -78,7 +78,7 @@ public class Game {
             }
         });
         
-        pubSub.on("moveFrame", new Subscriber() {
+        pubSub.on("controller:moveFrame", new Subscriber() {
             
             @Override
             public void eventEmitted(String eventName, Object eventParameter) {
@@ -125,7 +125,7 @@ public class Game {
         //timer.start();
         // show map
         Logger.logStatus("Start game");
-        pubSub.emit("invalidate", null);
+        pubSub.emit("view:invalidate", null);
     }
 
     /**

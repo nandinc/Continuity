@@ -98,20 +98,20 @@ public class FrontController {
             if (found) {
                 int mapId = Integer.parseInt(m.group());
                 
-                pubSub.emit("loadMap", mapId);
+                pubSub.emit("controller:loadMap", mapId);
             } else {
                 System.out.println("Unknown command");
             }
         } else if (command.compareTo("viewportSwitch") == 0) {
-            pubSub.emit("viewportSwitch", null);
+            pubSub.emit("controller:viewportSwitch", null);
         } else if (command.compareTo("moveFrame up") == 0) {
-            pubSub.emit("moveFrame", DIRECTION.UP);
+            pubSub.emit("controller:moveFrame", DIRECTION.UP);
         } else if (command.compareTo("moveFrame right") == 0) {
-            pubSub.emit("moveFrame", DIRECTION.RIGHT);
+            pubSub.emit("controller:moveFrame", DIRECTION.RIGHT);
         } else if (command.compareTo("moveFrame down") == 0) {
-            pubSub.emit("moveFrame", DIRECTION.DOWN);
+            pubSub.emit("controller:moveFrame", DIRECTION.DOWN);
         } else if (command.compareTo("moveFrame left") == 0) {
-            pubSub.emit("moveFrame", DIRECTION.LEFT);
+            pubSub.emit("controller:moveFrame", DIRECTION.LEFT);
         } else if (command.compareTo("echoCommands true") == 0) {
             echoCommands = true;
         } else if (command.compareTo("echoCommands false") == 0) {

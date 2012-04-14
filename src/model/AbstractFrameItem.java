@@ -87,7 +87,7 @@ public abstract class AbstractFrameItem implements FrameItem {
      */
     protected void invalidate() {
         if (pubSub != null) {
-            pubSub.emit("invalidate", null);
+            pubSub.emit("view:invalidate", null);
         }
     }
 }

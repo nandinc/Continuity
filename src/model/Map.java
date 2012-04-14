@@ -295,7 +295,7 @@ public class Map {
                     frames.get(emptyPosition.getX()).set(emptyPosition.getY(), neighbourFrame);
                     frames.get(neighbourPosition.getX()).set(neighbourPosition.getY(), null);
                     
-                    pubSub.emit("invalidate", null);
+                    pubSub.emit("view:invalidate", null);
                     
                     Logger.logStatus("Move Frame "+direction.toString());
                 } else {
