@@ -28,7 +28,7 @@ public interface FrameItem {
     public void setFrame(Frame frame);
 
     /**
-     * Sets pubsub object
+     * Beállítja a kommunikációs csatornát
      * @param pubsub object
      */
     public void setPubSub(PubSub pubSub);

@@ -64,7 +64,7 @@ public class MapFactory {
             System.err.println("Error while reading map file");
             e.printStackTrace();
         } catch (MapErrorException e) {
-            // TODO Auto-generated catch block
+            System.err.println("Error while reading map file");
             e.printStackTrace();
         }
 

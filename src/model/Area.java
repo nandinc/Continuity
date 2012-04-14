@@ -35,14 +35,18 @@ public class Area {
     }
 
     /**
-     * Calculates the relative direction of the given area.
+     * Kiszámítja a kapott terület relatív elhelyezkedését this-hez képest.
      * 
      * Takes only one dimension into account at a time.
      * If the areas are placed diagonally, the horizontal
      * direction will be returned.
      * 
+     * Egyszerre csak egy dimenziót vesz figyelembe. Amennyiben
+     * a kapott terület x és y eltolása is eltérő a this eltolásához képest,
+     * az x irányú relatív pozícióval tér vissza.
+     * 
      * @param area
-     * @return the relative direction or null if it has the same position
+     * @return A kapott terület relatív elhelyezkedése vagy null, ha nincs eltérés
      */
     public DIRECTION getRelativeDirection(Area area) {
         int directionX = x - area.x;

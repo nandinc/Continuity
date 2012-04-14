@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import debug.Logger;
+
 import model.DIRECTION;
 import model.PubSub;
 
@@ -75,21 +77,29 @@ public class FrontController {
         } else if (command.startsWith("tick")) {
             Pattern p = Pattern.compile("\\d+");
             Matcher m = p.matcher(command);
-            m.find();
+            boolean found = m.find();
 
-            int tickCount = Integer.parseInt(m.group());
-            
-            for (int i = 0; i < tickCount; i++) {
-                pubSub.emit("tick", null);
+            if (found) {
+                int tickCount = Integer.parseInt(m.group());
+                
+                for (int i = 0; i < tickCount; i++) {
+                    pubSub.emit("tick", null);
+                }
+            } else {
+                System.out.println("Unknown command");
             }
         } else if (command.startsWith("loadMap")) {
             Pattern p = Pattern.compile("\\d+");
             Matcher m = p.matcher(command);
-            m.find();
+            boolean found = m.find();
 
-            int mapId = Integer.parseInt(m.group());
-            
-            pubSub.emit("loadMap", mapId);
+            if (found) {
+                int mapId = Integer.parseInt(m.group());
+                
+                pubSub.emit("loadMap", mapId);
+            } else {
+                System.out.println("Unknown command");
+            }
         } else if (command.compareTo("viewportSwitch") == 0) {
             pubSub.emit("viewportSwitch", null);
         } else if (command.compareTo("moveFrame up") == 0) {
@@ -108,6 +118,6 @@ public class FrontController {
             System.out.println("Unknown command");
         }
         
-        
+        Logger.flush();
     }
 }

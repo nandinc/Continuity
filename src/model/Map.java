@@ -24,6 +24,55 @@ public class Map {
      * majd az y eltolással indexelhető.
      */
     protected List<List<Frame>> frames = new ArrayList<List<Frame>>();
+    
+    /**
+     * Kommunikációs csatorna
+     * 
+     * Kulcs hozzáadás és felvétel, ajtó megérintésének
+     * követéséhez.
+     */
+    private PubSub pubSub;
+    
+    /**
+     * Beállítja a kommunikációs csatornát
+     * 
+     * Figyeli a kulccsal és ajtóval kapcsolatos eseményeket
+     * @param pubSubParameter a beállítandó kommunikációs csatorna
+     */
+    public void setPubSub(PubSub pubSubParameter) {
+        this.pubSub = pubSubParameter;
+        
+        pubSubParameter.on("key:added", new Subscriber() {
+            
+            @Override
+            public void eventEmitted(String eventName, Object eventParameter) {
+                remainingKeyCount++;
+            }
+        });
+        
+        pubSubParameter.on("key:collected", new Subscriber() {
+            
+            @Override
+            public void eventEmitted(String eventName, Object eventParameter) {
+                remainingKeyCount--;
+            }
+        });
+        
+        pubSubParameter.on("door:touched", new Subscriber() {
+            
+            @Override
+            public void eventEmitted(String eventName, Object eventParameter) {
+                if (remainingKeyCount == 0) {
+                    pubSub.emit("map:completed", null);
+                } // else do nothing like a boss
+            }
+        });
+    }
+    
+    /**
+     * Nem összegyűjtött kulcsok száma
+     */
+    private int remainingKeyCount = 0;
 
     /**
      * Hozzáadja a megadott elemet az elem által specifikált pozícióhoz.

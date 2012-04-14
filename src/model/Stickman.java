@@ -125,9 +125,19 @@ public class Stickman extends AbstractFrameItem {
             }
         });
 
-        // TODO subscribe to key picked up event to collect key
-        // and save checkpoint. Take care about events emitted by
-        // another stickman
+        pubSub.on("key:collected", new Subscriber() {
+            
+            @Override
+            public void eventEmitted(String eventName, Object eventParameter) {
+                // eventParameter is the collector of the key
+                // use Stickman.this because this refers to the anonymous Subscriber class
+                if (Stickman.this == eventParameter) {
+                    // we just collected a key
+                    checkpointFrame = frame;
+                    checkpointArea = area;
+                }
+            }
+        });
     }
 
     /**

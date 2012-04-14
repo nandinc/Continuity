@@ -32,6 +32,20 @@ public class Key extends AbstractFrameItem {
     }
     
     /**
+     * Kommunikációs csatorna beállítása
+     * 
+     * Jelzi a csatornán, hogy új kulcs került a rendszerbe.
+     * 
+     * @param pubSub a beállítandó kommunikációs csatorna
+     */
+    @Override
+    public void setPubSub(PubSub pubSub) {
+        this.pubSub = pubSub;
+        
+        pubSub.emit("key:added", null);
+    }
+    
+    /**
      * A tartalmazó keret jelezheti ezen a metóduson keresztül,
      * hogy egy másik elem, melyet paraméterül ad,
      * hozzáért (collision) ehhez az elemhez.
@@ -43,9 +57,9 @@ public class Key extends AbstractFrameItem {
      */
     @Override
     public void collision(FrameItem colliding) {
-        // TODO Key.collision: add collect notification
         if (!collected) {
             Logger.logStatus("Key collected");
+            pubSub.emit("key:collected", colliding);
         }
         collected = true;
     }
