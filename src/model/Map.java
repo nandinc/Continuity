@@ -115,6 +115,23 @@ public class Map {
         Frame containingFrame = column.get(frameCoordY);
         containingFrame.addItem(item);
     }
+    
+    /**
+     * Megkeresi az üres keret helyét, és feltölti null-al.
+     */
+    public void fillFrameGap() {
+        int mapHeight = verticalFrameCount();
+        for (List<Frame> column : frames) {
+            int remaining = mapHeight - column.size();
+            
+            if (remaining > 0) {
+                while (remaining > 0) {
+                    column.add(null);
+                    remaining--;
+                }
+            }
+        }
+    }
 
     /**
      * Visszaadja a megadott keret direction irányba található
@@ -196,12 +213,101 @@ public class Map {
      * Kicseréli az üres helyet a megadott iránnyal ellentétes
      * szomszédjával.
      * 
-     * @param d Mozgazás iránya
+     * @param direction Mozgazás iránya
      */
-    public void moveFrame(DIRECTION d) {
-        // TODO implement moveFrame
-        //throw new UnsupportedOperationException();
-        Logger.logStatus("Move Frame "+d.toString()+"/Don't move frame: wrong viewport/Don't move frame: wrong direction");
+    public void moveFrame(DIRECTION direction) {
+        FrameIterator frameIterator = frameIterator();
+        boolean emptyFrameFound = false;
+        
+        while (frameIterator.hasNext() && emptyFrameFound == false) {
+            Frame frame = frameIterator.next();
+            
+            if (frame == null) { // empty frame found
+                emptyFrameFound = true;
+                Area emptyPosition = frameIterator.getFramePosition();
+                Area neighbourPosition = new Area();
+                
+                // init neighbour position
+                switch (direction) {
+                case UP:
+                    neighbourPosition.setX(
+                        emptyPosition.getX()
+                    );
+                    
+                    neighbourPosition.setY(
+                        emptyPosition.getY() + 1
+                    );
+                    
+                    break;
+
+                case RIGHT:
+                    neighbourPosition.setX(
+                            emptyPosition.getX() - 1
+                        );
+                        
+                        neighbourPosition.setY(
+                            emptyPosition.getY()
+                        );
+                    break;
+
+                case DOWN:
+                    neighbourPosition.setX(
+                        emptyPosition.getX()
+                    );
+                    
+                    neighbourPosition.setY(
+                        emptyPosition.getY() - 1
+                    );
+                    break;
+
+                case LEFT:
+                    neighbourPosition.setX(
+                        emptyPosition.getX() + 1
+                    );
+                    
+                    neighbourPosition.setY(
+                        emptyPosition.getY()
+                    );
+                    break;
+
+                default:
+                    break;
+                }
+                
+                //check for bounds
+                if (neighbourPosition.getX() < 0 || neighbourPosition.getX() >= frames.size()) {
+                    // neighbour is out of horizontal index
+                    Logger.logStatus("Don't move frame: wrong direction");
+                    return;
+                }
+
+                List<Frame> neighbourColumn = frames.get(neighbourPosition.getX());
+
+                if (neighbourPosition.getY() < 0 || neighbourPosition.getY() >= neighbourColumn.size()) {
+                    // neighbour is out of vertical index
+                    Logger.logStatus("Don't move frame: wrong direction");
+                    return;
+                }
+
+                Frame neighbourFrame = neighbourColumn.get(neighbourPosition.getY());
+                if (neighbourFrame != null) {
+                    // switch
+                    frames.get(emptyPosition.getX()).set(emptyPosition.getY(), neighbourFrame);
+                    frames.get(neighbourPosition.getX()).set(neighbourPosition.getY(), null);
+                    
+                    pubSub.emit("invalidate", null);
+                    
+                    Logger.logStatus("Move Frame "+direction.toString());
+                } else {
+                    // do nothing like a boss
+                    Logger.logStatus("Don't move frame: wrong direction");
+                }
+            }
+        }
+        
+        if (!emptyFrameFound) {
+            Logger.logStatus("No empty frame found");
+        }
     }
 
     /**

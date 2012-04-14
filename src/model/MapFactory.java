@@ -51,6 +51,7 @@ public class MapFactory {
 
         // create map
         Map map = new Map();
+        map.setPubSub(pubSub);
 
         // populate map via opened file
         String line;
@@ -68,6 +69,7 @@ public class MapFactory {
             e.printStackTrace();
         }
 
+        map.fillFrameGap();
         return map;
     }
 

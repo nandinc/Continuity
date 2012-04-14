@@ -78,18 +78,21 @@ public class FrontView {
         FrameIterator frameIterator = map.frameIterator();
         while (frameIterator.hasNext()) {
             Frame frame = frameIterator.next();
-            Area framePosition = frameIterator.getFramePosition();
-            Area itemOffset = itemOffsetByFramePosition(framePosition);
-
-            Iterator<FrameItem> itemIterator = frame.itemIterator();
-
-            while (itemIterator.hasNext()) {
-                FrameItem item = itemIterator.next();
-                //System.out.println(item.getClass());
-                drawItemToCanvas(item, itemOffset, canvas);
-            }
             
-            drawFrameToCanvas(framePosition, canvas);
+            if (frame != null) {    // check for the empty frame
+                Area framePosition = frameIterator.getFramePosition();
+                Area itemOffset = itemOffsetByFramePosition(framePosition);
+                
+                Iterator<FrameItem> itemIterator = frame.itemIterator();
+                
+                while (itemIterator.hasNext()) {
+                    FrameItem item = itemIterator.next();
+                    //System.out.println(item.getClass());
+                    drawItemToCanvas(item, itemOffset, canvas);
+                }
+                
+                drawFrameToCanvas(framePosition, canvas);
+            }
         }
 
         // print canvas
