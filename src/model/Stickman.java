@@ -125,7 +125,7 @@ public class Stickman extends AbstractFrameItem {
     public void setPubSub(PubSub pubSub) {
         this.pubSub = pubSub;
 
-        pubSub.on("tick", new Subscriber() {
+        pubSub.on("game:tick", new Subscriber() {
 
             @Override
             public void eventEmitted(String eventName, Object eventParameter) {

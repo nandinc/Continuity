@@ -70,6 +70,16 @@ public class Game {
             }
         });
         
+        pubSub.on("tick", new Subscriber() {
+            
+            @Override
+            public void eventEmitted(String eventName, Object eventParameter) {
+                if (viewportState == VIEWPORT_STATE.CLOSE) {
+                    pubSub.emit("game:tick", null);
+                }
+            }
+        });
+        
         pubSub.on("controller:viewportSwitch", new Subscriber() {
             
             @Override
