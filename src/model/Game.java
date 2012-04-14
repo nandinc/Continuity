@@ -55,6 +55,43 @@ public class Game {
     private void initPubSub() {
         pubSub = new PubSub();
         
+        pubSub.on("loadMap", new Subscriber() {
+            
+            @Override
+            public void eventEmitted(String eventName, Object eventParameter) {
+                int mapId = (Integer)eventParameter;
+                
+                try {
+                    loadMap(mapId);
+                    start();
+                } catch (MapNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        
+        pubSub.on("viewportSwitch", new Subscriber() {
+            
+            @Override
+            public void eventEmitted(String eventName, Object eventParameter) {
+                toggleViewportState();
+            }
+        });
+        
+        pubSub.on("moveFrame", new Subscriber() {
+            
+            @Override
+            public void eventEmitted(String eventName, Object eventParameter) {
+                if (viewportState == VIEWPORT_STATE.MAP) {
+                    DIRECTION direction = (DIRECTION)eventParameter;
+                    
+                    getMap().moveFrame(direction);
+                } else {
+                    Logger.logStatus("Don't move frame: wrong viewport");
+                }
+            }
+        });
+        
         pubSub.on("map:completed", new Subscriber() {
             
             @Override
