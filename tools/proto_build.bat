@@ -13,8 +13,7 @@ javac -classpath src\ -d bin src\controller\console\exception\*.java
 javac -classpath src\ -d bin src\ui\console\*.java
 javac -classpath src\ -d bin src\application\*.java
 
+xcopy src\resources\maps bin\resources\maps /e /i /h /q /y
 
-
-cd ..
 echo Done.
 pause

@@ -29,22 +29,10 @@
 			\end{center}
 		
 		\subsubsection{Fordítás}
-%		A fenti listában szerepl ő forrásfájlokból milyen műveletekkel lehet a biná ris, futtatható kódot 
-%		el őállítani. Az előállításhoz csak a 2. Követelmények c. dokumentumban leírt környezetet 
-%		szabad el őírni.
-
-	% AZ ELŐZŐ BEADANDÓBÓL:
-
-%			 A Szkeleton fordításának menete: a könyvtárszerkezet /skeleton mappájában állva a \\ \texttt{javac utils/*.java} \\ paranccsal lefordul a SkeletonLogger, majd \\ \texttt{javac model/*.java} \\ paranccsal lefordíthatóak a szükséges modellelemek, végül \\ \texttt{javac model/test/*.java} \\utasítással megtörténik a tesztek lefordítása. Ezzel a futtatható fájlok elkészítése megtörtént.
-		
+		Labortermi környezetben a java parancsok csak a Netbeans segítségével érhetőek el, így a prototípus fordításához szükséges az innen való navigáció. \\ A prototípus lefordítása automatizáltan történik a mellékelt indítófájl segítségével. A parancssorban a project könyvtárszerkezetének gyökeréből indulva a \\ \texttt{cd tools} \\ paranccsal, 
+majd a \\ \texttt{proto\textunderscore build} \\ utasítással megtörténik a fordítás.
 		\subsubsection{Futtatás}
-%		A futtatható kód elindításával kapcsolatos teend ők leírása. Az indításhoz csak a 2. 
-%		Követelmények c. dokumentumban leírt környezetet szabad előírni.
-
-	% AZ ELŐZŐ BEADANDÓBÓL:
-
-%			 A futtatható fájlok elkészítése után \\ \texttt{java model/SkeletonRunner} \\ paranccsal elindítható a teszteket összefogó program, mely a console-on keresztül valósítja meg a felhasználóval történő kommunikációt. \\
-%	 	 	A kipróbálható teszteseteket a program kilistázza, mindegyikhez egy számot rendelve, a felhasználó a billentyűzet segítségével adhatja meg a választott tesztesetet. Bizonyos tesztek működése során további interakció szükséges, ilyenkor a program ismét a felhasználó beavatkozására vár. A teszt lefolyásáról a console-on keresztül a felhasználó minden esetben részletes tájékoztatást kap. Egy teszt végrehajtása után a felhasználónak további tesztesetek kipróbálására van lehetősége, a programból való kilépés a '0' bemenenettel hajtható végre.
+		Labortermi környezetben a java parancsok csak a Netbeans segítségével érhetőek el, így a prototípus futtatásához szükséges az innen való navigáció. \\ A prototípus futtatása a könyvtárszerkezet /tools mappájába navigálva a \\ \texttt{proto\textunderscore run} \\ paranccsal történik. 
 		
 	\subsection{Tesztek jegyzőkönyvei}
         \newcommand{\testname}[1]{\hline\textbf{Tesztelő neve} & #1\\ \hline}
