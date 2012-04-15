@@ -332,7 +332,7 @@ public class Frame {
     }
     
     /**
-     * Átalakítja a kapott terület eltolását, hogy az egy
+     * Atalakítja a kapott terület eltolását, hogy az egy
      * szomszédos keret relatív eltolásához igazodjon.
      * 
      * @param area Az átalakítandó terület
