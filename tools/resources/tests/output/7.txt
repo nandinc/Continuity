@@ -17,7 +17,7 @@ Start game
 +--------------++--------------+                
 
 > moveFrame down
-Don't move 1 frame: wrong viewport
+Don't move frame: wrong viewport
 > move 1 right
 In-frame move
 No collision, do move

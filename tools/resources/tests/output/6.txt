@@ -19,7 +19,7 @@ Start game
 > viewportSwitch
 Viewport changed to map view
 > moveFrame down
-move Frame DOWN
+Move Frame DOWN
 +--------------++--------------+                
 |              ||              |                
 |              ||              |                
