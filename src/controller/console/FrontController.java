@@ -93,6 +93,8 @@ public class FrontController {
             echoCommands = true;
         } else if (commandString.compareTo("echoCommands false") == 0) {
             echoCommands = false;
+        } else if (commandString.compareTo("exit") == 0) {
+        	System.exit(0);
         } else {
             String[] args = commandString.split(" ");
             String commandName = args[0];

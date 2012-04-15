@@ -2,7 +2,7 @@
 echo ----------------------------------
 echo Building nand Continuity Prototype
 echo ----------------------------------
-cd ..
+:: cd ..
 rmdir bin /s /q
 md bin
 javac -classpath src\ -d bin src\model\*.java

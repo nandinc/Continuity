@@ -1,6 +1,6 @@
 @echo off
 
-cd ..
+:: cd ..
 
 cd bin
 java application.Application
