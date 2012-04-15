@@ -32,7 +32,9 @@
 %		A fenti listában szerepl ő forrásfájlokból milyen műveletekkel lehet a biná ris, futtatható kódot 
 %		el őállítani. Az előállításhoz csak a 2. Követelmények c. dokumentumban leírt környezetet 
 %		szabad el őírni.
-
+		
+		A fordítás batch fájl segítségével történik. Nyissunk meg egy parancssort, ahol a Java fájlok futtatásához szükséges környezeti változók be vannak állítva (JDK Command Prompt). A könyvtárszerkezet gyökérmappájában állva adjuk ki a \texttt{tools/proto\_build.bat} utasítást. Ennek hatására megtörténik a forrásfájlok lefordítása, melyről egy értesítés jelenik meg a képernyőn.
+		
 	% AZ ELŐZŐ BEADANDÓBÓL:
 
 %			 A Szkeleton fordításának menete: a könyvtárszerkezet /skeleton mappájában állva a \\ \texttt{javac utils/*.java} \\ paranccsal lefordul a SkeletonLogger, majd \\ \texttt{javac model/*.java} \\ paranccsal lefordíthatóak a szükséges modellelemek, végül \\ \texttt{javac model/test/*.java} \\utasítással megtörténik a tesztek lefordítása. Ezzel a futtatható fájlok elkészítése megtörtént.
@@ -40,7 +42,13 @@
 		\subsubsection{Futtatás}
 %		A futtatható kód elindításával kapcsolatos teend ők leírása. Az indításhoz csak a 2. 
 %		Követelmények c. dokumentumban leírt környezetet szabad előírni.
-
+		
+		A fordítás után lehetőségünk nyílik a prototípus futtatására. Ez szintúgy batch fájl segítségével történik a fenti módhoz hasonlóan.
+		
+		A prototípus futtatásához adjuk ki a \texttt{tools/proto\_run.bat} utasítást. Ezután lehetőségünk nyílik a korábban definiált parancsok segítségével vezérelni a prototípus futását.
+		
+		A tesztelés megkönnyítése érdekében létrehoztunk egy eszközt, mely veszi a tesztesetek bemenetét, ezt beadja a prototípusnak, és a generált kimenetet összehasonlítja az elvárt kimenettel. Ez a program a \texttt{tools/proto\_test.bat} utasítás kiadásával futtatható. A tesztekhez tartozó bemenetek, illetve elvárt kimenetek a \texttt{tools/resources/tests} könyvtárban találhatóak. Fontos, hogy a be- vagy kimenetek eseteleges megváltoztatása esetén a programot újra kell fordítani. 
+		
 	% AZ ELŐZŐ BEADANDÓBÓL:
 
 %			 A futtatható fájlok elkészítése után \\ \texttt{java model/SkeletonRunner} \\ paranccsal elindítható a teszteket összefogó program, mely a console-on keresztül valósítja meg a felhasználóval történő kommunikációt. \\
@@ -76,7 +84,17 @@
 			\begin{center}
 				\begin{tabular}{| p{4cm} | p{9cm} |}
 					\testname{Fodor Bertalan}
-					\testtime{2012. 02. 15. 22:20}
+					\testtime{2012. 02. 15. 23:20}
+				\end{tabular}
+			\end{center}
+			
+			\begin{center}
+				\begin{tabular}{| p{4cm} | p{9cm} |}
+					\testname{Fodor Bertalan}
+					\testtime{2012.02.15 22:20}
+					\testsumm{Hibás, hiányzó rész a teszt végén.}
+					\testfault{Hiányzott egy utasítás a teszt bemenetéből, eggyel kevesebb bemenet volt, mint kimenet.}
+					\testmodif{\texttt{> move 1 left} hozzáadása a bemenethez.}
 				\end{tabular}
 			\end{center}
 
@@ -102,8 +120,18 @@
 %		Az alábbi táblázatot az  utolsó, sikeres tesztfutta táshoz kell kitölteni.
 			\begin{center}
 				\begin{tabular}{| p{4cm} | p{9cm} |}
-					\testname{Thaler Benedek}
-					\testtime{2012. 02. 15. 22:30}
+					\testname{Fodor Bertalan}
+					\testtime{2012. 02. 15. 23:10}
+				\end{tabular}
+			\end{center}
+			
+			\begin{center}
+				\begin{tabular}{| p{4cm} | p{9cm} |}
+					\testname{Fodor Bertalan}
+					\testtime{2012.02.15 22:30}
+					\testsumm{Hibás, keretmozgatás meghíúsult, ahelyett hogy lefelé mozgott volna.}
+					\testfault{Teszt bemenet hibás volt, balra mozgatás szerepelt benne lefele történő mozgatás helyett.}
+					\testmodif{Mozgatás irányának módosítása balráról lefelére.}
 				\end{tabular}
 			\end{center}
 

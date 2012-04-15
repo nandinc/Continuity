@@ -45,6 +45,7 @@ public class TestRunner {
 		prOutput.write("exit\n");
 		prOutput.flush();
 		
+		this.expectedOutput.add("> echoCommands true\n");
 		while ((line = this.outputStream.readLine()) != null) {
 			if (line.trim().isEmpty()) {
 				continue;
