@@ -1,0 +1,6 @@
+loadMap 2
+moveFrame down
+move 1 right
+move 1 right
+viewportSwitch
+move 1 right
