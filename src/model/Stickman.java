@@ -28,7 +28,7 @@ public class Stickman extends AbstractFrameItem {
      * 
      * A pályán található különböző stickmanek megkülönböztetésére szolgál
      */
-    private Integer identifier;
+    private Integer identifier = 1;
     
     /**
      * A figura mozgatása a megadott irányba.
