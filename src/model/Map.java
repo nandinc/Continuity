@@ -95,12 +95,28 @@ public class Map {
         }
 
         List<Frame> column = frames.get(frameCoordX);
+        
+        Frame containingFrame;
+        
         // add new frames if needed
         if (column.size() <= frameCoordY) {
-            for (int currentSize = column.size(); currentSize <= frameCoordY; currentSize++) {
-                Frame frame = new Frame();
-                frame.setMap(this);
-                column.add(frame);
+            // fill the column with nulls while reaching the needed row
+            for (int currentSize = column.size(); currentSize < frameCoordY; currentSize++) {
+                //Frame frame = new Frame();
+                //frame.setMap(this);
+                column.add(null);
+            }
+            // add the containing frame to the desired position
+            containingFrame = new Frame();
+            containingFrame.setMap(this);
+            column.add(containingFrame);
+            
+        } else {    // there are already enough frames
+            containingFrame = column.get(frameCoordY);
+            if (containingFrame == null) {
+                containingFrame = new Frame();
+                containingFrame.setMap(this);
+                column.set(frameCoordY, containingFrame);
             }
         }
 
@@ -112,7 +128,6 @@ public class Map {
         item.getArea().setY(itemOffsetY);
 
         // finally add item to the containing frame
-        Frame containingFrame = column.get(frameCoordY);
         containingFrame.addItem(item);
     }
     
