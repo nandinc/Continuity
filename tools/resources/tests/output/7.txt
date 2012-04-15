@@ -56,5 +56,5 @@ No collision, do move
 
 > viewportSwitch
 Viewport changed to map view
-> move right
+> move 1 right
 Don't move: wrong viewport
