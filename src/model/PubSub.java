@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Üzenetközvetítő csatorna, mely a Publish/Subscribe mintát valósítja meg.
@@ -35,12 +36,17 @@ public class PubSub {
      */
     public void on(String eventName, Subscriber callback) {
         if (!subscribers.containsKey(eventName)) {
-            subscribers.put(eventName, new LinkedList<Subscriber>());
+            //subscribers.put(eventName, new LinkedList<Subscriber>());
+            subscribers.put(eventName, new CopyOnWriteArrayList<Subscriber>());
         }
 
         subscribers.get(eventName).add(callback);
     }
-
+    
+    public void unsubEventSubscribers(String eventName) {
+        subscribers.remove(eventName);
+    }
+    
     /**
      * Az eseményekre feliratkozott eseménykezelőket tárolja.
      */

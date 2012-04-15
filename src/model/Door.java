@@ -34,8 +34,8 @@ public class Door extends AbstractFrameItem {
      */
     @Override
     public void collision(FrameItem colliding) {
-        pubSub.emit("door:touched", null);
         Logger.logStatus("Door touched");
+        pubSub.emit("door:touched", null);
     }
 
 }

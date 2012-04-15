@@ -22,9 +22,9 @@ public class Logger {
      * @param status Üzenet 
      */
 	public static void logStatus(String status) {
-		//System.out.println(status);
-	    statusBuffer.append(status);
-	    statusBuffer.append("\n");
+		System.out.println(status);
+	    /*statusBuffer.append(status);
+	    statusBuffer.append("\n");*/
 	}
 	
 	/**
@@ -36,13 +36,20 @@ public class Logger {
 	}
 	
 	/**
-	 * Kimenet ürítése
+	 * Kimeneti puffer kivezetése a kimenetre 
 	 */
 	public static void flush() {
 	    System.out.print(statusBuffer.toString());
 	    System.out.print(mapBuffer.toString());
 	    
+	    reset();
+	}
+	
+	/**
+	 * Kimenet ürítése
+	 */
+	public static void reset() {
 	    statusBuffer = new StringBuilder();
-	    mapBuffer = new StringBuilder();
+        mapBuffer = new StringBuilder();
 	}
 }

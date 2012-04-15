@@ -36,9 +36,9 @@ public class Stickman extends AbstractFrameItem {
      */
     public void move(DIRECTION direction) {
         Area newArea = getNewAreaByDirection(direction);
-        frame.requestArea(this, newArea);
+        boolean successfulMove = frame.requestArea(this, newArea);
         
-        if (direction == DIRECTION.UP && jumpSpeed == 0) {
+        if (successfulMove && direction == DIRECTION.UP && jumpSpeed == 0) {
             jumpSpeed = 1;
         }
     }
@@ -132,12 +132,13 @@ public class Stickman extends AbstractFrameItem {
                 if (jumpSpeed == 0) {
                     move(DIRECTION.DOWN);
                 } else {
+                    move(DIRECTION.UP);
                     jumpSpeed--;
                 }
             }
         });
         
-        pubSub.on("controller:move:" + identifier.toString(), new Subscriber() {
+        pubSub.on("game:move:" + identifier.toString(), new Subscriber() {
             
             @Override
             public void eventEmitted(String eventName, Object eventParameter) {

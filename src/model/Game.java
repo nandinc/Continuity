@@ -62,6 +62,10 @@ public class Game {
                 int mapId = (Integer)eventParameter;
                 
                 try {
+                    if (currentMap != null) {
+                        unloadMap(currentMap);
+                    }
+                    Logger.logStatus("Load map" + mapId);
                     loadMap(mapId);
                     start();
                 } catch (MapNotFoundException e) {
@@ -76,6 +80,30 @@ public class Game {
             public void eventEmitted(String eventName, Object eventParameter) {
                 if (viewportState == VIEWPORT_STATE.CLOSE) {
                     pubSub.emit("game:tick", null);
+                }
+            }
+        });
+        
+        pubSub.on("controller:move:1", new Subscriber() {
+            
+            @Override
+            public void eventEmitted(String eventName, Object eventParameter) {
+                if (viewportState == VIEWPORT_STATE.CLOSE) {
+                    pubSub.emit("game:move:1", eventParameter);
+                } else {
+                    Logger.logStatus("Don't move: wrong viewport");
+                }
+            }
+        });
+        
+        pubSub.on("controller:move:2", new Subscriber() {
+            
+            @Override
+            public void eventEmitted(String eventName, Object eventParameter) {
+                if (viewportState == VIEWPORT_STATE.CLOSE) {
+                    pubSub.emit("game:move:2", eventParameter);
+                } else {
+                    Logger.logStatus("Don't move: wrong viewport");
                 }
             }
         });
@@ -107,6 +135,8 @@ public class Game {
             @Override
             public void eventEmitted(String eventName, Object eventParameter) {
                 try {
+                    unloadMap(currentMap);
+                    Logger.reset();
                     loadMap(currentMapId + 1);
                 } catch (MapNotFoundException e) {
                     // end of map list
@@ -122,9 +152,15 @@ public class Game {
      * @throws MapNotFoundException 
      */
     public void loadMap(int mapId) throws MapNotFoundException {
-        Logger.logStatus("Load map" + mapId);
         currentMap = mapFactory.getMap(mapId, pubSub);
         currentMapId = mapId;
+    }
+    
+    /**
+     * Leiratkoztatja a kapott pálya elemeit a kommunikácós csatornáról
+     */
+    private void unloadMap(Map map) {
+        map.unsubscribe();
     }
 
     /**

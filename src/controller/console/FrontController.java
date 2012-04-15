@@ -85,16 +85,21 @@ public class FrontController {
      * @param commandString bejövő parancs
      */
     private void execute(String commandString) {
-        if (echoCommands == true) {
-            System.out.println(commandString);
-        }
-        
         if (commandString.compareTo("echoCommands true") == 0) {
             echoCommands = true;
         } else if (commandString.compareTo("echoCommands false") == 0) {
             echoCommands = false;
-        } else if (commandString.compareTo("exit") == 0) {
-        	System.exit(0);
+        }
+        
+        if (echoCommands == true) {
+            System.out.println(commandString);
+        }
+        
+        if (commandString.compareTo("echoCommands true") == 0 || commandString.compareTo("echoCommands false") == 0) {
+            // Do nothing, we've already done our job
+        }
+        else if (commandString.compareTo("exit") == 0) {
+            System.exit(0);
         } else {
             String[] args = commandString.split(" ");
             String commandName = args[0];

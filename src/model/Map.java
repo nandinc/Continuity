@@ -63,6 +63,7 @@ public class Map {
             @Override
             public void eventEmitted(String eventName, Object eventParameter) {
                 if (remainingKeyCount == 0) {
+                    Logger.logStatus("Door opened");
                     pubSub.emit("map:completed", null);
                 } // else do nothing like a boss
             }
@@ -461,5 +462,20 @@ public class Map {
         }
 
         return verticalFrameCount;
+    }
+    
+    /**
+     * Leiratkozik a kommunikációs csatornáról
+     */
+    public void unsubscribe() {
+        pubSub.unsubEventSubscribers("key:added");
+        pubSub.unsubEventSubscribers("key:collected");
+        pubSub.unsubEventSubscribers("door:touched");
+        pubSub.unsubEventSubscribers("game:tick");
+        pubSub.unsubEventSubscribers("game:move:1");
+        pubSub.unsubEventSubscribers("game:move:2");
+        /*pubSub.unsubEventSubscribers("");
+        pubSub.unsubEventSubscribers("");
+        pubSub.unsubEventSubscribers("");*/
     }
 }
