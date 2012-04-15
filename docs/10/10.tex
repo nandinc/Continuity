@@ -29,41 +29,104 @@
 			\end{center}
 		
 		\subsubsection{Fordítás}
-		Labortermi környezetben a java parancsok csak a Netbeans segítségével érhetőek el, így a prototípus fordításához szükséges az innen való navigáció. \\ A prototípus lefordítása automatizáltan történik a mellékelt indítófájl segítségével. A parancssorban a project könyvtárszerkezetének gyökeréből indulva a \\ \texttt{cd tools} \\ paranccsal, 
-majd a \\ \texttt{proto\textunderscore build} \\ utasítással megtörténik a fordítás.
-		\subsubsection{Futtatás}
-		Labortermi környezetben a java parancsok csak a Netbeans segítségével érhetőek el, így a prototípus futtatásához szükséges az innen való navigáció. \\ A prototípus futtatása a könyvtárszerkezet /tools mappájába navigálva a \\ \texttt{proto\textunderscore run} \\ paranccsal történik. 
+%		A fenti listában szerepl ő forrásfájlokból milyen műveletekkel lehet a biná ris, futtatható kódot 
+%		el őállítani. Az előállításhoz csak a 2. Követelmények c. dokumentumban leírt környezetet 
+%		szabad el őírni.
+
+	% AZ ELŐZŐ BEADANDÓBÓL:
+
+%			 A Szkeleton fordításának menete: a könyvtárszerkezet /skeleton mappájában állva a \\ \texttt{javac utils/*.java} \\ paranccsal lefordul a SkeletonLogger, majd \\ \texttt{javac model/*.java} \\ paranccsal lefordíthatóak a szükséges modellelemek, végül \\ \texttt{javac model/test/*.java} \\utasítással megtörténik a tesztek lefordítása. Ezzel a futtatható fájlok elkészítése megtörtént.
 		
-	\subsection{Tesztek jegyzőkönyvei}
+		\subsubsection{Futtatás}
+%		A futtatható kód elindításával kapcsolatos teend ők leírása. Az indításhoz csak a 2. 
+%		Követelmények c. dokumentumban leírt környezetet szabad előírni.
+
+	% AZ ELŐZŐ BEADANDÓBÓL:
+
+%			 A futtatható fájlok elkészítése után \\ \texttt{java model/SkeletonRunner} \\ paranccsal elindítható a teszteket összefogó program, mely a console-on keresztül valósítja meg a felhasználóval történő kommunikációt. \\
+%	 	 	A kipróbálható teszteseteket a program kilistázza, mindegyikhez egy számot rendelve, a felhasználó a billentyűzet segítségével adhatja meg a választott tesztesetet. Bizonyos tesztek működése során további interakció szükséges, ilyenkor a program ismét a felhasználó beavatkozására vár. A teszt lefolyásáról a console-on keresztül a felhasználó minden esetben részletes tájékoztatást kap. Egy teszt végrehajtása után a felhasználónak további tesztesetek kipróbálására van lehetősége, a programból való kilépés a '0' bemenenettel hajtható végre.
+		
+	\subsection{Tesztek jegyzőkönyvei}	
+	
         \newcommand{\testname}[1]{\hline\textbf{Tesztelő neve} & #1\\ \hline}
         \newcommand{\testtime}[1]{\textbf{Teszt időpontja} & #1\\ \hline}
         \newcommand{\testsumm}[1]{\textbf{Teszt eredménye} & #1\\ \hline}
         \newcommand{\testfault}[1]{\textbf{Lehetséges hibaok} & #1\\ \hline}
         \newcommand{\testmodif}[1]{\textbf{Változtatások} & #1\\ \hline}
-		\subsubsection{Teszteset 1}
+		\subsubsection{Pálya betöltése}
 %		Az alábbi táblázatot az  utolsó, sikeres tesztfutta táshoz kell kitölteni.
 			\begin{center}
 				\begin{tabular}{| p{4cm} | p{9cm} |}
-					\testname{tesztelő neve}
-					\testtime{időpont}
+					\testname{Fodor Bertalan}
+					\testtime{2012. 02. 15. 22:00}
+				\end{tabular}
+			\end{center}
+		
+		\subsubsection{Stickman mozgatása kereten belül}
+%		Az alábbi táblázatot az  utolsó, sikeres tesztfutta táshoz kell kitölteni.
+			\begin{center}
+				\begin{tabular}{| p{4cm} | p{9cm} |}
+					\testname{Thaler Benedek}
+					\testtime{2012. 02. 15. 22:00}
+				\end{tabular}
+			\end{center}
+
+		\subsubsection{Stickman mozgatása keretek között}
+%		Az alábbi táblázatot az  utolsó, sikeres tesztfutta táshoz kell kitölteni.
+			\begin{center}
+				\begin{tabular}{| p{4cm} | p{9cm} |}
+					\testname{Fodor Bertalan}
+					\testtime{2012. 02. 15. 22:20}
+				\end{tabular}
+			\end{center}
+
+		\subsubsection{Stickman kiesése}
+%		Az alábbi táblázatot az  utolsó, sikeres tesztfutta táshoz kell kitölteni.
+			\begin{center}
+				\begin{tabular}{| p{4cm} | p{9cm} |}
+					\testname{Fodor Bertalan}
+					\testtime{2012. 02. 15. 22:40}
+				\end{tabular}
+			\end{center}
+
+		\subsubsection{Kulcs felvétele, pálya teljesítése}
+%		Az alábbi táblázatot az  utolsó, sikeres tesztfutta táshoz kell kitölteni.
+			\begin{center}
+				\begin{tabular}{| p{4cm} | p{9cm} |}
+					\testname{Thaler Benedek}
+					\testtime{2012. 02. 15. 22:15}
+				\end{tabular}
+			\end{center}
+
+		\subsubsection{Keret mozgatása}
+%		Az alábbi táblázatot az  utolsó, sikeres tesztfutta táshoz kell kitölteni.
+			\begin{center}
+				\begin{tabular}{| p{4cm} | p{9cm} |}
+					\testname{Thaler Benedek}
+					\testtime{2012. 02. 15. 22:30}
+				\end{tabular}
+			\end{center}
+
+		\subsubsection{Nézetek közötti váltás}
+%		Az alábbi táblázatot az  utolsó, sikeres tesztfutta táshoz kell kitölteni.
+			\begin{center}
+				\begin{tabular}{| p{4cm} | p{9cm} |}
+					\testname{Thaler Benedek}
+					\testtime{2012. 02. 15. 22:50}
 				\end{tabular}
 			\end{center}
 
 %		Az alábbi táblázatot a megismételt (hibás) tesztek esetén kell kitölteni minden ismétléshez 
 %		egyszer. Ha szükséges, akkor a valós kimenet is mellékelhet ő mint a teszt eredménye.
-			\begin{center}
-				\begin{tabular}{| p{4cm} | p{9cm} |}
-					\testname{tesztelő neve}
-					\testtime{időpont}
-					\testsumm{teszt eredménye}
-					\testfault{hiba oka}
-					\testmodif{változtatások}
-				\end{tabular}
-			\end{center}
-		\subsubsection{Teszteset 2}
-		\subsubsection{Teszteset 3}
-		\subsubsection{Teszteset 4}
-		\subsubsection{Teszteset 5}
+%			\begin{center}
+%				\begin{tabular}{| p{4cm} | p{9cm} |}
+%					\testname{tesztelő neve}
+%					\testtime{időpont}
+%					\testsumm{teszt eredménye}
+%					\testfault{hiba oka}
+%					\testmodif{változtatások}
+%				\end{tabular}
+%			\end{center}
 
 	\subsection{Értékelés}
 %	A projekt kezdete óta az értékelésig eltelt id őben tagokra bontva, százalékban.
