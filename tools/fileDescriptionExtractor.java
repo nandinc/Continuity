@@ -89,7 +89,7 @@ public class fileDescriptionExtractor {
 		}
 		
 		//System.out.println(descriptionReport);
-		String filePath = "../docs/06/06.tex";
+		String filePath = "../docs/10/10.tex";
 		String placeholder = "%GENERATOR:FILE_LIST";
 		String outputContent = placeholder + "\n" + descriptionReport + "\n\t\t\t\t\t" + placeholder;
 		writeContentToPlaceholdersIntoFile(filePath, placeholder, outputContent);
