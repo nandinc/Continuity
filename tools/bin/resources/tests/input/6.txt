@@ -1,3 +1,0 @@
-loadMap 5
-viewportSwitch
-moveFrame down

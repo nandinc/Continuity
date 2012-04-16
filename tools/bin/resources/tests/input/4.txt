@@ -1,5 +1,0 @@
-loadMap 4
-move 1 right
-tick
-tick
-tick
