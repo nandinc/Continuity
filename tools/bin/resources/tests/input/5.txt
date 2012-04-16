@@ -1,0 +1,6 @@
+loadMap 5
+move 1 right
+move 1 left
+move 1 left
+move 1 right
+move 1 right

@@ -1,0 +1,14 @@
+loadMap 2
+move 1 left
+move 1 left
+move 1 up
+move 1 right
+move 1 right
+move 1 right
+tick
+tick
+move 1 up
+tick
+tick
+tick
+tick    
