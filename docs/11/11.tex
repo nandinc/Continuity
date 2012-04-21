@@ -1,0 +1,58 @@
+\input{../head}
+
+\usepackage{enumitem}
+\usepackage{textcomp}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\begin{document}
+
+\anyag{11. Grafikus felület specifikációja}
+\fedlap
+
+\addtocounter{section}{10}
+\section{Grafikus felület specifikációja}
+
+	\subsection{A grafikus interfész}
+	%A menürendszer, a kezelői felület grafikus képe. A grafikus  felület megjelenését, a használt ikonokat, stb screenshot-szer ű képekkel kell bemutatni. Az épít észetben ez a homlokzati terv.
+
+		\subsection{A grafikus rendszer architektúrája}
+		%A felület m űködésének elve, a grafikus rendszer architektúrája (struktúra diagramok). A struktúra diagramokon a prototípus azon és cs ak azon osztályainak  is szerepelnie kell, amelyekhez a grafikus felületet létrehozó osztályok kapcsolódnak.
+		
+		\subsubsection{A felület működési elve}
+		%Le kell írni, hogy a grafikai megjelenésért felelős osztályok, objektumok hogyan kapcsolódnak a meglevő rendszerhez, a megjelenítés során mi volt az alapelv. Törekedni kell az MVC megvalósításra. Alapelvek lehetnek: push  alapú: a modell értesíti a felületet, hogy változott; pull  alapú: a felület kérdezi le a modellt, hogy változott-e;  kevert: a kett ő kombinációja.
+		
+		\subsubsection{A felület osztály-struktúrája}
+		%Osztálydiagram. Minden új osztály, és  azon régiek, akik az újakhoz közvetlenül kapcsolódnak.
+
+	\subsection{A grafikus objektumok felsorolása}
+	%Az új osztályok felsorolása. Az  régi osztályok közül azoknak a  felsorolása, ahol változás volt. Ezek esetén csak a változásokat kell leírni.	
+	
+	%GENERATOR:CLASS_DESCRIPTIONS
+		\subsubsection{Osztály1}
+			\begin{description}
+				\item[Felelősség] Mi az osztály felel őssége. Kb 1 bekezdés. Ha szüks éges, akkor state-chart is.
+				\item[Ősosztályok] Legősebb osztály → Ősosztály2  → Ősosztály3...
+				\item[Interfészek] Mely interfészeket valósítja meg.
+				\item[Attribútumok] Milyen attribútumai vannak
+					\begin{description}
+						\item[attribútum1] attribútum jellemzése: mire való, láthatósága (UML jelöléssel), típusa 
+					\end{description}
+				\item[Metódusok] Milyen publikus, protected és privát  metódus okkal rendelkezik. Metódusonként precíz leírás, 
+ha szükséges, activity diagram is  a metódusban megvalósítandó algoritmusról.
+					\begin{description}
+						\item[int foo(Osztály3 o1, Osztály4 o2)] metódus leírása, láthatósága (UML jelöléssel)
+					\end{description}
+			\end{description}
+	%GENERATOR:CLASS_DESCRIPTIONS
+
+	\subsection{Kapcsolat az alkalmazói rendszerrel}
+	%Szekvencia-diagramokon ábrázolni kell a grafikus rendszer működését. Konzisztens kell legyen az el őz ő alfejezetekkel. Minden metódus,  ami ott szerepel, fel kell tűnjön valamelyik szekvenciában. Minden metódusnak, ami szekvenciában  szerepel, szereplnie kell a valamelyik osztálydiagramon.
+	
+		\subsection{Napló}
+	% The diary generator uses the following comments to identify the beginning and the ending of the generated diary
+	% The following content is auto generated, please do NOT modify, edit the related shared document instead.
+	%GENERATOR:DIARY
+	
+	%GENERATOR:DIARY
+\end{document}
