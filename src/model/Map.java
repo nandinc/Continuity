@@ -217,11 +217,10 @@ public class Map {
         }
 
         Frame neighbour = neighbourColumn.get(callerRowIndex);
-
-        if (caller.isTraversable(neighbour, direction)) {
-            return neighbour;
-        } else {
+        if (neighbour == null || caller.isTraversable(neighbour, direction) == false) {
             return null;
+        } else {
+            return neighbour;
         }
     }
 
