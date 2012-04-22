@@ -39,9 +39,9 @@ public class FrontView {
 	}
 	
 	/**
-	 * Újrarajzolja az aktuális pályát.
+	 * Kezdeményezi a pálya újrarajzolását.
 	 */
-	private void repaint() {
+	private void invalidate() {
 		this.canvas.invalidate();
 	}
 	
