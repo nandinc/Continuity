@@ -20,21 +20,26 @@
 		    \includegraphics[scale=0.7]{resources/gui_original.png}
 	  \end{center}
 	
-	A program felhasználói felületének tervezése során a felület kialakítását az egyszerűség és könnyen irányíthatóság irányelvei alakította ki. A menürendszer  felépítését az opciók minél gyorsabb elérésérére való törekvés határozta meg. Emiatt a játék közbeni lehetőségek mind elérhetőek egyetlen kattintással, vagy a megfelelő billentyű lenyomásával, gördülényebbé téve a játékmenetet. A fenti szempontok figyelembe vételével a felület látványterve:
+	A program felhasználói felületének tervezése során a felület kialakítását az egyszerűség és könnyen irányíthatóság irányelvei alakította ki. A menürendszer  felépítését az opciók minél gyorsabb elérésérére való törekvés határozta meg. Emiatt a játék közbeni lehetőségek mind elérhetőek egyetlen kattintással, vagy a megfelelő billentyű lenyomásával, gördülékenyebbé téve a játékmenetet. A fenti szempontok figyelembe vételével a felület látványterve:
 	\begin{center}
 		    \includegraphics[scale=0.7]{resources/gui_own.png}
 	 \end{center}
-	 Az ábrán számokkal megjelölt kezelőelemek:
-	 \begin{enumerate}
- \item Menüsáv
- 		\begin{enumerate}
- 		\item Menüsáv
- 		\item Játéktér
-		\end{enumerate}
- \item Játéktér
-\end{enumerate}
-1. 
-
+	 Az ábrán számokkal megjelölt kezelő-, és játékelemek:
+	 \begin{description}	 
+	  \item[1 Menüsáv] Az egyes opciók elérése.
+ 			\begin{description}
+ 			\item[1.1 New game]  Új játék kezdése.
+ 			\item[1.2 Skip level] A játék a következő pályára ugrik.
+ 			\item[1.3 About] A játék készítésével kapcsolatos információk érhetőek el.
+ 			\item[1.4 Quit] A játékból való kilépés.
+			\end{description}
+ 	  \item[2 Játéktér] A folyamatban levő játék megjelenítése.
+ 	  \item[3 Stickman] 
+ 	  \item[4 Kulcs]
+ 	  \item[5 Ajtó]
+ 	  \item[6 Üres terület] 
+ 	  \item[7 Fal] 
+     \end{description}
 
 		\subsection{A grafikus rendszer architektúrája}
 		%A felület m űködésének elve, a grafikus rendszer architektúrája (struktúra diagramok). A struktúra diagramokon a prototípus azon és cs ak azon osztályainak  is szerepelnie kell, amelyekhez a grafikus felületet létrehozó osztályok kapcsolódnak.
