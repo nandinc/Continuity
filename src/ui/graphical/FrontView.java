@@ -24,7 +24,7 @@ public class FrontView {
 	/**
 	 * A különböző típusú FrameItemekhez tartozó rajzoló osztályok tárolója
 	 */
-	private java.util.Map<? extends FrameItem, ItemDrawer> drawers;
+	private java.util.Map<Class<? extends FrameItem>, ItemDrawer> drawers;
 	
 	/**
 	 * Inicializálás
