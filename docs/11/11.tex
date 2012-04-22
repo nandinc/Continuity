@@ -21,9 +21,14 @@
 		
 		\subsubsection{A felület működési elve}
 		%Le kell írni, hogy a grafikai megjelenésért felelős osztályok, objektumok hogyan kapcsolódnak a meglevő rendszerhez, a megjelenítés során mi volt az alapelv. Törekedni kell az MVC megvalósításra. Alapelvek lehetnek: push  alapú: a modell értesíti a felületet, hogy változott; pull  alapú: a felület kérdezi le a modellt, hogy változott-e;  kevert: a kett ő kombinációja.
+		A grafikus felület a \texttt{Game} osztály által szolgáltatott publish/subscribe mintát megvalósító kommunikációs csatornán keresztül értesül a modell változásairól. A felület továbbá ismeri az aktuális \texttt{Game} objektumot, így téve lehetővé a játék állapotának megjelenítését. Amikor a modell megváltozik, ezen a csatornán egy \texttt{invalidate} esemény érkezik, melynek hatására a megjelenésért felelős osztályok újrarajzolják a grafikus felületet. Az újrarajzolás során a grafikus felület kérdezi le a \texttt{Game} osztály állapotát (melybe beleértendő az aktuális pálya állapota és a nézet), ami alapján a rajzolást végzi.
 		
 		\subsubsection{A felület osztály-struktúrája}
 		%Osztálydiagram. Minden új osztály, és  azon régiek, akik az újakhoz közvetlenül kapcsolódnak.
+			
+	    \begin{center}
+		    \includegraphics[scale=0.88]{resources/graphics.png}
+	    \end{center}
 
 	\subsection{A grafikus objektumok felsorolása}
 	%Az új osztályok felsorolása. Az  régi osztályok közül azoknak a  felsorolása, ahol változás volt. Ezek esetén csak a változásokat kell leírni.	
