@@ -17,12 +17,12 @@ public class FrontView {
 	private Game game;
 	
 	/**
-	 * Az aktuális pálya megjelenítésére szolgáló terület.
+	 * Az aktuális pálya megjelenítésére szolgáló terület
 	 */
 	private JPanel canvas;
 	
 	/**
-	 * A különböző típusú FrameItemekhez tartozó rajzoló osztályok tárolója.
+	 * A különböző típusú FrameItemekhez tartozó rajzoló osztályok tárolója
 	 */
 	private java.util.Map<? extends FrameItem, ItemDrawer> drawers;
 	
@@ -33,7 +33,7 @@ public class FrontView {
 	FrontView(Game game) {
 		this.game = game;
 		
-		this.initWindow();
+		this.initGUI();
 		
 		// Subscribe to invalidate events
 	}
@@ -46,7 +46,7 @@ public class FrontView {
 	}
 	
 	/**
-	 * Gondoskodik a keretek és keret elemek canvaszra történő kirajzolásáról.
+	 * Gondoskodik a keretek és keret elemek canvasra történő kirajzolásáról.
 	 * @param g Objektum, amire rajzolni lehet
 	 */
 	private void draw(Graphics g) {
@@ -61,7 +61,7 @@ public class FrontView {
 	 * Inicializálja a grafikus interfészt,
 	 * többek közt megjeleníti a játékhoz tartozó ablakot.
 	 */
-	private void initWindow() {
+	private void initGUI() {
 		
 	}
 }

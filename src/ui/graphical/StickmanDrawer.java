@@ -10,7 +10,7 @@ import model.FrameItem;
  */
 public class StickmanDrawer implements ItemDrawer {
 	/**
-	 * Kirajzolja az átadott stickmant az átadott Graphics objektumon.
+	 * Kirajzolja az átadott stickmant az átadott Graphics objektumra.
 	 * @param fi Kirajzolandó Stickman
 	 * @param g Objektum, amire rajzolni lehet
 	 */

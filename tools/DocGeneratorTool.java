@@ -13,7 +13,7 @@ import java.util.Arrays;
  */
 public class DocGeneratorTool extends Doclet {
 	//protected static String targetPath = "../docs/08/08.tex";
-	protected static String targetPath = "c:\\Berci\\Programozas\\Continuity\\Continuity\\docs\\08\\08.tex";
+	protected static String targetPath = "c:\\Berci\\Programozas\\Continuity\\Continuity\\docs\\11\\11.tex";
 	
 	private static String readFileAsString(String filePath) throws java.io.IOException {
 	    byte[] buffer = new byte[(int) new File(filePath).length()];

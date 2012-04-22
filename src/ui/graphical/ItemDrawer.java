@@ -9,7 +9,7 @@ import model.FrameItem;
  */
 public interface ItemDrawer {
 	/**
-	 * Kirajzolja az átadott FrameItemet az átadott Graphics objektumon.
+	 * Kirajzolja az átadott FrameItemet az átadott Graphics objektumra.
 	 * @param fi Kirajzolandó FrameItem
 	 * @param g Objektum, amire rajzolni lehet
 	 */

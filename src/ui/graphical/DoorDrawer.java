@@ -10,7 +10,7 @@ import model.FrameItem;
  */
 public class DoorDrawer implements ItemDrawer {
 	/**
-	 * Kirajzolja az átadott ajtót az átadott Graphics objektumon.
+	 * Kirajzolja az átadott ajtót az átadott Graphics objektumra.
 	 * @param fi Kirajzolandó Door
 	 * @param g Objektum, amire rajzolni lehet
 	 */

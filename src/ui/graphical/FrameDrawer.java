@@ -9,7 +9,7 @@ import java.awt.Graphics;
  */
 public class FrameDrawer {
 	/**
-	 * Kirajzol egy keretet
+	 * Kirajzol egy keretet az átadott Graphics objektumra.
 	 * @param f Kirajzolandó keret
 	 * @param g Objektum, amire rajzolni lehet
 	 */

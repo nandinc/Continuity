@@ -59,22 +59,163 @@
 	%Az új osztályok felsorolása. Az  régi osztályok közül azoknak a  felsorolása, ahol változás volt. Ezek esetén csak a változásokat kell leírni.	
 	
 	%GENERATOR:CLASS_DESCRIPTIONS
-		\subsubsection{Osztály1}
+		\subsubsection{DoorDrawer}
 			\begin{description}
-				\item[Felelősség] Mi az osztály felel őssége. Kb 1 bekezdés. Ha szüks éges, akkor state-chart is.
-				\item[Ősosztályok] Legősebb osztály → Ősosztály2  → Ősosztály3...
-				\item[Interfészek] Mely interfészeket valósítja meg.
-				\item[Attribútumok] Milyen attribútumai vannak
+
+				\item[Felelősség] Ajtókat rajzol ki.
+
+				\item[Ősosztályok] (nincs)
+				\item[Interfészek] ItemDrawer.
+				\item[Attribútumok] (nincs)
+				\item[Metódusok]$\ $
 					\begin{description}
-						\item[attribútum1] attribútum jellemzése: mire való, láthatósága (UML jelöléssel), típusa 
-					\end{description}
-				\item[Metódusok] Milyen publikus, protected és privát  metódus okkal rendelkezik. Metódusonként precíz leírás, 
-ha szükséges, activity diagram is  a metódusban megvalósítandó algoritmusról.
-					\begin{description}
-						\item[int foo(Osztály3 o1, Osztály4 o2)] metódus leírása, láthatósága (UML jelöléssel)
+						\item[\texttt{+draw(fi : FrameItem, g : Graphics)}] \hfill \\Kirajzolja az átadott ajtót az átadott Graphics objektumon. 
 					\end{description}
 			\end{description}
-	%GENERATOR:CLASS_DESCRIPTIONS
+
+		\subsubsection{Frame}
+			Kibővített osztály.
+			\begin{description}
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+itemIterator() : Iterator}] \hfill \\Visszaad egy iteratort, mely a tartalmazott  elemeken megy végig. 
+					\end{description}
+			\end{description}
+			
+		\subsubsection{FrameDrawer}
+			\begin{description}
+
+				\item[Felelősség] Kereteket rajzol ki.
+
+				\item[Ősosztályok] (nincs)
+				\item[Interfészek] (nincs)
+				\item[Attribútumok] (nincs)
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+draw(f : Frame, g : Graphics)}] \hfill \\Kirajzol egy keretet 
+					\end{description}
+			\end{description}
+
+		\subsubsection{FrontController}
+			\begin{description}
+
+				\item[Felelősség] Felhasználói parancsok fogadása, értelemezése, továbbítása.
+
+				\item[Ősosztályok] (nincs)
+				\item[Interfészek] (nincs)
+				\item[Attribútumok]$\ $
+					\begin{description}
+						\item[\texttt{-pubSub : PubSub}]Kommunikációs csatorna a Game felé.
+					\end{description}
+				\item[Metódusok] (nincs)
+			\end{description}
+			
+		\subsubsection{FrontView}
+			\begin{description}
+
+				\item[Felelősség] Kirajzolja a pálya aktuális állapotát, a benne lévő keretekkel, elemekkel stb. együtt, valamint megjeleníti a vezérlőket (pl. következő pályára lépés).
+
+				\item[Ősosztályok] (nincs)
+				\item[Interfészek] (nincs)
+				\item[Attribútumok]$\ $
+					\begin{description}
+						\item[\texttt{-canvas : JPanel}]Az aktuális pálya megjelenítésére szolgáló terület.
+						\item[\texttt{-drawers : Map}]A különböző típusú FrameItemekhez tartozó rajzoló osztályok tárolója.
+						\item[\texttt{-game : Game}]A játék modellje
+					\end{description}
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{-draw(g : Graphics)}] \hfill \\Gondoskodik a keretek és keret elemek canvaszra történő kirajzolásáról. 
+						\item[\texttt{-initGUI()}] \hfill \\Inicializálja a grafikus interfészt,  többek közt megjeleníti a játékhoz tartozó ablakot. 
+						\item[\texttt{-repaint()}] \hfill \\Újrarajzolja az aktuális pályát. 
+					\end{description}
+			\end{description}
+
+		\subsubsection{ItemDrawer} Interfész.
+			\begin{description}
+
+				\item[Felelősség] FrameItemeteket rajzol ki.
+
+				\item[Ősosztályok] (nincs)
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+draw(fi : FrameItem, g : Graphics)}] \hfill \\Kirajzolja az átadott FrameItemet az átadott Graphics objektumon. 
+					\end{description}
+			\end{description}
+
+		\subsubsection{KeyDrawer}
+			\begin{description}
+
+				\item[Felelősség] Kulcsokat rajzol ki.
+
+				\item[Ősosztályok] (nincs)
+				\item[Interfészek] ItemDrawer.
+				\item[Attribútumok] (nincs)
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+draw(fi : FrameItem, g : Graphics)}] \hfill \\Kirajzolja az átadott kulcsot az átadott Graphics objektumon. 
+					\end{description}
+			\end{description}
+
+		\subsubsection{Map}
+			Kibővített osztály.
+			\begin{description}
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+frameIterator() : Map.FrameIterator}] \hfill \\Visszaad egy iteratort, mellyel a tartalmazott kereteken lehet végigmenni 
+					\end{description}
+			\end{description}
+
+		\subsubsection{Map.FrameIterator}
+			\begin{description}
+
+				\item[Felelősség] A mögöttes implementációtól függetlenül felsorolja a pálya által tartalmazott kereteket.
+
+				\item[Ősosztályok] (nincs)
+				\item[Interfészek] Iterator.
+				\item[Attribútumok]$\ $
+					\begin{description}
+						\item[\texttt{-currentColumnIterator : Iterator}]Aktuális oszlop iteratora
+						\item[\texttt{-currentRowIndex : int}]Aktuális sor indexe
+						\item[\texttt{-nextColumnIndex : int}]Következő oszlop indexe
+					\end{description}
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+getFramePosition() : Area}] \hfill \\Megadja az aktuális keret által elfoglalt  pozíciót a pálya keretrácsában.    A bal felső sarokban a x:0, y:0  pozíciójú keret található. 
+						\item[\texttt{-getNextColumn() : List}] \hfill \\Váltás a következő oszlopra 
+						\item[\texttt{+hasNext() : boolean}] \hfill \\Ellenőrzi, hogy van-e még bejáratlan keret 
+						\item[\texttt{+next() : Frame}] \hfill \\Lépés a következő keretre 
+					\end{description}
+			\end{description}
+			
+		\subsubsection{PlatformDrawer}
+			\begin{description}
+
+				\item[Felelősség] Platformokat rajzol ki.
+
+				\item[Ősosztályok] (nincs)
+				\item[Interfészek] ItemDrawer.
+				\item[Attribútumok] (nincs)
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+draw(fi : FrameItem, g : Graphics)}] \hfill \\Kirajzolja az átadott platformot az átadott Graphics objektumon. 
+					\end{description}
+			\end{description}
+
+		\subsubsection{StickmanDrawer}
+			\begin{description}
+
+				\item[Felelősség] Stickmaneket rajzol ki.
+
+				\item[Ősosztályok] (nincs)
+				\item[Interfészek] ItemDrawer.
+				\item[Attribútumok] (nincs)
+				\item[Metódusok]$\ $
+					\begin{description}
+						\item[\texttt{+draw(fi : FrameItem, g : Graphics)}] \hfill \\Kirajzolja az átadott stickmant az átadott Graphics objektumon. 
+					\end{description}
+			\end{description}
+%GENERATOR:CLASS_DESCRIPTIONS
 
 	\clearpage
 	\subsection{Kapcsolat az alkalmazói rendszerrel}

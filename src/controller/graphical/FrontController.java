@@ -18,10 +18,15 @@ import model.PubSub;
  */
 public class FrontController {
 	/**
+	 * Kommunikációs csatorna a Game felé
+	 */
+	private PubSub pubSub;
+	
+	/**
      * Inicializálás
      * @param pubSub kommunikációs csatorna
      */
     public FrontController(PubSub pubSub) {
-      
+    	this.pubSub = pubSub;
     }
 }

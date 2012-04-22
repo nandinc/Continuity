@@ -10,7 +10,7 @@ import model.FrameItem;
  */
 public class KeyDrawer implements ItemDrawer {
 	/**
-	 * Kirajzolja az átadott kulcsot az átadott Graphics objektumon.
+	 * Kirajzolja az átadott kulcsot az átadott Graphics objektumra.
 	 * @param fi Kirajzolandó Key
 	 * @param g Objektum, amire rajzolni lehet
 	 */
