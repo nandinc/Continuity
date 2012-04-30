@@ -47,9 +47,17 @@ public class FileListGenerate {
 				} else if (nameType.length == 1) {
 					generatedList += "%TODO ";
 				}
-				
+
 				// Név
-				generatedList += file.getName();
+				if(nameType[0].contains("_")) {
+					String name = nameType[0].replace("_", "\\_");
+					generatedList += name;
+					if (nameType.length == 2) {
+						generatedList += "." + nameType[1];
+					}
+				} else {
+					generatedList += file.getName();
+				}
 				
 				generatedList += "\t\t&\t";
 				// Méret
