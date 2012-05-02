@@ -16,12 +16,12 @@ public class Frame {
     /**
      * Keret szélessége
      */
-    public static final int FRAME_WIDTH = 14;
+    public static final int FRAME_WIDTH = 300;
     
     /**
      * Keret magassága
      */
-    public static final int FRAME_HEIGHT = 5;
+    public static final int FRAME_HEIGHT = 200;
 
     /**
      * Tartalmazó pálya

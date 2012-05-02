@@ -21,7 +21,7 @@ public class KeyDrawer implements ItemDrawer {
 		Area a = fi.getArea();
 		
 		g.setColor(Color.RED);
-		g.fillRect(a.getX()*10, a.getY()*10, a.getWidth()*10, a.getHeight()*10);
+		g.fillRect(a.getX(), a.getY(), a.getWidth(), a.getHeight());
 	}
 
 }

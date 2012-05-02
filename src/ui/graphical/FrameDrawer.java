@@ -28,19 +28,19 @@ public class FrameDrawer {
 		// Outer rectangle
 		g.setColor(Color.WHITE);
 		g.fillRect(
-			p.getX() * (Frame.FRAME_WIDTH*10 + 2 * FrameDrawer.VERT_PADDING + FrameDrawer.VERT_MARGIN),
-			p.getY() * (Frame.FRAME_HEIGHT*10 + 2 * FrameDrawer.HORIZ_PADDING + FrameDrawer.HORIZ_MARGIN),
-			Frame.FRAME_WIDTH*10 + 2 * FrameDrawer.VERT_PADDING,
-			Frame.FRAME_HEIGHT*10 + 2 * FrameDrawer.HORIZ_PADDING
+			p.getX() * (Frame.FRAME_WIDTH + 2 * FrameDrawer.VERT_PADDING + FrameDrawer.VERT_MARGIN),
+			p.getY() * (Frame.FRAME_HEIGHT + 2 * FrameDrawer.HORIZ_PADDING + FrameDrawer.HORIZ_MARGIN),
+			Frame.FRAME_WIDTH + 2 * FrameDrawer.VERT_PADDING,
+			Frame.FRAME_HEIGHT + 2 * FrameDrawer.HORIZ_PADDING
 		);
 		
 		// Inner rectangle
 		g.setColor(this.blueColor);
 		g.fillRect(
-			p.getX() * (Frame.FRAME_WIDTH*10 + 2 * FrameDrawer.VERT_PADDING + FrameDrawer.VERT_MARGIN) + FrameDrawer.VERT_PADDING,
-			p.getY() * (Frame.FRAME_HEIGHT*10 + 2 * FrameDrawer.HORIZ_PADDING + FrameDrawer.HORIZ_MARGIN) + FrameDrawer.HORIZ_PADDING,
-			Frame.FRAME_WIDTH*10,
-			Frame.FRAME_HEIGHT*10
+			p.getX() * (Frame.FRAME_WIDTH + 2 * FrameDrawer.VERT_PADDING + FrameDrawer.VERT_MARGIN) + FrameDrawer.VERT_PADDING,
+			p.getY() * (Frame.FRAME_HEIGHT + 2 * FrameDrawer.HORIZ_PADDING + FrameDrawer.HORIZ_MARGIN) + FrameDrawer.HORIZ_PADDING,
+			Frame.FRAME_WIDTH,
+			Frame.FRAME_HEIGHT
 		);
 	}
 }
