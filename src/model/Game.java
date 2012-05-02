@@ -47,7 +47,8 @@ public class Game {
         mapFactory = new MapFactory();
         initPubSub();
         timer = new Timer();
-        viewportState = VIEWPORT_STATE.CLOSE;
+        // @todo Change when keystroke bug is fixed
+        viewportState = VIEWPORT_STATE.CLOSE; 
 
         timer.setPubSub(pubSub);
     }
@@ -168,7 +169,7 @@ public class Game {
      */
     public void start() {
         // TODO review this whole method after prototype release
-        //timer.start();
+        timer.start();
         // show map
         Logger.logStatus("Start game");
         pubSub.emit("view:invalidate", null);

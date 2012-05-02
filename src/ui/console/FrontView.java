@@ -2,6 +2,8 @@ package ui.console;
 
 import java.util.Iterator;
 
+import controller.graphical.FrontController;
+
 import debug.Logger;
 
 import model.Area;
@@ -38,17 +40,21 @@ public class FrontView {
      */
     private int printHeight;
 
+    private FrontController controller;
+    
     /**
      * Inicializálás, feliratkozás a felügyelt pálya változásaira.
      * 
      * @param game a felügyelt pálya
      */
-    public FrontView(Game game) {
-        this.game = game;
-
+    public FrontView(Game game, FrontController controller) {
+        // Set game and controller properties
+    	this.game = game;
+        this.controller = controller;
+        
+        // Subscrube to model invalidate events
         PubSub pubSub = game.getPubSub();
         pubSub.on("view:invalidate", new Subscriber() {
-
             @Override
             public void eventEmitted(String eventName, Object eventParameter) {
                 repaint();

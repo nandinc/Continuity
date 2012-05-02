@@ -1,9 +1,5 @@
 package application;
 
-import controller.console.FrontController;
-
-import ui.console.FrontView;
-
 import model.Game;
 
 /**
@@ -20,12 +16,18 @@ public class Application {
      */
     public static void main(String[] args) {
         final Game game = new Game();
-        // view is not unused, it subscribes to events
+        
+        /*// view is not unused, it subscribes to events
         // supress unused warning
         @SuppressWarnings("all") 
-        FrontView view = new FrontView(game);
+        ui.console.FrontView view = new ui.console.FrontView(game);
         
-        FrontController controller = new FrontController(game.getPubSub());
+        controller.console.FrontController controller = new controller.console.FrontController(game.getPubSub());
+        controller.start();*/
+        
+        ui.graphical.FrontView view = new ui.graphical.FrontView(game);
+        
+        controller.graphical.FrontController controller = new controller.graphical.FrontController(game.getPubSub());
         controller.start();
     }
 
