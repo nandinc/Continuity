@@ -62,6 +62,6 @@ public class FrontController {
 		});
     	
     	// Load a map
-    	this.pubSub.emit("controller:loadMap", 2);
+    	this.pubSub.emit("controller:loadMap", 7);
     }
 }
