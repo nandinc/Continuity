@@ -52,12 +52,17 @@ public class FrontController {
     	manager.addKeyEventDispatcher(new KeyEventDispatcher() {
 			@Override
 			public boolean dispatchKeyEvent(KeyEvent e) {
+			    int id = e.getID();
+			    if (id != KeyEvent.KEY_PRESSED) {
+			        return false;
+			    }
+			    
 				System.out.println("Got key: " + e.getKeyChar());
 				if (keyListeners.containsKey(e.getKeyCode())) {
 					Object[] message = keyListeners.get(e.getKeyCode());
 					pubSub.emit((String) message[0], message[1]);
 				}
-				return false;
+				return true;
 			}
 		});
     	
