@@ -216,7 +216,7 @@ public class Map {
             return null;
         }
 
-        Frame neighbour = neighbourColumn.get(callerRowIndex);
+        Frame neighbour = neighbourColumn.get(neighbourRowIndex);
         if (neighbour == null || caller.isTraversable(neighbour, direction) == false) {
             return null;
         } else {
