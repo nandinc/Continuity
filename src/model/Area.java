@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.Rectangle;
+
 /**
  * Egy tetszőleges keret egy területét leíró osztály.
  * Ez az osztály elfedi, hogy egy keret valójában hány dimenziós,
@@ -18,20 +20,10 @@ public class Area {
      * @return true Ha van ilyen közös pont
      */
     public boolean hasCollision(Area other) {
-        // TODO review this logic
-        return
-                (	x <= other.x
-                &&  other.x < x+width
-                &&  y <= other.y
-                &&  other.y < y+height)
-
-                ||
-
-                (	other.x <= x
-                &&  x < other.x+other.width
-                &&  other.y <= y
-                &&  y < other.y+other.height)
-                ;
+        Rectangle rectThis = new Rectangle(x, y, width, height);
+        Rectangle rectOther = new Rectangle(other.x, other.y, other.width, other.height);
+        
+        return rectThis.intersects(rectOther);
     }
 
     /**
