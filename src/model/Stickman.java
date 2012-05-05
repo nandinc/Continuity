@@ -30,17 +30,30 @@ public class Stickman extends AbstractFrameItem {
      */
     private Integer identifier = 1;
     
+    
+    private boolean solidUnderFeet = false; 
+    
     /**
      * A figura mozgatása a megadott irányba.
      * @param direction
      */
     public void move(DIRECTION direction) {
         Area newArea = getNewAreaByDirection(direction);
-        boolean successfulMove = frame.requestArea(this, newArea);
-        
-        if (successfulMove && direction == DIRECTION.UP && jumpSpeed == 0) {
-            jumpSpeed = 1;
+
+        if (direction != DIRECTION.UP || jumpSpeed > 0 || solidUnderFeet) {
+            boolean successfulMove = frame.requestArea(this, newArea);
+            
+            if (!successfulMove && direction == DIRECTION.DOWN) {
+                // something solid reached
+                solidUnderFeet = true;
+            }else if (successfulMove && direction == DIRECTION.UP/* && solidUnderFeet*/) {
+                if (jumpSpeed == 0) {
+                    jumpSpeed = 20;
+                } 
+                solidUnderFeet = false;
+            }
         }
+        
     }
 
     /**
@@ -131,9 +144,10 @@ public class Stickman extends AbstractFrameItem {
             public void eventEmitted(String eventName, Object eventParameter) {
                 if (jumpSpeed == 0) {
                     move(DIRECTION.DOWN);
+                } else if (jumpSpeed == 1) {
+                    jumpSpeed = 0;
                 } else {
-                    move(DIRECTION.UP);
-                    jumpSpeed--;
+                    jumpSpeed /= 2;
                 }
             }
         });
