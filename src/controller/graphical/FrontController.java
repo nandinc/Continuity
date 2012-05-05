@@ -49,13 +49,17 @@ public class FrontController {
     	manager.addKeyEventDispatcher(new KeyEventDispatcher() {
 			@Override
 			public boolean dispatchKeyEvent(KeyEvent e) {
+				boolean alreadyPressed = false;
 			    int id = e.getID();
 			    int keyCode = e.getKeyCode();
 			    
 			    synchronized (pressedKeysNew) {
 			    	if (id == KeyEvent.KEY_PRESSED) {
+			    		alreadyPressed = pressedKeysNew.contains(keyCode) || pressedKeysOld.contains(keyCode);
 				        // Record that the key has been pressed
-			    		pressedKeysNew.add(keyCode);
+			    		if (!alreadyPressed) {
+			    			pressedKeysNew.add(keyCode);
+			    		}
 				    } else if (id == KeyEvent.KEY_RELEASED) {
 				    	// Remove key from list of pressed keys
 				    	pressedKeysNew.remove(keyCode);
@@ -65,7 +69,7 @@ public class FrontController {
 			    
 			    // If the key has been just pressed then react to it right away
 			    // this way there's no delay
-			    if (id == KeyEvent.KEY_PRESSED) {
+			    if (id == KeyEvent.KEY_PRESSED && !alreadyPressed) {
 			    	processKeystroke(keyCode, true);
 			    }
 			    
@@ -90,7 +94,7 @@ public class FrontController {
             		pressedKeysNew.clear();
 				}
             }
-        }, 0, 40);
+        }, 0, 20);
     }
     
     /**

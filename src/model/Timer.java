@@ -49,7 +49,7 @@ public class Timer {
                 // TODO remove this after prototype release
                 Logger.flush();
             }
-        }, 100, 100);
+        }, 80, 80);
     }
 
     /**
