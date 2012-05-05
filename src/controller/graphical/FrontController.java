@@ -34,7 +34,14 @@ public class FrontController {
 	 */
 	private Game game;
 	
+	/**
+	 * Tárolja az utolsó óraütés óta lenyomott -- és még fel nem engedett -- billentyűket
+	 */
 	private Set<Integer> pressedKeysNew = new HashSet<Integer>();
+	
+	/**
+	 * Tárolja az utolsó óraütés előtt lenyomott -- és még fel nem engedett -- billentyűket
+	 */
 	private Set<Integer> pressedKeysOld = new HashSet<Integer>();
 	
 	/**
@@ -45,6 +52,9 @@ public class FrontController {
     	this.game = game;
     }
     
+    /**
+     * Elindítja a parancsokra való figyelést
+     */
     public void start() {
     	// Initialize keyboard listener
     	KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
@@ -56,13 +66,17 @@ public class FrontController {
 			    
 			    synchronized (pressedKeysNew) {
 			    	if (id == KeyEvent.KEY_PRESSED) {
-				        pressedKeysNew.add(keyCode);
+				        // Record that the key has been pressed
+			    		pressedKeysNew.add(keyCode);
 				    } else if (id == KeyEvent.KEY_RELEASED) {
+				    	// Remove key from list of pressed keys
 				    	pressedKeysNew.remove(keyCode);
 				    	pressedKeysOld.remove(keyCode);
 				    }
 				}
 			    
+			    // If the key has been just pressed then react to it right away
+			    // this way there's no delay
 			    if (id == KeyEvent.KEY_PRESSED) {
 			    	processKeystroke(keyCode, true);
 			    }
@@ -71,15 +85,19 @@ public class FrontController {
 			}
 		});
     	
+    	// Initialize timer task that will proccess keys that
+    	// have been pressed but haven't been released since
         Timer timer = new Timer(true);
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
             	synchronized (pressedKeysNew) {
+            		// Only go through keys that haven't been reacted to since the last tick
             		for (int key : pressedKeysOld) {
                 		processKeystroke(key, false);
                 	}
                 	
+            		// Move everything from the 'new' list to the 'old' list
                 	pressedKeysOld.addAll(pressedKeysNew);
             		pressedKeysNew.clear();
 				}
@@ -90,9 +108,15 @@ public class FrontController {
     	this.game.getPubSub().emit("controller:loadMap", 7);
     }
     
+    /**
+     * Reagál egy billentyűre
+     * @param key Lenyomott billentyű kódja
+     * @param immediate Friss leütés (true) vagy a billentyű lenyomva van tartva már hosszabb ideje (false)
+     */
     protected void processKeystroke(int key, boolean immediate) {
     	// Proccess stickman moves
 		if (game.getViewportState() == VIEWPORT_STATE.CLOSE) {
+			// Stickman 1
 			if (key == KeyEvent.VK_UP) {
 				this.moveStickman(1, DIRECTION.UP);
 			} else if (key == KeyEvent.VK_RIGHT) {
@@ -101,6 +125,17 @@ public class FrontController {
 				this.moveStickman(1, DIRECTION.DOWN);
 			} else if (key == KeyEvent.VK_LEFT) {
 				this.moveStickman(1, DIRECTION.LEFT);
+			}
+			
+			// Stickman 2
+			if (key == KeyEvent.VK_E) {
+				this.moveStickman(2, DIRECTION.UP);
+			} else if (key == KeyEvent.VK_F) {
+				this.moveStickman(2, DIRECTION.RIGHT);
+			} else if (key == KeyEvent.VK_D) {
+				this.moveStickman(2, DIRECTION.DOWN);
+			} else if (key == KeyEvent.VK_S) {
+				this.moveStickman(2, DIRECTION.LEFT);
 			}
 		}
 		
@@ -119,20 +154,33 @@ public class FrontController {
 				}
 			}
 			
+			// Switch viewport
 			if (key == KeyEvent.VK_SPACE) {
 				this.toggleViewport();
 			}
 		}
     }
     
+    /**
+     * Mozgatja a stickmant
+     * @param stickmanId Stickman azonosítója
+     * @param dir Mozgatás iránya
+     */
     protected void moveStickman(int stickmanId, DIRECTION dir) {
     	this.game.getPubSub().emit("controller:move:" + stickmanId, dir);
     }
     
+    /**
+     * Átrendezi a kereteket
+     * @param dir Keret mozgatásának iránya
+     */
     protected void moveFrame(DIRECTION dir) {
     	this.game.getPubSub().emit("controller:moveFrame", dir);
     }
     
+    /**
+     * Megváltoztatja a nézetet a jelenlegi ellenkezőjére
+     */
     protected void toggleViewport() {
     	this.game.getPubSub().emit("controller:viewportSwitch", null);
     }

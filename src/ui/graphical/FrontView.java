@@ -155,7 +155,6 @@ public class FrontView {
 			}
 		};
 		frame.add(this.canvas);
-		canvas.setSize(400, 400);
 		
 		// Show main window
 		frame.setVisible(true);
