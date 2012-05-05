@@ -8,16 +8,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Iterator;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
 
 import controller.graphical.FrontController;
 
@@ -81,6 +76,15 @@ public class FrontView {
 			@Override
 			public void eventEmitted(String eventName, Object eventParameter) {
 				invalidate();
+			}
+		});
+		
+		// Subscribe to end of game event
+		this.game.getPubSub().on("game:endOfGame", new Subscriber() {
+			@Override
+			public void eventEmitted(String eventName, Object eventParameter) {
+				JOptionPane.showMessageDialog(null, "Congratulations, you finished the game!");
+				FrontView.this.controller.quit();
 			}
 		});
 	}
@@ -204,7 +208,7 @@ public class FrontView {
 		menu.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.exit(0);
+				controller.quit();
 			}
 		});
 		

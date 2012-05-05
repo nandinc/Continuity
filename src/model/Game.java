@@ -57,6 +57,9 @@ public class Game {
         timer.setPubSub(pubSub);
     }
     
+    /**
+     * Feliratkozik a pubSub különböző eseményeire
+     */
     private void initPubSub() {
         pubSub = new PubSub();
         

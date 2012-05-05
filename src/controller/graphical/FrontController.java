@@ -191,4 +191,11 @@ public class FrontController {
     protected void loadMap(int mapId) {
     	this.game.getPubSub().emit("controller:loadMap", mapId);
     }
+    
+    /**
+     * Kilép a programból
+     */
+    public void quit() {
+    	System.exit(0);
+    }
 }
