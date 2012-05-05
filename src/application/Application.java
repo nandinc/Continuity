@@ -17,18 +17,14 @@ public class Application {
     public static void main(String[] args) {
         final Game game = new Game();
         
-        /*// view is not unused, it subscribes to events
-        // supress unused warning
-        @SuppressWarnings("all") 
-        ui.console.FrontView view = new ui.console.FrontView(game);
-        
-        controller.console.FrontController controller = new controller.console.FrontController(game.getPubSub());
-        controller.start();*/
-        
-        ui.graphical.FrontView view = new ui.graphical.FrontView(game);
-        
         controller.graphical.FrontController controller = new controller.graphical.FrontController(game);
+        
+        ui.graphical.FrontView view = new ui.graphical.FrontView(game, controller);
+        
         controller.start();
+        game.start();
+        
+        controller.newGame();
     }
 
 }

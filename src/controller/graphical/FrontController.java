@@ -2,26 +2,14 @@ package controller.graphical;
 
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import controller.console.exception.InvalidArgumentException;
-
-import debug.Logger;
-
 import model.DIRECTION;
 import model.Game;
-import model.PubSub;
 import model.VIEWPORT_STATE;
 
 /**
@@ -103,9 +91,6 @@ public class FrontController {
 				}
             }
         }, 0, 40);
-    	
-    	// Load a map
-    	this.game.getPubSub().emit("controller:loadMap", 7);
     }
     
     /**
@@ -183,5 +168,27 @@ public class FrontController {
      */
     protected void toggleViewport() {
     	this.game.getPubSub().emit("controller:viewportSwitch", null);
+    }
+    
+    /**
+     * Új játékot kezd (visszaáll a pálya elejére vagy betölti az első pályát)
+     */
+    public void newGame() {
+    	this.game.getPubSub().emit("controller:resetMap", null);
+    }
+    
+    /**
+     * Továbblép a következő pályára
+     */
+    public void skipLevel() {
+    	this.game.getPubSub().emit("controller:loadNextMap", null);
+    }
+    
+    /**
+     * Betölti az adott pályát
+     * @param mapId Pálya azonosítója
+     */
+    protected void loadMap(int mapId) {
+    	this.game.getPubSub().emit("controller:loadMap", mapId);
     }
 }

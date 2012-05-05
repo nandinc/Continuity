@@ -40,17 +40,14 @@ public class FrontView {
      */
     private int printHeight;
 
-    private FrontController controller;
-    
     /**
      * Inicializálás, feliratkozás a felügyelt pálya változásaira.
      * 
      * @param game a felügyelt pálya
      */
-    public FrontView(Game game, FrontController controller) {
+    public FrontView(Game game) {
         // Set game and controller properties
     	this.game = game;
-        this.controller = controller;
         
         // Subscrube to model invalidate events
         PubSub pubSub = game.getPubSub();

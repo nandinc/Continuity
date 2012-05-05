@@ -1,15 +1,25 @@
 package ui.graphical;
 
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Iterator;
 
-import javax.swing.JComponent;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
+
+import controller.graphical.FrontController;
 
 import model.*;
 import model.Map.FrameIterator;
@@ -23,6 +33,11 @@ public class FrontView {
 	 * A játék modellje
 	 */
 	private Game game;
+	
+	/**
+	 * Kontroller
+	 */
+	private FrontController controller;
 	
 	/**
 	 * Az aktuális pálya megjelenítésére szolgáló terület
@@ -46,10 +61,12 @@ public class FrontView {
 	
 	/**
 	 * Inicializálás
-	 * @param game
+	 * @param game A model game objektuma
+	 * @param controller A használt felület kontrollere
 	 */
-	public FrontView(Game game) {
+	public FrontView(Game game, FrontController controller) {
 		this.game = game;
+		this.controller = controller;
 		
 		// Create drawers
 		this.drawers.put(Door.class, new DoorDrawer());
@@ -129,9 +146,11 @@ public class FrontView {
 	 * többek közt megjeleníti a játékhoz tartozó ablakot.
 	 */
 	private void initGUI() {
+		//
 		// Set up main window
+		//
 		JFrame frame = new JFrame("Continuity by Nand Inc.");
-		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(
 			3 * (FrameDrawer.WIDTH + 2 * FrameDrawer.VERT_MARGIN + 2 * FrameDrawer.VERT_PADDING) - FrameDrawer.VERT_MARGIN,
 			3 * (FrameDrawer.HEIGHT + 2 * FrameDrawer.HORIZ_MARGIN + 2 * FrameDrawer.HORIZ_PADDING) - FrameDrawer.HORIZ_MARGIN + 30
@@ -139,15 +158,59 @@ public class FrontView {
 		frame.setLocationRelativeTo(null);
 		frame.setBackground(new Color(238, 238, 238));
 		
+		//
 		// Set up menu
+		//
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		frame.setJMenuBar(menuBar);
 		
-		JMenu menu1 = new JMenu("Test");
-		menuBar.add(menu1);
-		menu1.addActionListener(null);
+		JMenuItem menu;
 		
-		// Set up main panel
+		// New game
+		menu = new JMenuItem("New game");
+		menuBar.add(menu);
+		menu.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				controller.newGame();
+			}
+		});
+		
+		
+		// Skip level
+		menu = new JMenuItem("Skip level");
+		menuBar.add(menu);
+		menu.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				controller.skipLevel();
+			}
+		});
+		
+		// About
+		menu = new JMenuItem("About");
+		menuBar.add(menu);
+		menu.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showMessageDialog(null, "This program was created by NaND Inc. as a group project for the course Software Laboratory 4.\n\nAuthors:\n - Berki Endre\n - Fodor Bertalan\n - Kádár András\n - Thaler Benedek\n\nThis program is based on Continuity, an award-winning flash game by continuitygame.com.");
+			}
+		});
+		
+		// Quit
+		menu = new JMenuItem("Quit");
+		menuBar.add(menu);
+		menu.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
+		
+		//
+		// Set up main panel (canvas)
+		//
 		this.canvas = new JPanel() {
 			public void paintComponent(Graphics g) {
 				super.paintComponents(g);
@@ -156,7 +219,9 @@ public class FrontView {
 		};
 		frame.add(this.canvas);
 		
+		//
 		// Show main window
+		//
 		frame.setVisible(true);
 	}
 }

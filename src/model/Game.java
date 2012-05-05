@@ -18,7 +18,7 @@ public class Game {
     /**
      * Az aktuális pálya azonosítója
      */
-    protected int currentMapId;
+    protected int currentMapId = -1;
 
     /**
      * Pályákat előállítására
@@ -41,14 +41,18 @@ public class Game {
     protected VIEWPORT_STATE viewportState; 
 
     /**
+     * Nyitó pálya azonosítója
+     */
+    protected final int defaultMapId = 1;
+    
+    /**
      * Inicializálja a tartalmazott objektumokat
      */
     public Game() {
         mapFactory = new MapFactory();
         initPubSub();
         timer = new Timer();
-        // @todo Change when keystroke bug is fixed
-        viewportState = VIEWPORT_STATE.CLOSE; 
+        viewportState = VIEWPORT_STATE.MAP; 
 
         timer.setPubSub(pubSub);
     }
@@ -62,17 +66,27 @@ public class Game {
             public void eventEmitted(String eventName, Object eventParameter) {
                 int mapId = (Integer)eventParameter;
                 
-                try {
-                    if (currentMap != null) {
-                        unloadMap(currentMap);
-                    }
-                    Logger.logStatus("Load map" + mapId);
-                    loadMap(mapId);
-                    start();
-                } catch (MapNotFoundException e) {
-                    e.printStackTrace();
+                Logger.logStatus("Load map" + mapId);
+                if (!loadMap(mapId)) {
+                	pubSub.emit("game:mapNotFound", mapId);
                 }
             }
+        });
+
+        pubSub.on("controller:resetMap", new Subscriber() {
+        	
+        	@Override
+        	public void eventEmitted(String eventName, Object eventParameter) {
+        		loadMap(currentMapId == -1 ? defaultMapId : currentMapId);
+        	}
+        });
+        
+        pubSub.on("controller:loadNextMap", new Subscriber() {
+        	
+        	@Override
+        	public void eventEmitted(String eventName, Object eventParameter) {
+        		loadNextMap();
+        	}
         });
         
         pubSub.on("tick", new Subscriber() {
@@ -135,50 +149,61 @@ public class Game {
             
             @Override
             public void eventEmitted(String eventName, Object eventParameter) {
-                try {
-                    unloadMap(currentMap);
-                    Logger.reset();
-                    loadMap(currentMapId + 1);
-                } catch (MapNotFoundException e) {
-                    // end of map list
-                    // TODO implement end of game rutine
-                } 
+                loadNextMap();
             }
         });
     }
 
     /**
-     * Betölti a megadott pályát.
-     * @param mapId Pálya azonosítója
-     * @throws MapNotFoundException 
+     * Betölti a megadott pályát,
+     * @param mapId Betöltendő pálya azonosítója
+     * @return Sikerült-e betölteni a pályát. Ha a pálya nem létezett, false-ot ad vissza.
      */
-    public void loadMap(int mapId) throws MapNotFoundException {
-        currentMap = mapFactory.getMap(mapId, pubSub);
-        currentMapId = mapId;
+    private boolean loadMap(int mapId) {
+    	// Unload the previous map
+    	if (currentMap != null) {
+    		 currentMap.unsubscribe();
+        }
+    	
+    	// Now load the new one
+    	try {
+    		// Load it
+    		currentMap = mapFactory.getMap(mapId, pubSub);
+            // Update the map id
+    		currentMapId = mapId;
+    		// Refresh the view
+            pubSub.emit("view:invalidate", null);
+        } catch (MapNotFoundException e) {
+        	return false;
+        }
+    	
+    	return true;
     }
     
     /**
-     * Leiratkoztatja a kapott pálya elemeit a kommunikácós csatornáról
+     * Betölti a soron következő pályát.
+     * @return Sikerült-e a pálya betöltése, ha vége a játéknak, false-ot ad vissza.
      */
-    private void unloadMap(Map map) {
-        map.unsubscribe();
+    private boolean loadNextMap() {
+    	if (!loadMap(currentMapId == -1 ? defaultMapId : currentMapId + 1)) {
+    		pubSub.emit("game:endOfGame", null);
+    		return false;
+    	}
+    	
+    	return true;
     }
 
     /**
      * Elindítja a játékot
      */
     public void start() {
-        // TODO review this whole method after prototype release
         timer.start();
-        // show map
-        Logger.logStatus("Start game");
-        pubSub.emit("view:invalidate", null);
     }
 
     /**
      * Megváltoztatja a nézetet a jelenlegi ellenkezőjére
      */
-    public void toggleViewportState() {
+    private void toggleViewportState() {
         if (viewportState == VIEWPORT_STATE.CLOSE) {
             viewportState = VIEWPORT_STATE.MAP;
             Logger.logStatus("Viewport changed to map view");

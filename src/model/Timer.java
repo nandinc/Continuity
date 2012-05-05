@@ -31,19 +31,6 @@ public class Timer {
      */
     public void setPubSub(PubSub pubSub) {
         this.pubSub = pubSub;
-        
-        pubSub.on("controller:timer", new Subscriber() {
-            
-            @Override
-            public void eventEmitted(String eventName, Object eventParameter) {
-                boolean start = (Boolean)eventParameter;
-                if (start) {
-                    start();
-                } else {
-                    stop();
-                }
-            }
-        });
     }
 
     /**
