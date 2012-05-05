@@ -187,6 +187,14 @@ public class Game {
             Logger.logStatus("Viewport changed to close view");
         }
     }
+    
+    /**
+     * Visszaadja a jelenlegi nézet típusát
+     * @return jelenlegi nézet típusa
+     */
+    public VIEWPORT_STATE getViewportState() {
+    	return viewportState;
+    }
 
     /**
      * Megadja a használt kommunikációs csatornát

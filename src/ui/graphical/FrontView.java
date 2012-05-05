@@ -40,6 +40,11 @@ public class FrontView {
 	private FrameDrawer frameDrawer = new FrameDrawer();
 	
 	/**
+	 * Cache-elt szürke szín
+	 */
+	private Color greyColor = new Color(238, 238, 238);
+	
+	/**
 	 * Inicializálás
 	 * @param game
 	 */
@@ -82,6 +87,10 @@ public class FrontView {
 		if (map == null) {
 			return;
 		}
+		
+		// Paint background
+		g2d.setColor(this.greyColor);
+		g2d.fillRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
 		
         FrameIterator frameIterator = map.frameIterator();
         while (frameIterator.hasNext()) {
@@ -128,6 +137,7 @@ public class FrontView {
 			3 * (FrameDrawer.HEIGHT + 2 * FrameDrawer.HORIZ_MARGIN + 2 * FrameDrawer.HORIZ_PADDING) - FrameDrawer.HORIZ_MARGIN + 30
 		);
 		frame.setLocationRelativeTo(null);
+		frame.setBackground(new Color(238, 238, 238));
 		
 		// Set up menu
 		JMenuBar menuBar = new JMenuBar();
@@ -144,8 +154,8 @@ public class FrontView {
 				draw(g);
 			}
 		};
-		this.canvas.setBackground(new Color(238, 238, 238));
 		frame.add(this.canvas);
+		canvas.setSize(400, 400);
 		
 		// Show main window
 		frame.setVisible(true);

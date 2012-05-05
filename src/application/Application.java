@@ -27,7 +27,7 @@ public class Application {
         
         ui.graphical.FrontView view = new ui.graphical.FrontView(game);
         
-        controller.graphical.FrontController controller = new controller.graphical.FrontController(game.getPubSub());
+        controller.graphical.FrontController controller = new controller.graphical.FrontController(game);
         controller.start();
     }
 

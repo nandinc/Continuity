@@ -152,7 +152,8 @@ public class Stickman extends AbstractFrameItem {
 
             @Override
             public void eventEmitted(String eventName, Object eventParameter) {
-                verticalSpeed -= 2;
+                //verticalSpeed -= 2;
+                verticalSpeed = Math.max(verticalSpeed - 2, -15);
                 
                 if (verticalSpeed > 0) {
                     for (int i = 0; i < verticalSpeed; i++) {
