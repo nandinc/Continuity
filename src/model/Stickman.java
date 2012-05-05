@@ -17,12 +17,7 @@ public class Stickman extends AbstractFrameItem {
      */
     private Area checkpointArea = null;
     
-    /**
-     * Az ugrásból származó hátralévő felfelé
-     * irányuló mozgások száma
-     */
-    private int jumpSpeed = 0;
-    
+   
     /**
      * Azonosító
      * 
@@ -30,8 +25,17 @@ public class Stickman extends AbstractFrameItem {
      */
     private Integer identifier = 1;
     
-    
+    /**
+     * Igaz, ha a Stickmen esés közben ütközött egy szilárd elemmel.
+     * 
+     * Ellenőrizendő ugrás előtt.
+     */
     private boolean solidUnderFeet = false; 
+    
+    /**
+     * Vertikális irányú sebesség
+     */
+    private int verticalSpeed = 0;
     
     /**
      * A figura mozgatása a megadott irányba.
@@ -39,21 +43,27 @@ public class Stickman extends AbstractFrameItem {
      */
     public void move(DIRECTION direction) {
         Area newArea = getNewAreaByDirection(direction);
-
-        if (direction != DIRECTION.UP || jumpSpeed > 0 || solidUnderFeet) {
-            boolean successfulMove = frame.requestArea(this, newArea);
-            
-            if (!successfulMove && direction == DIRECTION.DOWN) {
-                // something solid reached
-                solidUnderFeet = true;
-            }else if (successfulMove && direction == DIRECTION.UP/* && solidUnderFeet*/) {
-                if (jumpSpeed == 0) {
-                    jumpSpeed = 20;
-                } 
-                solidUnderFeet = false;
-            }
-        }
         
+        boolean successfulMove = frame.requestArea(this, newArea);
+        
+        if (!successfulMove && direction == DIRECTION.DOWN) {
+            // something solid reached
+            solidUnderFeet = true;
+            verticalSpeed = 0;
+        } else if (!successfulMove && direction == DIRECTION.UP && verticalSpeed > 0) {
+            // upper border reached
+            verticalSpeed = 0;
+        }
+    }
+    
+    /**
+     * Ugrás indítása
+     */
+    public void jump() {
+        if (solidUnderFeet) {
+            verticalSpeed = 15;
+            solidUnderFeet = false;
+        }
     }
 
     /**
@@ -142,12 +152,16 @@ public class Stickman extends AbstractFrameItem {
 
             @Override
             public void eventEmitted(String eventName, Object eventParameter) {
-                if (jumpSpeed == 0) {
-                    move(DIRECTION.DOWN);
-                } else if (jumpSpeed == 1) {
-                    jumpSpeed = 0;
+                verticalSpeed -= 2;
+                
+                if (verticalSpeed > 0) {
+                    for (int i = 0; i < verticalSpeed; i++) {
+                        move(DIRECTION.UP);
+                    }
                 } else {
-                    jumpSpeed /= 2;
+                    for (int i = 0; i > verticalSpeed; i--) {
+                        move(DIRECTION.DOWN);
+                    }
                 }
             }
         });
@@ -157,7 +171,12 @@ public class Stickman extends AbstractFrameItem {
             @Override
             public void eventEmitted(String eventName, Object eventParameter) {
                 DIRECTION direction = (DIRECTION)eventParameter;
-                move(direction);
+                
+                if (direction != DIRECTION.UP) {
+                    move(direction);
+                } else {
+                    jump();
+                }
             }
         });
 
