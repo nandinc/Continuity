@@ -214,6 +214,7 @@ public class Game {
             viewportState = VIEWPORT_STATE.CLOSE;
             Logger.logStatus("Viewport changed to close view");
         }
+        pubSub.emit("view:invalidate", null);
     }
     
     /**

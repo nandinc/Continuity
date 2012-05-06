@@ -50,9 +50,14 @@ public class FrontView {
 	private FrameDrawer frameDrawer = new FrameDrawer();
 	
 	/**
-	 * Cache-elt szürke szín
+	 * Cache-elt szürke szín a háttérnek
 	 */
 	private Color greyColor = new Color(238, 238, 238);
+	
+	/**
+	 * Cache-elt szín a pause grafikának
+	 */
+	private Color pauseColor = new Color(7, 7, 255, 128);
 	
 	/**
 	 * Inicializálás
@@ -102,8 +107,9 @@ public class FrontView {
 	 */
 	private void draw(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
-		
 		Map map = this.game.getMap();
+		int canvasWidth = this.canvas.getWidth();
+		int canvasHeight = this.canvas.getHeight();
 		
 		if (map == null) {
 			return;
@@ -111,8 +117,9 @@ public class FrontView {
 		
 		// Paint background
 		g2d.setColor(this.greyColor);
-		g2d.fillRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
+		g2d.fillRect(0, 0, canvasWidth, canvasHeight);
 		
+		// Iterate through frames
         FrameIterator frameIterator = map.frameIterator();
         while (frameIterator.hasNext()) {
         	// Get the frame
@@ -142,6 +149,13 @@ public class FrontView {
                     this.drawers.get(item.getClass()).draw(item, fg2d);
                 }
             }
+        }
+        
+        // Show pause graphic if in map mode
+        if (this.game.getViewportState() == VIEWPORT_STATE.MAP) {
+        	g2d.setColor(this.pauseColor);
+        	g2d.fillRect(canvasWidth - 40, 10, 10, 40);
+        	g2d.fillRect(canvasWidth - 20, 10, 10, 40);
         }
 	}
 	
