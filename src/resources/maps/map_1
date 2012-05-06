@@ -1,9 +1,9 @@
-Key	240	20	20	20
+Key	240	20	16	4
 Platform	180	100	80	20	
 Platform	100	140	80	20	
-Stickman	0	160	20	20	1
-Stickman	580	160	20	20	2
+Stickman	0	163	10	17	1
+Stickman	580	163	10	17	2
 Platform	0	180	300	20	
 Platform	300	180	300	20	
-Door	580	360	20	20
+Door	585	360	15	20
 Platform	300	380	300	20	

@@ -50,8 +50,8 @@ public class KeyDrawer implements ItemDrawer {
 		Area a = fi.getArea();
 		Key k = (Key) fi;
 		
-		g.setColor(Color.RED);
-		g.fillRect(a.getX(), a.getY(), a.getWidth(), a.getHeight());
+		//g.setColor(Color.RED);
+		//g.fillRect(a.getX(), a.getY(), a.getWidth(), a.getHeight());
 		g.drawImage(k.isCollected() ? this.collectedKeyImage : this.keyImage, a.getX(), a.getY(), null);
 	}
 
