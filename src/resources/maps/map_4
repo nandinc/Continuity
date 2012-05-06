@@ -1,4 +1,4 @@
-Key	240	20	20	20
+Key	240	30	16	4
 Platform	880	60	20	20	
 Platform	600	80	20	20	
 Platform	180	100	80	20	
@@ -6,9 +6,9 @@ Platform	580	100	20	20
 Platform	300	120	20	20	
 Platform	100	140	80	20	
 Platform	280	140	20	20	
-Stickman	0	160	20	20	1
-Stickman	580	160	20	20	2
-Key	800	160	20	20
+Stickman	0	163	20	17	1
+Stickman	580	163	20	17	2
+Key	800	170	16	4
 Platform	0	180	300	20	
 Platform	300	180	300	20	
 Platform	600	180	300	20	
@@ -17,8 +17,8 @@ Platform	880	280	20	20
 Platform	600	300	20	20	
 Platform	280	320	20	20	
 Platform	0	340	20	20	
-Key	200	360	20	20
-Door	580	360	20	20
+Key	200	370	16	4
+Door	585	360	15	20
 Platform	0	380	300	20	
 Platform	300	380	300	20	
 Platform	600	380	300	20	
@@ -26,7 +26,7 @@ Platform	580	420	20	20
 Platform	300	440	20	20	
 Platform	880	440	20	20	
 Platform	600	460	20	20	
-Key	380	560	20	20
-Key	740	560	20	20
+Key	380	570	16	4
+Key	740	570	16	4
 Platform	300	580	300	20	
 Platform	600	580	300	20	

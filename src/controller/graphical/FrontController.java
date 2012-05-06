@@ -73,7 +73,7 @@ public class FrontController {
 			    	processKeystroke(keyCode, true);
 			    }
 			    
-				return true;
+				return false;
 			}
 		});
     	
