@@ -53,12 +53,13 @@ public class FrontController {
 			    int id = e.getID();
 			    int keyCode = e.getKeyCode();
 			    
-			    synchronized (pressedKeysNew) {
+			    synchronized (FrontController.this) {
 			    	if (id == KeyEvent.KEY_PRESSED) {
 			    		alreadyPressed = pressedKeysNew.contains(keyCode) || pressedKeysOld.contains(keyCode);
 				        // Record that the key has been pressed
 			    		if (!alreadyPressed) {
 			    			pressedKeysNew.add(keyCode);
+			    			processKeystroke(keyCode, true);
 			    		}
 				    } else if (id == KeyEvent.KEY_RELEASED) {
 				    	// Remove key from list of pressed keys
@@ -70,7 +71,7 @@ public class FrontController {
 			    // If the key has been just pressed then react to it right away
 			    // this way there's no delay
 			    if (id == KeyEvent.KEY_PRESSED && !alreadyPressed) {
-			    	processKeystroke(keyCode, true);
+			    	//processKeystroke(keyCode, true);
 			    }
 			    
 				return false;
@@ -83,12 +84,12 @@ public class FrontController {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-            	// Only go through keys that haven't been reacted to since the last tick
-            	for (int key : pressedKeysOld) {
-            		processKeystroke(key, false);
-            	}
-            	
-            	synchronized (pressedKeysNew) {
+            	synchronized (FrontController.this) {
+            		// Only go through keys that haven't been reacted to since the last tick
+            		for (int key : pressedKeysOld) {
+            			processKeystroke(key, false);
+            		}
+            		
             		// Move everything from the 'new' list to the 'old' list
                 	pressedKeysOld.addAll(pressedKeysNew);
             		pressedKeysNew.clear();
