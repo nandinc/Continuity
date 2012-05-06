@@ -7,11 +7,9 @@ Door	260	160	20	20
 Platform	0	180	80	20	
 Platform	200	180	100	20	
 Platform	300	180	300	20	
-Platform	300	200	80	80
-Platform	300	280	40	60
-Platform	300	340	80	60	
+Platform	300	200	80	200	
 Platform	500	200	100	80	
 Stickman	420	280	20	20	2
 Platform	540	280	60	120	
 Platform	400	300	80	20	
-Platform	500	340	80	60	
+Platform	500	340	100	60	
