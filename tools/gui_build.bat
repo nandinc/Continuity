@@ -1,6 +1,6 @@
 @echo off
 echo ----------------------------------
-echo Building nand Continuity Prototype
+echo Building nand Continuity
 echo ----------------------------------
 rmdir bin /s /q
 md bin
