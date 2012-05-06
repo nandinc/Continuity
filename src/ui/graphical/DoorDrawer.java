@@ -26,7 +26,7 @@ public class DoorDrawer implements ItemDrawer {
 	 */
 	public DoorDrawer() {
 		try {
-			this.doorImage = ImageIO.read(new File("src/resources/graphics/door.png"));
+			this.doorImage = ImageIO.read(ClassLoader.class.getResourceAsStream("/resources/graphics/door.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

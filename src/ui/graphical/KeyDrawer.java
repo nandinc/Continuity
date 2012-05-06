@@ -33,8 +33,8 @@ public class KeyDrawer implements ItemDrawer {
 	 */
 	public KeyDrawer() {
 		try {
-			this.keyImage = ImageIO.read(new File("src/resources/graphics/key.png"));
-			this.collectedKeyImage = ImageIO.read(new File("src/resources/graphics/key_collected.png"));
+			this.keyImage = ImageIO.read(ClassLoader.class.getResourceAsStream("/resources/graphics/key.png"));
+			this.collectedKeyImage = ImageIO.read(ClassLoader.class.getResourceAsStream("/resources/graphics/key_collected.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

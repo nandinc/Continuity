@@ -32,8 +32,8 @@ public class StickmanDrawer implements ItemDrawer {
 	 */
 	public StickmanDrawer() {
 		try {
-			this.stickman1Image = ImageIO.read(new File("src/resources/graphics/stickman1.png"));
-			this.stickman2Image = ImageIO.read(new File("src/resources/graphics/stickman2.png"));
+			this.stickman1Image = ImageIO.read(ClassLoader.class.getResourceAsStream("/resources/graphics/stickman1.png"));
+			this.stickman2Image = ImageIO.read(ClassLoader.class.getResourceAsStream("/resources/graphics/stickman2.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
