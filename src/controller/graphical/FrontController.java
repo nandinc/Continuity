@@ -94,7 +94,7 @@ public class FrontController {
             		pressedKeysNew.clear();
 				}
             }
-        }, 0, 20);
+        }, 0, 15);
     }
     
     /**

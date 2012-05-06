@@ -48,8 +48,8 @@ public class StickmanDrawer implements ItemDrawer {
 		Area a = fi.getArea();
 		Stickman s = (Stickman) fi;
 		
-		g.setColor(Color.GREEN);
-		g.fillRect(a.getX(), a.getY(), a.getWidth(), a.getHeight());
+		//g.setColor(Color.GREEN);
+		//g.fillRect(a.getX(), a.getY(), a.getWidth(), a.getHeight());
 		g.drawImage(s.getStickmanId() == 1 ? this.stickman1Image : this.stickman2Image, a.getX(), a.getY(), null);
 	}
 

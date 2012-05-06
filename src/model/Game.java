@@ -168,6 +168,9 @@ public class Game {
     		 currentMap.unsubscribe();
         }
     	
+    	// Always set viewport to map when loading a new map
+    	viewportState = VIEWPORT_STATE.MAP;
+    	
     	// Now load the new one
     	try {
     		// Load it
