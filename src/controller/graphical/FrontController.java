@@ -117,13 +117,13 @@ public class FrontController {
 			}
 			
 			// Stickman 2
-			if (key == KeyEvent.VK_E) {
+			if (key == KeyEvent.VK_W) {
 				this.moveStickman(2, DIRECTION.UP);
-			} else if (key == KeyEvent.VK_F) {
-				this.moveStickman(2, DIRECTION.RIGHT);
 			} else if (key == KeyEvent.VK_D) {
-				this.moveStickman(2, DIRECTION.DOWN);
+				this.moveStickman(2, DIRECTION.RIGHT);
 			} else if (key == KeyEvent.VK_S) {
+				this.moveStickman(2, DIRECTION.DOWN);
+			} else if (key == KeyEvent.VK_A) {
 				this.moveStickman(2, DIRECTION.LEFT);
 			}
 		}
