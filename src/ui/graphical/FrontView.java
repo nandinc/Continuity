@@ -88,8 +88,12 @@ public class FrontView {
 		this.game.getPubSub().on("game:endOfGame", new Subscriber() {
 			@Override
 			public void eventEmitted(String eventName, Object eventParameter) {
-				JOptionPane.showMessageDialog(null, "Congratulations, you finished the game!");
-				FrontView.this.controller.quit();
+				new Thread() {
+					public void run() {
+						JOptionPane.showMessageDialog(null, "Congratulations, you finished the game!");
+						FrontView.this.controller.quit();
+					}
+				}.start();
 			}
 		});
 	}

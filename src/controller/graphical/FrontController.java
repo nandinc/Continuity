@@ -53,13 +53,13 @@ public class FrontController {
 			    int id = e.getID();
 			    int keyCode = e.getKeyCode();
 			    
-			    synchronized (FrontController.this) {
+			    synchronized (pressedKeysNew) {
 			    	if (id == KeyEvent.KEY_PRESSED) {
 			    		alreadyPressed = pressedKeysNew.contains(keyCode) || pressedKeysOld.contains(keyCode);
 				        // Record that the key has been pressed
 			    		if (!alreadyPressed) {
 			    			pressedKeysNew.add(keyCode);
-			    			processKeystroke(keyCode, true);
+			    			//processKeystroke(keyCode, true);
 			    		}
 				    } else if (id == KeyEvent.KEY_RELEASED) {
 				    	// Remove key from list of pressed keys
@@ -71,7 +71,7 @@ public class FrontController {
 			    // If the key has been just pressed then react to it right away
 			    // this way there's no delay
 			    if (id == KeyEvent.KEY_PRESSED && !alreadyPressed) {
-			    	//processKeystroke(keyCode, true);
+			    	processKeystroke(keyCode, true);
 			    }
 			    
 				return false;
@@ -84,7 +84,7 @@ public class FrontController {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-            	synchronized (FrontController.this) {
+            	synchronized (pressedKeysNew) {
             		// Only go through keys that haven't been reacted to since the last tick
             		for (int key : pressedKeysOld) {
             			processKeystroke(key, false);
@@ -103,7 +103,7 @@ public class FrontController {
      * @param key Lenyomott billentyű kódja
      * @param immediate Friss leütés (true) vagy a billentyű lenyomva van tartva már hosszabb ideje (false)
      */
-    protected void processKeystroke(int key, boolean immediate) {
+    protected synchronized void processKeystroke(int key, boolean immediate) {
     	// Proccess stickman moves
 		if (game.getViewportState() == VIEWPORT_STATE.CLOSE) {
 			// Stickman 1

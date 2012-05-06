@@ -19,7 +19,7 @@ public class PubSub {
      * @param eventName Az esemény neve.
      * @param data Az eseményhez tartozó paraméter.
      */
-    public void emit(String eventName, Object data) {
+    public synchronized void emit(String eventName, Object data) {
         if (subscribers.containsKey(eventName)) {
             List<Subscriber> eventSubs = subscribers.get(eventName);
             for (Subscriber subscriber : eventSubs) {
@@ -34,7 +34,7 @@ public class PubSub {
      * @param eventName Az esemény neve
      * @param callback Az esemény bekövetkeztekor meghívandó eseménykezelő
      */
-    public void on(String eventName, Subscriber callback) {
+    public synchronized void on(String eventName, Subscriber callback) {
         if (!subscribers.containsKey(eventName)) {
             //subscribers.put(eventName, new LinkedList<Subscriber>());
             subscribers.put(eventName, new CopyOnWriteArrayList<Subscriber>());
@@ -43,7 +43,7 @@ public class PubSub {
         subscribers.get(eventName).add(callback);
     }
     
-    public void unsubEventSubscribers(String eventName) {
+    public synchronized void unsubEventSubscribers(String eventName) {
         subscribers.remove(eventName);
     }
     
