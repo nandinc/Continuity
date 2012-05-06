@@ -78,10 +78,12 @@
 		 A fordítás batch fájl segítségével történik. Nyissunk meg egy parancssort, ahol a Java fájlok futtatásához szükséges környezeti változók be vannak állítva (JDK Command Prompt). A könyvtárszerkezet gyökérmappájában állva adjuk ki a \texttt{tools\textbackslash gui\_build.bat} utasítást. Ennek hatására megtörténik a forrásfájlok lefordítása, melyről egy értesítés jelenik meg a képernyőn.
 
 		\subsubsection{Futtatás}
-			% A futtatható, telepített rendszer elindításával kapcsolatos teend ők leírása. Az indításhoz csak a 2. Követelmények c. dokumentumban leírt környezetet szabad előírni.		
+			% A futtatható, telepített rendszer elindításával kapcsolatos teend ők leírása. Az indításhoz csak a 2. Követelmények c. dokumentumban leírt környezetet szabad előírni.	
 		
 		A fordítás után lehetőségünk nyílik a program futtatására. Ez szintúgy batch fájl segítségével történik a fenti módhoz hasonlóan. \\ A program futtatásához adjuk ki a \texttt{tools\textbackslash gui\_run.bat} utasítást.
-%		A tesztelés megkönnyítése érdekében létrehoztunk egy eszközt, mely veszi a tesztesetek bemenetét, ezt beadja a prototípusnak, és a generált kimenetet összehasonlítja az elvárt kimenettel. Ez a program a \texttt{tools/proto\_test.bat} utasítás kiadásával futtatható. A tesztekhez tartozó bemenetek, illetve elvárt kimenetek a \texttt{tools/resources/tests} könyvtárban találhatóak. Fontos, hogy a be- vagy kimenetek eseteleges megváltoztatása esetén a programot újra kell fordítani. 
+		
+		\paragraph*{Irányítás -- billentyűk}
+		A program alapértelmezetten távoli nézetben indul, melyről a jobb felső sarokban megjelenő ikon tájékoztat. Ebben a nézetben a kurzorok használhatóak a keretek mozgatásához. Közeli nézetbe a szóköz lenyomásával lehet jutni. Ebben a nézetben az első stickman (lány) mozgatására a kurzorok, a második stickman (fiú) mozgatására a \emph{wasd} billentyűk használhatóak. 
 
 	\subsection{Értékelés}
 		\begin{center}
