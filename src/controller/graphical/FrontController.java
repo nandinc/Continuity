@@ -160,7 +160,7 @@ public class FrontController {
     }
     
     /**
-     * Átrendezi a kereteket
+     * Atrendezi a kereteket
      * @param dir Keret mozgatásának iránya
      */
     protected void moveFrame(DIRECTION dir) {
@@ -175,7 +175,7 @@ public class FrontController {
     }
     
     /**
-     * Új játékot kezd (visszaáll a pálya elejére vagy betölti az első pályát)
+     * Uj játékot kezd (visszaáll a pálya elejére vagy betölti az első pályát)
      */
     public void newGame() {
     	this.game.getPubSub().emit("controller:resetMap", null);
