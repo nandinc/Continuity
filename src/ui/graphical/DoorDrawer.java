@@ -40,8 +40,8 @@ public class DoorDrawer implements ItemDrawer {
 	public void draw(FrameItem fi, Graphics g) {
 		Area a = fi.getArea();
 		
-		g.setColor(Color.BLUE);
-		g.fillRect(a.getX(), a.getY(), a.getWidth(), a.getHeight());
+		//g.setColor(Color.BLUE);
+		//g.fillRect(a.getX(), a.getY(), a.getWidth(), a.getHeight());
 		g.drawImage(this.doorImage, a.getX(), a.getY(), null);
 	}
 }

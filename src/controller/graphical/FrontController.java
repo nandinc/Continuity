@@ -83,18 +83,18 @@ public class FrontController {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
+            	// Only go through keys that haven't been reacted to since the last tick
+            	for (int key : pressedKeysOld) {
+            		processKeystroke(key, false);
+            	}
+            	
             	synchronized (pressedKeysNew) {
-            		// Only go through keys that haven't been reacted to since the last tick
-            		for (int key : pressedKeysOld) {
-                		processKeystroke(key, false);
-                	}
-                	
             		// Move everything from the 'new' list to the 'old' list
                 	pressedKeysOld.addAll(pressedKeysNew);
             		pressedKeysNew.clear();
 				}
             }
-        }, 0, 20);
+        }, 0, 15);
     }
     
     /**
@@ -160,7 +160,7 @@ public class FrontController {
     }
     
     /**
-     * Átrendezi a kereteket
+     * Atrendezi a kereteket
      * @param dir Keret mozgatásának iránya
      */
     protected void moveFrame(DIRECTION dir) {
@@ -175,7 +175,7 @@ public class FrontController {
     }
     
     /**
-     * Új játékot kezd (visszaáll a pálya elejére vagy betölti az első pályát)
+     * Uj játékot kezd (visszaáll a pálya elejére vagy betölti az első pályát)
      */
     public void newGame() {
     	this.game.getPubSub().emit("controller:resetMap", null);
