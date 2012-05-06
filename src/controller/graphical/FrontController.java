@@ -83,12 +83,12 @@ public class FrontController {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
+            	// Only go through keys that haven't been reacted to since the last tick
+            	for (int key : pressedKeysOld) {
+            		processKeystroke(key, false);
+            	}
+            	
             	synchronized (pressedKeysNew) {
-            		// Only go through keys that haven't been reacted to since the last tick
-            		for (int key : pressedKeysOld) {
-                		processKeystroke(key, false);
-                	}
-                	
             		// Move everything from the 'new' list to the 'old' list
                 	pressedKeysOld.addAll(pressedKeysNew);
             		pressedKeysNew.clear();
