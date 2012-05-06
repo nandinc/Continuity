@@ -151,7 +151,7 @@ public class FrontView {
             }
         }
         
-        // Show pause graphic if in map mode
+        // Show pause graphic if in map viewport
         if (this.game.getViewportState() == VIEWPORT_STATE.MAP) {
         	g2d.setColor(this.pauseColor);
         	g2d.fillRect(canvasWidth - 40, 10, 10, 40);
@@ -167,7 +167,7 @@ public class FrontView {
 		//
 		// Set up main window
 		//
-		JFrame frame = new JFrame("Continuity by Nand Inc.");
+		JFrame frame = new JFrame("Continuity by NaND Inc.");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(
 			3 * (FrameDrawer.WIDTH + 2 * FrameDrawer.VERT_MARGIN + 2 * FrameDrawer.VERT_PADDING) - FrameDrawer.VERT_MARGIN,
@@ -212,7 +212,7 @@ public class FrontView {
 		menu.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null, "This program was created by NaND Inc. as a group project for the course Software Laboratory 4.\n\nAuthors:\n - Berki Endre\n - Fodor Bertalan\n - Kádár András\n - Thaler Benedek\n\nThis program is based on Continuity, an award-winning flash game by continuitygame.com.");
+				JOptionPane.showMessageDialog(null, "This program was created by NaND Inc. as a group project for the course Software Laboratory 4.\n\nAuthors:\n - Berki Endre\n - Fodor Bertalan\n - Kádár András\n - Thaler Benedek\n\nThe program is based on Continuity, an award-winning flash game by continuitygame.com.");
 			}
 		});
 		
