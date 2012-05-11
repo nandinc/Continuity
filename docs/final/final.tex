@@ -443,7 +443,7 @@ Stickman mozgatására a játékosnak a közeli nézetben van lehetősége. Ide 
 						\item[\texttt{protected boolean checkCollision(Area area)}] \hfill \\ Ellenőrzi, hogy a megadott területen  található-e szilárd objektum. 
 						\item[\texttt{protected boolean isTraversable(Frame frame)}] \hfill \\ Megállapítja, hogy a megadott kerettel  átjárható-e. 
 						\item[\texttt{public void removeItem(FrameItem item)}] \hfill \\ Eltávolítja a megadott elemet a keretből 
-						\item[\texttt{public boolean requestArea(FrameItem item, Area area)}] \hfill \\ A metódust hívó elem kérést intéz a kerethez,  hogy el szeretné foglalni a megadott területet.  A keret felelőssége a terület ellenőrzése, és szabad  terület esetén az elem pozíciójának frissítése. 
+						\item[\texttt{public boolean requestArea(FrameItem item, Area area)}] \hfill \\ A metódust hívó elem kérést intéz a kerethez,  hogy el szeretné foglalni a megadott területet.  A keret felelőssége a terület ellenőrzése, és szabad  terület esetén az elem pozíciójának frissítése. Sikeres foglalás esetén igazzal tér vissza.
 					\end{description}
 			\end{description}
 
@@ -777,7 +777,7 @@ Stickman mozgatására a játékosnak a közeli nézetben van lehetősége. Ide 
 						\item[\texttt{protected boolean checkCollision(Area area)}] \hfill \\ Ellenőrzi, hogy a megadott területen  található-e szilárd objektum. 
 						\item[\texttt{protected boolean isTraversable(Frame frame, DIRECTION d)}] \hfill \\ Megállapítja, hogy a megkapott Keret és saját  maga között fennáll-e az átjárhatóság a  megadott irányban. 
 						\item[\texttt{public void removeItem(FrameItem item)}] \hfill \\ Eltávolítja a megadott elemet a keretből 
-						\item[\texttt{public boolean requestArea(FrameItem item, Area area)}] \hfill \\ A metódust hívó elem kérést intéz a kerethez,  hogy el szeretné foglalni a megadott területet.  A keret felelőssége a terület ellenőrzése, és szabad  terület esetén az elem pozíciójának frissítése. 
+						\item[\texttt{public boolean requestArea(FrameItem item, Area area)}] \hfill \\ A metódust hívó elem kérést intéz a kerethez,  hogy el szeretné foglalni a megadott területet.  A keret felelőssége a terület ellenőrzése, és szabad  terület esetén az elem pozíciójának frissítése. Sikeres foglalás esetén igazzal tér vissza.
 					\end{description}
 			\end{description}
 
@@ -1613,7 +1613,7 @@ A tesztelés során keletkező kimenetek összehasonlítása az előre definiál
 						\item[\texttt{\#isTraversable(neighbour : Frame, d : DIRECTION) : boolean}] \hfill \\Megállapítja, hogy a megkapott Keret és saját  maga között fennáll-e az átjárhatóság a  megadott irányban. 
 						\item[\texttt{+itemIterator() : Iterator}] \hfill \\Visszaad egy iterátort, mely a tartalmazott  elemeken megy végig. 
 						\item[\texttt{+removeItem(item : FrameItem)}] \hfill \\Eltávolítja a megadott elemet a keretből 
-						\item[\texttt{+requestArea(item : FrameItem, area : Area) : boolean}] \hfill \\A metódust hívó elem kérést intéz a kerethez,  hogy el szeretné foglalni a megadott területet.  A keret felelőssége a terület ellenőrzése, és szabad  terület esetén az elem pozíciójának frissítése. 
+						\item[\texttt{+requestArea(item : FrameItem, area : Area) : boolean}] \hfill \\A metódust hívó elem kérést intéz a kerethez,  hogy el szeretné foglalni a megadott területet.  A keret felelőssége a terület ellenőrzése, és szabad  terület esetén az elem pozíciójának frissítése. Sikeres foglalás esetén igazzal tér vissza.
 						\item[\texttt{+setMap(map : Map)}] \hfill \\Tartalmazó pálya beállítása 
 					\end{description}
 			\end{description}
@@ -3106,7 +3106,7 @@ diffutils-1.2.1.jar & 30360 byte & 2012-04-15 22:38 & diff program \\ \hline
 				\item[Attribútumok] (nincs)
 				\item[Metódusok]$\ $
 					\begin{description}
-						\item[\texttt{+draw(f : Frame, g : Graphics)}] \hfill \\Kirajzol egy keretet 
+						\item[\texttt{+draw(a : Area, g : Graphics)}] \hfill \\Kirajzol egy keretet 
 					\end{description}
 			\end{description}
 
